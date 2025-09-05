@@ -1,0 +1,74 @@
+---
+title: "GitHub"
+description: "Synchronisieren Sie Ihre Dokumentation mit einem GitHub-Repository"
+icon: "github"
+---
+
+Mintlify verwendet eine GitHub-App, um Ihre Dokumentation automatisch mit Ihrem GitHub-Repository zu synchronisieren.
+
+<div id="installing-the-github-app">
+  ## Installation der GitHub-App
+</div>
+
+Installieren Sie die Mintlify-GitHub-App auf dem GitHub-Konto oder in der Organisation, die Ihr Docs-Repository besitzt. Sie müssen Organisationsinhaber sein oder über Administratorrechte in einem Repository verfügen, um die App zu installieren. Wenn Ihnen die erforderlichen Berechtigungen fehlen, muss der Repository-Inhaber die Installationsanfrage genehmigen.
+
+Installieren Sie die Mintlify-GitHub-App über Ihr [Dashboard](https://dashboard.mintlify.com/settings/organization/github-app).
+
+<Tip>
+Wir empfehlen, nur dem Repository Zugriff zu gewähren, in dem Ihre Dokumentation gehostet wird.
+</Tip>
+
+<Frame>
+  <img className="h-80" alt="Installationsseite der Mintlify-GitHub-App mit der Option „Only select repositories“ ausgewählt." src="/images/github/select-repos.png" />
+</Frame>
+
+<div id="permissions">
+  ## Berechtigungen
+</div>
+
+Wenn Sie die GitHub-App installieren, werden Sie aufgefordert, die folgenden Berechtigungen zu gewähren:
+
+Leseberechtigungen:
+
+* `metadata`: Grundlegende Repository-Informationen
+
+Lese- und Schreibberechtigungen:
+
+* `checks`: Statuschecks für Pull Requests erstellen
+* `code`: Dateiänderungen lesen, wenn Sie in Ihren Docs-Branch committen
+* `deployments`: Vorschau-Deployments für Pull Requests erzeugen
+* `pull requests`: Branches und Pull Requests über den Web-Editor erstellen
+* `workflows`: GitHub Actions für Docs-Deployments verwalten
+
+<Info>
+Die App greift nur auf Repositories zu, für die Sie ihr ausdrücklich Zugriff gewähren. Wenn Branch-Schutzregeln aktiviert sind, kann die App nicht direkt auf geschützte Branches pushen.
+</Info>
+
+<div id="managing-repository-access">
+  ## Verwalten des Repository-Zugriffs
+</div>
+
+Bei der Installation unserer GitHub-App können Sie den Zugriff entweder auf alle Ihre Repositories oder nur auf bestimmte gewähren. Wir empfehlen, den Zugriff nur für die Repositories zu erteilen, in denen sich Ihre Dokumentation befindet. Sie können diese Auswahl jederzeit in Ihren [GitHub-App-Einstellungen](https://github.com/apps/mintlify/installations/new) ändern.
+
+<div id="configuring-docs-source">
+  ## Quelle der Dokumentation konfigurieren
+</div>
+
+Ändern Sie die Organisation, das Repository oder den Branch, aus dem Ihre Dokumentation erstellt wird, im Bereich [Git Settings](https://dashboard.mintlify.com/settings/deployment/git-settings) Ihres Dashboards.
+
+<div id="troubleshooting">
+  ## Fehlerbehebung
+</div>
+
+Wenn Probleme mit der GitHub-App auftreten, kann das Zurücksetzen der Verbindung die meisten davon lösen.
+
+<Steps>
+  <Step title="Deinstallieren Sie die Mintlify-App über GitHub.">
+    1. Gehen Sie in GitHub zu [Installations](https://github.com/settings/installations) und wählen Sie neben der Mintlify-App **Configure**. Scrollen Sie nach unten und wählen Sie **Uninstall**.
+    2. Gehen Sie zu [Authorized GitHub Apps](https://github.com/settings/apps/authorizations) und wählen Sie neben der Mintlify-App **Revoke**.
+  </Step>
+  <Step title="Installieren Sie die Mintlify-App erneut.">
+    1. Gehen Sie in Ihrem Mintlify-Dashboard zu [Git Settings](https://dashboard.mintlify.com/settings/deployment/git-settings) und installieren Sie die GitHub-App.
+    2. Autorisieren Sie Ihr Konto im Bereich [My Profile](https://dashboard.mintlify.com/settings/account) Ihres Dashboards.
+  </Step>
+</Steps>

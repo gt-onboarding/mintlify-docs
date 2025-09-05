@@ -1,0 +1,53 @@
+---
+title: "Google Analytics 4"
+---
+
+Sie müssen eine neue <Tooltip tip="Google Analytics 4">GA4</Tooltip>-Property für die Nutzung mit Mintlify anlegen. Die erfassten Daten werden demselben Projekt wie Ihre anderen Google-Analytics-Daten zugeordnet.
+
+Wenn Sie die ältere Version von Google Analytics, Universal Analytics, verwenden, können Sie weiterhin eine <Tooltip tip="Google Analytics 4">GA4</Tooltip>-Property erstellen. <Tooltip tip="Google Analytics 4">GA4</Tooltip>-Daten unterscheiden sich leicht von UA-Daten, werden aber weiterhin im selben Projekt erfasst.
+
+<div id="how-to-connect-ga4-to-mintlify">
+  ## GA4 mit Mintlify verbinden
+</div>
+
+<div id="create-a-web-stream">
+  ### Einen Web-Stream erstellen
+</div>
+
+Erstellen Sie einen Web-Stream, um die Measurement-ID zu erhalten, die Sie in Mintlify eintragen.
+
+Klicken Sie unten links im Google-Analytics-Bildschirm auf das Zahnrad. Klicken Sie anschließend auf Data Streams.
+
+<Frame>![](/images/ga4-web-streams.png)</Frame>
+
+Erstellen Sie einen Web-Stream und geben Sie die URL Ihrer Mintlify-Dokumentationsseite als Stream-URL ein.
+
+Ihre Measurement-ID sieht aus wie `G-XXXXXXX` und wird unmittelbar nach dem Erstellen des Web-Streams unter Stream Details angezeigt.
+
+<div id="put-measurement-id-in-docsjson">
+  ### Measurement-ID in docs.json hinterlegen
+</div>
+
+Fügen Sie Ihre Measurement-ID wie folgt in Ihre `docs.json`-Datei ein:
+
+```json docs.json
+"integrations": {
+    "ga4": {
+        "measurementId": "G-XXXXXXX"
+    }
+}
+```
+
+<div id="wait">
+  ### Warten
+</div>
+
+Google Analytics benötigt zwei bis drei Tage, um Ihre Daten anzuzeigen.
+
+Sie können den [Google Analytics Debugger](https://chrome.google.com/webstore/detail/google-analytics-debugger/jnkmfdileelhofjcijamephohjechhna?hl=en) verwenden, um zu überprüfen, ob Analytics korrekt aktiviert ist. Die Erweiterung schreibt jedes Mal Einträge in die Browserkonsole, wenn GA4 eine Anfrage sendet.
+
+<Note>
+
+In Vorschaulinks ist Analytics deaktiviert.
+
+</Note>

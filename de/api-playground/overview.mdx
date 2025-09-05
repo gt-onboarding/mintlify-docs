@@ -1,0 +1,161 @@
+---
+title: "API-Spielwiese"
+description: "Ermöglichen Sie Nutzern, mit Ihrer API zu interagieren"
+icon: "play"
+---
+
+<div id="overview">
+  ## Übersicht
+</div>
+
+Die API-Spielwiese ist eine interaktive Umgebung, in der Nutzer deine API-Endpunkte testen und erkunden können. Entwickler können API-Anfragen erstellen, sie senden und Antworten anzeigen – ohne deine Dokumentation zu verlassen.
+
+<Frame>
+  <img src="/images/playground/API-playground-light.png" alt="API-Spielwiese für den Endpunkt zum Auslösen eines Updates." className="block dark:hidden" />
+
+  <img src="/images/playground/API-playground-dark.png" alt="API-Spielwiese für den Endpunkt zum Auslösen eines Updates." className="hidden dark:block" />
+</Frame>
+
+Die Spielwiese wird automatisch aus deiner OpenAPI-Spezifikation oder deinem AsyncAPI-Schema generiert, sodass alle Änderungen an deiner API automatisch in der Spielwiese widergespiegelt werden. Du kannst auch manuell API-Referenzseiten erstellen, nachdem du eine Basis-URL und eine Authentifizierungsmethode in deiner `docs.json` definiert hast.
+
+Wir empfehlen, die API-Spielwiese aus einer OpenAPI-Spezifikation zu erzeugen. Siehe [OpenAPI Setup](/de/api-playground/openapi-setup) für weitere Informationen zur Erstellung deines OpenAPI-Dokuments.
+
+<div id="getting-started">
+  ## Erste Schritte
+</div>
+
+<Steps>
+  <Step title="Fügen Sie Ihre OpenAPI-Spezifikationsdatei hinzu.">
+    <Info>
+      Stellen Sie sicher, dass Ihre OpenAPI-Spezifikationsdatei gültig ist – mit dem [Swagger Editor](https://editor.swagger.io/) oder der [Mint-CLI](https://www.npmjs.com/package/mint).
+    </Info>
+
+    ```bash {2}
+    /your-project
+      |- docs.json
+      |- openapi.json
+    ```
+  </Step>
+
+  <Step title="Konfigurieren Sie `docs.json`.">
+    Aktualisieren Sie Ihre `docs.json`, um auf Ihre OpenAPI-Spezifikation zu verweisen. Fügen Sie einem Navigationselement die Eigenschaft `openapi` hinzu, damit Ihre Doku automatisch mit Seiten für jeden im OpenAPI-Dokument definierten Endpunkt gefüllt wird.
+
+    Dieses Beispiel erzeugt für jeden in `openapi.json` definierten Endpunkt eine Seite und ordnet sie in der Navigation der Gruppe „API reference“ zu.
+
+    ```json
+    "navigation": {
+      "groups": [
+        {
+          "group": "API reference",
+          "openapi": "openapi.json"
+        }
+      ]
+    }
+    ```
+
+    Um nur für bestimmte Endpunkte Seiten zu generieren, listen Sie diese in der Eigenschaft `pages` des Navigationselements auf.
+
+    Dieses Beispiel generiert Seiten ausschließlich für die Endpunkte `GET /users` und `POST /users`. Um weitere Endpunktseiten zu erzeugen, fügen Sie zusätzliche Endpunkte zum Array `pages` hinzu.
+
+    ```json
+    "navigation": {
+      "groups": [
+          {
+            "group": "API reference",
+            "openapi": "openapi.json",
+            "pages": [
+              "GET /users",
+              "POST /users"
+            ]
+          }
+      ]
+    }
+    ```
+  </Step>
+</Steps>
+
+<div id="customizing-your-playground">
+  ## Anpassen Ihrer Spielwiese
+</div>
+
+Sie können Ihre API-Spielwiese anpassen, indem Sie die folgenden Eigenschaften in Ihrer `docs.json` definieren.
+
+<ResponseField name="playground" type="object">
+  Konfigurationen für die API-Spielwiese.
+
+  <Expandable title="playground" defaultOpen="True">
+    <ResponseField name="display" type="&#x22;interactive&#x22; | &#x22;simple&#x22; | &#x22;none&#x22;">
+      Der Anzeigemodus der API-Spielwiese.
+
+      - `"interactive"`: Die interaktive Spielwiese anzeigen.
+      - `"simple"`: Einen kopierbaren Endpunkt ohne Spielwiese anzeigen.
+      - `"none"`: Nichts anzeigen.
+
+      Standardmäßig `interactive`.
+    </ResponseField>
+
+    <ResponseField name="proxy" type="boolean" defaultOpen="True">
+      Ob API-Anfragen über einen Proxyserver geleitet werden sollen. Standardmäßig `true`.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="examples" type="object">
+  Konfigurationen für die automatisch generierten API-Beispiele.
+
+  <Expandable title="examples" defaultOpen="True">
+    <ResponseField name="languages" type="array of string">
+      Beispielsprachen für die automatisch generierten API-Snippets.
+
+      Die Sprachen werden in der angegebenen Reihenfolge angezeigt.
+    </ResponseField>
+
+    <ResponseField name="defaults" type="&#x22;required&#x22; | &#x22;all&#x22;">
+      Ob optionale Parameter in API-Beispielen angezeigt werden sollen. Standardmäßig `all`.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<div id="example-configuration">
+  ### Beispielkonfiguration
+</div>
+
+```json
+{
+ "api": {
+   "playground": {
+     "display": "interactive"
+   },
+   "examples": {
+     "languages": ["curl", "python", "javascript"],
+     "defaults": "required"
+   }
+ }
+}
+```
+
+Dieses Beispiel konfiguriert die API-Spielwiese als interaktiv und stellt Beispiel-Codeausschnitte für cURL, Python und JavaScript bereit. In den Codeausschnitten werden nur erforderliche Parameter angezeigt.
+
+<div id="custom-endpoint-pages">
+  ### Benutzerdefinierte Endpunktseiten
+</div>
+
+Wenn Sie mehr Kontrolle über Ihre API-Dokumentation benötigen, verwenden Sie die Erweiterung `x-mint` in Ihrer OpenAPI-Spezifikation oder erstellen Sie einzelne `MDX`-Seiten für Ihre Endpunkte.
+
+Beide Optionen ermöglichen Ihnen:
+
+- Seitenmetadaten anzupassen
+- Zusätzliche Inhalte wie Beispiele hinzuzufügen
+- Das Verhalten der API-Spielwiese pro Seite zu steuern
+
+Die Erweiterung `x-mint` wird empfohlen, damit Ihre gesamte API-Dokumentation automatisch aus Ihrer OpenAPI-Spezifikation generiert und in einer Datei verwaltet wird.
+
+Einzelne `MDX`-Seiten werden für kleine APIs empfohlen oder wenn Sie Änderungen seitenweise ausprobieren möchten.
+
+Weitere Informationen finden Sie unter [x-mint-Erweiterung](/de/api-playground/openapi-setup#x-mint-extension) und [MDX-Einrichtung](/de/api-playground/mdx/configuration).
+
+<div id="further-reading">
+  ## Weiterführende Informationen
+</div>
+
+- [AsyncAPI-Setup](/de/api-playground/asyncapi/setup) mit weiteren Details zum Erstellen Ihres AsyncAPI-Schemas, um WebSocket-Referenzseiten zu generieren.

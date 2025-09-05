@@ -1,0 +1,45 @@
+---
+title: "Frames"
+description: "Verwenden Sie die Frame-Komponente, um Bilder oder andere Komponenten in einem Container zu kapseln."
+icon: 'frame'
+---
+
+Frames sind sehr hilfreich, wenn Sie ein Bild zentrieren möchten.
+
+<Frame>
+  <img src="https://mintlify-assets.b-cdn.net/yellowstone.jpeg" />
+</Frame>
+
+<div id="captions">
+  ## Bildunterschriften
+</div>
+
+Sie können einem Bild mit der optionalen `caption`-Prop zusätzlichen Kontext hinzufügen.
+
+<Frame caption="Den Yosemite-Nationalpark besuchen jedes Jahr über 3,5 Millionen Menschen">
+  <img src="https://mintlify-assets.b-cdn.net/yosemite.jpg" />
+</Frame>
+
+<div id="props">
+  ## Props
+</div>
+
+<ResponseField name="caption" type="string">
+  Optionaler Bildunterschriftentext, der zentriert unter deiner Komponente angezeigt wird.
+</ResponseField>
+
+<RequestExample>
+
+```mdx Frame
+<Frame>
+  <img src="/path/image.jpg" />
+</Frame>
+```
+
+```mdx Frame with Captions
+<Frame caption="Caption Text">
+  <img src="/path/image.jpg" />
+</Frame>
+```
+
+</RequestExample>

@@ -1,0 +1,51 @@
+---
+title: "Beispiele"
+description: "Codeblöcke in der rechten Seitenleiste auf Desktopgeräten anzeigen"
+icon: 'between-horizontal-start'
+---
+
+Die Komponenten `<RequestExample>` und `<ResponseExample>` zeigen Codeblöcke in der rechten Seitenleiste an, um ein zweispaltiges Layout zu erzeugen, das Beispiele sichtbar hält, während Nutzer durch Ihre Inhalte scrollen. Diese Komponenten sind für API-Dokumentation konzipiert, funktionieren jedoch auf allen Seiten.
+
+Häufige Anwendungsfälle:
+
+- API-Endpunktdokumentation mit Anfrage- und Antwortbeispielen
+- Konfigurationsbeispiele neben erklärendem Text
+- Codebeispiele, auf die sich Nutzer beim Befolgen von Anleitungen beziehen
+- Vorher-/Nachher-Beispiele in Tutorials
+
+Auf Mobilgeräten werden die Komponenten `<RequestExample>` und `<ResponseExample>` als normale Codeblöcke angezeigt und können beim Scrollen übersprungen werden.
+
+<div id="requestexample">
+  ## RequestExample
+</div>
+
+Verwenden Sie `<RequestExample>`, um Codebeispiele in der rechten Seitenleiste anzuheften. Diese Komponente funktioniert ähnlich wie die Komponente [CodeGroup](/de/components/code-groups), zeigt den Code jedoch in der Seitenleiste statt inline an.
+
+Sie können mehrere Codeblöcke in einem einzelnen `<RequestExample>` einfügen. Jeder Codeblock muss ein title-Attribut haben.
+
+````mdx RequestExample
+<RequestExample>
+
+```bash Request
+  curl --request POST \
+    --url https://dog-api.kinduff.com/api/facts
+```
+
+</RequestExample>
+````
+
+<div id="responseexample">
+  ## ResponseExample
+</div>
+
+Die `<ResponseExample>`-Komponente heftet Codebeispiele in der rechten Seitenleiste unterhalb der `<RequestExample>`-Inhalte auf derselben Seite an.
+
+````mdx ResponseExample
+<ResponseExample>
+
+```json Response
+{ "status": "success" }
+```
+
+</ResponseExample>
+````

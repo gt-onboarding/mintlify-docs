@@ -1,0 +1,47 @@
+---
+title: "Weiterleitungen und fehlerhafte Links"
+description: "Tools zur Vermeidung ungültiger Links"
+icon: "link-2"
+---
+
+Wenn Sie den Pfad einer Datei im Ordner docs ändern, ändert sich auch der URL-Pfad zu dieser Seite. Das kann passieren, wenn Sie Ihre Dokumentation umstrukturieren oder den Titel in der Seitenleiste ändern.
+
+<div id="broken-links">
+  ## Defekte Links
+</div>
+
+Finde defekte Links mit unserer CLI. [Installiere die CLI](/de/installation) und führe den folgenden Befehl aus:
+
+```bash
+mint broken-links
+```
+
+Die CLI erkennt alle relativen Links in deinen Docs, die nicht existieren.
+
+<div id="redirects">
+  ## Weiterleitungen
+</div>
+
+Richte 301-Weiterleitungen ein, indem du das Feld `redirects` zu deiner Datei `docs.json` hinzufügst.
+
+```json
+"redirects": [
+  {
+    "source": "/source/path",
+    "destination": "/destination/path"
+  }
+]
+```
+
+Dadurch wird `/source/path` dauerhaft nach `/destination/path` umgeleitet, sodass die bisherige SEO der ursprünglichen Seite erhalten bleibt.
+
+Um einen Wildcard-Pfad zu matchen, verwende `*` nach einem Parameter. In diesem Beispiel matcht `/beta/:slug*` `/beta/introduction` und leitet es nach `/v2/introduction` weiter.
+
+```json
+"redirects": [
+  {
+    "source": "/beta/:slug*",
+    "destination": "/v2/:slug*"
+  }
+]
+```

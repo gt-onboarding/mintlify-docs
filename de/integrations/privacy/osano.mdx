@@ -1,0 +1,55 @@
+---
+title: "Osano"
+---
+
+Füge Folgendes zu deiner `docs.json`-Datei hinzu, um den Cookie-Consent-Manager [Osano](https://www.osano.com/) zu integrieren.
+
+<CodeGroup>
+
+```json Integration options in docs.json
+"integrations": {
+    "osano": "SOURCE"
+}
+```
+
+```json Example
+"integrations": {
+    "osano": "https://cmp.osano.com/2sUB2dqwqdkks/8dqwd-dwd86£-4a9b/osano.js"
+}
+```
+
+</CodeGroup>
+
+Den Wert für `SOURCE` findest du als `src` im von Osano generierten Code-Snippet. Er beginnt immer mit `https://cmp.osano.com/`.
+
+```html Code snippet from Osano
+<script src="https://cmp.osano.com/placeholder/placeholder/osano.js"/>
+```
+
+<div id="troubleshooting">
+  ## Fehlerbehebung
+</div>
+
+<Accordion
+  title="Seiten laden im Strict-Compliance-Modus nicht"
+>
+  Wenn Ihre Dokumentationsseiten im **Strict**-Compliance-Modus von Osano nicht richtig laden, müssen Sie die Domain von Mintlify auf die Allowlist setzen, damit Bilder und andere Assets geladen werden.
+
+  <Steps>
+    <Step title="Zu Managed Rules navigieren">
+      Gehen Sie in Ihrem Osano-Dashboard zu **Scripts** → **Managed Rules**.
+    </Step>
+
+    <Step title="Mintlify-Domain hinzufügen">
+      Fügen Sie `.mintlify.app/` als Managed Rule hinzu.
+
+      <Frame>
+        <img src="/images/integrations/osano-managed-rule.png" alt="Osano Managed Rule" />
+      </Frame>
+
+      <Info>
+      So wird sichergestellt, dass alle von Mintlify ausgelieferten Assets (einschließlich Bilder, Stylesheets und anderer Dokumentationsressourcen) als essenziell behandelt werden und auch dann geladen werden, wenn Osano nicht kategorisierte Inhalte von Drittanbietern blockiert.
+      </Info>
+    </Step>
+  </Steps>
+</Accordion>
