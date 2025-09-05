@@ -1,0 +1,60 @@
+---
+title: "Auth0 mit dem OAuth-Handshake verwenden"
+description: "Wenn Auth0 die maßgebliche Quelle für Ihre Benutzerdaten ist, können Sie Mintlify als OAuth-Client-App einrichten, um Ihre Nutzer zu authentifizieren."
+---
+
+<Note>
+  **Sicherheitshinweis**: Dieses Handbuch soll Ihnen bei der Integration von Auth0 mit Mintlify helfen. Bitte konsultieren Sie dennoch Ihr Sicherheitsteam, bevor Sie eine Authentifizierungslösung implementieren. Mintlify übernimmt keine Verantwortung für Sicherheitsprobleme, die sich aus Ihrer spezifischen Implementierung ergeben können.
+</Note>
+
+<div id="overview">
+  ## Überblick
+</div>
+
+Diese Anleitung führt dich durch die Einrichtung von Auth0 als Authentifizierungsanbieter für deine Mintlify-Dokumentation. Am Ende können sich deine Nutzer mit ihren Auth0-Zugangsdaten in deiner Dokumentation anmelden.
+
+<Steps>
+  <Step title="Reguläre Webanwendung in Auth0 erstellen">
+    Melde dich in deinem Auth0-Dashboard an und navigiere zu **Applications** > **Applications**. Klicke auf **Create Application**, gib deiner Anwendung einen Namen (z. B. „Mintlify“) und wähle **Regular Web Applications** als Anwendungstyp. Klicke anschließend auf **Create**.
+    
+    <Frame>![Erstellen einer neuen Anwendung in Auth0](/images/guides/auth0/auth0-create-application.png)</Frame>
+  </Step>
+  <Step title="Client-Informationen abrufen">
+    Nachdem du deine Anwendung erstellt hast, wirst du zur Einstellungsseite der Anwendung weitergeleitet. Hier findest du die wesentlichen Anmeldedaten für die OAuth-Integration:
+    
+    <Frame>![Auth0 Client-Einstellungsseite](/images/guides/auth0/auth0clientsettings.png)</Frame>
+    
+    Notiere dir die folgenden Informationen:
+    - **Domain**: Deine Auth0-Mandantendomäne (z. B. `your-tenant.auth0.com`)
+    - **Client ID**: Die öffentliche Kennung deiner Anwendung
+    - **Client Secret**: Der geheime Schlüssel deiner Anwendung (sicher aufbewahren)
+    
+    Diese Werte benötigst du im nächsten Schritt zur Konfiguration von Mintlify.
+  </Step>
+  <Step title="Mintlify-Client einrichten">
+    Navigiere zu deinem Mintlify-Dashboard und gehe zu **Settings** > **Authentication**. Wähle **OAuth** als Authentifizierungsmethode, dann erscheint das OAuth-Konfigurationsformular:
+    
+    <Frame>![Mintlify OAuth-Client-Einstellungen](/images/guides/auth0/mintlifyoauthclientsettings.png)</Frame>
+    
+    Fülle das Formular mit folgenden Werten aus:
+    
+    - **Authorization URL**: `https://YOUR_AUTH0_DOMAIN/authorize` (ersetze `YOUR_AUTH0_DOMAIN` durch deine tatsächliche Auth0-Domain aus Schritt 2)
+    - **Client ID**: Trage die Client ID deiner Auth0-Anwendung ein
+    - **Client Secret**: Trage das Client Secret deiner Auth0-Anwendung ein
+    - **Scopes**: Leer lassen, sofern du in Auth0 keine benutzerdefinierten Scopes konfiguriert hast
+    - **Token URL**: `https://YOUR_AUTH0_DOMAIN/oauth/token` (ersetze `YOUR_AUTH0_DOMAIN` durch deine tatsächliche Auth0-Domain)
+    
+    Klicke anschließend auf **Save changes**, um deine OAuth-Konfiguration zu speichern.
+  </Step>
+  <Step title="Callback-URL konfigurieren">
+    Mintlify generiert eine eindeutige Redirect-URL, die Auth0 für einen ordnungsgemäßen OAuth-Ablauf kennen muss.
+    
+    Kopiere die Redirect-URL aus den Authentifizierungseinstellungen deines Mintlify-Dashboards:
+    <Frame>![Mintlify Redirect-URL](/images/guides/auth0/mintlifyredirecturl.png)</Frame>
+    
+    Kehre zur Einstellungsseite deiner Auth0-Anwendung zurück, scrolle zum Abschnitt **Application URIs** und füge die Redirect-URL in das Feld **Allowed Callback URLs** ein:
+    <Frame>![Auth0 Redirect-URL-Konfiguration](/images/guides/auth0/auth0redirecturl.png)</Frame>
+    
+    Klicke unten auf der Auth0-Seite auf **Save Changes**, um diese Konfiguration zu übernehmen.
+  </Step>
+</Steps>

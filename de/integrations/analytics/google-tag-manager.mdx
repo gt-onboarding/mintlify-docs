@@ -1,0 +1,27 @@
+---
+title: "Google Tag Manager"
+---
+
+Fügen Sie Ihre Tag-ID zur Datei `docs.json` hinzu, und wir injizieren das Google-Tag-Manager-Skript auf all Ihren Seiten.
+
+Sie sind dafür verantwortlich, Cookie-Einwilligungsbanner mit Google Tag Manager einzurichten, falls Sie diese benötigen.
+
+<CodeGroup>
+
+```json Analytics options in docs.json
+"integrations": {
+    "gtm": {
+        "tagId": "required"
+    }
+}
+```
+
+```json Example
+"integrations": {
+    "gtm": {
+        "tagId": "GTM-MGBL4PW"
+    }
+}
+```
+
+</CodeGroup>

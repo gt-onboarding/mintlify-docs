@@ -1,0 +1,84 @@
+---
+title: "Speakeasy"
+description: "Automatisieren Sie Ihre SDK-Beispielsnippets in der API-Spielwiese"
+---
+
+Automatisch generierte Code-Snippets aus Speakeasy-SDKs lassen sich direkt in die Mintlify-API-Referenz integrieren. SDK-Beispielsnippets werden in der [interaktiven Spielwiese](/de/api-playground/overview) von Mintlify-basierten Dokumentationsseiten angezeigt.
+
+<Frame>
+  ![Eine Mintlify-API-Spielwiese mit Speakeasy-Code-Snippets.](/images/speakeasy/mintlify-with-speakeasy-openapi.png)
+</Frame>
+
+<div id="prerequisites">
+  ## Voraussetzungen
+</div>
+
+Um Mintlify in Speakeasy zu integrieren, benötigen Sie Folgendes:
+
+- Ein [Mintlify-Dokumentationsrepository](/de/quickstart#creating-the-repository).
+  - Ein von Speakeasy generiertes SDK mit einer konfigurierten [URL für automatische Codebeispiele](https://www.speakeasy.com/docs/code-samples/automated-code-sample-urls).
+
+<div id="setting-up-the-integration">
+  ## Einrichten der Integration
+</div>
+
+Um Speakeasy in Mintlify zu integrieren, müssen Sie die öffentliche URL der kombinierten API-Spezifikation aus dem Registry abrufen und Ihre `docs.json`-Konfigurationsdatei aktualisieren.
+
+<div id="get-the-apis-combined-spec-public-url-from-the-registry">
+  ### Rufen Sie die öffentliche URL der kombinierten API-Spezifikation aus dem Registry ab
+</div>
+
+Navigieren Sie zu Ihrem [Speakeasy-Dashboard](https://app.speakeasy.com) und öffnen Sie den Tab **API Registry**. Öffnen Sie den Eintrag `*-with-code-samples` für die API.
+
+<Frame>
+  ![Screenshot der Speakeasy-Seite „API Registry“. Der Tab „API Registry“ ist mit einem roten Quadrat und der Nummer 1 hervorgehoben, und der Eintrag für die API ist mit einem roten Quadrat und der Nummer 2 hervorgehoben.](/images/speakeasy/openapi-registry-and-combined-spec.png)
+</Frame>
+
+<Note>
+  Falls der Eintrag nicht mit **Combined Spec** gekennzeichnet ist, stellen Sie sicher, dass für die API eine [automatische Codebeispiel-URL](https://www.speakeasy.com/docs/code-samples/automated-code-sample-urls) konfiguriert ist.
+</Note>
+
+Kopieren Sie auf der Seite des Registry-Eintrags die angegebene öffentliche URL.
+
+<Frame>
+  ![Screenshot mit dem Registry-Eintrag der kombinierten Spezifikation, bei dem die Funktion „URL kopieren“ mit einem roten Quadrat hervorgehoben ist.](/images/speakeasy/copy-combined-spec-url.png)
+</Frame>
+
+<div id="update-your-docsjson-configuration-file">
+  ### Aktualisieren Sie Ihre `docs.json`-Konfigurationsdatei
+</div>
+
+Fügen Sie die kombinierte Spec-URL in einem Abschnitt **Anchors** oder **Tabs** in Ihrer `docs.json`-Datei hinzu.
+
+Fügen Sie die kombinierte Spec-URL zu einem Anchor hinzu, indem Sie das Feld `anchor` in Ihrer `docs.json`-Datei wie folgt aktualisieren:
+
+```json docs.json
+{
+  "anchors": [
+    {
+      "name": "API Reference",
+      // !mark
+      "openapi": "SPEAKEASY_COMBINED_SPEC_URL",
+      "url": "api-reference",
+      "icon": "square-terminal"
+    }
+  ]
+}
+```
+
+Fügen Sie die kombinierte Spec-URL zu einem Tab hinzu, indem Sie das Feld `tab` in der Datei `docs.json` wie folgt aktualisieren:
+
+```json docs.json
+{
+  "tabs": [
+    {
+      "name": "API Reference",
+      "url": "api-reference",
+      // !mark
+      "openapi": "SPEAKEASY_COMBINED_SPEC_URL"
+    }
+  ]
+}
+```
+
+Von Speakeasy generierte Codebeispiele können jetzt in Ihrer API-Dokumentation angezeigt und in der API-Spielwiese verwendet werden.
