@@ -1,0 +1,90 @@
+---
+title: "ページの表示管理"
+description: "OpenAPI仕様のどのエンドポイントをドキュメントのナビゲーションに表示するかを制御する"
+---
+
+どのOpenAPIのオペレーションをドキュメントページとして公開し、ナビゲーションでの表示可否を制御できます。これは、社内限定のエンドポイント、非推奨のオペレーション、ベータ機能、あるいは直接のURLではアクセス可能だがサイトのナビゲーションからは見つからないようにしたいエンドポイントに有用です。
+
+ページがOpenAPIドキュメントから自動生成される場合は、`x-hidden` と `x-excluded` 拡張でページの表示を管理できます。
+
+<div id="x-hidden">
+  ## `x-hidden`
+</div>
+
+`x-hidden` 拡張はエンドポイントのページを生成しますが、ナビゲーションには表示しません。ページには、その URL へ直接アクセスした場合にのみ到達できます。
+
+`x-hidden` の一般的なユースケースは次のとおりです。
+
+- ドキュメント化はしたいが、積極的に露出・訴求したくないエンドポイント
+- 他のコンテンツからリンクする前提のページ
+- 特定のユーザー向けのエンドポイント
+
+<div id="x-excluded">
+  ## `x-excluded`
+</div>
+
+`x-excluded` 拡張は、エンドポイントをドキュメントから完全に除外します。
+
+`x-excluded` の一般的な使用例は次のとおりです。
+
+- 社内限定のエンドポイント
+- ドキュメント化したくない非推奨のエンドポイント
+- 公開ドキュメントの準備がまだ整っていないベータ機能
+
+<div id="implementation">
+  ## 実装
+</div>
+
+OpenAPI仕様のHTTPメソッド配下に `x-hidden` または `x-excluded` 拡張を追加します。
+
+エンドポイントおよびWebhookパスに対して、OpenAPIスキーマドキュメントで各プロパティを使用する例を示します。
+
+```json {11, 19}
+"paths": {
+  "/plants": {
+    "get": {
+      "description": "Returns all plants from the store",
+      "parameters": { /*...*/ },
+      "responses": { /*...*/ }
+    }
+  },
+  "/hidden_plants": {
+    "get": {
+      "x-hidden": true,
+      "description": "Returns all somewhat secret plants from the store",
+      "parameters": { /*...*/ },
+      "responses": { /*...*/ }
+    }
+  },
+  "/secret_plants": {
+    "get": {
+      "x-excluded": true,
+      "description": "Returns all top secret plants from the store (do not publish this endpoint!)",
+      "parameters": { /*...*/ },
+      "responses": { /*...*/ }
+    }
+  }
+},
+```
+
+```json {9, 15}
+"webhooks": {
+  "/plants_hook": {
+    "post": {
+      "description": "Webhook for information about a new plant added to the store",
+    }
+  },
+  "/hidden_plants_hook": {
+    "post": {
+      "x-hidden": true,
+      "description": "Webhook for somewhat secret information about a new plant added to the store"
+    }
+  },
+  "/secret_plants_hook": {
+    "post": {
+      "x-excluded": true,
+      "description": "Webhook for top secret information about a new plant added to the store (do not publish this endpoint!)"
+    }
+  }
+}
+```

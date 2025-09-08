@@ -1,0 +1,71 @@
+---
+title: "Pestañas"
+description: "Alterna contenido con el componente Tabs"
+icon: "panel-top"
+---
+
+Usa pestañas para organizar el contenido en varios paneles entre los que los usuarios pueden cambiar. Puedes añadir cualquier número de pestañas e incluir otros componentes dentro de cada una.
+
+<Tabs>
+  <Tab title="Primera pestaña">
+    ☝️ Bienvenido al contenido que solo puedes ver dentro de la primera pestaña.
+
+    Puedes añadir cualquier número de componentes dentro de las pestañas. Por ejemplo, un bloque de código:
+    ```java HelloWorld.java
+      class HelloWorld {
+          public static void main(String[] args) {
+              System.out.println("Hello, World!");
+          }
+      }
+    ```
+  </Tab>
+  <Tab title="Segunda pestaña" icon="leaf">
+    ✌️ Aquí hay contenido que solo está dentro de la segunda pestaña.
+
+    ¡Esta tiene un icono <Icon icon="leaf" />!
+  </Tab>
+  <Tab title="Tercera pestaña">
+    💪 Aquí hay contenido que solo está dentro de la tercera pestaña.
+  </Tab>
+</Tabs>
+
+````mdx Tabs example
+<Tabs>
+  <Tab title="First tab">
+    ☝️ Welcome to the content that you can only see inside the first tab.
+
+    You can add any number of components inside of tabs. For example, a code block:
+    ```java HelloWorld.java
+      class HelloWorld {
+          public static void main(String[] args) {
+              System.out.println("Hello, World!");
+          }
+      }
+    ```
+  </Tab>
+  <Tab title="Second tab" icon="leaf">
+    ✌️ Here's content that's only inside the second tab.
+
+    This one has a <Icon icon="leaf" /> icon!
+  </Tab>
+  <Tab title="Third tab">
+    💪 Here's content that's only inside the third tab.
+  </Tab>
+</Tabs>
+````
+
+<div id="properties">
+  ## Propiedades
+</div>
+
+<ResponseField name="title" type="string" required>
+  El título de la pestaña. Los títulos cortos facilitan la navegación.
+</ResponseField>
+
+<ResponseField name="icon" type="string">
+  Un ícono de [Font Awesome](https://fontawesome.com/icons), un ícono de [Lucide](https://lucide.dev/icons), una URL a un ícono o una ruta relativa a un ícono.
+</ResponseField>
+
+<ResponseField name="iconType" type="string">
+  Solo para íconos de Font Awesome: uno de `regular`, `solid`, `light`, `thin`, `sharp-solid`, `duotone`, `brands`.
+</ResponseField>

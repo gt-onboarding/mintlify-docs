@@ -1,0 +1,135 @@
+---
+title: "Single sign-on (SSO)"
+description: "Personalizza le modalità di accesso del tuo team al dashboard di amministrazione"
+---
+
+<Info>
+  La funzionalità SSO è disponibile nel [piano Enterprise](https://mintlify.com/pricing?ref=sso).
+</Info>
+
+Usa il single sign-on per accedere al dashboard tramite SAML e OIDC. Se utilizzi Okta, Google Workspace o Microsoft Entra, abbiamo una documentazione specifica per la configurazione dell’SSO con ciascun provider. Se utilizzi un altro provider, [contattaci](mailto:support@mintlify.com).
+
+<div id="okta">
+  ## Okta
+</div>
+
+<Tabs>
+    <Tab title="SAML">
+        <Steps>
+            <Step title="Crea un'applicazione">
+                In `Applications`, fai clic per creare una nuova integrazione dell’app usando SAML 2.0.
+            </Step>
+            <Step title="Configura l'integrazione">
+                Inserisci quanto segue:
+                * Single sign-on URL (fornito da Mintlify)
+                * Audience URI (fornito da Mintlify)
+                * Name ID Format: `EmailAddress`
+                * Attribute Statements:
+                    | Nome | Formato nome | Valore
+                    | ---- | ------------- | -----
+                    | `firstName` | Basic | `user.firstName` |
+                    | `lastName` | Basic | `user.lastName` |
+            </Step>
+            <Step title="Inviaci le informazioni del tuo IdP">
+                Una volta configurata l’applicazione, vai alla scheda Sign-On e inviaci l’URL dei metadati.
+                Abiliteremo la connessione dalla nostra parte utilizzando queste informazioni.
+            </Step>
+        </Steps>
+    </Tab>
+    <Tab title="OIDC">
+        <Steps>
+            <Step title="Crea un'applicazione">
+                In `Applications`, fai clic per creare una nuova integrazione dell’app usando OIDC.
+                Seleziona il tipo di applicazione `Web Application`.
+            </Step>
+            <Step title="Configura l'integrazione">
+                Seleziona il grant type Authorization Code e inserisci la Redirect URI fornita da Mintlify.
+            </Step>
+            <Step title="Inviaci le informazioni del tuo IdP">
+                Una volta configurata l’applicazione, vai alla scheda General e individua il client ID e il client secret.
+                Fornisci questi dati in modo sicuro, insieme all’URL della tua istanza Okta (es. `<your-tenant-name>.okta.com`). Puoi inviarli tramite un servizio come 1Password o SendSafely.
+            </Step>
+        </Steps>
+    </Tab>
+</Tabs>
+
+<div id="google-workspace">
+  ## Google Workspace
+</div>
+
+<Tabs>
+    <Tab title="SAML">
+        <Steps>
+            <Step title="Crea un'applicazione">
+                In `Web and mobile apps`, seleziona `Add custom SAML app` dal menu a discesa `Add app`.  
+                <Frame>
+                    ![](/images/gsuite-add-custom-saml-app.png)
+                </Frame>              
+            </Step>
+            <Step title="Inviaci le informazioni del tuo IdP">
+                Copia l'URL SSO, l'Entity ID e il certificato x509 forniti e inviali al team di Mintlify.
+                <Frame>
+                    ![](/images/gsuite-saml-metadata.png)                    
+                </Frame>
+            </Step>
+            <Step title="Configura l'integrazione">
+                Nella pagina Service provider details, inserisci quanto segue:
+                * ACS URL (fornito da Mintlify)
+                * Entity ID (fornito da Mintlify)
+                * Name ID format: `EMAIL`
+                * Name ID: `Basic Information > Primary email`
+
+                <Frame>
+                    ![](/images/gsuite-sp-details.png)
+                </Frame>
+
+                Nella pagina successiva, inserisci le seguenti dichiarazioni di attributo:
+                | Google Directory Attribute | App Attribute |
+                | -------------------------- | ------------- |
+                | `First name` | `firstName`  |
+                | `Last name` | `lastName` |
+
+                Una volta completato questo passaggio e assegnati gli utenti all'applicazione, faccelo sapere e abiliteremo l'SSO per il tuo account!
+            </Step>
+        </Steps>
+    </Tab>
+</Tabs>
+
+<div id="microsoft-entra">
+  ## Microsoft Entra
+</div>
+
+<Tabs>
+    <Tab title="SAML">
+        <Steps>
+            <Step title="Create an application">
+                1. In "Enterprise applications", seleziona **New application**.
+                2. Seleziona **Create your own application** e scegli "Integrate any other application you don't find in the gallery (Non-gallery)."
+            </Step>
+            <Step title="Configure SAML">
+                Vai alla pagina di configurazione del Single Sign-On e seleziona **SAML**. In "Basic SAML Configuration", inserisci quanto segue:
+                * Identifier (Entity ID): l'Audience URI fornito da Mintlify.
+                * Reply URL (Assertion Consumer Service URL): l'ACS URL fornito da Mintlify.
+                
+                Lascia gli altri campi vuoti e seleziona **Save**.
+            </Step>
+            <Step title="Configure Attributes & Claims">
+                Modifica la sezione Attributes & Claims:
+                1. Seleziona **Unique User Identifier (Name ID)** in "Required Claim".
+                2. Imposta l'attributo Source su `user.primaryauthoritativeemail`.
+                3. In Additional claims, crea le seguenti dichiarazioni:
+                    | Name | Value |
+                    | ---- | ----- |
+                    | `firstName` | `user.givenname` |
+                    | `lastName` | `user.surname` |
+            </Step>
+            <Step title="Send Mintlify your IdP information">
+                Una volta configurata l'applicazione, vai alla sezione "SAML Certificates" e inviaci l'App Federation Metadata URL.
+                Abiliteremo la connessione dalla nostra parte utilizzando queste informazioni.
+            </Step>
+            <Step title="Assign Users">
+                Vai a "Users and groups" nella tua applicazione Entra e aggiungi gli utenti che devono avere accesso alla dashboard.
+            </Step>
+        </Steps>
+    </Tab>
+</Tabs>

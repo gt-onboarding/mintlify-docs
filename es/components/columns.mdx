@@ -1,0 +1,40 @@
+---
+title: "Columnas"
+description: "Muestra tarjetas en paralelo en una cuadrícula"
+icon: 'columns-2'
+keywords: ['grupos de tarjetas']
+---
+
+El componente `Columns` permite agrupar varios componentes `Card`. Se utiliza principalmente para disponer varias tarjetas en una cuadrícula, especificando el número de columnas.
+
+<Columns cols={2}>
+  <Card title="Primera tarjeta" icon="panel-left-close">
+    Neque porro quisquam est qui dolorem ipsum quia dolor sit amet
+  </Card>
+  <Card title="Segunda tarjeta" icon="panel-right-close">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  </Card>
+</Columns>
+
+<RequestExample>
+
+```mdx Card Group Example
+<Columns cols={2}>
+  <Card title="First Card">
+    Neque porro quisquam est qui dolorem ipsum quia dolor sit amet
+  </Card>
+  <Card title="Second Card">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  </Card>
+</Columns>
+```
+
+</RequestExample>
+
+<div id="props">
+  ### Props
+</div>
+
+<ResponseField name="cols" default={2}>
+  Número de columnas por fila
+</ResponseField>

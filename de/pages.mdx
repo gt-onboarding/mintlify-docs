@@ -1,0 +1,163 @@
+---
+title: "Seiten"
+description: "Seiten sind die Bausteine Ihrer Dokumentation"
+icon: "letter-text"
+keywords: ["tags", "tag"]
+---
+
+import IconsOptional from "/snippets/de/icons-optional.mdx";
+
+Jede Seite ist eine MDX-Datei, die Markdown-Inhalte mit React-Komponenten kombiniert, sodass Sie umfangreiche, interaktive Dokumentation erstellen können.
+
+<div id="page-metadata">
+  ## Seitenmetadaten
+</div>
+
+Jede Seite beginnt mit Frontmatter – den YAML-Metadaten, die am Anfang einer Datei von `---` eingeschlossen sind. Diese Metadaten legen fest, wie Ihre Seite angezeigt wird und sich verhält.
+
+Verwenden Sie Metadaten, um Folgendes zu steuern:
+
+- Seitentitel und -beschreibungen
+- Titel, Symbole und Tags in der Seitenleiste
+
+<ResponseField name="title" type="string" required>
+  Der Titel Ihrer Seite, der in der Navigation und in Browser-Tabs angezeigt wird.
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  Eine kurze Beschreibung dessen, was diese Seite behandelt. Wird unter dem Titel angezeigt und verbessert die SEO.
+</ResponseField>
+
+<ResponseField name="sidebarTitle" type="string">
+  Ein kurzer Titel, der in der Seitenleiste angezeigt wird.
+</ResponseField>
+
+<IconsOptional />
+
+<ResponseField name="tag" type="string">
+  Ein Tag, das neben Ihrem Seitentitel in der Seitenleiste angezeigt wird.
+</ResponseField>
+
+```yaml Example YAML frontmatter wrap
+---
+title: "About frontmatter"
+description: "Frontmatter is the metadata that controls how your page appears and behaves"
+sidebarTitle: "Frontmatter"
+icon: "book"
+tag: "NEW"
+---
+```
+
+<div id="page-mode">
+  ## Seitenmodus
+</div>
+
+Steuern Sie mit der Einstellung `mode`, wie Ihre Seite dargestellt wird.
+
+<div id="default">
+  ### Standard
+</div>
+
+Wenn kein Modus definiert ist, wird standardmäßig ein Layout mit einer Seitenleiste, Navigation und Inhaltsverzeichnis verwendet.
+
+```yaml
+---
+title: "Standard-Seitentitel"
+---
+```
+
+<div id="wide">
+  ### Breit
+</div>
+
+Der breite Modus blendet das Inhaltsverzeichnis aus. Das ist nützlich für Seiten ohne Überschriften oder wenn Sie den zusätzlichen horizontalen Platz bevorzugen zu nutzen.
+
+```yaml
+---
+title: "Breiter Seitentitel"
+mode: "wide"
+---
+```
+
+<div id="custom">
+  ### Custom
+</div>
+
+Der Custom-Modus bietet ein minimalistisches Layout, das alle Elemente außer der oberen Navigationsleiste entfernt. Er dient als leere Leinwand, um Landing Pages oder andere individuelle Layouts zu erstellen, bei denen nur minimale Navigationselemente erforderlich sind.
+
+```yaml
+---
+title: "Custom page title"
+mode: "custom"
+---
+```
+
+<div id="center">
+  ### Zentrieren
+</div>
+
+Der Zentrierungsmodus entfernt die Seitenleiste und das Inhaltsverzeichnis und zentriert den Inhalt. Das ist nützlich für Changelogs oder andere Seiten, auf denen der Inhalt im Fokus stehen soll.
+
+```yaml
+---
+title: "Titel der zentrierten Seite"
+mode: "center"
+---
+```
+
+<div id="api-pages">
+  ## API-Seiten
+</div>
+
+Erstellen Sie interaktive API-Playgrounds, indem Sie in Ihrem Frontmatter eine API-Spezifikation über `api` oder `openapi` hinzufügen.
+
+```yaml
+---
+openapi: "GET /endpoint"
+---
+```
+
+Erfahren Sie mehr über das Erstellen von [API-Dokumentation](/de/api-playground/overview).
+
+<div id="external-links">
+  ## Externe Links
+</div>
+
+Verlinken Sie externe Websites direkt aus Ihrer Navigation mithilfe der `url`-Metadaten.
+
+```yaml
+---
+title: "npm Package"
+url: "https://www.npmjs.com/package/mint"
+---
+```
+
+<div id="search-engine-optimization">
+  ## Suchmaschinenoptimierung
+</div>
+
+Die meisten SEO-Meta-Tags werden automatisch generiert. Sie können SEO-Meta-Tags manuell festlegen, um die SEO Ihrer Website, das Teilen in sozialen Netzwerken und die Browserkompatibilität zu verbessern.
+
+<Note>
+  Meta-Tags mit Doppelpunkten müssen in Anführungszeichen gesetzt werden.
+</Note>
+
+```yaml
+---
+"twitter:image": "/images/social-preview.jpg"
+---
+```
+
+Unter [SEO](/de/settings/seo) finden Sie alle Optionen für SEO-Metadaten.
+
+<div id="internal-search-keywords">
+  ## Interne Suchbegriffe
+</div>
+
+Verbessern Sie die Auffindbarkeit einer bestimmten Seite in der integrierten Suche, indem Sie `keywords` in den Metadaten angeben. Diese Begriffe erscheinen nicht im Seiteninhalt oder in den Suchergebnissen, aber wenn Nutzer danach suchen, wird die Seite als Ergebnis angezeigt.
+
+```yaml
+---
+keywords: ['configuration', 'setup', 'getting started']
+---
+```

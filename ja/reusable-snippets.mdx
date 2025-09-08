@@ -1,0 +1,132 @@
+---
+title: '再利用可能なスニペット'
+description: 'コンテンツを同期するための再利用可能なカスタムスニペット'
+icon: 'recycle'
+---
+
+ソフトウェア開発の基本原則の一つに DRY（Don’t Repeat Yourself）があります。これはドキュメントにも当てはまります。もし同じ内容を複数の場所で繰り返しているなら、コンテンツを同期させるためにカスタムスニペットを作成しましょう。
+
+<div id="creating-a-custom-snippet">
+  ## カスタムスニペットの作成
+</div>
+
+**前提条件**: インポートを機能させるには、`snippets` ディレクトリ内にスニペットファイルを作成する必要があります。
+
+`snippets` ディレクトリ内の任意のページはスニペットとして扱われ、単独のページとしては
+レンダリングされません。スニペットから単独のページを作成したい場合は、
+そのスニペットを別のファイルにインポートし、コンポーネントとして呼び出してください。
+
+<div id="default-export">
+  ### デフォルトエクスポート
+</div>
+
+1. 再利用したいコンテンツをスニペットファイルに追加します。必要に応じて、スニペットをインポートする際に props で値を渡せる変数を追加できます。
+   この例では、変数は word です。
+
+```typescript snippets/my-snippet.mdx
+Hello world! This is my content I want to reuse across pages. 
+```
+
+2. スニペットを移行先ファイルにインポートします。
+
+```typescript destination-file.mdx
+---
+title: My title
+description: My Description
+---
+
+import MySnippet from '/snippets/path/to/my-snippet.mdx';
+
+## 見出し
+
+Lorem impsum dolor sit amet.
+
+<MySnippet/>
+
+```
+
+<div id="exporting-with-variables">
+  ### 変数を使ったエクスポート
+</div>
+
+1. スニペットをインポートする際に、props で渡せる変数を任意で追加できます。この例では変数は word です。
+
+```typescript snippets/my-snippet.mdx
+My keyword of the day is {word}.
+```
+
+2. 宛先ファイルで、その変数を指定してスニペットをインポートします。指定した値でプロパティが埋め込まれます。
+
+```typescript destination-file.mdx
+---
+title: My title
+description: My Description
+---
+
+import MySnippet from '/snippets/path/to/my-snippet.mdx';
+
+## Header
+
+Lorem impsum dolor sit amet.
+
+<MySnippet word="bananas" />
+
+```
+
+<div id="reusable-variables">
+  ### 再利用可能な変数
+</div>
+
+1. スニペットファイルから変数をエクスポートします：
+
+```typescript snippets/path/to/custom-variables.mdx
+export const myName = 'my name';
+
+export const myObject = { fruit: 'strawberries' };
+```
+
+2. 変数を使用する先のファイルでスニペットをインポートして利用します：
+
+```typescript destination-file.mdx
+---
+title: My title
+description: My Description
+---
+
+import { myName, myObject } from '/snippets/path/to/custom-variables.mdx';
+
+Hello, my name is {myName} and I like {myObject.fruit}.
+```
+
+<div id="jsx-snippets">
+  ### JSX スニペット
+</div>
+
+1. スニペットファイルから JSX コンポーネントをエクスポートします（詳細は [React components](/ja/react-components) を参照）:
+
+```js icon=square-js snippets/my-jsx-snippet.jsx
+export const MyJSXSnippet = () => {
+  return (
+    <div>
+      <h1>Hello, world!</h1>
+    </div>
+  )
+}
+```
+
+<Note>
+  重要: JSX スニペットを作成する際は、関数宣言ではなくアロー関数構文（`=>`）を使用してください。このコンテキストでは `function` キーワードはサポートされていません。
+</Note>
+
+2. 使用先のファイルでスニペットをインポートし、コンポーネントを使用します:
+
+```typescript destination-file.mdx
+---
+title: My title
+description: My Description
+---
+
+import { MyJSXSnippet } from '/snippets/my-jsx-snippet.jsx';
+
+<MyJSXSnippet />
+```

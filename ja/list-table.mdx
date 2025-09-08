@@ -1,0 +1,89 @@
+---
+title: "リストと表"
+description: "情報をリストや表で表示する"
+icon: "list"
+---
+
+<div id="lists">
+  ## リスト
+</div>
+
+リストは公式の[Markdown 構文](https://www.markdownguide.org/basic-syntax/#lists-1)に準拠します。
+
+<div id="ordered-list">
+  ### 番号付きリスト
+</div>
+
+番号付きリストを作成するには、各項目の前に数字とピリオドを付けます。
+
+1. 1つ目の項目
+2. 2つ目の項目
+3. 3つ目の項目
+4. 4つ目の項目
+
+```mdx
+1. First item
+2. Second item
+3. Third item
+4. Fourth item
+```
+
+<div id="unordered-list">
+  ### 箇条書き（順序なしリスト）
+</div>
+
+順序なしリストを作成するには、各項目の前にハイフン（`-`）、アスタリスク（`*`）、またはプラス（`+`）を付けます。
+
+- 最初の項目
+- 2番目の項目
+- 3番目の項目
+- 4番目の項目
+
+```mdx
+- First item
+- Second item
+- Third item
+- Fourth item
+```
+
+<div id="nested-list">
+  ### 入れ子リスト
+</div>
+
+リスト項目をインデントして入れ子にします。
+
+- 最初の項目
+- 2 番目の項目
+  - 追加の項目
+  - 追加の項目
+- 3 番目の項目
+
+```mdx
+- First item
+- Second item
+  - Additional item
+  - Additional item
+- Third item
+```
+
+<div id="tables">
+  ## テーブル
+</div>
+
+テーブルは公式の[Markdown 構文](https://www.markdownguide.org/extended-syntax/#tables)に従います。
+
+テーブルを追加するには、3 本以上のハイフン（`---`）で各列のヘッダーを作成し、パイプ（`|`）で各列を区切ります。互換性のため、行の先頭と末尾にもパイプを追加してください。
+
+| プロパティ | 説明                                   |
+| ---------- | -------------------------------------- |
+| Name       | ユーザーの氏名                          |
+| Age        | 申告年齢                                |
+| Joined     | ユーザーがコミュニティに参加したかどうか |
+
+```mdx
+| Property | Description                           |
+| -------- | ------------------------------------- |
+| Name     | Full name of user                     |
+| Age      | Reported age                          |
+| Joined   | Whether the user joined the community |
+```

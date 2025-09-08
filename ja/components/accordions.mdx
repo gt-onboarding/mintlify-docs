@@ -1,0 +1,109 @@
+---
+title: "アコーディオン"
+description: "コンテンツを表示・非表示できる折りたたみコンポーネント"
+icon: "chevron-down"
+---
+
+import IconsOptional from "/snippets/ja/icons-optional.mdx";
+
+アコーディオンは、ユーザーがコンテンツセクションを展開・折りたたみできるようにします。段階的な情報開示や情報整理のためにアコーディオンを使用してください。
+
+
+<div id="single-accordion">
+  ## 単一のアコーディオン
+</div>
+
+<Accordion title="I am an Accordion.">
+  ここには、コードなどの他のコンポーネントを含め、任意のコンテンツを入れられます：
+   ```java HelloWorld.java
+    class HelloWorld {
+        public static void main(String[] args) {
+            System.out.println("Hello, World!");
+        }
+    }
+    ```
+</Accordion>
+
+````mdx Accordion example
+<Accordion title="I am an Accordion.">
+  ここには、コードなどの他のコンポーネントを含め、任意のコンテンツを入れられます：
+
+   ```java HelloWorld.java
+    class HelloWorld {
+        public static void main(String[] args) {
+            System.out.println("Hello, World!");
+        }
+    }
+  ```
+</Accordion>
+````
+
+<div id="accordion-groups">
+  ## アコーディオンのグループ化
+</div>
+
+`<AccordionGroup>` を使って関連するアコーディオンをまとめます。各アコーディオンは個別に展開・折りたたみでき、まとまりのあるセクションを作成できます。
+
+<AccordionGroup>
+  <Accordion title="Getting started">
+    アコーディオン内には他のコンポーネントも配置できます。
+
+    ```java HelloWorld.java
+    class HelloWorld {
+        public static void main(String[] args) {
+            System.out.println("Hello, World!");
+        }
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="Advanced features" icon="bot">
+    アイコンを追加すると、視覚的に区別しやすくなり、一覧性も向上します。
+  </Accordion>
+  
+  <Accordion title="Troubleshooting">
+    関連するコンテンツはグループに整理しておきましょう。
+  </Accordion>
+</AccordionGroup>
+
+````mdx Accordion Group Example
+<AccordionGroup>
+  <Accordion title="Getting started">
+    アコーディオン内には他のコンポーネントも配置できます。
+
+    ```java HelloWorld.java
+    class HelloWorld {
+        public static void main(String[] args) {
+            System.out.println("Hello, World!");
+        }
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="Advanced features" icon="alien-8bit">
+    アイコンを追加すると、視覚的に区別しやすくなり、一覧性も向上します。
+  </Accordion>
+
+  <Accordion title="Troubleshooting">
+    関連するコンテンツはグループに整理しておきましょう。
+  </Accordion>
+</AccordionGroup>
+````
+
+<div id="properties">
+  ## プロパティ
+</div>
+
+<ResponseField name="title" type="string" required>
+  アコーディオンのプレビューに表示されるタイトル。
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  アコーディオンのプレビューで、タイトルの下に表示される詳細。
+</ResponseField>
+
+<ResponseField name="defaultOpen" type="boolean" default="false">
+  アコーディオンをデフォルトで開いた状態にするかどうか。
+</ResponseField>
+
+<IconsOptional />

@@ -1,0 +1,161 @@
+---
+title: "Area di prova"
+description: "Consenti agli utenti di interagire con la tua API"
+icon: "play"
+---
+
+<div id="overview">
+  ## Panoramica
+</div>
+
+L’Area di prova API è un ambiente interattivo che consente agli utenti di testare ed esplorare gli endpoint della tua API. Gli sviluppatori possono comporre richieste API, inviarle e visualizzare le risposte senza lasciare la documentazione.
+
+<Frame>
+  <img src="/images/playground/API-playground-light.png" alt="Area di prova API per l’endpoint trigger an update." className="block dark:hidden" />
+
+  <img src="/images/playground/API-playground-dark.png" alt="Area di prova API per l’endpoint trigger an update." className="hidden dark:block" />
+</Frame>
+
+L’area di prova viene generata automaticamente dalla specifica OpenAPI o dallo schema AsyncAPI, quindi qualsiasi aggiornamento alla tua API viene riflesso automaticamente nell’area di prova. Puoi anche creare manualmente pagine di riferimento dell’API dopo aver definito un URL di base e un metodo di autenticazione nel file `docs.json`.
+
+Consigliamo di generare l’Area di prova API a partire da una specifica OpenAPI. Consulta [Configurazione OpenAPI](/it/api-playground/openapi-setup) per maggiori informazioni sulla creazione del documento OpenAPI.
+
+<div id="getting-started">
+  ## Per iniziare
+</div>
+
+<Steps>
+  <Step title="Aggiungi il file di specifica OpenAPI.">
+    <Info>
+      Verifica che il file di specifica OpenAPI sia valido usando lo [Swagger Editor](https://editor.swagger.io/) o il [Mint CLI](https://www.npmjs.com/package/mint).
+    </Info>
+
+    ```bash {2}
+    /your-project
+      |- docs.json
+      |- openapi.json
+    ```
+  </Step>
+
+  <Step title="Configura `docs.json`.">
+    Aggiorna `docs.json` per fare riferimento alla specifica OpenAPI. Aggiungi la proprietà `openapi` a qualsiasi elemento di navigazione per riempire automaticamente la documentazione con una pagina per ogni endpoint definito nel documento OpenAPI.
+
+    Questo esempio genera una pagina per ogni endpoint definito in `openapi.json` e le organizza nel gruppo "API reference" della navigazione.
+
+    ```json
+    "navigation": {
+      "groups": [
+        {
+          "group": "API reference",
+          "openapi": "openapi.json"
+        }
+      ]
+    }
+    ```
+
+    Per generare pagine solo per determinati endpoint, elenca gli endpoint nella proprietà `pages` dell'elemento di navigazione.
+
+    Questo esempio genera pagine solo per gli endpoint `GET /users` e `POST /users`. Per generare altre pagine di endpoint, aggiungi ulteriori voci all'array `pages`.
+
+    ```json
+    "navigation": {
+      "groups": [
+          {
+            "group": "API reference",
+            "openapi": "openapi.json",
+            "pages": [
+              "GET /users",
+              "POST /users"
+            ]
+          }
+      ]
+    }
+    ```
+  </Step>
+</Steps>
+
+<div id="customizing-your-playground">
+  ## Personalizzazione dell'area di prova
+</div>
+
+Puoi personalizzare l’Area di prova API definendo le seguenti proprietà nel file `docs.json`.
+
+<ResponseField name="playground" type="object">
+  Configurazioni per l'Area di prova API.
+
+  <Expandable title="playground" defaultOpen="True">
+    <ResponseField name="display" type="&#x22;interactive&#x22; | &#x22;simple&#x22; | &#x22;none&#x22;">
+      La modalità di visualizzazione dell'Area di prova API.
+
+      - `"interactive"`: mostra l’area di prova interattiva.
+      - `"simple"`: mostra un endpoint copiabile senza area di prova.
+      - `"none"`: non mostra nulla.
+
+      Impostazione predefinita: `interactive`.
+    </ResponseField>
+
+    <ResponseField name="proxy" type="boolean" defaultOpen="True">
+      Se instradare le richieste API tramite un server proxy. Impostazione predefinita: `true`.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="examples" type="object">
+  Configurazioni per gli esempi API generati automaticamente.
+
+  <Expandable title="examples" defaultOpen="True">
+    <ResponseField name="languages" type="array of string">
+      Lingue degli esempi per gli snippet API generati automaticamente.
+
+      Le lingue vengono visualizzate nell'ordine specificato.
+    </ResponseField>
+
+    <ResponseField name="defaults" type="&#x22;required&#x22; | &#x22;all&#x22;">
+      Se mostrare i parametri opzionali negli esempi API. Impostazione predefinita: `all`.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<div id="example-configuration">
+  ### Esempio di configurazione
+</div>
+
+```json
+{
+ "api": {
+   "playground": {
+     "display": "interactive"
+   },
+   "examples": {
+     "languages": ["curl", "python", "javascript"],
+     "defaults": "required"
+   }
+ }
+}
+```
+
+Questo esempio configura l'Area di prova API in modalità interattiva, con frammenti di codice di esempio per cURL, Python e JavaScript. Nei frammenti di codice vengono mostrati solo i parametri obbligatori.
+
+<div id="custom-endpoint-pages">
+  ### Pagine endpoint personalizzate
+</div>
+
+Quando serve un controllo più granulare sulla documentazione delle API, usa l’estensione `x-mint` nella specifica OpenAPI oppure crea pagine `MDX` dedicate per i singoli endpoint.
+
+Entrambe le opzioni consentono di:
+
+- Personalizzare i metadati della pagina
+- Aggiungere contenuti aggiuntivi, come esempi
+- Controllare il comportamento dell’Area di prova API per pagina
+
+Si consiglia l’estensione `x-mint` così che tutta la documentazione delle API venga generata automaticamente dalla specifica OpenAPI e gestita in un unico file.
+
+Le pagine `MDX` individuali sono consigliate per API di piccole dimensioni o quando si desidera sperimentare modifiche pagina per pagina.
+
+Per ulteriori informazioni, vedi [x-mint extension](/it/api-playground/openapi-setup#x-mint-extension) e [MDX Setup](/it/api-playground/mdx/configuration).
+
+<div id="further-reading">
+  ## Approfondimenti
+</div>
+
+- [Configurazione di AsyncAPI](/it/api-playground/asyncapi/setup) per ulteriori informazioni sulla creazione dello schema AsyncAPI per generare pagine di riferimento per WebSocket.

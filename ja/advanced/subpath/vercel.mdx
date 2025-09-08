@@ -1,0 +1,78 @@
+---
+title: "Vercel"
+description: "Vercel を使って /docs サブパスでドキュメントをホストする"
+---
+
+<div id="verceljson-file">
+  ## vercel.json ファイル
+</div>
+
+`vercel.json` は Vercel の設定ファイルで、プロジェクトのビルドとデプロイの方法をカスタマイズできます。プロジェクトのルートディレクトリに置かれ、ルーティング、リダイレクト、ヘッダー、ビルド設定など、デプロイのさまざまな要素を制御します。
+
+メインドメインからドキュメントへのリクエストをプロキシするために、`rewrites` 設定を使用します。
+
+Rewrites を使うと、ブラウザの URL を変えずに受信リクエストを別の宛先へ割り当てられます。ユーザーが `yoursite.com/docs` にアクセスすると、Vercel は内部的に `your-subdomain.mintlify.dev/docs` からコンテンツを取得しますが、ブラウザには引き続き `yoursite.com/docs` が表示されます。これは、ユーザーを別の URL へ転送するリダイレクトとは異なります。
+
+<div id="configuration">
+  ## 設定
+</div>
+
+Vercel を使ってカスタムの `/docs` サブパスでドキュメントをホストするには、`vercel.json` ファイルに次の設定を追加します。
+
+```json
+{
+  "rewrites": [
+    {
+      "source": "/docs",
+      "destination": "https://[subdomain].mintlify.dev/docs"
+    },
+    {
+      "source": "/docs/:match*",
+      "destination": "https://[subdomain].mintlify.dev/docs/:match*"
+    }
+  ]
+}
+```
+
+- **`source`**: リライトを適用するドメイン上のパスパターン。
+- **`destination`**: リクエストのプロキシ先。
+- **`:match*`**: `/docs/` 以降の任意のパスセグメントを取得するワイルドカード。
+
+詳しくは、Vercel のドキュメント [Configuring projects with vercel.json: Rewrites](https://vercel.com/docs/projects/project-configuration#rewrites) を参照してください。
+
+<div id="using-external-proxies-with-vercel">
+  ## Vercelで外部プロキシを使用する
+</div>
+
+Vercel のデプロイの前段に外部プロキシ（Cloudflare や AWS CloudFront など）を配置している場合は、Vercel のドメイン検証や SSL 証明書の発行と競合しないよう、適切に設定する必要があります。
+
+不適切なプロキシ設定は、Vercel による Let's Encrypt の SSL 証明書発行を妨げ、ドメイン検証の失敗を招く可能性があります。
+
+詳細は Vercel のドキュメントにある[サポート対象プロバイダー](https://vercel.com/guides/how-to-setup-verified-proxy#supported-providers-verified-proxy-lite)を参照してください。
+
+<div id="required-path-allowlist">
+  ### 必要なパスの許可リスト
+</div>
+
+外部プロキシは、以下の特定のパスへのトラフィックをブロック、リダイレクト、または過度にキャッシュすることなく許可する必要があります。
+
+- `/.well-known/acme-challenge/*` - Let's Encrypt の証明書検証に必要
+- `/.well-known/vercel/*` - Vercel のドメイン検証に必要
+
+これらのパスは、変更を加えずに Vercel のデプロイメントへそのまま通過させてください。
+
+<div id="header-forwarding-requirements">
+  ### ヘッダー転送の要件
+</div>
+
+プロキシが `HOST` ヘッダーを正しく転送していることを確認してください。ヘッダーが正しく転送されていない場合、検証リクエストは失敗します。
+
+<div id="testing-your-proxy-setup">
+  ### プロキシ設定のテスト
+</div>
+
+プロキシが正しく構成されていることを確認するには:
+
+1. `https://[yourdomain].com/.well-known/vercel/` にアクセスして応答が返ることを確認します。
+2. Vercel ダッシュボードで SSL 証明書が正しくプロビジョニングされていることを確認します。
+3. ドメインの認証が正常に完了していることを確認します。

@@ -1,0 +1,51 @@
+---
+title: "示例"
+description: "在桌面设备的右侧边栏显示代码块"
+icon: 'between-horizontal-start'
+---
+
+`<RequestExample>` 和 `<ResponseExample>` 组件会在右侧边栏显示代码块，从而形成双栏布局，便于用户在滚动阅读内容时始终看到示例。这些组件主要面向 API 文档设计，但同样适用于所有页面。
+
+常见用例：
+
+- 带有请求与响应示例的 API 端点文档
+- 与说明性文本并列的配置示例
+- 供用户在执行步骤时参考的代码示例
+- 教程中的前后对比示例
+
+在移动设备上，`<RequestExample>` 和 `<ResponseExample>` 组件会以常规代码块形式显示，用户可直接滑动略过。
+
+<div id="requestexample">
+  ## RequestExample
+</div>
+
+使用 `<RequestExample>` 将代码示例固定显示在右侧侧边栏。该组件与 [CodeGroup](/zh/components/code-groups) 组件类似，但会在侧边栏中显示代码，而不是内联显示。
+
+你可以在单个 `<RequestExample>` 中包含多个代码块。每个代码块都必须包含一个 title 属性。
+
+````mdx RequestExample
+<RequestExample>
+
+```bash Request
+  curl --request POST \
+    --url https://dog-api.kinduff.com/api/facts
+```
+
+</RequestExample>
+````
+
+<div id="responseexample">
+  ## ResponseExample
+</div>
+
+`<ResponseExample>` 组件会将代码示例固定显示在右侧边栏中，位于同一页面任何 `<RequestExample>` 内容的下方。
+
+````mdx ResponseExample
+<ResponseExample>
+
+```json Response
+{ "status": "success" }
+```
+
+</ResponseExample>
+````

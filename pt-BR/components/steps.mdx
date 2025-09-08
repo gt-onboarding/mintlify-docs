@@ -1,0 +1,72 @@
+---
+title: "Passos"
+description: "Organize o conteúdo em sequência usando o componente Steps"
+icon: "list-todo"
+---
+
+import IconsOptional from "/snippets/pt-BR/icons-optional.mdx";
+
+Use passos para exibir uma série de ações ou eventos sequenciais. Você pode adicionar quantos passos forem necessários.
+
+<Steps>
+  <Step title="Primeiro passo">
+    Estas são instruções ou conteúdo que se aplicam apenas ao primeiro passo.
+  </Step>
+
+  <Step title="Segundo passo">
+    Estas são instruções ou conteúdo que se aplicam apenas ao segundo passo.
+  </Step>
+
+  <Step title="Terceiro passo">
+    Estas são instruções ou conteúdo que se aplicam apenas ao terceiro passo.
+  </Step>
+</Steps>
+
+```mdx Exemplo de Steps
+<Steps>
+  <Step title="Primeiro passo">
+    Estas são instruções ou conteúdo que se aplicam apenas ao primeiro passo.
+  </Step>
+  <Step title="Segundo passo">
+    Estas são instruções ou conteúdo que se aplicam apenas ao segundo passo.
+  </Step>
+  <Step title="Terceiro passo">
+    Estas são instruções ou conteúdo que se aplicam apenas ao terceiro passo.
+  </Step>
+</Steps>
+```
+
+
+<div id="steps-properties">
+  ## Propriedades de Steps
+</div>
+
+<ResponseField name="children" type="ReactElement<StepProps>[]" required>
+  Uma lista de componentes `Step`.
+</ResponseField>
+
+<ResponseField name="titleSize" type="string" default="p">
+  O tamanho dos títulos das etapas. Um entre `p`, `h2` e `h3`.
+</ResponseField>
+
+<div id="individual-step-properties">
+  ## Propriedades individuais da etapa
+</div>
+
+<ResponseField name="children" type="string | ReactNode" required>
+  O conteúdo de uma etapa, seja como texto simples ou como componentes.
+</ResponseField>
+
+<IconsOptional />
+
+<ResponseField name="title" type="string">
+  O título é o texto principal da etapa e aparece ao lado do indicador.
+</ResponseField>
+
+<ResponseField name="stepNumber" type="number">
+  O número da etapa.
+</ResponseField>
+
+<ResponseField name="titleSize" type="string" default="p">
+  O tamanho dos títulos da etapa. Um dentre `p`, `h2` e `h3`.
+</ResponseField>

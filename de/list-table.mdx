@@ -1,0 +1,89 @@
+---
+title: "Listen und Tabellen"
+description: "Informationen in Listen und Tabellen darstellen"
+icon: "list"
+---
+
+<div id="lists">
+  ## Listen
+</div>
+
+Listen halten sich an die offizielle [Markdown-Syntax](https://www.markdownguide.org/basic-syntax/#lists-1).
+
+<div id="ordered-list">
+  ### Nummerierte Liste
+</div>
+
+Um eine nummerierte Liste zu erstellen, fügen Sie vor Listenelementen Zahlen gefolgt von einem Punkt hinzu.
+
+1. Erstes Element
+2. Zweites Element
+3. Drittes Element
+4. Viertes Element
+
+```mdx
+1. First item
+2. Second item
+3. Third item
+4. Fourth item
+```
+
+<div id="unordered-list">
+  ### Ungeordnete Liste
+</div>
+
+Um eine ungeordnete Liste zu erstellen, setzen Sie Bindestriche (`-`), Sternchen (`*`) oder Pluszeichen (`+`) vor die Listeneinträge.
+
+- Erstes Element
+- Zweites Element
+- Drittes Element
+- Viertes Element
+
+```mdx
+- First item
+- Second item
+- Third item
+- Fourth item
+```
+
+<div id="nested-list">
+  ### Verschachtelte Liste
+</div>
+
+Rücken Sie Listenelemente ein, um sie zu verschachteln.
+
+- Erstes Element
+- Zweites Element
+  - Zusätzliches Element
+  - Zusätzliches Element
+- Drittes Element
+
+```mdx
+- First item
+- Second item
+  - Additional item
+  - Additional item
+- Third item
+```
+
+<div id="tables">
+  ## Tabellen
+</div>
+
+Tabellen folgen der offiziellen [Markdown-Syntax](https://www.markdownguide.org/extended-syntax/#tables).
+
+Um eine Tabelle hinzuzufügen, verwenden Sie drei oder mehr Bindestriche (`---`) für die Kopfzeile jeder Spalte und Pipes (`|`), um die Spalten zu trennen. Für die Kompatibilität sollten Sie außerdem am Anfang und am Ende jeder Zeile eine Pipe hinzufügen.
+
+| Eigenschaft | Beschreibung                         |
+| ----------- | ------------------------------------ |
+| Name        | Vollständiger Name des Benutzers     |
+| Alter       | Angegebenes Alter                    |
+| Beitritt    | Ob der Benutzer der Community beigetreten ist |
+
+```mdx
+| Property | Description                           |
+| -------- | ------------------------------------- |
+| Name     | Full name of user                     |
+| Age      | Reported age                          |
+| Joined   | Whether the user joined the community |
+```

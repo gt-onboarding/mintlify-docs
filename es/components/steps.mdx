@@ -1,0 +1,72 @@
+---
+title: "Pasos"
+description: "Secuencia contenido con el componente Steps"
+icon: "list-todo"
+---
+
+import IconsOptional from "/snippets/es/icons-optional.mdx";
+
+Utiliza pasos para mostrar una serie de acciones o eventos secuenciales. Puedes añadir tantos pasos como necesites.
+
+<Steps>
+  <Step title="First Step">
+    Estas son instrucciones o contenido que se aplican únicamente al primer paso.
+  </Step>
+
+  <Step title="Second Step">
+    Estas son instrucciones o contenido que se aplican únicamente al segundo paso.
+  </Step>
+
+  <Step title="Third Step">
+    Estas son instrucciones o contenido que se aplican únicamente al tercer paso.
+  </Step>
+</Steps>
+
+```mdx Steps example
+<Steps>
+  <Step title="First Step">
+    Estas son instrucciones o contenido que se aplican únicamente al primer paso.
+  </Step>
+  <Step title="Second Step">
+    Estas son instrucciones o contenido que se aplican únicamente al segundo paso.
+  </Step>
+  <Step title="Third Step">
+    Estas son instrucciones o contenido que se aplican únicamente al tercer paso.
+  </Step>
+</Steps>
+```
+
+
+<div id="steps-properties">
+  ## Propiedades de Steps
+</div>
+
+<ResponseField name="children" type="ReactElement<StepProps>[]" required>
+  Una lista de componentes `Step`.
+</ResponseField>
+
+<ResponseField name="titleSize" type="string" default="p">
+  El tamaño de los títulos de cada paso. Puede ser `p`, `h2` o `h3`.
+</ResponseField>
+
+<div id="individual-step-properties">
+  ## Propiedades individuales del paso
+</div>
+
+<ResponseField name="children" type="string | ReactNode" required>
+  El contenido del paso, ya sea como texto plano o como componentes.
+</ResponseField>
+
+<IconsOptional />
+
+<ResponseField name="title" type="string">
+  El título es el texto principal del paso y aparece junto al indicador.
+</ResponseField>
+
+<ResponseField name="stepNumber" type="number">
+  El número del paso.
+</ResponseField>
+
+<ResponseField name="titleSize" type="string" default="p">
+  El tamaño de los títulos del paso. Uno de `p`, `h2` o `h3`.
+</ResponseField>

@@ -1,0 +1,45 @@
+---
+title: "Cadres"
+description: "Utilisez le composant Frame pour envelopper des images ou d'autres composants dans un conteneur."
+icon: 'frame'
+---
+
+Les cadres sont très utiles si vous souhaitez centrer une image.
+
+<Frame>
+  <img src="https://mintlify-assets.b-cdn.net/yellowstone.jpeg" />
+</Frame>
+
+<div id="captions">
+  ## Légendes
+</div>
+
+Vous pouvez ajouter du contexte à une image à l’aide de la propriété optionnelle `caption`.
+
+<Frame caption="Le parc national de Yosemite accueille plus de 3,5 millions de visiteurs chaque année">
+  <img src="https://mintlify-assets.b-cdn.net/yosemite.jpg" />
+</Frame>
+
+<div id="props">
+  ## Props
+</div>
+
+<ResponseField name="caption" type="string">
+  Texte de légende optionnel à afficher, centré, sous votre composant.
+</ResponseField>
+
+<RequestExample>
+
+```mdx Frame
+<Frame>
+  <img src="/path/image.jpg" />
+</Frame>
+```
+
+```mdx Frame with Captions
+<Frame caption="Caption Text">
+  <img src="/path/image.jpg" />
+</Frame>
+```
+
+</RequestExample>

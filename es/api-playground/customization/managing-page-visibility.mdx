@@ -1,0 +1,90 @@
+---
+title: "Gestión de la visibilidad de las páginas"
+description: "Controla qué endpoints de tu especificación OpenAPI aparecen en la navegación de la documentación"
+---
+
+Puedes controlar qué operaciones de OpenAPI se publican como páginas de documentación y su visibilidad en la navegación. Esto es útil para endpoints internos, operaciones en desuso, funciones beta o endpoints que deberían ser accesibles mediante una URL directa pero no detectables a través de la navegación del sitio.
+
+Si tus páginas se generan automáticamente a partir de un documento OpenAPI, puedes gestionar la visibilidad con las extensiones `x-hidden` y `x-excluded`.
+
+<div id="x-hidden">
+  ## `x-hidden`
+</div>
+
+La extensión `x-hidden` crea una página para un endpoint, pero la oculta de la navegación. La página solo es accesible si se visita directamente su URL.
+
+Los casos de uso comunes de `x-hidden` son:
+
+- Endpoints que quieres documentar, pero no destacar.
+- Páginas a las que enlazarás desde otros contenidos.
+- Endpoints para usuarios específicos.
+
+<div id="x-excluded">
+  ## `x-excluded`
+</div>
+
+La extensión `x-excluded` excluye por completo un endpoint de tu documentación.
+
+Los casos de uso comunes de `x-excluded` son:
+
+- Endpoints internos.
+- Endpoints en desuso que no quieres documentar.
+- Funcionalidades beta que aún no están listas para la documentación pública.
+
+<div id="implementation">
+  ## Implementación
+</div>
+
+Agrega la extensión `x-hidden` o `x-excluded` debajo del método HTTP en tu especificación de OpenAPI.
+
+A continuación se muestran ejemplos de cómo usar cada propiedad en un documento de esquema de OpenAPI para un endpoint y una ruta de webhook.
+
+```json {11, 19}
+"paths": {
+  "/plants": {
+    "get": {
+      "description": "Devuelve todas las plantas de la tienda",
+      "parameters": { /*...*/ },
+      "responses": { /*...*/ }
+    }
+  },
+  "/hidden_plants": {
+    "get": {
+      "x-hidden": true,
+      "description": "Devuelve plantas algo confidenciales de la tienda",
+      "parameters": { /*...*/ },
+      "responses": { /*...*/ }
+    }
+  },
+  "/secret_plants": {
+    "get": {
+      "x-excluded": true,
+      "description": "Devuelve plantas altamente confidenciales de la tienda (¡no publiques este endpoint!)",
+      "parameters": { /*...*/ },
+      "responses": { /*...*/ }
+    }
+  }
+},
+```
+
+```json {9, 15}
+"webhooks": {
+  "/plants_hook": {
+    "post": {
+      "description": "Webhook con información sobre una nueva planta añadida a la tienda",
+    }
+  },
+  "/hidden_plants_hook": {
+    "post": {
+      "x-hidden": true,
+      "description": "Webhook con información algo confidencial sobre una nueva planta añadida a la tienda"
+    }
+  },
+  "/secret_plants_hook": {
+    "post": {
+      "x-excluded": true,
+      "description": "Webhook con información altamente confidencial sobre una nueva planta añadida a la tienda (¡no publiques este endpoint!)"
+    }
+  }
+}
+```

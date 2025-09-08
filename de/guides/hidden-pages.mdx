@@ -1,0 +1,88 @@
+---
+title: "Versteckte Seiten"
+description: "Seiten aus Ihrer Navigation ausschließen"
+icon: "eye-closed"
+---
+
+Versteckte Seiten werden aus der Navigation Ihrer Website entfernt, bleiben jedoch für alle öffentlich zugänglich, die ihre URL kennen.
+
+Verwenden Sie versteckte Seiten für Inhalte, die auf Ihrer Website zugänglich sein oder als Kontext für KI-Tools herangezogen werden sollen, aber nicht über die Navigation auffindbar sein sollen.
+
+Für Inhalte, die eine strikte Zugriffskontrolle erfordern, müssen Sie die [Authentifizierung](/de/authentication-personalization/authentication-setup) konfigurieren.
+
+Wenn Sie Seiten für bestimmte Benutzergruppen ausblenden möchten, verwenden Sie die Personalisierung, um die [Seitensichtbarkeit](/de/authentication-personalization/overview#page-visibility) zu steuern.
+
+<div id="hiding-a-page">
+  ## Eine Seite ausblenden
+</div>
+
+Eine Seite ist ausgeblendet, wenn sie nicht in Ihrer `docs.json`-Navigation aufgeführt ist. Um eine Seite auszublenden, entfernen Sie sie aus Ihrer Navigationsstruktur.
+
+Ausgeblendete Seiten verwenden basierend auf ihrem Dateipfad dieselbe URL-Struktur wie reguläre Seiten. Zum Beispiel wäre `guides/hidden-page.mdx` unter `docs.yoursite.com/guides/hidden-page` erreichbar.
+
+Sehen Sie sich ein [Beispiel für eine ausgeblendete Seite](/de/guides/hidden-page-example) an.
+
+<Note>
+  Einige Navigationselemente wie Seitenleisten, Dropdowns und Tabs können auf ausgeblendeten Seiten leer erscheinen oder zu Layoutverschiebungen führen.
+</Note>
+
+<div id="hiding-a-group-of-pages">
+  ## Eine Gruppe von Seiten ausblenden
+</div>
+
+Eine Gruppe von Seiten wird ausgeblendet, wenn die Eigenschaft `hidden` in Ihrer `docs.json` auf `true` gesetzt ist:
+
+```json highlight={4}
+"groups": [
+  {
+    "group": "Getting started",
+    "hidden": true,
+    "pages": [
+      "index",
+      "quickstart"
+    ]
+  },
+  {
+    "group": "Guides",
+    "pages": [
+      "guides/hidden-page.mdx",
+      "guides/hidden-groups.mdx"
+    ]
+  }
+]
+```
+
+In diesem Beispiel ist die Gruppe `Getting started` ausgeblendet, die Gruppe `Guides` hingegen sichtbar.
+
+<div id="hiding-a-tab">
+  ### Einen Tab ausblenden
+</div>
+
+Sie können einen Tab auch ausblenden, indem Sie die Eigenschaft `hidden` zu Ihrer `docs.json` hinzufügen:
+
+```json highlight={4}
+"tabs": [
+  {
+    "tab": "Home",
+    "hidden": true,
+    "pages": [
+      "index",
+      "quickstart"
+    ]
+  }
+]
+```
+
+<div id="search-seo-and-ai-indexing">
+  ## Suche, SEO und KI-Indexierung
+</div>
+
+Standardmäßig sind versteckte Seiten von der Indexierung für Suchmaschinen, der internen Suche in Ihrer Dokumentation sowie als Kontext für den Assistenten ausgeschlossen. Um versteckte Seiten in Suchergebnissen und als Kontext für den Assistenten einzubeziehen, fügen Sie die Eigenschaft `seo` zu Ihrer `docs.json` hinzu:
+
+```json
+"seo": {
+    "indexing": "all"
+}
+```
+
+Um eine bestimmte Seite auszuschließen, fügen Sie `noindex: "true"` zu ihrem Frontmatter hinzu.

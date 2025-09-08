@@ -1,0 +1,32 @@
+---
+title: "Plausible"
+---
+
+Aggiungi il dominio del tuo sito a `docs.json` per inviare i dati di analisi a Plausible.
+
+<Info>
+
+    Non includere `https://` nel dominio o nel server.
+
+</Info>
+
+<CodeGroup>
+
+```json Opzioni di analytics in docs.json
+"integrations": {
+    "plausible": {
+        "domain": "required",
+        "server": "optional"
+    }
+}
+```
+
+```json Esempio
+"integrations": {
+    "plausible": {
+        "domain": "docs.domain.com"
+    }
+}
+```
+
+</CodeGroup>

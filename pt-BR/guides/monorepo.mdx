@@ -1,0 +1,47 @@
+---
+title: "Configuração de monorepo"
+description: "Faça o deploy da documentação a partir de um repositório que contém vários projetos"
+icon: "folder-git"
+---
+
+Configure o Mintlify para implantar a documentação a partir de um diretório específico dentro de um monorepo. Essa configuração permite manter a documentação ao lado do seu código em repositórios que contêm vários projetos ou serviços.
+
+<div id="prerequisites">
+  ## Pré-requisitos
+</div>
+
+* Acesso de administrador ao seu projeto da Mintlify.
+* Arquivos de documentação organizados em um diretório dedicado dentro do seu monorepo.
+* Um `docs.json` válido no diretório de documentação.
+
+<div id="configure-monorepo-deployment">
+  ## Configurar implantação em monorepo
+</div>
+
+<Steps>
+<Step title="Acessar as configurações do Git">
+Acesse [Git Settings](https://dashboard.mintlify.com/settings/deployment/git-settings) no seu painel.
+
+<Frame>
+<img
+  className="block dark:hidden my-0 pointer-events-none"
+  src="/images/monorepo-light.png"
+  alt="O painel de configurações do projeto no menu Git Settings. A opção Set up as monorepo está ativada e um caminho para o diretório /docs está definido."
+/>
+<img
+  className="hidden dark:block my-0 pointer-events-none"
+  src="/images/monorepo-dark.png"
+  alt="O painel de configurações do projeto no menu Git Settings. A opção Set up as monorepo está ativada e um caminho para o diretório /docs está definido."
+/>
+</Frame>
+
+</Step>
+<Step title="Definir o caminho da documentação">
+1. Ative a opção **Set up as monorepo**.
+2. Insira o caminho relativo para o diretório da sua documentação. Por exemplo, se ela estiver no diretório `docs`, insira `/docs`.
+<Note>
+  Não inclua uma barra no final do caminho.
+</Note>
+3. Selecione **Save changes**.
+</Step>
+</Steps>

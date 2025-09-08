@@ -1,0 +1,102 @@
+---
+title: "コードグループ"
+description: "1つのコンポーネントで複数のコード例を表示する"
+icon: "group"
+---
+
+`CodeGroup` コンポーネントを使うと、タブ付きインターフェースで複数のコードブロックを表示でき、ユーザーは異なるプログラミング言語での実装を比較したり、同じタスクに対する別のアプローチを確認したりできます。
+
+<CodeGroup>
+
+```javascript helloWorld.js
+console.log("Hello World");
+```
+
+```python hello_world.py
+print('Hello World!')
+```
+
+```java HelloWorld.java
+class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+```
+
+</CodeGroup>
+
+<div id="creating-code-groups">
+  ## コードグループの作成
+</div>
+
+コードグループを作成するには、複数のコードブロックを `<CodeGroup>` タグで囲みます。各コードブロックには、タブのラベルになるタイトルを含めてください。
+
+````mdx
+<CodeGroup>
+
+```javascript helloWorld.js
+console.log("Hello World");
+```
+
+```python hello_world.py
+print('Hello World!')
+```
+
+```java HelloWorld.java
+class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+```
+
+</CodeGroup>
+````
+
+<div id="language-dropdown">
+  ## 言語ドロップダウン
+</div>
+
+`dropdown` プロップを使うと、コードグループ内のタブをドロップダウンメニューに置き換え、言語を切り替えられます。
+
+<CodeGroup dropdown>
+
+```javascript helloWorld.js
+console.log("Hello World");
+```
+
+```python hello_world.py
+print('Hello World!')
+```
+
+```java HelloWorld.java
+class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+```
+
+</CodeGroup>
+
+````mdx highlight=1
+<CodeGroup dropdown>
+
+```javascript helloWorld.js
+console.log("Hello World");
+```
+
+```python hello_world.py
+print('Hello World!')
+```
+
+```java HelloWorld.java
+class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+```
+</CodeGroup>
+````

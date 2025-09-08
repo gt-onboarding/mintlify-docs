@@ -1,0 +1,66 @@
+---
+title: "Implementaciones de vista previa"
+description: "Previsualiza cambios en tu documentación en un despliegue en vivo"
+icon: "scan-eye"
+---
+
+<Info>
+  Las implementaciones de vista previa están disponibles en los [planes Pro y Enterprise](https://mintlify.com/pricing?ref=preview-deployments).
+</Info>
+
+Las implementaciones de vista previa te permiten ver cómo se reflejarán los cambios en tu documentación antes de integrarlos en producción. Cada vista previa genera una URL para compartir que se actualiza automáticamente a medida que realizas nuevos envíos.
+
+<div id="creating-preview-deployments">
+  ## Creación de implementaciones de vista previa
+</div>
+
+Las implementaciones de vista previa se crean automáticamente mediante pull requests o manualmente desde tu panel.
+
+<div id="automatic-previews">
+  ### Vistas previas automáticas
+</div>
+
+Cuando creas una pull request, el bot de Mintlify agrega automáticamente un enlace para ver el despliegue de la vista previa en tu pull request. La vista previa se actualiza cada vez que haces push de nuevos commits a la rama.
+
+<Frame>
+  <img src="/images/previews/preview-deployment-light.png" alt="Enlace para ver el despliegue en la cronología de la pull request" className="block dark:hidden" />
+
+  <img src="/images/previews/preview-deployment-dark.png" alt="Enlace para ver el despliegue en la cronología de la pull request" className="hidden dark:block" />
+</Frame>
+
+<div id="manual-previews">
+  ### Vistas previas manuales
+</div>
+
+Puede crear manualmente una vista previa para cualquier rama.
+
+1. Vaya a su [panel](https://dashboard.mintlify.com/).
+2. Seleccione **Previews**.
+3. Seleccione **Create preview**.
+4. Introduzca el nombre de su rama.
+5. Seleccione **Create deployment**.
+
+<div id="redeploying-a-preview">
+  ## Volver a implementar una vista previa
+</div>
+
+Vuelve a implementar una vista previa para actualizar el contenido o reintentar tras un despliegue fallido.
+
+1. Selecciona la vista previa desde tu [panel](https://dashboard.mintlify.com/).
+2. Selecciona **Redeploy**.
+
+<Frame>
+  <img src="/images/previews/redeploy-preview-light.png" alt="El menú Previews con el botón de implementación resaltado por un rectángulo naranja." className="block dark:hidden" />
+
+  <img src="/images/previews/redeploy-preview-dark.png" alt="El menú Previews con el botón de implementación resaltado por un rectángulo naranja." className="hidden dark:block" />
+</Frame>
+
+<div id="sharing-preview-deployments">
+  ## Compartir implementaciones de vista previa
+</div>
+
+Las implementaciones de vista previa pueden ser de acceso público o restringidas a usuarios autenticados.
+
+**Acceso público**: Las URL de vista previa son visibles públicamente de forma predeterminada. Comparte un enlace de vista previa con cualquiera que necesite revisar tus cambios.
+
+**Acceso restringido**: Habilita la autenticación en las implementaciones de vista previa para limitar el acceso solo a usuarios autenticados de Mintlify. Consulta [Configuración de autenticación](/es/authentication-personalization/authentication-setup) para obtener más información.

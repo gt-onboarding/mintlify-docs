@@ -1,0 +1,567 @@
+---
+title: "OpenAPIのセットアップ"
+description: "ドキュメントページでOpenAPIのエンドポイントを参照する"
+icon: "file-json"
+---
+
+OpenAPIは、APIを記述するための仕様です。MintlifyはOpenAPI 3.0+のドキュメントをサポートしており、インタラクティブなAPIドキュメントを生成し、常に最新の状態に保てます。
+
+<div id="add-an-openapi-specification-file">
+  ## OpenAPI仕様ファイルを追加する
+</div>
+
+OpenAPIでエンドポイントをドキュメント化するには、[OpenAPI Specification 3.0+](https://swagger.io/specification/)に準拠した、有効なOpenAPIドキュメント（JSONまたはYAML形式）が必要です。
+
+単一または複数のOpenAPIドキュメントからAPIページを作成できます。
+
+<div id="describing-your-api">
+  ### API の記述
+</div>
+
+OpenAPI ドキュメントの学習と作成には、以下のリソースを推奨します。
+
+- [Swagger の OpenAPI ガイド](https://swagger.io/docs/specification/v3_0/basic-structure/)で OpenAPI の構文を学ぶ。
+- [OpenAPI 仕様の Markdown ソース](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/)で最新の OpenAPI 仕様の詳細を参照する。
+- [Swagger Editor](https://editor.swagger.io/)で OpenAPI ドキュメントを編集・検証・デバッグする。
+- [Mint CLI（mint）](https://www.npmjs.com/package/mint)で次のコマンドを使って OpenAPI ドキュメントを検証する: `mint openapi-check <openapiFilenameOrUrl>`。
+
+<Note>
+  Swagger の OpenAPI ガイドは OpenAPI v3.0 を対象としていますが、ほとんどの情報は v3.1 にも適用できます。v3.0 と v3.1 の違いについては、OpenAPI ブログの [OpenAPI 3.0 から 3.1.0 への移行](https://www.openapis.org/blog/2021/02/16/migrating-from-openapi-3-0-to-3-1-0)
+  を参照してください。
+</Note>
+
+<div id="specifying-the-url-for-your-api">
+  ### APIのURLを指定する
+</div>
+
+APIプレイグラウンドなどのMintlify機能を有効にするには、OpenAPIドキュメントにAPIのベースURLを含む`servers`フィールドを追加します。
+
+```json
+{
+  "servers": [
+    {
+      "url": "https://api.example.com/v1"
+    }
+  ]
+}
+```
+
+OpenAPIドキュメントでは、各APIエンドポイントは`/users/{id}`や単純に`/`のようなパスで指定されます。ベースURLは、これらのパスが付加される場所を定義します。`servers`フィールドの設定方法の詳細については、OpenAPIドキュメントの[API Server and Base Path](https://swagger.io/docs/specification/api-host-and-base-path/)を参照してください。
+
+APIプレイグラウンドは、これらのサーバーURLを使用してリクエストの送信先を決定します。複数のサーバーを指定した場合、ドロップダウンメニューでユーザーがサーバーを切り替えることができます。サーバーを指定しない場合、APIプレイグラウンドはベースURLなしではリクエストを送信できないため、シンプルモードで動作します。
+
+APIに異なるURLに存在するエンドポイントがある場合、特定のパスまたは操作に対して[サーバーフィールドをオーバーライド](https://swagger.io/docs/specification/v3_0/api-host-and-base-path/#overriding-servers)することができます。
+
+<div id="specifying-authentication">
+  ### 認証の指定
+</div>
+
+APIドキュメントとAPIプレイグラウンドで認証を有効にするには、OpenAPIドキュメントの `securitySchemes` と `security` フィールドを設定します。APIの説明やAPIプレイグラウンドは、OpenAPIドキュメントのセキュリティ設定に基づいて認証フィールドを自動で追加します。
+
+<Steps>
+  <Step title="認証方式を定義します。">
+    ユーザーの認証方法を定義するために `securitySchemes` フィールドを追加します。
+
+    次の例は、ベアラー認証の設定例です。
+
+    ```json
+    {
+      "components": {
+        "securitySchemes": {
+          "bearerAuth": {
+            "type": "http",
+            "scheme": "bearer"
+          }
+        }
+      }
+    }
+    ```
+  </Step>
+
+  <Step title="エンドポイントに認証を適用します。">
+    認証を必須にするために `security` フィールドを追加します。
+
+    ```json
+    {
+      "security": [
+        {
+          "bearerAuth": []
+        }
+      ]
+    }
+    ```
+  </Step>
+</Steps>
+
+一般的な認証タイプには次のものがあります。
+
+- [API Keys](https://swagger.io/docs/specification/authentication/api-keys/): ヘッダー、クエリ、またはクッキーに付与するキー。
+- [Bearer](https://swagger.io/docs/specification/authentication/bearer-authentication/): JWT または OAuth トークン。
+- [Basic](https://swagger.io/docs/specification/authentication/basic-authentication/): ユーザー名とパスワード。
+
+API内のエンドポイントごとに異なる認証方式が必要な場合は、該当のオペレーションで[security フィールドをオーバーライド](https://swagger.io/docs/specification/authentication/#:~:text=you%20can%20apply%20them%20to%20the%20whole%20API%20or%20individual%20operations%20by%20adding%20the%20security%20section%20on%20the%20root%20level%20or%20operation%20level%2C%20respectively.)できます。
+
+認証の定義と適用の詳細は、OpenAPI ドキュメントの [Authentication](https://swagger.io/docs/specification/authentication/) を参照してください。
+
+<div id="x-mint-extension">
+  ## `x-mint` 拡張
+</div>
+
+`x-mint` は、API ドキュメントの生成および表示方法をより細かく制御できる、カスタムの OpenAPI 拡張です。
+
+<div id="metadata">
+  ### メタデータ
+</div>
+
+生成された API ページのデフォルトのメタデータを上書きするには、任意のオペレーションに `x-mint: metadata` を追加します。`openapi` を除き、`MDX` のフロントマターで有効なメタデータフィールドをすべて使用できます。
+
+```json {7-13}
+{
+  "paths": {
+    "/users": {
+      "get": {
+        "summary": "Get users",
+        "description": "Retrieve a list of users",
+        "x-mint": {
+          "metadata": {
+            "title": "List all users",
+            "description": "Fetch paginated user data with filtering options",
+            "og:title": "Display a list of users"
+          }
+        },
+        "parameters": [
+          {
+            // パラメーター設定
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+<div id="content">
+  ### コンテンツ
+</div>
+
+`x-mint: content` を使用して、自動生成された API ドキュメントの前にコンテンツを追加します:
+
+```json {6-8}
+{
+  "paths": {
+    "/users": {
+      "post": {
+        "summary": "Create user",
+        "x-mint": {
+          "content": "## 前提条件\n\nこのエンドポイントには管理者権限が必要で、レート制限が適用されます。\n\n<Note>ユーザーのメールアドレスはシステム全体で一意である必要があります。</Note>"
+        },
+        "parameters": [
+          {
+            // パラメーター設定
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+`content` 拡張は、Mintlify のすべての MDX コンポーネントと書式設定をサポートします。
+
+<div id="href">
+  ### Href
+</div>
+
+ドキュメント内のエンドポイントページのURLは、`x-mint: href` を使用して変更できます:
+
+```json {6-8, 14-16}
+{
+  "paths": {
+    "/legacy-endpoint": {
+      "get": {
+        "summary": "Legacy endpoint",
+        "x-mint": {
+          "href": "/deprecated-endpoints/legacy-endpoint"
+        }
+      }
+    },
+    "/documented-elsewhere": {
+      "post": {
+        "summary": "Special endpoint",
+        "x-mint": {
+          "href": "/guides/special-endpoint-guide"
+        }
+      }
+    }
+  }
+}
+```
+
+`x-mint: href` が指定されている場合、ナビゲーション項目はAPIページを生成せず、指定されたURLへ直接リンクします。
+
+<div id="mcp">
+  ### MCP
+</div>
+
+`x-mint: mcp` を使用して、必要なエンドポイントだけを Model Context Protocol（MCP）ツールとして公開します。AIツール経由で一般公開しても安全なエンドポイントのみ有効化してください。
+
+<ResponseField name="mcp" type="object">
+  エンドポイントのMCP構成。
+
+  <Expandable title="MCP">
+    <ResponseField name="enabled" type="boolean">
+      エンドポイントをMCPツールとして公開するかどうか。ファイルレベルの設定より優先されます。
+    </ResponseField>
+
+    <ResponseField name="name" type="string">
+      MCPツールの名前。
+    </ResponseField>
+
+    <ResponseField name="description" type="string">
+      MCPツールの説明。
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<CodeGroup>
+  ```json Selective enablement {6-9} wrap
+  {
+    "paths": {
+      "/users": {
+        "post": {
+          "summary": "Create user",
+          "x-mint": {
+            "mcp": {
+              "enabled": true
+            },
+            // ...
+          }
+        }
+      },
+      "/users": {
+        "delete": {
+          "summary": "Delete user (admin only)",
+          // `x-mint: mcp` がないため、このエンドポイントはMCPツールとして公開されません
+          // ...
+        }
+      }
+    }
+  }
+  ```
+
+  ```json Global enablement {3-5, 9-13} wrap
+  {
+    "openapi": "3.1.0",
+    "x-mcp": {
+        "enabled": true // すべてのエンドポイントはデフォルトでMCPツールとして公開されます
+      },
+    "paths": {
+      "/api/admin/delete": {
+        "delete": {
+          "x-mint": {
+            "mcp": {
+              "enabled": false // このエンドポイントではMCPを無効化
+            }
+          },
+          "summary": "Delete resources"
+        }
+      }
+    }
+  }
+  ```
+</CodeGroup>
+
+詳細は、[Model Context Protocol](/ja/ai/model-context-protocol)を参照してください。
+
+<div id="auto-populate-api-pages">
+  ## APIページを自動生成する
+</div>
+
+`docs.json` の任意のナビゲーション要素に `openapi` フィールドを追加すると、OpenAPI のエンドポイント用ページを自動生成できます。これらのページの表示位置は、専用の API セクションとして、または他のページと並べて配置するなど、ナビゲーション構造内で制御できます。
+
+`openapi` フィールドには、ドキュメントリポジトリ内のファイルパス、またはホスト済みの OpenAPI ドキュメントへの URL を指定できます。
+
+生成されたエンドポイントページには、既定で以下のメタデータが設定されます:
+
+- `title`: 可能であれば、オペレーションの `summary` フィールド。`summary` がない場合は、HTTP メソッドとエンドポイントからタイトルが生成されます。
+- `description`: 可能であれば、オペレーションの `description` フィールド。
+- `version`: 可能であれば、親のアンカーまたはタブの `version` 値。
+- `deprecated`: オペレーションの `deprecated` フィールド。`true` の場合、サイドナビゲーションおよびエンドポイントページのタイトル横に「非推奨」ラベルが表示されます。
+
+<Tip>
+  自動生成される API ページから特定のエンドポイントを除外するには、OpenAPI 仕様の該当オペレーションに
+  [x-hidden](/ja/api-playground/customization/managing-page-visibility#x-hidden)
+  プロパティを追加してください。
+</Tip>
+
+エンドポイントページをドキュメントに追加する方法は次の2通りです:
+
+1. **専用の API セクション**: 専用の API セクションとして、ナビゲーション要素で OpenAPI 仕様を参照します。
+2. **特定エンドポイントの選択**: 他のページと並べて、ナビゲーションで特定のエンドポイントを参照します。
+
+<div id="dedicated-api-sections">
+  ### 専用のAPIセクション
+</div>
+
+ナビゲーション要素に `openapi` フィールドだけを追加して、他のページは追加せずに専用のAPIセクションを生成します。仕様内のすべてのエンドポイントが含まれます。
+
+```json {5}
+"navigation": {
+  "tabs": [
+    {
+        "tab": "API Reference",
+        "openapi": "https://petstore3.swagger.io/api/v3/openapi.json"
+    }
+  ]
+}
+```
+
+ナビゲーションの異なるセクションで複数のOpenAPI仕様を使用できます。
+
+```json {8-11, 15-18}
+"navigation": {
+  "tabs": [
+    {
+      "tab": "API Reference",
+      "groups": [
+        {
+          "group": "Users",
+          "openapi": {
+            "source": "/path/to/openapi-1.json",
+            "directory": "api-reference"
+          }
+        },
+        {
+          "group": "Admin",
+          "openapi": {
+            "source": "/path/to/openapi-2.json",
+            "directory": "api-reference"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+<Note>
+  `directory` フィールドは任意で、生成されたAPIページをドキュメントのリポジトリ内のどこに保存するかを指定します。指定しない場合、リポジトリの `api-reference` ディレクトリが既定値になります。
+</Note>
+
+<div id="selective-endpoints">
+  ### 選択的なエンドポイント
+</div>
+
+ドキュメント内でエンドポイントの表示場所をより柔軟に制御したい場合は、ナビゲーションで特定のエンドポイントを参照できます。これにより、ほかのコンテンツと並列してAPIエンドポイントのページを生成できます。
+
+<div id="set-a-default-openapi-spec">
+  #### 既定の OpenAPI 仕様を設定する
+</div>
+
+ナビゲーション要素に既定の OpenAPI 仕様を設定します。続いて、`pages` フィールドで特定のエンドポイントを参照します：
+
+```json {12, 15-16}
+"navigation": {
+  "tabs": [
+    {
+      "tab": "Getting started",
+      "pages": [
+        "quickstart",
+        "installation"
+      ]
+    },
+    {
+      "tab": "API reference",
+      "openapi": "/path/to/openapi.json",
+      "pages": [
+        "api-overview",
+        "GET /users",
+        "POST /users",
+        "guides/authentication"
+      ]
+    }
+  ]
+}
+```
+
+`METHOD /path` の形式に一致するページエントリは、既定の OpenAPI 仕様を用いてそのエンドポイントの API ページを生成します。
+
+<div id="openapi-spec-inheritance">
+  #### OpenAPI仕様の継承
+</div>
+
+OpenAPI仕様はナビゲーションの階層に従って継承されます。子ナビゲーション要素は、独自のOpenAPI仕様を定義しない限り、親のOpenAPI仕様を継承します。
+
+```json {3, 7-8, 11, 13-14}
+{
+  "group": "API reference",
+  "openapi": "/path/to/openapi-v1.json",
+  "pages": [
+    "overview",
+    "authentication",
+    "GET /users",
+    "POST /users",
+    {
+      "group": "Orders",
+      "openapi": "/path/to/openapi-v2.json",
+      "pages": [
+        "GET /orders",
+        "POST /orders"
+      ]
+    }
+  ]
+}
+```
+
+<div id="individual-endpoints">
+  #### 個別のエンドポイント
+</div>
+
+ファイルパスを指定することで、デフォルトの OpenAPI 仕様を設定せずに特定のエンドポイントを参照できます：
+
+```json {5-6}
+"navigation": {
+  "pages": [
+    "introduction",
+    "user-guides",
+    "/path/to/openapi-v1.json POST /users",
+    "/path/to/openapi-v2.json GET /orders"
+  ]
+}
+```
+
+この方法は、異なる仕様から個別のエンドポイントを参照する必要がある場合や、特定のエンドポイントだけを含めたい場合に便利です。
+
+<div id="create-mdx-files-for-api-pages">
+  ## APIページ用の`MDX`ファイルを作成する
+</div>
+
+各エンドポイントページを個別に管理するには、各オペレーションごとに`MDX`ページを作成します。これにより、ページのメタデータのカスタマイズ、コンテンツの追加、特定のオペレーションの非表示、ナビゲーション内でのページ単位の並べ替えが可能になります。
+
+[MindsDBのMDX OpenAPIページの例](https://github.com/mindsdb/mindsdb/blob/main/docs/rest/databases/create-databases.mdx?plain=1)と、それが[MindsDBの公開ドキュメント](https://docs.mindsdb.com/rest/databases/create-databases)でどのように表示されるかをご覧ください。
+
+<div id="manually-specify-files">
+  ### ファイルを手動で指定する
+</div>
+
+各エンドポイントごとに `MDX` ページを作成し、フロントマターの `openapi` フィールドで表示する OpenAPI のオペレーションを指定します。
+
+この方法で OpenAPI のオペレーションを参照すると、名前、説明、パラメータ、レスポンス、APIプレイグラウンドが OpenAPI ドキュメントから自動生成されます。
+
+OpenAPI ファイルが複数ある場合は、参照にファイルパスを含めて、Mintlify が正しい OpenAPI ドキュメントを見つけられるようにしてください。OpenAPI ファイルが 1 つだけの場合は、Mintlify が自動検出します。
+
+<Note>
+  この方法は、ナビゲーションでデフォルトの OpenAPI 仕様を設定しているかどうかに関係なく機能します。フロントマターにファイルパスを含めれば、任意の OpenAPI 仕様の任意のエンドポイントを参照できます。
+</Note>
+
+外部の OpenAPI ファイルを参照する場合は、そのファイルの URL を `docs.json` に追加してください。
+
+<CodeGroup>
+  ```mdx Example
+  ---
+  title: "Get users"
+  description: "Returns all plants from the system that the user has access to"
+  openapi: "/path/to/openapi-1.json GET /users"
+  deprecated: true
+  version: "1.0"
+  ---
+  ```
+
+  ```mdx Format
+  ---
+  title: "title of the page"
+  description: "description of the page"
+  openapi: openapi-file-path method path
+  deprecated: boolean (not required)
+  version: "version-string" (not required)
+  ---
+  ```
+</CodeGroup>
+
+<Note>
+  メソッドとパスは、OpenAPI 仕様の定義と完全に一致している必要があります。エンドポイントが OpenAPI ファイルに存在しない場合、ページは空になります。
+</Note>
+
+<div id="autogenerate-mdx-files">
+  ### `MDX` ファイルを自動生成する
+</div>
+
+大規模な OpenAPI ドキュメント向けに `MDX` ページを自動生成するには、Mintlify の [scraper](https://www.npmjs.com/package/@mintlify/scraping) を使用します。
+
+<Note>
+  OpenAPI ドキュメントは有効である必要があります。無効な場合、ファイルは自動生成されません。
+</Note>
+
+scraper は次を生成します:
+
+- OpenAPI ドキュメントの `paths` フィールド内の各オペレーションに対応する `MDX` ページ
+- OpenAPI ドキュメントがバージョン 3.1+ の場合、`webhooks` フィールド内の各オペレーションに対応する `MDX` ページ
+- `docs.json` に追加可能なナビゲーションエントリの配列
+
+<Steps>
+  <Step title="`MDX` ファイルを生成する">
+    ```bash
+    npx @mintlify/scraping@latest openapi-file <path-to-openapi-file>
+    ```
+  </Step>
+
+  <Step title="出力フォルダを指定する">
+    ```bash
+    npx @mintlify/scraping@latest openapi-file <path-to-openapi-file> -o api-reference
+    ```
+
+    `-o` フラグを付与して、ファイルの出力先フォルダを指定します。フォルダを指定しない場合、ファイルは作業ディレクトリに出力されます。
+  </Step>
+</Steps>
+
+<div id="create-mdx-files-for-openapi-schemas">
+  ### OpenAPI スキーマ用の `MDX` ファイルを作成する
+</div>
+
+OpenAPI ドキュメントの `components.schemas` フィールドで定義された任意の OpenAPI スキーマごとに、個別ページを作成できます。
+
+<CodeGroup>
+  ```mdx Example
+  ---
+  openapi-schema: OrderItem
+  ---
+  ```
+
+  ```mdx Format
+  ---
+  openapi-schema: "schema-key"
+  ---
+  ```
+</CodeGroup>
+
+<div id="webhooks">
+  ## Webhooks
+</div>
+
+Webhooks は、イベント発生時に外部システムへ通知するために API が送信する HTTP コールバックです。Webhooks は OpenAPI 3.1+ のドキュメントでサポートされています。
+
+<div id="define-webhooks-in-your-openapi-specification">
+  ### OpenAPI仕様でWebhooksを定義する
+</div>
+
+`paths` フィールドと並べて、OpenAPIドキュメントに `webhooks` フィールドを追加します。
+
+Webhooks の定義について詳しくは、OpenAPI ドキュメントの [Webhooks](https://spec.openapis.org/oas/v3.1.0#oasWebhooks) を参照してください。
+
+<div id="reference-webhooks-in-mdx-files">
+  ### MDXファイルでWebhookを参照する
+</div>
+
+Webhook 用の MDX ページを作成する際は、`GET` や `POST` といった HTTP メソッドではなく、`webhook` を使用してください:
+
+```mdx
+---
+title: "Example webhook"
+description: "Triggered when an event occurs"
+openapi: "path/to/openapi-file webhook example-webhook-name"
+---
+```
+
+<Note>
+  Webhook 名は、OpenAPI 仕様の `webhooks` フィールドで定義されたキーと完全に一致している必要があります。
+</Note>

@@ -1,0 +1,21 @@
+---
+openapi: POST /assistant/{domain}/message
+---
+
+<div id="rate-limits">
+  ## レート制限
+</div>
+
+アシスタントAPIには次の制限があります：
+
+- キーごとに月間10,000回の利用
+- Mintlifyの組織ごとに1時間あたり10,000件のリクエスト
+- IPごとに1日あたり10,000件のリクエスト
+
+<div id="suggested-usage">
+  ## 推奨される使い方
+</div>
+
+最良の結果を得るには、リクエストの送信とレスポンスの処理に [ai-sdk の useChat フック](https://ai-sdk.dev/docs/reference/ai-sdk-ui/use-chat#usechat) を使用してください。
+
+フックに渡すオプションの `body` フィールドで、`fp`、`threadId`、`filter` を設定できます。

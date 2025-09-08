@@ -1,0 +1,47 @@
+---
+title: "可展开内容"
+description: "切换显示嵌套属性"
+icon: "list-tree"
+---
+
+使用可展开内容在响应字段中显示或隐藏嵌套内容。可展开内容在 API 文档中展示复杂对象属性时尤为实用。
+
+<ResponseField name="user" type="User Object">
+  <Expandable title="属性">
+
+<ResponseField name="full_name" type="string">
+  用户的全名
+</ResponseField>
+
+<ResponseField name="is_over_21" type="boolean">
+  用户是否已年满 21 岁
+</ResponseField>
+
+  </Expandable>
+</ResponseField>
+
+```mdx Expandable example
+<ResponseField name="user" type="User Object">
+  <Expandable title="properties">
+    <ResponseField name="full_name" type="string">
+      The full name of the user
+    </ResponseField>
+
+    <ResponseField name="is_over_21" type="boolean">
+      Whether the user is over 21 years old
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+```
+
+<div id="properties">
+  ## 属性
+</div>
+
+<ResponseField name="title" type="string">
+  要显示的对象名称。
+</ResponseField>
+
+<ResponseField name="defaultOpen" type="boolean" default="false">
+  设为 `true` 可在页面加载时自动展开。
+</ResponseField>

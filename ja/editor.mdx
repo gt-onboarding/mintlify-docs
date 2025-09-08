@@ -1,0 +1,392 @@
+---
+title: "Web editor"
+description: "Mintlify Web Editor を使ってドキュメントを作成する"
+icon: "mouse-pointer-2"
+---
+
+<img className="block dark:hidden my-0 pointer-events-none" src="/images/editor/editor-light.png" alt="ライトモードの Mintlify Web Editor のインターフェース" />
+
+<img className="hidden dark:block my-0 pointer-events-none" src="/images/editor/editor-dark.png" alt="ダークモードの Mintlify Web Editor のインターフェース" />
+
+<div id="introduction">
+  ## はじめに
+</div>
+
+Webエディターは、ブラウザー上で直接ドキュメントを作成・編集・レビューできるビジュアルインターフェースです。
+
+- **ビジュアル編集**: 公開時の見た目どおりに表示するWYSIWYGエディターで、ドキュメントを直感的に編集できます。
+- **Git同期**: すべての変更はGitリポジトリと自動的に同期され、バージョン管理が確実に維持されます。
+- **リアルタイム共同作業**: 複数のチームメンバーが同時に作業でき、変更は全員に即時に反映されます。
+- **セットアップ不要**: ダッシュボードからすぐに執筆を開始できます。
+
+<div id="web-editor-flow">
+  ### Web editorのフロー
+</div>
+
+Web editorで一般的な作業手順は次のとおりです。
+
+<Steps>
+  <Step title="ブランチを選択する">
+    ブランチを作成するか、デプロイ用ブランチに直接変更を加えます。
+  </Step>
+
+  <Step title="ファイルを開く">
+    既存のファイルに移動するか、新規ファイルを作成します。
+  </Step>
+
+  <Step title="コンテンツを編集する">
+    Web editorでビジュアルモードまたはMarkdownモードを使用して編集します。
+  </Step>
+
+  <Step title="変更をプレビューする">
+    ビジュアルモードで変更内容の見え方を確認します。
+  </Step>
+
+  <Step title="変更を公開する">
+    デプロイ用ブランチで作業している場合は、Web editorから直接公開できます。その他のブランチでは、プルリクエストを作成して公開します。
+  </Step>
+</Steps>
+
+<div id="editor-modes">
+  ## エディターモード
+</div>
+
+Webエディターには、さまざまな編集の好みやニーズに対応する2つのモードがあります。
+
+エディターのツールバー右上のトグルルで、いつでもモードを切り替えられます。
+
+<Frame>
+  <img src="/images/editor/mode-toggle-light.png" alt="Mintlify Web Editorで強調表示されたモード切り替えアイコン" className="block dark:hidden" />
+
+  <img src="/images/editor/mode-toggle-dark.png" alt="Mintlify Web Editorで強調表示されたモード切り替えアイコン" className="hidden dark:block" />
+</Frame>
+
+<div id="visual-mode">
+  ### ビジュアルモード
+</div>
+
+ビジュアルモードは、エディターでの変更がそのままドキュメントサイトに公開されるWYSIWYGの編集体験を提供します。変更が実際にどのように表示されるかをリアルタイムで確認したい場合に最適です。
+
+<Frame>
+  <img src="/images/editor/visual-mode-light.png" alt="Mintlify Web Editorのビジュアル編集モード" className="block dark:hidden" />
+
+  <img src="/images/editor/visual-mode-dark.png" alt="Mintlify Web Editorのビジュアル編集モード" className="hidden dark:block" />
+</Frame>
+
+<div id="markdown-mode">
+  ### Markdownモード
+</div>
+
+Markdownモードでは、ドキュメントの基盤となる`MDX`コードに直接アクセスできます。`MDX`はMarkdownの構文とReactコンポーネントを組み合わせ、コンテンツ構造を自由に制御できるようにします。このモードは、コンポーネントのプロパティを厳密にコントロールしたい場合や、Markdownの構文で記述したい場合に最適です。
+
+<Frame>
+  <img src="/images/editor/markdown-mode-light.png" alt="Mintlify Web EditorのMarkdownモード" className="block dark:hidden" />
+
+  <img src="/images/editor/markdown-mode-dark.png" alt="Mintlify Web EditorのMarkdownモード" className="hidden dark:block" />
+</Frame>
+
+<div id="git-fundamentals">
+  ## Git の基礎
+</div>
+
+Web エディタはバックグラウンドで Git の操作を実行します。これらの概念を理解すると、Web エディタをより効果的に使え、ローカル環境で作業するチームメンバーとの協業も円滑になります。
+
+<AccordionGroup>
+  <Accordion title="Repository">
+    すべてのファイルとその履歴が保存されるドキュメントのソースです。Web エディタはリポジトリに接続してコンテンツにアクセスし、変更を加えます。
+  </Accordion>
+
+  <Accordion title="Commit">
+    特定の時点における変更を保存したスナップショットです。
+  </Accordion>
+
+  <Accordion title="Branch">
+    公開中のドキュメントに影響を与えずに変更できる独立した作業スペースです。実験や大規模な更新のための安全なサンドボックスと考えてください。
+  </Accordion>
+
+  <Accordion title="Deployment branch">
+    公開中のドキュメントコンテンツを含むメインブランチです。このブランチへの変更は自動的にドキュメントサイトへ公開されます。一般的に `main` と呼ばれます。
+  </Accordion>
+
+  <Accordion title="Pull request">
+    ブランチでの変更を公開中のドキュメントへマージすることを提案する手段です。変更が公開される前にレビューや議論を行えます。一般的に PR と呼ばれます。
+  </Accordion>
+
+  <Accordion title="Diff">
+    diff（差分）は、ファイルの2つのバージョン間の具体的な変更点を示します。プルリクエストをレビューする際、追加・削除・修正された箇所が強調表示されます。
+  </Accordion>
+</AccordionGroup>
+
+<div id="what-the-web-editor-automates">
+  ### Webエディターが自動化すること
+</div>
+
+Webエディターは、当社の[GitHub App](/ja/settings/github)または[GitLab integration](/ja/settings/gitlab)を介してGitリポジトリに接続し、Gitの操作を自動処理します。次の操作を行うと：
+
+- **ファイルを開く**: リポジトリから最新バージョンを取得します。
+- **ファイルを変更する**: 変更内容をコミット可能な下書きとして追跡します。
+- **変更を保存する**: 変更を含むコミットを作成します。
+- **ブランチを作成する**: リポジトリに新しいブランチを作成します。
+- **デプロイ用ブランチに公開する**: コミットを作成し、デプロイ用ブランチに直接プッシュします。
+- **その他のブランチに公開する**: コミットを作成し、プルリクエストを作成します。
+
+<div id="when-to-use-branches">
+  ### ブランチを使うタイミング
+</div>
+
+ブランチを使うと、公開中のサイトのコンテンツに影響を与えずに変更作業を行えます。変更が準備できたら、プルリクエストでデプロイ用ブランチにマージできます。
+
+**ベストプラクティス：常にブランチで作業すること。** これにより、公開ドキュメントの安定性が保たれ、適切なレビューのワークフローが実現します。
+
+<div id="creating-a-branch">
+  ## ブランチの作成
+</div>
+
+1. エディタのツールバーでブランチ名（通常は `main`）を選択します。
+2. **New Branch** を選択します。
+3. `update-getting-started` や `fix-installation-steps` などの分かりやすいブランチ名を入力します。
+4. **Create Branch** を選択します。
+
+<Note>
+  エディタが自動的に新しいブランチへ切り替わらない場合は、ドロップダウンメニューから新しいブランチを選択してください。
+</Note>
+
+<div id="saving-changes-on-a-branch">
+  ### ブランチでの変更の保存
+</div>
+
+ブランチに変更を保存するには、エディター右上の**Save Changes**ボタンをクリックします。これにより、変更を含むコミットが作成され、ブランチにプッシュされます。
+
+<div id="switching-branches">
+  ### ブランチの切り替え
+</div>
+
+1. エディターのツールバーで現在のブランチ名を選択します。
+2. ドロップダウンメニューから切り替え先のブランチを選択します。
+
+<Tip>
+  ブランチを切り替えると保存していない変更は失われます。切り替える前に作業内容を保存するか公開してください。
+</Tip>
+
+<div id="making-changes">
+  ## 変更を加える
+</div>
+
+既存コンテンツの編集、新規ページの作成、サイト構造の整理を、Webエディターで行います。
+
+<div id="navigating-files">
+  ### ファイルを移動する
+</div>
+
+サイドバーのファイルエクスプローラーでドキュメントを参照するか、ファイルを検索するには <kbd>Command</kbd> + <kbd>P</kbd>（Windows は <kbd>Ctrl</kbd> + <kbd>P</kbd>）を押します。
+
+<div id="editing-content">
+  ### コンテンツの編集
+</div>
+
+ビジュアルモードまたはMarkdownモードでページを編集できます。
+
+ビジュアルモードでは、<kbd>/</kbd> を押してコンポーネントメニュー（ドロップダウン）を開きます。コンテンツブロック、コールアウト、コードブロックなどのコンポーネントを追加して、ドキュメントをカスタマイズします。
+
+<Frame>
+  <img src="/images/editor/component-menu-light.png" alt="Mintlify Web Editorで展開されたコンポーネントメニューの強調表示" className="block dark:hidden" />
+
+  <img src="/images/editor/component-menu-dark.png" alt="Mintlify Web Editorで展開されたコンポーネントメニューの強調表示" className="hidden dark:block" />
+</Frame>
+
+<div id="creating-new-pages">
+  ### 新しいページを作成する
+</div>
+
+1. ファイルエクスプローラーで「Create a new file」アイコンを選択します。
+   <img
+     src="/images/editor/files-menu-light.png"
+     className="block dark:hidden rounded-2xl border border-gray-100 shadow-lg"
+     style={{
+    width: '268px',
+    height: 'auto',
+   }}
+     alt="Web Editor のファイルメニュー"
+   />
+
+<img
+  src="/images/editor/files-menu-dark.png"
+  className="hidden dark:block rounded-2xl border border-white/10 shadow-lg"
+  style={{
+    width: '268px',
+    height: 'auto',
+  }}
+  alt="ダークモードの Web Editor のファイルメニュー"
+/>
+
+1. ファイル名を入力します。
+2. <kbd>Enter</kbd> を押してファイルを作成します。
+
+新しいページがエディタで開き、すぐにコンテンツを追加できます。
+
+<div id="updating-navigation">
+  ### ナビゲーションの更新
+</div>
+
+`docs.json` ファイルを編集して、ナビゲーション内のページを追加・削除・並べ替えできます。
+
+1. ファイルエクスプローラーで `docs.json` を開きます。
+2. 望むナビゲーション構造になるように `navigation` プロパティを更新します。詳しくは [Navigation](/ja/navigation) を参照してください。
+
+次の例は、Profile グループに Themes ページを追加する方法を示しています。
+
+```json title="Themes ページの追加" highlight="18"
+{
+    "navigation": {
+        "groups": [
+            {
+                "group": "Getting started",
+                "pages": [
+                    "index",
+                    "quickstart",
+                    "installation"
+                ]
+            },
+            {
+                "group": "Profile",
+                "pages": [
+                    "settings",
+                    "account-types",
+                    "dashboard",
+                    "themes"
+                ]
+            }
+        ]
+    }
+}
+```
+
+<div id="publishing-changes">
+  ## 変更の公開
+</div>
+
+変更を保存して公開するには、**Publish** ボタンをクリックします。
+
+変更の公開方法は、作業中のブランチによって異なります。
+
+- **Deployment branch**: すぐに本番サイトが更新されます。
+- **Other branches**: 本番反映前に変更をレビューできるよう、pull request を作成します。
+
+<Frame>
+  <img src="/images/editor/publish-flow-light.png" alt="Mintlify Web Editorで強調表示されたPublishボタン" className="block dark:hidden" />
+
+  <img src="/images/editor/publish-flow-dark.png" alt="Mintlify Web Editorで強調表示されたPublishボタン" className="hidden dark:block" />
+</Frame>
+
+<div id="pull-requests-and-reviewing-changes">
+  ## プルリクエストと変更のレビュー
+</div>
+
+プルリクエストを使うと、ブランチから変更を提案し、本番ドキュメントにマージする前に他のメンバーがレビューできるようにできます。これにより、変更内容の正確性を確保し、チームでコンテンツに協働できる機会が生まれます。
+
+<Tip>
+  一人で作業している場合でも、プルリクエストは公開前の変更プレビューや更新履歴の明確化に有用です。
+</Tip>
+
+<div id="creating-a-pull-request-on-a-branch">
+  ### ブランチでプルリクエストを作成する
+</div>
+
+ブランチの変更を公開する準備ができたら、次の手順を実行します。
+
+1. すべての変更がブランチに保存されていることを確認します。
+2. エディタ右上の**Publish Pull Request**を選択します。
+3. プルリクエストのタイトルと説明を追加します。適切なタイトルと説明は、レビュアーが変更内容を理解する助けになります。
+4. **Publish Pull Request**を選択します。
+
+<Frame>
+  <img src="/images/editor/pull-request-light.png" alt="Mintlify Web Editor で強調表示された Publish Pull Request ボタン" className="block dark:hidden" />
+
+  <img src="/images/editor/pull-request-dark.png" alt="Mintlify Web Editor で強調表示された Publish Pull Request ボタン" className="hidden dark:block" />
+</Frame>
+
+WebエディタはGitリポジトリにプルリクエストを作成し、表示用のリンクを提供します。
+
+<div id="reviewing-pull-requests">
+  ### プルリクエストのレビュー
+</div>
+
+プルリクエストを作成したら、次の手順を実行します。
+
+1. **変更内容をレビュー**: あなたやチームメンバーは、GitHub や GitLab などの Git プロバイダーでプルリクエストをレビューできます。
+2. **追加の変更を加える**: レビュー後は Web エディターで必要な修正を行います。保存すると、プルリクエストが更新されます。
+3. **準備ができたらマージ**: 準備が整ったらマージして、変更を公開中のドキュメントサイトにデプロイします。
+
+<div id="keyboard-shortcuts">
+  ## キーボードショートカット
+</div>
+
+Webエディタは、コピー、貼り付け、元に戻す、すべて選択といった一般的なキーボードショートカットに加え、次のショートカットをサポートしています。
+
+| コマンド | macOS | Windows |
+|:--------|:------|:--------|
+| **ファイルを検索** | <kbd>Cmd</kbd> + <kbd>P</kbd> | <kbd>Control</kbd> + <kbd>P</kbd> |
+| **選択範囲にリンクを追加** | <kbd>Cmd</kbd> + <kbd>K</kbd> | <kbd>Control</kbd> + <kbd>K</kbd> |
+| **改行を挿入** | <kbd>Cmd</kbd> + <kbd>Enter</kbd> | <kbd>Control</kbd> + <kbd>Enter</kbd> |
+| **太字** | <kbd>Cmd</kbd> + <kbd>B</kbd> | <kbd>Control</kbd> + <kbd>B</kbd> |
+| **斜体** | <kbd>Cmd</kbd> + <kbd>I</kbd> | <kbd>Control</kbd> + <kbd>I</kbd> |
+| **下線** | <kbd>Cmd</kbd> + <kbd>U</kbd> | <kbd>Control</kbd> + <kbd>U</kbd> |
+| **取り消し線** | <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd> | <kbd>Control</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd> |
+| **コード** | <kbd>Cmd</kbd> + <kbd>E</kbd> | <kbd>Control</kbd> + <kbd>E</kbd> |
+| **標準テキスト** | <kbd>Cmd</kbd> + <kbd>Alt</kbd> + <kbd>0</kbd> | <kbd>Control</kbd> + <kbd>Alt</kbd> + <kbd>0</kbd> |
+| **見出し 1** | <kbd>Cmd</kbd> + <kbd>Alt</kbd> + <kbd>1</kbd> | <kbd>Control</kbd> + <kbd>Alt</kbd> + <kbd>1</kbd> |
+| **見出し 2** | <kbd>Cmd</kbd> + <kbd>Alt</kbd> + <kbd>2</kbd> | <kbd>Control</kbd> + <kbd>Alt</kbd> + <kbd>2</kbd> |
+| **見出し 3** | <kbd>Cmd</kbd> + <kbd>Alt</kbd> + <kbd>3</kbd> | <kbd>Control</kbd> + <kbd>Alt</kbd> + <kbd>3</kbd> |
+| **見出し 4** | <kbd>Cmd</kbd> + <kbd>Alt</kbd> + <kbd>4</kbd> | <kbd>Control</kbd> + <kbd>Alt</kbd> + <kbd>4</kbd> |
+| **番号付きリスト** | <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>7</kbd> | <kbd>Control</kbd> + <kbd>Shift</kbd> + <kbd>7</kbd> |
+| **箇条書きリスト** | <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>8</kbd> | <kbd>Control</kbd> + <kbd>Shift</kbd> + <kbd>8</kbd> |
+| **引用ブロック** | <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>B</kbd> | <kbd>Control</kbd> + <kbd>Shift</kbd> + <kbd>B</kbd> |
+| **下付き文字** | <kbd>Cmd</kbd> + <kbd>,</kbd> | <kbd>Control</kbd> + <kbd>,</kbd> |
+| **上付き文字** | <kbd>Cmd</kbd> + <kbd>.</kbd> | <kbd>Control</kbd> + <kbd>.</kbd> |
+
+<div id="troubleshooting">
+  ## トラブルシューティング
+</div>
+
+Mintlify Web Editor で発生し得る一般的な問題への対処方法を以下に示します。
+
+<AccordionGroup>
+  <Accordion title="公開後に変更が反映されない">
+    **考えられる原因:**
+
+    - デプロイがまだ進行中
+    - ブラウザのキャッシュの問題
+
+    **解決策:**
+
+    1. Mintlify のダッシュボードでデプロイのステータスを確認してください。
+    2. ブラウザをハードリフレッシュしてください（<kbd>Ctrl</kbd> + <kbd>F5</kbd> または <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>R</kbd>）。
+    3. ブラウザのキャッシュをクリアしてください。
+  </Accordion>
+
+  <Accordion title="公開時の権限エラー">
+    **考えられる原因:**
+
+    - Git リポジトリへの権限が不足している
+    - 利用中の Git プロバイダーでの認証問題
+
+    **解決策:**
+
+    1. リポジトリへの適切なアクセス権があるか確認してください。
+    2. Git 連携が正しく構成されているか確認してください。
+    3. [Editor Permissions](/ja/advanced/dashboard/permissions) のドキュメントを確認してください。
+  </Accordion>
+
+  <Accordion title="エディターの読み込みに関する問題">
+    **考えられる原因:**
+
+    - ネットワーク接続の問題
+    - 大規模なドキュメントリポジトリ
+
+    **解決策:**
+
+    1. インターネット接続を確認してください。
+    2. ページを再読み込みして、もう一度お試しください。
+    3. 問題が解消しない場合は、サポートにお問い合わせください。
+  </Accordion>
+</AccordionGroup>

@@ -1,0 +1,392 @@
+---
+title: "Editor web"
+description: "Cree su documentación con el Editor web de Mintlify"
+icon: "mouse-pointer-2"
+---
+
+<img className="block dark:hidden my-0 pointer-events-none" src="/images/editor/editor-light.png" alt="Interfaz del Editor web de Mintlify en modo claro" />
+
+<img className="hidden dark:block my-0 pointer-events-none" src="/images/editor/editor-dark.png" alt="Interfaz del Editor web de Mintlify en modo oscuro" />
+
+<div id="introduction">
+  ## Introducción
+</div>
+
+El editor web es una interfaz visual para crear, editar y revisar documentación directamente en su navegador.
+
+- **Edición visual**: Realice cambios en su documentación utilizando un editor WYSIWYG (what you see is what you get) que muestra cómo se verá su contenido al publicarse.
+- **Sincronización con Git**: Todos los cambios se sincronizan automáticamente con su repositorio de Git para mantener el control de versiones.
+- **Colaboración en tiempo real**: Varios miembros del equipo pueden trabajar en la documentación simultáneamente, con cambios visibles para todos.
+- **Sin necesidad de configuración**: Comience a escribir de inmediato desde su panel.
+
+<div id="web-editor-flow">
+  ### Flujo del editor web
+</div>
+
+Así es como normalmente trabajarás en el editor web:
+
+<Steps>
+  <Step title="Elige tu rama">
+    Crea una rama o realiza cambios directamente en la rama de despliegue.
+  </Step>
+
+  <Step title="Abre tu archivo">
+    Ve a un archivo existente o crea uno nuevo.
+  </Step>
+
+  <Step title="Edita tu contenido">
+    Realiza cambios en el editor web usando el modo visual o el modo Markdown.
+  </Step>
+
+  <Step title="Vista previa de tus cambios">
+    Ve cómo se verán tus cambios en el modo visual.
+  </Step>
+
+  <Step title="Publica tus cambios">
+    Si estás trabajando en la rama de despliegue, publica tus cambios directamente desde el editor web. En otras ramas, publica tus cambios mediante una solicitud de extracción (pull request).
+  </Step>
+</Steps>
+
+<div id="editor-modes">
+  ## Modos del editor
+</div>
+
+El editor web tiene dos modos para adaptarse a distintas preferencias y necesidades de edición.
+
+Puedes alternar entre modos en cualquier momento mediante el conmutador situado en la esquina superior derecha de la barra de herramientas del editor.
+
+<Frame>
+  <img src="/images/editor/mode-toggle-light.png" alt="Iconos del conmutador de modo resaltados en el Editor web de Mintlify" className="block dark:hidden" />
+
+  <img src="/images/editor/mode-toggle-dark.png" alt="Iconos del conmutador de modo resaltados en el Editor web de Mintlify" className="hidden dark:block" />
+</Frame>
+
+<div id="visual-mode">
+  ### Modo visual
+</div>
+
+El modo visual ofrece una experiencia WYSIWYG en la que los cambios que realizas en el editor son exactamente los que se publicarán en tu sitio de documentación. Este modo es ideal cuando quieres ver en tiempo real cómo se verán tus cambios.
+
+<Frame>
+  <img src="/images/editor/visual-mode-light.png" alt="Modo de edición visual en el editor web de Mintlify" className="block dark:hidden" />
+
+  <img src="/images/editor/visual-mode-dark.png" alt="Modo de edición visual en el editor web de Mintlify" className="hidden dark:block" />
+</Frame>
+
+<div id="markdown-mode">
+  ### Modo Markdown
+</div>
+
+El modo Markdown proporciona acceso directo al código `MDX` subyacente de su documentación. `MDX` combina la sintaxis de Markdown con componentes de React, otorgándole control total sobre la estructura de su contenido. Este modo es ideal cuando necesita un control preciso de las propiedades de los componentes o cuando prefiere escribir con sintaxis de Markdown.
+
+<Frame>
+  <img src="/images/editor/markdown-mode-light.png" alt="Modo Markdown en el Editor web de Mintlify" className="block dark:hidden" />
+
+  <img src="/images/editor/markdown-mode-dark.png" alt="Modo Markdown en el Editor web de Mintlify" className="hidden dark:block" />
+</Frame>
+
+<div id="git-fundamentals">
+  ## Fundamentos de Git
+</div>
+
+El editor web realiza operaciones de Git en segundo plano. Comprender estos conceptos le ayudará a trabajar de forma más eficaz con el editor web y a colaborar con miembros del equipo que trabajan en sus entornos locales.
+
+<AccordionGroup>
+  <Accordion title="Repository">
+    El origen de su documentación, donde se almacenan todos los archivos y su historial. El editor web se conecta a su repositorio para acceder al contenido y modificarlo.
+  </Accordion>
+
+  <Accordion title="Commit">
+    Una instantánea guardada de sus cambios en un momento específico.
+  </Accordion>
+
+  <Accordion title="Branch">
+    Un espacio de trabajo independiente para realizar cambios sin afectar su documentación en producción. Piénselo como un entorno seguro para experimentar y hacer actualizaciones más grandes.
+  </Accordion>
+
+  <Accordion title="Deployment branch">
+    La rama principal que contiene el contenido de su documentación en producción. Los cambios en esta rama se publican automáticamente en su sitio de documentación. A menudo llamada `main`.
+  </Accordion>
+
+  <Accordion title="Pull request">
+    Una forma de proponer la incorporación de los cambios de su rama a su documentación en producción. Permite revisión y discusión antes de que los cambios se publiquen. Comúnmente llamada PR.
+  </Accordion>
+
+  <Accordion title="Diff">
+    Un diff (o diferencia) muestra los cambios específicos entre dos versiones de un archivo. Al revisar pull requests, los diffs resaltan lo que se ha agregado, eliminado o modificado.
+  </Accordion>
+</AccordionGroup>
+
+<div id="what-the-web-editor-automates">
+  ### Lo que automatiza el editor web
+</div>
+
+El editor web se conecta a tu repositorio de Git mediante nuestra [aplicación de GitHub](/es/settings/github) o [integración con GitLab](/es/settings/gitlab) y gestiona Git automáticamente. Cuando:
+
+- **Abres un archivo**: Obtiene la versión más reciente de tu repositorio.
+- **Realizas cambios en un archivo**: Registra tus cambios como un borrador que puede convertirse en un commit.
+- **Guardas los cambios**: Crea un commit con tus cambios.
+- **Creas una rama**: Crea una nueva rama en tu repositorio.
+- **Publicas en tu rama de implementación**: Crea un commit y hace push directamente a tu rama de implementación.
+- **Publicas en otras ramas**: Crea un commit y abre un pull request.
+
+<div id="when-to-use-branches">
+  ### Cuándo usar ramas
+</div>
+
+Las ramas te permiten trabajar en cambios sin afectar el contenido de tu sitio en producción. Cuando tus cambios estén listos, puedes integrarlos en tu rama de despliegue mediante una pull request.
+
+**Mejor práctica: Trabaje siempre a partir de ramas.** Esto garantiza que su documentación en producción se mantenga estable y habilita flujos de revisión adecuados.
+
+<div id="creating-a-branch">
+  ## Creación de una rama
+</div>
+
+1. Selecciona el nombre de la rama en la barra de herramientas del editor (por lo general, `main` de forma predeterminada).
+2. Selecciona **New Branch**.
+3. Ingresa un nombre descriptivo para tu rama, como `update-getting-started` o `fix-installation-steps`.
+4. Selecciona **Create Branch**.
+
+<Note>
+  Es posible que debas seleccionar tu nueva rama en el menú desplegable si el editor no cambia a ella automáticamente.
+</Note>
+
+<div id="saving-changes-on-a-branch">
+  ### Guardar cambios en una rama
+</div>
+
+Para guardar los cambios en una rama, selecciona el botón **Save Changes** en la esquina superior derecha del editor. Esto crea un commit con tus cambios y lo envía a tu rama.
+
+<div id="switching-branches">
+  ### Cambio de rama
+</div>
+
+1. Selecciona el nombre de la rama actual en la barra de herramientas del editor.
+2. Selecciona la rama a la que deseas cambiar en el menú desplegable.
+
+<Tip>
+  Los cambios no guardados se perderán al cambiar de rama. Asegúrate de guardar o publicar tu trabajo antes de cambiar.
+</Tip>
+
+<div id="making-changes">
+  ## Realizar cambios
+</div>
+
+Edite el contenido existente, cree nuevas páginas y organice la estructura de su sitio en el Editor web de Mintlify.
+
+<div id="navigating-files">
+  ### Navegación de archivos
+</div>
+
+Usa el explorador de archivos de la barra lateral para recorrer tu documentación, o presiona <kbd>Command</kbd> + <kbd>P</kbd> (<kbd>Ctrl</kbd> + <kbd>P</kbd> en Windows) para buscar archivos.
+
+<div id="editing-content">
+  ### Edición de contenido
+</div>
+
+Realiza cambios en tus páginas usando el modo visual o el modo Markdown.
+
+En el modo visual, presiona <kbd>/</kbd> para abrir el menú desplegable de componentes. Agrega bloques de contenido, destacadas, bloques de código y otros componentes para personalizar tu documentación.
+
+<Frame>
+  <img src="/images/editor/component-menu-light.png" alt="El menú de componentes desplegado resaltado en el Editor web de Mintlify" className="block dark:hidden" />
+
+  <img src="/images/editor/component-menu-dark.png" alt="El menú de componentes desplegado resaltado en el Editor web de Mintlify" className="hidden dark:block" />
+</Frame>
+
+<div id="creating-new-pages">
+  ### Creación de nuevas páginas
+</div>
+
+1. Selecciona el icono **Create a new file** en el explorador de archivos.
+   <img
+     src="/images/editor/files-menu-light.png"
+     className="block dark:hidden rounded-2xl border border-gray-100 shadow-lg"
+     style={{
+    width: '268px',
+    height: 'auto',
+   }}
+     alt="Menú de archivos en el editor web."
+   />
+
+<img
+  src="/images/editor/files-menu-dark.png"
+  className="hidden dark:block rounded-2xl border border-white/10 shadow-lg"
+  style={{
+    width: '268px',
+    height: 'auto',
+  }}
+  alt="Menú de archivos en el editor web en modo oscuro."
+/>
+
+1. Ingresa un nombre de archivo.
+2. Presiona <kbd>Enter</kbd> para crear el archivo.
+
+Tu nueva página se abrirá en el editor, lista para agregar contenido.
+
+<div id="updating-navigation">
+  ### Actualización de la navegación
+</div>
+
+Agregue, elimine y reordene páginas en su navegación editando el archivo `docs.json`:
+
+1. Vaya a `docs.json` en el explorador de archivos.
+2. Actualice la propiedad `navigation` para obtener la estructura de navegación deseada. Consulte [Navegación](/es/navigation) para más información.
+
+Este ejemplo muestra cómo agregar una página de Temas al grupo Profile.
+
+```json title="Adding a Themes page" highlight="18"
+{
+    "navigation": {
+        "groups": [
+            {
+                "group": "Getting started",
+                "pages": [
+                    "index",
+                    "quickstart",
+                    "installation"
+                ]
+            },
+            {
+                "group": "Profile",
+                "pages": [
+                    "settings",
+                    "account-types",
+                    "dashboard",
+                    "themes"
+                ]
+            }
+        ]
+    }
+}
+```
+
+<div id="publishing-changes">
+  ## Publicar cambios
+</div>
+
+Selecciona el botón **Publicar** para guardar tus cambios y ponerlos a disposición.
+
+La forma en que se publican tus cambios depende de la rama en la que estés trabajando:
+
+- **Rama de implementación**: Actualiza tu sitio en producción de inmediato.
+- **Otras ramas**: Crea una solicitud de extracción (pull request) para que puedas revisar los cambios antes de que se publiquen.
+
+<Frame>
+  <img src="/images/editor/publish-flow-light.png" alt="El botón Publicar resaltado en el Editor web de Mintlify" className="block dark:hidden" />
+
+  <img src="/images/editor/publish-flow-dark.png" alt="El botón Publicar resaltado en el Editor web de Mintlify" className="hidden dark:block" />
+</Frame>
+
+<div id="pull-requests-and-reviewing-changes">
+  ## Pull requests y revisión de cambios
+</div>
+
+Los pull requests te permiten proponer cambios desde tu rama para que otras personas los revisen antes de integrarlos en tu documentación en producción. Esto ayuda a garantizar que tus cambios sean correctos y le da a tu equipo la oportunidad de colaborar en el contenido.
+
+<Tip>
+  Incluso si trabajas en solitario, los pull requests son útiles para previsualizar los cambios antes de que se publiquen y mantener un historial claro de actualizaciones.
+</Tip>
+
+<div id="creating-a-pull-request-on-a-branch">
+  ### Crear una pull request en una rama
+</div>
+
+Cuando esté listo para publicar los cambios de su rama:
+
+1. Asegúrese de que todos sus cambios estén guardados en su rama.
+2. Seleccione **Publish Pull Request** en la esquina superior derecha del editor.
+3. Agregue un título y una descripción para su pull request. Un buen título y descripción ayudan a los revisores a comprender los cambios que ha realizado.
+4. Seleccione **Publish Pull Request**.
+
+<Frame>
+  <img src="/images/editor/pull-request-light.png" alt="Botón Publish Pull Request resaltado en el Editor web de Mintlify" className="block dark:hidden" />
+
+  <img src="/images/editor/pull-request-dark.png" alt="Botón Publish Pull Request resaltado en el Editor web de Mintlify" className="hidden dark:block" />
+</Frame>
+
+El editor web creará una pull request en su repositorio de Git y proporcionará un enlace para verla.
+
+<div id="reviewing-pull-requests">
+  ### Revisión de pull requests
+</div>
+
+Una vez creado tu pull request:
+
+1. **Revisa tus cambios**: Tú y los miembros de tu equipo pueden revisar tu pull request en tu proveedor de Git, como GitHub o GitLab.
+2. **Haz cambios adicionales**: Tras la revisión, realiza los cambios necesarios en el editor web. Al guardar, se actualizará tu pull request.
+3. **Funde cuando esté listo**: Cuando tu pull request esté listo, fusiónalo para desplegar los cambios en tu sitio de documentación en producción.
+
+<div id="keyboard-shortcuts">
+  ## Atajos de teclado
+</div>
+
+El editor web admite los atajos de teclado comunes como copiar, pegar, deshacer y seleccionar todo, además de los siguientes atajos:
+
+| Comando | macOS | Windows |
+|:--------|:------|:--------|
+| **Buscar archivos** | <kbd>Cmd</kbd> + <kbd>P</kbd> | <kbd>Control</kbd> + <kbd>P</kbd> |
+| **Agregar enlace al texto seleccionado** | <kbd>Cmd</kbd> + <kbd>K</kbd> | <kbd>Control</kbd> + <kbd>K</kbd> |
+| **Insertar salto de línea** | <kbd>Cmd</kbd> + <kbd>Enter</kbd> | <kbd>Control</kbd> + <kbd>Enter</kbd> |
+| **Negrita** | <kbd>Cmd</kbd> + <kbd>B</kbd> | <kbd>Control</kbd> + <kbd>B</kbd> |
+| **Cursiva** | <kbd>Cmd</kbd> + <kbd>I</kbd> | <kbd>Control</kbd> + <kbd>I</kbd> |
+| **Subrayado** | <kbd>Cmd</kbd> + <kbd>U</kbd> | <kbd>Control</kbd> + <kbd>U</kbd> |
+| **Tachado** | <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd> | <kbd>Control</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd> |
+| **Código** | <kbd>Cmd</kbd> + <kbd>E</kbd> | <kbd>Control</kbd> + <kbd>E</kbd> |
+| **Texto normal** | <kbd>Cmd</kbd> + <kbd>Alt</kbd> + <kbd>0</kbd> | <kbd>Control</kbd> + <kbd>Alt</kbd> + <kbd>0</kbd> |
+| **Encabezado 1** | <kbd>Cmd</kbd> + <kbd>Alt</kbd> + <kbd>1</kbd> | <kbd>Control</kbd> + <kbd>Alt</kbd> + <kbd>1</kbd> |
+| **Encabezado 2** | <kbd>Cmd</kbd> + <kbd>Alt</kbd> + <kbd>2</kbd> | <kbd>Control</kbd> + <kbd>Alt</kbd> + <kbd>2</kbd> |
+| **Encabezado 3** | <kbd>Cmd</kbd> + <kbd>Alt</kbd> + <kbd>3</kbd> | <kbd>Control</kbd> + <kbd>Alt</kbd> + <kbd>3</kbd> |
+| **Encabezado 4** | <kbd>Cmd</kbd> + <kbd>Alt</kbd> + <kbd>4</kbd> | <kbd>Control</kbd> + <kbd>Alt</kbd> + <kbd>4</kbd> |
+| **Lista numerada** | <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>7</kbd> | <kbd>Control</kbd> + <kbd>Shift</kbd> + <kbd>7</kbd> |
+| **Lista con viñetas** | <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>8</kbd> | <kbd>Control</kbd> + <kbd>Shift</kbd> + <kbd>8</kbd> |
+| **Cita** | <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>B</kbd> | <kbd>Control</kbd> + <kbd>Shift</kbd> + <kbd>B</kbd> |
+| **Subíndice** | <kbd>Cmd</kbd> + <kbd>,</kbd> | <kbd>Control</kbd> + <kbd>,</kbd> |
+| **Superíndice** | <kbd>Cmd</kbd> + <kbd>.</kbd> | <kbd>Control</kbd> + <kbd>.</kbd> |
+
+<div id="troubleshooting">
+  ## Solución de problemas
+</div>
+
+A continuación encontrarás soluciones a problemas comunes que pueden surgir con el editor web.
+
+<AccordionGroup>
+  <Accordion title="Los cambios no aparecen después de publicar">
+    **Posibles causas:**
+
+    - El despliegue aún está en curso
+    - Problemas de caché en tu navegador
+
+    **Soluciones:**
+
+    1. Revisa el estado del despliegue en tu panel de Mintlify.
+    2. Intenta forzar la recarga del navegador (<kbd>Ctrl</kbd> + <kbd>F5</kbd> o <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>R</kbd>).
+    3. Borra la caché del navegador.
+  </Accordion>
+
+  <Accordion title="Errores de permisos al publicar">
+    **Posibles causas:**
+
+    - Permisos insuficientes en el repositorio de Git
+    - Problemas de autenticación con tu proveedor de Git
+
+    **Soluciones:**
+
+    1. Verifica que tengas el acceso adecuado al repositorio.
+    2. Comprueba que tu integración con Git esté configurada correctamente.
+    3. Consulta la documentación de [Permisos del editor](/es/advanced/dashboard/permissions).
+  </Accordion>
+
+  <Accordion title="Problemas al cargar el editor">
+    **Posibles causas:**
+
+    - Problemas de conectividad de red
+    - Repositorios de documentación muy grandes
+
+    **Soluciones:**
+
+    1. Verifica tu conexión a Internet.
+    2. Recarga la página e inténtalo de nuevo.
+    3. Contacta con soporte si el problema persiste.
+  </Accordion>
+</AccordionGroup>

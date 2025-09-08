@@ -1,0 +1,65 @@
+---
+title: "Mermaid"
+description: "Diagramme mit Mermaid anzeigen"
+icon: "waypoints"
+---
+
+[Mermaid](https://mermaid.js.org/) ermöglicht es, Flussdiagramme, Sequenzdiagramme, Gantt-Diagramme und weitere Diagrammtypen mithilfe von Text und Code zu erstellen.
+
+Eine vollständige Liste der unterstützten Diagrammtypen und der zugehörigen Syntax finden Sie in der [Mermaid-Dokumentation](https://mermaid.js.org/intro/).
+
+<RequestExample>
+
+````mdx Mermaid flowchart example
+```mermaid
+  flowchart LR
+    subgraph subgraph1
+        direction TB
+        top1[top] --> bottom1[bottom]
+    end
+    subgraph subgraph2
+        direction TB
+        top2[top] --> bottom2[bottom]
+    end
+    %% ^ Diese Subgraphen sind identisch, abgesehen von den Verweisen auf sie:
+
+    %% Verweis auf subgraph1: Die Richtung von subgraph1 bleibt erhalten
+    outside --> subgraph1
+    %% Verweis innerhalb von subgraph2:
+    %% subgraph2 übernimmt die Richtung des Diagramms auf oberster Ebene (LR)
+    outside ---> top2
+```
+````
+
+</RequestExample>
+
+```mermaid
+  flowchart LR
+    subgraph subgraph1
+        direction TB
+        top1[top] --> bottom1[bottom]
+    end
+    subgraph subgraph2
+        direction TB
+        top2[top] --> bottom2[bottom]
+    end
+    %% ^ Diese Subgraphen sind identisch, abgesehen von den Verweisen auf sie:
+
+    %% Verweis auf subgraph1: Die Richtung von subgraph1 bleibt erhalten
+    outside --> subgraph1
+    %% Verweis innerhalb von subgraph2:
+    %% subgraph2 übernimmt die Richtung des Diagramms auf oberster Ebene (LR)
+    outside ---> top2
+```
+
+<div id="syntax">
+  ## Syntax
+</div>
+
+Um ein Mermaid-Diagramm zu erstellen, schreiben Sie die Diagrammdefinition in einen Mermaid-Codeblock.
+
+````mdx
+```mermaid
+// Ihr Mermaid-Diagrammcode hier
+```
+````

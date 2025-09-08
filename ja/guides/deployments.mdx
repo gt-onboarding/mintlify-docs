@@ -1,0 +1,31 @@
+---
+title: "デプロイメント"
+description: "デプロイのトラブルシューティング"
+icon: "boxes"
+---
+
+ドキュメントサイトは、接続済みのリポジトリに変更をプッシュすると自動でデプロイされます。これには、Mintlify の GitHub アプリが正しくインストールされ、接続されている必要があります。
+
+最新の変更が公開サイトに反映されない場合は、まず GitHub アプリがドキュメント用リポジトリの所有者であるアカウントまたは組織にインストールされているかを確認してください。詳しくは [GitHub のトラブルシューティング](/ja/settings/github#troubleshooting) を参照してください。
+
+GitHub アプリが接続されているのに変更がデプロイされない場合は、ダッシュボードから手動でリビルドを実行できます。
+
+<div id="manually-triggering-a-deployment">
+  ## 手動でデプロイを実行する
+</div>
+
+<Steps>
+  <Step title="最新のコミットが正常に反映されたか確認します。">
+    最新のコミットがドキュメント用リポジトリに表示され、エラーが発生していないことを確認します。
+  </Step>
+
+  <Step title="手動でデプロイを実行します。">
+    [ダッシュボード](https://dashboard.mintlify.com)にアクセスし、Deploy ボタンを選択します。
+
+    <Frame>
+      <img src="/images/deployments/manual-update-light.png" alt="オレンジ色の枠で強調表示された手動更新ボタン。" className="block dark:hidden" />
+
+      <img src="/images/deployments/manual-update-dark.png" alt="オレンジ色の枠で強調表示された手動更新ボタン。" className="hidden dark:block" />
+    </Frame>
+  </Step>
+</Steps>

@@ -1,0 +1,392 @@
+---
+title: "网页编辑器"
+description: "使用 Mintlify 网页编辑器构建文档"
+icon: "mouse-pointer-2"
+---
+
+<img className="block dark:hidden my-0 pointer-events-none" src="/images/editor/editor-light.png" alt="浅色模式下的 Mintlify 网页编辑器界面" />
+
+<img className="hidden dark:block my-0 pointer-events-none" src="/images/editor/editor-dark.png" alt="深色模式下的 Mintlify 网页编辑器界面" />
+
+<div id="introduction">
+  ## 介绍
+</div>
+
+网页编辑器是在浏览器中直接用于创建、编辑和审阅文档的可视化界面。
+
+- **可视化编辑**：使用所见即所得（WYSIWYG）编辑器对文档进行更改，并预览发布后的实际呈现效果。
+- **Git 同步**：所有更改会自动与您的 Git 仓库同步，确保版本控制。
+- **实时协作**：多位团队成员可同时协作编辑，所有人都能实时看到变更。
+- **零配置**：可从仪表板立即开始创作。
+
+<div id="web-editor-flow">
+  ### 网页编辑器工作流程
+</div>
+
+以下是在网页编辑器中的典型工作步骤：
+
+<Steps>
+  <Step title="Choose your branch">
+    创建一个分支，或直接在部署分支上进行更改。
+  </Step>
+
+  <Step title="Open your file">
+    前往现有文件，或创建新文件。
+  </Step>
+
+  <Step title="Edit your content">
+    在网页编辑器中使用可视化模式或 Markdown 模式进行编辑。
+  </Step>
+
+  <Step title="Preview your changes">
+    在可视化模式下预览更改的呈现效果。
+  </Step>
+
+  <Step title="Publish your changes">
+    如果在部署分支上工作，可直接在网页编辑器中发布更改；在其他分支上，请通过 Pull Request 发布更改。
+  </Step>
+</Steps>
+
+<div id="editor-modes">
+  ## 编辑器模式
+</div>
+
+Mintlify 网页编辑器提供两种模式，以满足不同的编辑偏好和需求。
+
+你可以随时通过编辑器工具栏右上角的切换控件在两种模式之间切换。
+
+<Frame>
+  <img src="/images/editor/mode-toggle-light.png" alt="在 Mintlify 网页编辑器中高亮显示的模式切换图标" className="block dark:hidden" />
+
+  <img src="/images/editor/mode-toggle-dark.png" alt="在 Mintlify 网页编辑器中高亮显示的模式切换图标" className="hidden dark:block" />
+</Frame>
+
+<div id="visual-mode">
+  ### 可视化模式
+</div>
+
+可视化模式提供所见即所得（WYSIWYG）体验：您在编辑器中所做的更改将作为最终效果发布到文档站点。该模式非常适合希望实时预览更改呈现效果的场景。
+
+<Frame>
+  <img src="/images/editor/visual-mode-light.png" alt="Mintlify 网页编辑器中的可视化编辑模式" className="block dark:hidden" />
+
+  <img src="/images/editor/visual-mode-dark.png" alt="Mintlify 网页编辑器中的可视化编辑模式" className="hidden dark:block" />
+</Frame>
+
+<div id="markdown-mode">
+  ### Markdown 模式
+</div>
+
+Markdown 模式可直接访问文档的底层 `MDX` 代码。`MDX` 将 Markdown 语法与 React 组件结合，帮助你对内容结构实现完全掌控。该模式适用于需要精细控制组件属性，或偏好以 Markdown 语法编写的场景。
+
+<Frame>
+  <img src="/images/editor/markdown-mode-light.png" alt="Mintlify 网页编辑器中的 Markdown 模式" className="block dark:hidden" />
+
+  <img src="/images/editor/markdown-mode-dark.png" alt="Mintlify 网页编辑器中的 Markdown 模式" className="hidden dark:block" />
+</Frame>
+
+<div id="git-fundamentals">
+  ## Git 基础
+</div>
+
+Mintlify 网页编辑器在后台执行 Git 操作。理解这些概念将帮助你更高效地使用网页编辑器，并与在本地环境中工作的团队成员更好地协作。
+
+<AccordionGroup>
+  <Accordion title="Repository">
+    你的文档源代码所在位置，存放所有文件及其历史记录。网页编辑器会连接到你的仓库以访问和修改内容。
+  </Accordion>
+
+  <Accordion title="Commit">
+    在某一特定时间点保存的更改快照。
+  </Accordion>
+
+  <Accordion title="Branch">
+    一个独立的工作区，用于在不影响线上文档的情况下进行更改。可以将其视为用于实验和大规模更新的安全沙箱。
+  </Accordion>
+
+  <Accordion title="Deployment branch">
+    包含线上文档内容的主分支。对该分支的更改会自动发布到你的文档站点。通常为 main。
+  </Accordion>
+
+  <Accordion title="Pull request">
+    用于提议将分支更改合并到线上文档的一种方式。可在更改上线前进行审查与讨论。通常称为 PR。
+  </Accordion>
+
+  <Accordion title="Diff">
+    diff（差异）显示一个文件两个版本之间的具体更改。在审查 Pull Request 时，diff 会高亮显示新增、删除或修改的内容。
+  </Accordion>
+</AccordionGroup>
+
+<div id="what-the-web-editor-automates">
+  ### 网页编辑器可自动处理的事项
+</div>
+
+网页编辑器通过我们的 [GitHub App](/zh/settings/github) 或 [GitLab 集成](/zh/settings/gitlab) 连接到你的 Git 仓库，并自动处理 Git。当你：
+
+- **打开文件**：从仓库获取最新版本。
+- **在文件中进行更改**：将更改作为草稿跟踪，可转换为一次提交。
+- **保存更改**：根据更改创建一次提交。
+- **创建分支**：在仓库中创建一个新分支。
+- **在部署分支上发布**：创建一次提交并直接推送到部署分支。
+- **在其他分支上发布**：创建一次提交并打开一个合并请求。
+
+<div id="when-to-use-branches">
+  ### 何时使用分支
+</div>
+
+分支可让你在不影响线上站点内容的情况下进行更改。当更改准备就绪时，你可以通过 pull request 将更改合并到部署分支。
+
+**最佳实践：始终在分支上开展工作。** 这可确保线上文档保持稳定，并支持规范的审阅流程。
+
+<div id="creating-a-branch">
+  ## 创建分支
+</div>
+
+1. 在编辑器工具栏中选择分支名称（默认通常为 `main`）。
+2. 选择 **New Branch**。
+3. 为分支输入一个具描述性的名称，例如 `update-getting-started` 或 `fix-installation-steps`。
+4. 选择 **Create Branch**。
+
+<Note>
+  如果编辑器未自动切换到新分支，您可能需要在下拉菜单中手动选择它。
+</Note>
+
+<div id="saving-changes-on-a-branch">
+  ### 在分支上保存更改
+</div>
+
+要在分支上保存更改，请在编辑器右上角选择 **Save Changes** 按钮。这样会创建一个包含这些更改的提交，并将其推送到你的分支。
+
+<div id="switching-branches">
+  ### 切换分支
+</div>
+
+1. 在编辑器工具栏中选择当前分支名称。
+2. 在下拉菜单中选择要切换的分支。
+
+<Tip>
+  切换分支时，任何未保存的更改都会丢失。请务必在切换前先保存或发布您的工作。
+</Tip>
+
+<div id="making-changes">
+  ## 进行更改
+</div>
+
+在 Mintlify 网页编辑器中编辑现有内容、创建新页面，并组织你的网站结构。
+
+<div id="navigating-files">
+  ### 浏览文件
+</div>
+
+使用侧边栏文件资源管理器浏览文档，或按 <kbd>Command</kbd> + <kbd>P</kbd>（Windows 上为 <kbd>Ctrl</kbd> + <kbd>P</kbd>）搜索文件。
+
+<div id="editing-content">
+  ### 编辑内容
+</div>
+
+使用可视化模式或 Markdown 模式修改页面。
+
+在可视化模式下，按 <kbd>/</kbd> 打开下拉组件菜单。添加内容块、提示、代码块等组件，以自定义文档。
+
+<Frame>
+  <img src="/images/editor/component-menu-light.png" alt="Mintlify 网页编辑器中展开并高亮显示的组件菜单" className="block dark:hidden" />
+
+  <img src="/images/editor/component-menu-dark.png" alt="Mintlify 网页编辑器中展开并高亮显示的组件菜单" className="hidden dark:block" />
+</Frame>
+
+<div id="creating-new-pages">
+  ### 创建新页面
+</div>
+
+1. 在文件浏览器中选择 **Create a new file** 图标。
+   <img
+     src="/images/editor/files-menu-light.png"
+     className="block dark:hidden rounded-2xl border border-gray-100 shadow-lg"
+     style={{
+    width: '268px',
+    height: 'auto',
+   }}
+     alt="网页编辑器中的文件菜单"
+   />
+
+<img
+  src="/images/editor/files-menu-dark.png"
+  className="hidden dark:block rounded-2xl border border-white/10 shadow-lg"
+  style={{
+    width: '268px',
+    height: 'auto',
+  }}
+  alt="深色模式下的网页编辑器文件菜单"
+/>
+
+1. 输入文件名。
+2. 按 <kbd>Enter</kbd> 创建文件。
+
+新页面将会在编辑器中打开，等待你添加内容。
+
+<div id="updating-navigation">
+  ### 更新导航
+</div>
+
+通过编辑 `docs.json` 文件来添加、移除并重新排序导航中的页面：
+
+1. 在文件资源管理器中找到 `docs.json`。
+2. 更新 `navigation` 属性以获得所需的导航结构。更多信息参见 [Navigation](/zh/navigation)。
+
+以下示例展示如何在 Profile 分组中添加一个主题页面。
+
+```json title="Adding a Themes page" highlight="18"
+{
+    "navigation": {
+        "groups": [
+            {
+                "group": "Getting started",
+                "pages": [
+                    "index",
+                    "quickstart",
+                    "installation"
+                ]
+            },
+            {
+                "group": "Profile",
+                "pages": [
+                    "settings",
+                    "account-types",
+                    "dashboard",
+                    "themes"
+                ]
+            }
+        ]
+    }
+}
+```
+
+<div id="publishing-changes">
+  ## 发布更改
+</div>
+
+点击 **Publish** 按钮以保存更改并使其生效。
+
+更改的发布方式取决于你当前所在的分支：
+
+- **部署分支**：会立即更新线上站点。
+- **其他分支**：会创建一个拉取请求，便于你在上线前审阅更改。
+
+<Frame>
+  <img src="/images/editor/publish-flow-light.png" alt="Mintlify 网页编辑器中突出显示的发布按钮" className="block dark:hidden" />
+
+  <img src="/images/editor/publish-flow-dark.png" alt="Mintlify 网页编辑器中突出显示的发布按钮" className="hidden dark:block" />
+</Frame>
+
+<div id="pull-requests-and-reviewing-changes">
+  ## Pull requests 与变更审查
+</div>
+
+Pull requests 允许你从自己的分支发起更改，便于他人在合并到线上文档之前进行审查。这有助于确保更改的准确性，并为你的团队提供协同完善内容的机会。
+
+<Tip>
+  即使单人作业，pull requests 也有助于在上线前预览更改，并维护清晰的更新历史。
+</Tip>
+
+<div id="creating-a-pull-request-on-a-branch">
+  ### 在分支上创建拉取请求
+</div>
+
+当你准备好从分支发布更改时：
+
+1. 确保所有更改都已保存到该分支。
+2. 在编辑器右上角选择 **Publish Pull Request**。
+3. 为拉取请求添加标题和描述。清晰的标题与描述有助于审阅者理解你所做的更改。
+4. 选择 **Publish Pull Request**。
+
+<Frame>
+  <img src="/images/editor/pull-request-light.png" alt="Mintlify 网页编辑器中突出显示的 Publish Pull Request 按钮" className="block dark:hidden" />
+
+  <img src="/images/editor/pull-request-dark.png" alt="Mintlify 网页编辑器中突出显示的 Publish Pull Request 按钮" className="hidden dark:block" />
+</Frame>
+
+网页编辑器会在你的 Git 仓库中创建一个拉取请求，并提供用于查看的链接。
+
+<div id="reviewing-pull-requests">
+  ### 审阅拉取请求
+</div>
+
+创建拉取请求后：
+
+1. **审阅更改**：你和团队成员可以在 GitHub、GitLab 等 Git 托管平台审阅你的拉取请求。
+2. **继续修改**：审阅后，可在网页编辑器中进行修改。保存后将自动更新你的拉取请求。
+3. **准备就绪后合并**：当拉取请求准备就绪时，将其合并以把更改部署到线上文档站点。
+
+<div id="keyboard-shortcuts">
+  ## 键盘快捷键
+</div>
+
+网页编辑器支持复制、粘贴、撤销、全选等常见键盘快捷键，并提供以下快捷键：
+
+| 命令 | macOS | Windows |
+|:--------|:------|:--------|
+| **搜索文件** | <kbd>Cmd</kbd> + <kbd>P</kbd> | <kbd>Control</kbd> + <kbd>P</kbd> |
+| **为选中文本添加链接** | <kbd>Cmd</kbd> + <kbd>K</kbd> | <kbd>Control</kbd> + <kbd>K</kbd> |
+| **插入换行** | <kbd>Cmd</kbd> + <kbd>Enter</kbd> | <kbd>Control</kbd> + <kbd>Enter</kbd> |
+| **加粗** | <kbd>Cmd</kbd> + <kbd>B</kbd> | <kbd>Control</kbd> + <kbd>B</kbd> |
+| **斜体** | <kbd>Cmd</kbd> + <kbd>I</kbd> | <kbd>Control</kbd> + <kbd>I</kbd> |
+| **下划线** | <kbd>Cmd</kbd> + <kbd>U</kbd> | <kbd>Control</kbd> + <kbd>U</kbd> |
+| **删除线** | <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd> | <kbd>Control</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd> |
+| **行内代码** | <kbd>Cmd</kbd> + <kbd>E</kbd> | <kbd>Control</kbd> + <kbd>E</kbd> |
+| **正文** | <kbd>Cmd</kbd> + <kbd>Alt</kbd> + <kbd>0</kbd> | <kbd>Control</kbd> + <kbd>Alt</kbd> + <kbd>0</kbd> |
+| **标题 1** | <kbd>Cmd</kbd> + <kbd>Alt</kbd> + <kbd>1</kbd> | <kbd>Control</kbd> + <kbd>Alt</kbd> + <kbd>1</kbd> |
+| **标题 2** | <kbd>Cmd</kbd> + <kbd>Alt</kbd> + <kbd>2</kbd> | <kbd>Control</kbd> + <kbd>Alt</kbd> + <kbd>2</kbd> |
+| **标题 3** | <kbd>Cmd</kbd> + <kbd>Alt</kbd> + <kbd>3</kbd> | <kbd>Control</kbd> + <kbd>Alt</kbd> + <kbd>3</kbd> |
+| **标题 4** | <kbd>Cmd</kbd> + <kbd>Alt</kbd> + <kbd>4</kbd> | <kbd>Control</kbd> + <kbd>Alt</kbd> + <kbd>4</kbd> |
+| **有序列表** | <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>7</kbd> | <kbd>Control</kbd> + <kbd>Shift</kbd> + <kbd>7</kbd> |
+| **无序列表** | <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>8</kbd> | <kbd>Control</kbd> + <kbd>Shift</kbd> + <kbd>8</kbd> |
+| **引用** | <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>B</kbd> | <kbd>Control</kbd> + <kbd>Shift</kbd> + <kbd>B</kbd> |
+| **下标** | <kbd>Cmd</kbd> + <kbd>,</kbd> | <kbd>Control</kbd> + <kbd>,</kbd> |
+| **上标** | <kbd>Cmd</kbd> + <kbd>.</kbd> | <kbd>Control</kbd> + <kbd>.</kbd> |
+
+<div id="troubleshooting">
+  ## 疑难解答
+</div>
+
+以下是使用网页编辑器时可能遇到的常见问题及对应解决方案。
+
+<AccordionGroup>
+  <Accordion title="发布后更改未显示">
+    **可能原因：**
+
+    - 部署仍在进行
+    - 浏览器缓存导致的显示异常
+
+    **解决方案：**
+
+    1. 在 Mintlify 控制台查看部署状态。
+    2. 尝试强制刷新浏览器（<kbd>Ctrl</kbd> + <kbd>F5</kbd> 或 <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>R</kbd>）。
+    3. 清除浏览器缓存。
+  </Accordion>
+
+  <Accordion title="发布时出现权限错误">
+    **可能原因：**
+
+    - 对 Git 仓库权限不足
+    - Git 提供商的认证问题
+
+    **解决方案：**
+
+    1. 确认你对该仓库拥有正确的访问权限。
+    2. 检查你的 Git 集成是否已正确配置。
+    3. 查看 [编辑器权限](/zh/advanced/dashboard/permissions) 文档。
+  </Accordion>
+
+  <Accordion title="编辑器加载问题">
+    **可能原因：**
+
+    - 网络连接不稳定
+    - 文档仓库体量较大
+
+    **解决方案：**
+
+    1. 检查你的网络连接。
+    2. 刷新页面后重试。
+    3. 若问题仍然存在，请联系支持。
+  </Accordion>
+</AccordionGroup>

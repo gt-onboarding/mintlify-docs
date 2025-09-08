@@ -1,0 +1,365 @@
+---
+title: "コード"
+description: "インラインコードとコードブロックを表示"
+icon: "code"
+---
+
+<div id="adding-code-samples">
+  ## コードサンプルの追加
+</div>
+
+インラインのコードスニペットやコードブロックを追加できます。コードブロックでは、シンタックスハイライト、タイトル、行のハイライト、アイコンなどのメタオプションを利用できます。
+
+<div id="inline-code">
+  ### インラインコード
+</div>
+
+`word` や `phrase` をコードとして表すには、バッククォート（\`）で囲みます。
+
+```mdx
+`word` や `phrase` をコードとして表すには、バッククォート（`）で囲みます。
+```
+
+<div id="code-blocks">
+  ### コードブロック
+</div>
+
+コードをバッククォート3つで囲んで、[フェンス付きコードブロック](https://www.markdownguide.org/extended-syntax/#fenced-code-blocks)を使用します。コードブロックはコピー可能で、アシスタントを有効にしている場合は、ユーザーがAIにコードの解説を依頼できます。
+
+構文ハイライトやメタオプションを有効にするために、プログラミング言語を指定します。言語名の後に、タイトルやアイコンなどのメタオプションを追加します。
+
+```java HelloWorld.java lines icon="java"
+class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+```
+
+````mdx
+```java HelloWorld.java lines icon="java"
+class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+```
+````
+
+<div id="code-block-options">
+  ## コードブロックのオプション
+</div>
+
+コードブロックにメタオプションを追加して、表示をカスタマイズできます。
+
+<Note>
+  他のメタオプションを追加する前に、コードブロックに使用するプログラミング言語を指定する必要があります。
+</Note>
+
+<div id="option-syntax">
+  ### オプションの構文
+</div>
+
+- **文字列およびブール値のオプション**: `""`、`''`、または引用符なしで囲みます。
+- **式オプション**: `{}`、`""`、または `''` で囲みます。
+
+<div id="syntax-highlighting">
+  ### シンタックスハイライト
+</div>
+
+コードブロックの開始バッククォートの直後に、プログラミング言語を指定してシンタックスハイライトを有効化します。
+
+シンタックスハイライトには [Shiki](https://shiki.style/) を使用しており、利用可能なすべての言語をサポートしています。対応言語の一覧は Shiki のドキュメント内の[言語](https://shiki.style/languages)をご覧ください。
+
+```java
+class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+```
+
+````mdx
+```java
+class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+```
+````
+
+<div id="title">
+  ### タイトル
+</div>
+
+コード例にラベルを付けるためにタイトルを追加します。`title="Your title"` を使うか、1 行の文字列を指定します。
+
+```javascript Code Block Example
+const hello = "world";
+```
+
+````mdx
+```javascript Code Block Example
+const hello = "world";
+```
+````
+
+<div id="icon">
+  ### アイコン
+</div>
+
+`icon` プロパティでコードブロックにアイコンを追加できます。利用可能なオプションは [Icons](/ja/components/icons) を参照してください。
+
+```javascript icon="square-js"
+const hello = "world";
+```
+
+````mdx
+```javascript icon="square-js"
+const hello = "world";
+```
+````
+
+<div id="line-highlighting">
+  ### 行の強調表示
+</div>
+
+コードブロック内で特定の行を強調表示するには、`highlight` に強調したい行番号や範囲を指定します。
+
+```javascript Line Highlighting Example highlight= {1-2,5}
+const greeting = "Hello, World!";
+function sayHello() {
+  console.log(greeting);
+}
+sayHello();
+```
+
+````mdx
+```javascript Line Highlighting Example highlight={1-2,5}
+const greeting = "Hello, World!";
+function sayHello() {
+  console.log(greeting);
+}
+sayHello();
+```
+````
+
+<div id="line-focusing">
+  ### 行のフォーカス
+</div>
+
+`focus` を使って、行番号や範囲を指定し、コードブロック内の特定の行を強調表示します。
+
+```javascript Line Focus Example focus= {2,4-5}
+const greeting = "Hello, World!";
+function sayHello() {
+  console.log(greeting);
+}
+sayHello();
+```
+
+````mdx
+```javascript Line Focus Example focus={2,4-5}
+const greeting = "Hello, World!";
+function sayHello() {
+  console.log(greeting);
+}
+sayHello();
+```
+````
+
+<div id="show-line-numbers">
+  ### 行番号を表示
+</div>
+
+`lines` を使うと、コードブロックの左側に行番号を表示できます。
+
+```javascript Show Line Numbers Example lines
+const greeting = "Hello, World!";
+function sayHello() {
+  console.log(greeting);
+}
+sayHello();
+```
+
+````mdx
+```javascript Show Line Numbers Example lines
+const greeting = "Hello, World!";
+function sayHello() {
+  console.log(greeting);
+}
+sayHello();
+```
+````
+
+<div id="expandable">
+  ### 展開オプション
+</div>
+
+`expandable` を使用すると、長いコードブロックを展開・折りたたみできるようになります。
+
+```python Expandable Example expandable
+from datetime import datetime, timedelta
+from typing import Dict, List, Optional
+from dataclasses import dataclass
+
+@dataclass
+class Book:
+    title: str
+    author: str
+    isbn: str
+    checked_out: bool = False
+    due_date: Optional[datetime] = None
+
+class Library:
+    def __init__(self):
+        self.books: Dict[str, Book] = {}
+        self.checkouts: Dict[str, List[str]] = {}  # 利用者 -> ISBN の一覧
+
+    def add_book(self, book: Book) -> None:
+        if book.isbn in self.books:
+            raise ValueError(f"Book with ISBN {book.isbn} already exists")
+        self.books[book.isbn] = book
+
+    def checkout_book(self, isbn: str, patron: str, days: int = 14) -> None:
+        if patron not in self.checkouts:
+            self.checkouts[patron] = []
+
+        book = self.books.get(isbn)
+        if not book:
+            raise ValueError("Book not found")
+
+        if book.checked_out:
+            raise ValueError("Book is already checked out")
+
+        if len(self.checkouts[patron]) >= 3:
+            raise ValueError("Patron has reached checkout limit")
+
+        book.checked_out = True
+        book.due_date = datetime.now() + timedelta(days=days)
+        self.checkouts[patron].append(isbn)
+
+    def return_book(self, isbn: str) -> float:
+        book = self.books.get(isbn)
+        if not book or not book.checked_out:
+            raise ValueError("Book not found or not checked out")
+
+        late_fee = 0.0
+        if datetime.now() > book.due_date:
+            days_late = (datetime.now() - book.due_date).days
+            late_fee = days_late * 0.50
+
+        book.checked_out = False
+        book.due_date = None
+
+        # 利用者の貸出一覧から削除
+        for patron, books in self.checkouts.items():
+            if isbn in books:
+                books.remove(isbn)
+                break
+
+        return late_fee
+
+    def search(self, query: str) -> List[Book]:
+        query = query.lower()
+        return [
+            book for book in self.books.values()
+            if query in book.title.lower() or query in book.author.lower()
+        ]
+
+def main():
+    library = Library()
+
+    # 本をいくつか追加
+    books = [
+        Book("The Hobbit", "J.R.R. Tolkien", "978-0-261-10295-4"),
+        Book("1984", "George Orwell", "978-0-452-28423-4"),
+    ]
+
+    for book in books:
+        library.add_book(book)
+
+    # 貸出と返却の例
+    library.checkout_book("978-0-261-10295-4", "patron123")
+    late_fee = library.return_book("978-0-261-10295-4")
+    print(f"Late fee: ${late_fee:.2f}")
+
+if __name__ == "__main__":
+    main()
+```
+
+````mdx
+```python Expandable Example expandable
+from datetime import datetime, timedelta
+from typing import Dict, List, Optional
+from dataclasses import dataclass
+
+# ...
+
+if __name__ == "__main__":
+    main()
+```
+````
+
+<div id="wrap">
+  ### Wrap
+</div>
+
+長い行のテキストに対して `wrap` を使用すると、折り返しが有効になります。これにより水平スクロールを防ぎ、長い行も読みやすくなります。
+
+```javascript Wrap Example wrap
+const greeting = "Hello, World! I am a long line of text that will wrap to the next line.";
+function sayHello() {
+  console.log(greeting);
+}
+sayHello();
+```
+
+````mdx
+```javascript Wrap Example wrap
+const greeting = "Hello, World! I am a long line of text that will wrap to the next line.";
+function sayHello() {
+  console.log(greeting);
+}
+sayHello();
+```
+````
+
+<div id="diff">
+  ### Diff
+</div>
+
+コードブロック内で追加・削除された行の差分を視覚的に表示します。追加行は緑色、削除行は赤色でハイライトされます。
+
+差分を作成するには、コードブロック内の行末に次の特別なコメントを追加します:
+
+- `// [!code ++]`: 行を追加としてマークします（緑色でハイライト）。
+- `// [!code --]`: 行を削除としてマークします（赤色でハイライト）。
+
+複数の連続する行には、コロンの後に行数を指定します:
+
+- `// [!code ++:3]`: 現在の行と次の2行を追加としてマークします。
+- `// [!code --:5]`: 現在の行と次の4行を削除としてマークします。
+
+コメントの記法は使用するプログラミング言語に合わせる必要があります（例：JavaScript なら `//`、Python なら `#`）。
+
+```js Diff Example icon="code" lines
+const greeting = "Hello, World!"; // [!code ++]
+function sayHello() {
+  console.log("Hello, World!"); // [!code --]
+  console.log(greeting); // [!code ++]
+}
+sayHello();
+```
+
+````text
+```js Diff Example icon="code" lines
+const greeting = "Hello, World!"; // [!code ++]
+function sayHello() {
+  console.log("Hello, World!"); // [!code --]
+  console.log(greeting); // [!code ++]
+}
+sayHello();
+```
+````

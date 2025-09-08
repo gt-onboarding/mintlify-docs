@@ -1,0 +1,123 @@
+---
+title: "GEO 指南：为 AI 搜索与回答引擎优化文档"
+sidebarTitle: "GEO"
+description: "让你的文档更易被发现，并更频繁地被 AI 工具引用"
+icon: "cpu"
+---
+
+将你的文档同时优化面向传统搜索引擎和由 AI 驱动的回答引擎（如 ChatGPT、Perplexity、Google AI Overviews）。
+
+生成式引擎优化（GEO）强调通过全面的内容和结构化信息提升在 AI 系统中的引用率，而传统 SEO 则侧重提升搜索结果排名。
+
+<div id="geo-quickstart">
+  ## GEO 快速开始
+</div>
+
+<div id="initial-setup">
+  ### 初始设置
+</div>
+
+1. 在 `docs.json` 设置中**确保你的文档会被索引**
+2. **核查当前页面**是否缺少描述和标题
+
+<div id="content-improvements">
+  ### 内容优化
+</div>
+
+1. **在合适的页面添加对比表**
+2. **审阅标题**，确保能够解答常见问题
+3. **加强相关主题之间的内部链接**
+4. **使用 AI 工具测试**以验证准确性
+
+<div id="geo-best-practices">
+  ## GEO 最佳实践
+</div>
+
+总体而言，撰写得当、结构清晰的文档通常会有出色的 GEO 表现。你仍应以用户为先；只要内容满足他们的需求，你就在为 AI 工具优化的正确道路上。与其为“优化而优化”，不如创造真正有用的内容——这同样会受到传统搜索引擎与 AI 搜索引擎的认可。
+
+重点关注：
+
+- 以用户需求为导向的内容，而非单纯的关键词匹配
+- 结构化、便于快速浏览的信息
+- 对问题作出直接、明确的解答
+
+<div id="format-for-clarity">
+  ### 清晰呈现的格式规范
+</div>
+
+这些格式实践有助于 AI 工具解析并理解你的内容：
+
+- 不要跳过标题层级（H1 → H2 → H3）
+- 使用具体对象名称，而非 “it” 或 “this”
+- 为代码块标注对应的编程语言
+- 为图片提供具有描述性的替代文本（alt 文本）
+- 链接相关概念，帮助 AI 理解其相互关系
+
+<div id="answer-questions-directly">
+  ### 直接解答问题
+</div>
+
+撰写能针对特定用户问题的内容：
+
+- 先给出核心结论
+- 使用贴合常见问题的描述性标题
+- 将复杂主题拆解为编号步骤
+
+<div id="mintlify-configuration">
+  ## Mintlify 配置
+</div>
+
+使用以下功能来优化 GEO。
+
+<div id="add-descriptive-page-metadata">
+  ### 添加描述性页面元数据
+</div>
+
+在前置数据（frontmatter）中包含清晰的标题和描述：
+
+```mdx
+---
+title: "API 身份验证指南"
+description: "包含代码示例的 API 身份验证完整实现指南"
+---
+```
+
+<div id="configure-global-indexing-settings">
+  ### 配置全局索引设置
+</div>
+
+在 `docs.json` 中添加：
+
+```json
+{
+  "seo": {
+    "indexing": "all",
+    "metatags": {
+      "og:type": "website",
+      "og:site_name": "Your docs"
+    }
+  }
+}
+```
+
+<div id="llmstxt">
+  ### LLMs.txt
+</div>
+
+LLMs.txt 文件可帮助 AI 系统理解你的文档结构，类似于站点地图之于搜索引擎。Mintlify 会为你的文档自动生成 LLMs.txt 文件，无需任何配置。
+
+<div id="testing-your-documentation">
+  ## 测试你的文档
+</div>
+
+使用围绕你的产品和文档的问题来测试各类 AI 工具，查看这些工具在多大程度上正确引用了你的文档。
+
+**让 AI 助手就你的文档回答具体问题：**
+
+- “如何使用此 API 配置身份验证？”
+- “请按步骤带我完成安装流程”
+
+**检查工具是否提供：**
+
+- 正确的代码示例
+- 准确的分步指导

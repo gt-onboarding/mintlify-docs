@@ -1,0 +1,71 @@
+---
+title: "Schede"
+description: "Alterna il contenuto usando il componente Schede"
+icon: "panel-top"
+---
+
+Usa le schede per organizzare i contenuti in più pannelli tra cui gli utenti possono passare. Puoi aggiungere qualsiasi numero di schede e includere altri componenti all'interno di ciascuna scheda.
+
+<Tabs>
+  <Tab title="Prima scheda">
+    ☝️ Benvenuto nel contenuto visibile solo all'interno della prima scheda.
+
+    Puoi aggiungere qualsiasi numero di componenti all'interno delle schede. Ad esempio, un blocco di codice:
+    ```java HelloWorld.java
+      class HelloWorld {
+          public static void main(String[] args) {
+              System.out.println("Hello, World!");
+          }
+      }
+    ```
+  </Tab>
+  <Tab title="Seconda scheda" icon="leaf">
+    ✌️ Ecco il contenuto che si trova solo all'interno della seconda scheda.
+
+    Questa ha un'icona <Icon icon="leaf" />!
+  </Tab>
+  <Tab title="Terza scheda">
+    💪 Ecco il contenuto che si trova solo all'interno della terza scheda.
+  </Tab>
+</Tabs>
+
+````mdx Esempio di Schede
+<Tabs>
+  <Tab title="Prima scheda">
+    ☝️ Benvenuto nel contenuto visibile solo all'interno della prima scheda.
+
+    Puoi aggiungere qualsiasi numero di componenti all'interno delle schede. Ad esempio, un blocco di codice:
+    ```java HelloWorld.java
+      class HelloWorld {
+          public static void main(String[] args) {
+              System.out.println("Hello, World!");
+          }
+      }
+    ```
+  </Tab>
+  <Tab title="Seconda scheda" icon="leaf">
+    ✌️ Ecco il contenuto che si trova solo all'interno della seconda scheda.
+
+    Questa ha un'icona <Icon icon="leaf" />!
+  </Tab>
+  <Tab title="Terza scheda">
+    💪 Ecco il contenuto che si trova solo all'interno della terza scheda.
+  </Tab>
+</Tabs>
+````
+
+<div id="properties">
+  ## Proprietà
+</div>
+
+<ResponseField name="title" type="string" required>
+  Il titolo della scheda. I titoli brevi facilitano la navigazione.
+</ResponseField>
+
+<ResponseField name="icon" type="string">
+  Un'icona [Font Awesome](https://fontawesome.com/icons), un'icona [Lucide](https://lucide.dev/icons), un URL di un'icona o un percorso relativo a un'icona.
+</ResponseField>
+
+<ResponseField name="iconType" type="string">
+  Solo per icone Font Awesome: una tra `regular`, `solid`, `light`, `thin`, `sharp-solid`, `duotone`, `brands`.
+</ResponseField>

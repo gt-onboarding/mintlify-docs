@@ -1,0 +1,40 @@
+---
+title: "Colunas"
+description: "Exiba cards lado a lado em uma grade"
+icon: 'columns-2'
+keywords: ['grupos de cards']
+---
+
+O componente `Columns` permite agrupar vários componentes `Card`. Ele é usado principalmente para organizar vários cards em uma grade, definindo o número de colunas.
+
+<Columns cols={2}>
+  <Card title="Primeiro card" icon="panel-left-close">
+    Neque porro quisquam est qui dolorem ipsum quia dolor sit amet
+  </Card>
+  <Card title="Segundo card" icon="panel-right-close">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  </Card>
+</Columns>
+
+<RequestExample>
+
+```mdx Card Group Example
+<Columns cols={2}>
+  <Card title="First Card">
+    Neque porro quisquam est qui dolorem ipsum quia dolor sit amet
+  </Card>
+  <Card title="Second Card">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  </Card>
+</Columns>
+```
+
+</RequestExample>
+
+<div id="props">
+  ### Propriedades
+</div>
+
+<ResponseField name="cols" default={2}>
+  Número de colunas por linha
+</ResponseField>

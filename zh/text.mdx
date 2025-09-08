@@ -1,0 +1,262 @@
+---
+title: "标题与文本"
+description: "了解如何格式化文本、创建标题并设置内容样式"
+icon: "heading"
+---
+
+<div id="headers">
+  ## 标题
+</div>
+
+标题用于组织内容并创建导航锚点。它们会显示在目录中，帮助用户快速浏览文档。
+
+<div id="creating-headers">
+  ### 创建标题
+</div>
+
+使用 `#` 符号创建不同层级的标题：
+
+```mdx
+## 主节标题
+### 小节标题
+#### 子小节标题
+```
+
+<Tip>
+  使用描述性且富含关键词的标题，清晰指示后续内容，有助于提升用户导航体验和搜索引擎优化效果。
+</Tip>
+
+<div id="text-formatting">
+  ## 文本格式
+</div>
+
+我们支持大多数用于强调和美化文本的 Markdown 格式。
+
+<div id="basic-formatting">
+  ### 基本格式
+</div>
+
+将以下格式样式应用于你的文本：
+
+| 样式 | 语法 | 示例 | 结果 |
+|-------|--------|---------|--------|
+| **加粗** | `**text**` | `**important note**` | **important note** |
+| _斜体_ | `_text_` | `_emphasis_` | _emphasis_ |
+| ~~删除线~~ | `~text~` | `~deprecated feature~` | ~~deprecated feature~~ |
+
+<div id="combining-formats">
+  ### 组合格式
+</div>
+
+可以将多种格式样式组合使用：
+
+```mdx
+**_bold and italic_**
+**~~bold and strikethrough~~**
+*~~italic and strikethrough~~**
+```
+
+**_粗体和斜体_**<br />
+**~~粗体和删除线~~**<br />
+_~~斜体和删除线~~_
+
+<div id="superscript-and-subscript">
+  ### 上标与下标
+</div>
+
+用于数学表达式或脚注时，请使用 HTML 标签：
+
+| 类型 | 语法 | 示例 | 结果 |
+|------|--------|---------|--------|
+| 上标 | `<sup>text</sup>` | `example<sup>2</sup>` | example<sup>2</sup> |
+| 下标 | `<sub>text</sub>` | `example<sub>n</sub>` | example<sub>n</sub> |
+
+<div id="links">
+  ## 链接
+</div>
+
+链接可帮助用户在页面之间导航并访问外部资源。使用描述性链接文本以提升可访问性和用户体验。
+
+<div id="internal-links">
+  ### 内部链接
+</div>
+
+使用根相对路径将链接指向文档中的其他页面：
+
+```mdx
+[Quickstart](/quickstart)
+[Steps](/components/steps)
+```
+
+[Quickstart](/zh/quickstart)<br />
+[Steps](/zh/components/steps)
+
+<Note>
+  请避免使用诸如 `[page](../page)` 之类的相对链接，因为它们加载更慢，且不如根相对链接易于优化。
+</Note>
+
+<div id="external-links">
+  ### 外部链接
+</div>
+
+对于外部资源，请使用完整的 URL：
+
+```mdx
+[Markdown 指南](https://www.markdownguide.org/)
+```
+
+[Markdown 指南](https://www.markdownguide.org/)
+
+<div id="broken-links">
+  ### 失效链接
+</div>
+
+你可以使用[命令行工具](/zh/installation)检查文档中的失效链接：
+
+```bash
+mint broken-links
+```
+
+<div id="blockquotes">
+  ## 引用块
+</div>
+
+引用块用于在内容中突出显示重要信息、引文或示例。
+
+<div id="single-line-blockquotes">
+  ### 单行引用
+</div>
+
+在文本前添加 `>` 以创建引用：
+
+```mdx
+> This is a quote that stands out from the main content.
+```
+
+> 这是一段从主体内容中突出的引用。
+
+<div id="multi-line-blockquotes">
+  ### 多段落引用
+</div>
+
+针对较长的引用或包含多个段落的情况：
+
+```mdx
+> This is the first paragraph of a multi-line blockquote.
+>
+> This is the second paragraph, separated by an empty line with `>`.
+```
+
+> 这是多段落引用的第一段。
+>
+> 这是第二段，中间通过带有 `>` 的空行分隔。
+
+<Tip>
+  引用块应谨慎使用，以保持其视觉冲击力和语义分量。对于注释、警告等信息，建议使用[标注](/zh/components/callouts)。
+</Tip>
+
+<div id="mathematical-expressions">
+  ## 数学表达式
+</div>
+
+我们支持使用 LaTeX 渲染数学表达式和公式。
+
+<div id="inline-math">
+  ### 行内数学
+</div>
+
+对行内数学表达式使用单个美元符号 `$`：
+
+```mdx
+The Pythagorean theorem states that $(a^2 + b^2 = c^2)$ in a right triangle.
+```
+
+勾股定理指出，在直角三角形中有 $(a^2 + b^2 = c^2)$。
+
+<div id="block-equations">
+  ### 块级公式
+</div>
+
+使用双美元符号 `$$` 表示独立的公式：
+
+```mdx
+$$
+E = mc^2
+$$
+```
+
+$$
+E = mc^2
+$$
+
+<Info>
+  LaTeX 支持依赖于正确的数学语法。请参阅 [LaTeX 文档](https://www.latex-project.org/help/documentation/)，了解完整的语法规范。
+</Info>
+
+<div id="line-breaks-and-spacing">
+  ## 换行与间距
+</div>
+
+通过控制间距与换行来提升内容的可读性。
+
+<div id="paragraph-breaks">
+  ### 段落分隔
+</div>
+
+使用空行分隔段落：
+
+```mdx
+This is the first paragraph.
+
+This is the second paragraph, separated by a blank line.
+```
+
+这是第一段。
+
+这是第二段，中间用一个空行分隔。
+
+<div id="manual-line-breaks">
+  ### 手动换行
+</div>
+
+在段落内需要强制换行时，请使用 HTML `<br />` 标签：
+
+```mdx
+This line ends here.<br />
+This line starts on a new line.
+```
+
+This line ends here.<br />
+This line starts on a new line.
+
+<Tip>
+  在大多数情况下，用空行分隔段落比手动换行更有助于阅读。
+</Tip>
+
+<div id="best-practices">
+  ## 最佳实践
+</div>
+
+<div id="content-organization">
+  ### 内容组织
+</div>
+
+- 使用标题建立清晰的内容层次
+- 遵循正确的标题层级（不要从 H2 直接跳到 H4）
+- 编写描述性且富含关键词的标题文本
+
+<div id="text-formatting">
+  ### 文本格式
+</div>
+
+- 使用粗体进行强调，不要用于整段文本
+- 斜体仅用于术语、标题或轻度强调
+- 避免过度格式化，以免分散读者对内容的注意力
+
+<div id="links">
+  ### 链接
+</div>
+
+- 使用具描述性的链接文本，避免使用“点击此处”或“阅读更多”
+- 内部链接使用根相对路径
+- 定期测试链接，防止出现死链或引用失效

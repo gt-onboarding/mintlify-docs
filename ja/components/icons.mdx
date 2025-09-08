@@ -1,0 +1,42 @@
+---
+title: "アイコン"
+description: "一般的なアイコンライブラリのアイコンを利用する"
+icon: "flag"
+---
+
+import IconsRequired from "/snippets/ja/icons-required.mdx";
+
+Font Awesome、Lucide、SVG、外部URL、またはプロジェクト内のファイルからアイコンを使用して、ドキュメントを充実させましょう。
+
+<Icon icon="flag" size={32} />
+
+```mdx Icon example
+<Icon icon="flag" size={32} />
+```
+
+
+<div id="inline-icons">
+  ## インラインアイコン
+</div>
+
+段落内で使用する場合、アイコンはインラインで配置されます。
+
+<Icon icon="flag" iconType="solid" /> 欲しいドキュメントを、手間なく。
+
+```markdown Inline icon example
+<Icon icon="flag" iconType="solid" /> 欲しいドキュメントを、手間なく。
+```
+
+<div id="properties">
+  ## プロパティ
+</div>
+
+<IconsRequired />
+
+<ResponseField name="color" type="string">
+  アイコンの色を16進数コードで指定します（例：`#FF5733`）。
+</ResponseField>
+
+<ResponseField name="size" type="number">
+  アイコンのサイズ（ピクセル単位）を指定します。
+</ResponseField>

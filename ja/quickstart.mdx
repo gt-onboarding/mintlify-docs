@@ -1,0 +1,293 @@
+---
+title: "クイックスタート"
+description: "数分でドキュメントを公開"
+icon: "rocket"
+---
+
+このクイックスタートガイドでは、数分でドキュメントサイトをセットアップして公開する方法を説明します。
+
+このガイドを完了すると、カスタマイズや拡張が可能な本番稼働のドキュメントサイトが用意されます。
+
+<Info>
+  **前提条件**: 開始する前に、[アカウントを作成](https://mintlify.com/start)し、オンボーディングを完了してください。
+</Info>
+
+<div id="getting-started">
+  ## はじめに
+</div>
+
+オンボーディングを完了すると、ドキュメントサイトは次の形式の固有のURLに自動的にデプロイされます。
+
+```
+https://<your-project-name>.mintlify.app
+```
+
+URLは[ダッシュボード](https://dashboard.mintlify.com/)のOverviewページで確認できます。
+
+<Frame>
+  <img src="/images/quickstart/mintlify-domain-light.png" alt="Mintlify Domain" className="block dark:hidden" />
+
+  <img src="/images/quickstart/mintlify-domain-dark.png" alt="Mintlify Domain" className="hidden dark:block" />
+</Frame>
+
+サイトのURLはすぐに利用できます。ドキュメントサイトのセットアップ中は、このURLを使ってテストやチームとの共有を行ってください。
+
+<div id="install-the-github-app">
+  ### GitHubアプリをインストールする
+</div>
+
+Mintlify では、リポジトリに変更をプッシュした際にデプロイを自動化する GitHub アプリを提供しています。
+
+オンボーディングチェックリストまたはダッシュボードの案内に従って GitHub アプリをインストールしてください。
+
+1. Mintlify のダッシュボードで **Settings** に移動します。
+2. サイドバーで **GitHub App** を選択します。
+3. **Install GitHub App** を選択します。新しいタブで GitHub アプリのインストールページが開きます。
+4. アプリをインストールする組織またはユーザーアカウントを選択します。
+5. 接続するリポジトリを選択します。
+
+<Frame>
+  <img src="/images/quickstart/github-app-installation-light.png" alt="GitHub App Installation" className="block dark:hidden" />
+
+  <img src="/images/quickstart/github-app-installation-dark.png" alt="GitHub App Installation" className="hidden dark:block" />
+</Frame>
+
+<Info>
+  ドキュメントを別のリポジトリへ移動した場合は、GitHub アプリの権限を更新してください。
+</Info>
+
+<div id="authorize-your-github-account">
+  ### GitHubアカウントを認可する
+</div>
+
+1. Mintlifyのダッシュボードで**Settings**に移動します。
+2. サイドバーから**My Profile**を選択します。
+3. **Authorize GitHub account**を選択します。GitHubの認可ページが新しいタブで開きます。
+
+<Info>
+  組織の設定によっては、GitHub組織の管理者による承認が必要になる場合があります。
+</Info>
+
+<div id="editing-workflows">
+  ## 編集ワークフロー
+</div>
+
+Mintlify では、ドキュメントの作成と保守に向けて 2 つのワークフローを用意しています。
+
+<Card title="コードベースのワークフロー" icon="terminal" horizontal href="#code-based-workflow">
+  ローカル環境で既存のツールを用いて作業したいユーザー向けです。クリックして該当セクションへ移動します。
+</Card>
+
+<Card title="Web エディタのワークフロー" icon="mouse-pointer-2" horizontal href="#web-editor-workflow">
+  Web ブラウザ上のビジュアルなインターフェースで作業したいユーザー向けです。クリックして該当セクションへ移動します。
+</Card>
+
+<div id="code-based-workflow">
+  ## コードベースのワークフロー
+</div>
+
+コードベースのワークフローは、既存の開発環境やGitリポジトリと統合されます。このワークフローは、コードと並行してドキュメントを管理したい技術チームに最適です。
+
+<div id="install-the-cli">
+  ### CLI をインストールする
+</div>
+
+ローカルでドキュメントを扱うには、ターミナルで次のコマンドを実行して、[mint](https://www.npmjs.com/package/mint) というコマンドラインインターフェース（CLI）をインストールします。
+
+<CodeGroup>
+  ```bash npm
+  npm i -g mint
+  ```
+
+  ```bash pnpm
+  pnpm add -g mint
+  ```
+</CodeGroup>
+
+<Info>
+  お使いの環境に Node.js がインストールされている必要があります。インストールで問題が発生した場合は、トラブルシューティングガイドをご確認ください。
+</Info>
+
+<div id="edit-the-documentation">
+  ### ドキュメントを編集する
+</div>
+
+環境のセットアップが完了したら、ドキュメントファイルの編集を開始できます。例として、イントロダクションページのタイトルを更新してみましょう。
+
+1. オンボーディング時に作成したリポジトリを開きます。
+2. `index.mdx` を開き、ファイルの先頭を確認します。
+
+```mdx index.mdx
+---
+title: "Introduction"
+description: "This is the introduction to the documentation"
+---
+```
+
+3. `title` フィールドを `"Hello World"` に更新します。
+
+```mdx index.mdx {2}
+---
+title: "Hello World"
+description: "This is the introduction to the documentation"
+---
+```
+
+<div id="preview-the-changes">
+  ### 変更をプレビューする
+</div>
+
+ローカルで変更をプレビューするには、次のコマンドを実行します：
+
+```bash
+mint dev
+```
+
+プレビューは `localhost:3000` で確認できます。
+
+<Frame>
+  <img src="/images/quickstart/mintlify-dev-light.png" alt="Mintlify Dev" className="block dark:hidden" />
+
+  <img src="/images/quickstart/mintlify-dev-dark.png" alt="Mintlify Dev" className="hidden dark:block" />
+</Frame>
+
+<div id="push-the-changes">
+  ### 変更をプッシュする
+</div>
+
+変更内容を公開する準備ができたら、リポジトリにプッシュします。
+
+Mintlify は変更を自動検出し、ドキュメントをビルドして、更新をサイトにデプロイします。デプロイ状況は GitHub リポジトリのコミット履歴または[ダッシュボード](https://dashboard.mintlify.com)で確認できます。
+
+デプロイが完了すると、最新の更新は `<your-project-name>.mintlify.app` で利用できるようになります。
+
+<Card title="カスタムドメインの追加へ移動" icon="arrow-down" href="#adding-a-custom-domain" horizontal>
+  必要に応じて、Web エディターのフローをスキップし、カスタムドメインの追加に進みます。
+</Card>
+
+<div id="web-editor-workflow">
+  ## Web editorのワークフロー
+</div>
+
+Web editorのワークフローは、ドキュメントの作成・編集に使えるWYSIWYG（見たままの表示で編集）インターフェースを提供します。追加のローカル開発ツールを使わずに、Webブラウザだけで作業したい方に最適です。
+
+<div id="access-the-web-editor">
+  ### Webエディターにアクセスする
+</div>
+
+1. [ダッシュボード](https://dashboard.mintlify.com)にログインします。
+2. 左側のサイドバーで**Editor**を選択します。
+
+<Info>
+  GitHub アプリをインストールしていない場合、Webエディターを開いた際にインストールを求められます。
+</Info>
+
+<Frame>
+  <img alt="ビジュアルエディターモードの Mintlify Web Editor" src="/images/quickstart/web-editor-light.png" className="block dark:hidden" />
+
+  <img alt="ビジュアルエディターモードの Mintlify Web Editor" src="/images/quickstart/web-editor-dark.png" className="hidden dark:block" />
+</Frame>
+
+<div id="edit-the-documentation">
+  ### ドキュメントを編集する
+</div>
+
+Mintlify Web Editor では、サイドバーからドキュメントファイルを参照できます。まずはイントロダクションページを更新してみましょう。
+
+ファイルエクスプローラーで `index.mdx` を見つけて選択します。
+
+次に、エディタでタイトルを「Hello World」に更新します。
+
+<Frame>
+  <img alt="Web Editorでの編集" src="/images/quickstart/web-editor-editing-light.png" className="block dark:hidden" />
+
+  <img alt="Web Editorでの編集" src="/images/quickstart/web-editor-editing-dark.png" className="hidden dark:block" />
+</Frame>
+
+<Tip>
+  エディタには豊富な書式設定ツールやコンポーネントが用意されています。エディタ内で <kbd>/</kbd> を入力するとコマンドメニューが開き、これらのツールにアクセスできます。
+</Tip>
+
+<div id="publish-your-changes">
+  ### 変更を公開する
+</div>
+
+編集内容に満足したら、右上の**Publish**ボタンをクリックします。変更はドキュメントサイトに直ちにデプロイされます。
+
+<Tip>
+  本番サイトにデプロイする前に、ブランチを作成し、プルリクエストで変更をプレビュー・レビューしましょう。
+</Tip>
+
+ブランチやプルリクエストを用いた共同編集やプレビュー方法を含む、Webエディタの詳細は[Webエディタのドキュメント](/ja/editor)をご覧ください。
+
+<div id="adding-a-custom-domain">
+  ## カスタムドメインの追加
+</div>
+
+`<your-project-name>.mintlify.app` のサブドメインはテストや開発には適していますが、多くのチームは本番環境のドキュメントにはカスタムドメインを使用することを好みます。
+
+カスタムドメインを追加するには、ダッシュボードの [Domain Setup](https://dashboard.mintlify.com/settings/deployment/custom-domain) ページに移動します。
+
+<Frame>
+  <img src="/images/quickstart/custom-domain-light.png" alt="カスタムドメイン" className="block dark:hidden" />
+
+  <img src="/images/quickstart/custom-domain-dark.png" alt="カスタムドメイン" className="hidden dark:block" />
+</Frame>
+
+ドメイン（例: `docs.yourcompany.com`）を入力し、表示される手順に従ってドメインプロバイダーで DNS 設定を構成してください。
+
+<Table>
+  | レコードタイプ | 名前 | 値 | TTL |
+  |-------------|------|-------|-----|
+  | CNAME | docs（またはサブドメイン） | cname.mintlify.app | 3600 |
+</Table>
+
+<Info>
+  DNS の変更が反映されるまで最大 48 時間かかる場合がありますが、通常はより早く完了します。
+</Info>
+
+<div id="next-steps">
+  ## 次のステップ
+</div>
+
+おめでとうございます。Mintlify でドキュメントサイトのデプロイに成功しました。ドキュメントをさらに充実させるための次のステップをご紹介します。
+
+<Card title="グローバル設定を構成する" icon="settings" href="ja/settings" horizontal>
+  `docs.json` ファイルで、サイト全体のスタイル、ナビゲーション、インテグレーションなどを設定します。
+</Card>
+
+<Card title="テーマをカスタマイズする" icon="paintbrush" href="ja/themes" horizontal>
+  ドキュメントサイトの色、フォント、外観全体のカスタマイズ方法を学びましょう。
+</Card>
+
+<Card title="ナビゲーションを整理する" icon="map" href="ja/navigation" horizontal>
+  直感的なナビゲーションでドキュメントを構成し、ユーザーが必要な情報を見つけやすくします。
+</Card>
+
+<Card title="インタラクティブなコンポーネントを追加する" icon="puzzle" href="/ja/components/accordions" horizontal>
+  アコーディオン、タブ、コードサンプルなどのインタラクティブなコンポーネントでドキュメントを強化しましょう。
+</Card>
+
+<Card title="APIリファレンスを設定する" icon="code" href="/ja/api-playground/overview" horizontal>
+  OpenAPI と AsyncAPI の仕様を用いて、インタラクティブな API リファレンスを作成します。
+</Card>
+
+<div id="troubleshooting">
+  ## トラブルシューティング
+</div>
+
+セットアップ中に問題が発生した場合は、次の一般的な対処方法を確認してください。
+
+<AccordionGroup>
+  <Accordion title="ローカルプレビューが動作しない">
+    Node.js v19 以上がインストールされていること、また `docs.json` があるディレクトリで `mint dev` コマンドを実行していることを確認してください。
+  </Accordion>
+
+  <Accordion title="変更が本番サイトに反映されない">
+    デプロイには数分かかることがあります。GitHub Actions（コードベースのワークフローの場合）や Mintlify ダッシュボードのデプロイログを確認し、ビルドエラーがないかをご確認ください。
+  </Accordion>
+
+  <Accordion title="カスタムドメインが接続されない">
+    DNS レコードが正しく設定されているか確認し、DNS の伝播に十分な時間（最大 48 時間）を確保してください。[DNSChecker](https://dnschecker.org) などのツールで CNAME レコードを検証できます。
+  </Accordion>
+</AccordionGroup>

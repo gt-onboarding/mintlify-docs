@@ -1,0 +1,40 @@
+---
+title: "列"
+description: "以网格形式并排显示卡片"
+icon: 'columns-2'
+keywords: ['卡片分组']
+---
+
+`Columns` 组件用于将多个 `Card` 组件分组在一起。它通常通过指定网格列数，将多张卡片排布为网格。
+
+<Columns cols={2}>
+  <Card title="第一张卡片" icon="panel-left-close">
+    Neque porro quisquam est qui dolorem ipsum quia dolor sit amet
+  </Card>
+  <Card title="第二张卡片" icon="panel-right-close">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  </Card>
+</Columns>
+
+<RequestExample>
+
+```mdx Card Group Example
+<Columns cols={2}>
+  <Card title="First Card">
+    Neque porro quisquam est qui dolorem ipsum quia dolor sit amet
+  </Card>
+  <Card title="Second Card">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  </Card>
+</Columns>
+```
+
+</RequestExample>
+
+<div id="props">
+  ### 属性
+</div>
+
+<ResponseField name="cols" default={2}>
+  每行的列数
+</ResponseField>

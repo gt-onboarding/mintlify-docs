@@ -1,0 +1,48 @@
+---
+title: "SDKのサンプルコードを追加する"
+description: "開発者にSDKの使い方を示すため、APIエンドポイントの横に言語別のサンプルコードを表示します"
+---
+
+ユーザーがネットワークリクエストを直接送るのではなく、SDKを通じてAPIを操作する場合は、`x-codeSamples` 拡張を使ってOpenAPIドキュメントにサンプルコードを追加し、OpenAPIページに表示できます。
+
+このプロパティは任意のリクエストメソッドに追加でき、以下のスキーマを持ちます。
+
+<ParamField body="lang" type="string" required>
+  サンプルコードの言語。
+</ParamField>
+
+<ParamField body="label" type="string">
+  サンプルのラベル。単一のエンドポイントに複数の例を提供する場合に便利です。
+</ParamField>
+
+<ParamField body="source" type="string" required>
+  サンプルのソースコード。
+</ParamField>
+
+以下は植物のトラッキングアプリのサンプルコードです。このアプリにはBashのCLIツールとJavaScriptのSDKの両方があります。
+
+```yaml
+paths:
+  /plants:
+    get:
+      # ...
+      x-codeSamples:
+        - lang: bash
+          label: List all unwatered plants
+          source: |
+            planter list -u
+        - lang: javascript
+          label: List all unwatered plants
+          source: |
+            const planter = require('planter');
+            planter.list({ unwatered: true });
+        - lang: bash
+          label: List all potted plants
+          source: |
+            planter list -p
+        - lang: javascript
+          label: List all potted plants
+          source: |
+            const planter = require('planter');
+            planter.list({ potted: true });
+```

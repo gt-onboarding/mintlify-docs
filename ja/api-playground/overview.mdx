@@ -1,0 +1,161 @@
+---
+title: "APIプレイグラウンド"
+description: "ユーザーがAPIを操作・試用できるようにする"
+icon: "play"
+---
+
+<div id="overview">
+  ## 概要
+</div>
+
+APIプレイグラウンドは、ユーザーがAPIエンドポイントをテストし、探索できるインタラクティブな環境です。開発者はAPIリクエストを作成して送信し、ドキュメント内でそのままレスポンスを確認できます。
+
+<Frame>
+  <img src="/images/playground/API-playground-light.png" alt="更新をトリガーするエンドポイント向けのAPIプレイグラウンド" className="block dark:hidden" />
+
+  <img src="/images/playground/API-playground-dark.png" alt="更新をトリガーするエンドポイント向けのAPIプレイグラウンド" className="hidden dark:block" />
+</Frame>
+
+このプレイグラウンドはOpenAPI仕様またはAsyncAPIスキーマから自動生成されるため、APIの変更はプレイグラウンドにも自動的に反映されます。`docs.json`でベースURLと認証方法を定義したうえで、APIリファレンスページを手動で作成することもできます。
+
+APIプレイグラウンドはOpenAPI仕様からの生成を推奨します。OpenAPIドキュメントの作成については、[OpenAPI Setup](/ja/api-playground/openapi-setup)を参照してください。
+
+<div id="getting-started">
+  ## はじめに
+</div>
+
+<Steps>
+  <Step title="OpenAPI 仕様ファイルを追加します。">
+    <Info>
+      [Swagger Editor](https://editor.swagger.io/) または [Mint CLI](https://www.npmjs.com/package/mint) を使用して、OpenAPI 仕様ファイルが有効であることを確認してください。
+    </Info>
+
+    ```bash {2}
+    /your-project
+      |- docs.json
+      |- openapi.json
+    ```
+  </Step>
+
+  <Step title="`docs.json` を設定します。">
+    `docs.json` を更新して OpenAPI 仕様を参照します。OpenAPI ドキュメントで定義された各エンドポイントのページを自動生成するため、任意のナビゲーション要素に `openapi` プロパティを追加します。
+
+    次の例では、`openapi.json` で定義された各エンドポイントのページを生成し、ナビゲーション内の "API reference" グループ配下に整理します。
+
+    ```json
+    "navigation": {
+      "groups": [
+        {
+          "group": "API reference",
+          "openapi": "openapi.json"
+        }
+      ]
+    }
+    ```
+
+    特定のエンドポイントのみページを生成するには、ナビゲーション要素の `pages` プロパティにエンドポイントを列挙します。
+
+    次の例では、`GET /users` と `POST /users` のみページを生成します。ほかのエンドポイントのページも生成する場合は、`pages` 配列に追加してください。
+
+    ```json
+    "navigation": {
+      "groups": [
+          {
+            "group": "API reference",
+            "openapi": "openapi.json",
+            "pages": [
+              "GET /users",
+              "POST /users"
+            ]
+          }
+      ]
+    }
+    ```
+  </Step>
+</Steps>
+
+<div id="customizing-your-playground">
+  ## APIプレイグラウンドのカスタマイズ
+</div>
+
+`docs.json`で次のプロパティを定義することで、APIプレイグラウンドをカスタマイズできます。
+
+<ResponseField name="playground" type="object">
+  APIプレイグラウンドの設定です。
+
+  <Expandable title="playground" defaultOpen="True">
+    <ResponseField name="display" type="&#x22;interactive&#x22; | &#x22;simple&#x22; | &#x22;none&#x22;">
+      APIプレイグラウンドの表示モード。
+
+      - `"interactive"`: インタラクティブなプレイグラウンドを表示します。
+      - `"simple"`: プレイグラウンドなしでコピー可能なエンドポイントのみを表示します。
+      - `"none"`: 何も表示しません。
+
+      既定値は`interactive`です。
+    </ResponseField>
+
+    <ResponseField name="proxy" type="boolean" defaultOpen="True">
+      APIリクエストをプロキシサーバー経由で中継するかどうか。既定値は`true`です。
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="examples" type="object">
+  自動生成されるAPIサンプルの設定です。
+
+  <Expandable title="examples" defaultOpen="True">
+    <ResponseField name="languages" type="array of string">
+      自動生成されるAPIスニペットの対応言語。
+
+      言語は指定した順序で表示されます。
+    </ResponseField>
+
+    <ResponseField name="defaults" type="&#x22;required&#x22; | &#x22;all&#x22;">
+      APIサンプルで任意パラメータを表示するかどうか。既定値は`all`です。
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<div id="example-configuration">
+  ### 設定例
+</div>
+
+```json
+{
+ "api": {
+   "playground": {
+     "display": "interactive"
+   },
+   "examples": {
+     "languages": ["curl", "python", "javascript"],
+     "defaults": "required"
+   }
+ }
+}
+```
+
+この例では、APIプレイグラウンドをインタラクティブ表示にし、cURL、Python、JavaScript のコードスニペットを用意するように設定しています。コードスニペットには必須パラメータのみが表示されます。
+
+<div id="custom-endpoint-pages">
+  ### カスタムエンドポイントページ
+</div>
+
+APIドキュメントをより柔軟に制御したい場合は、OpenAPI仕様で `x-mint` 拡張を使用するか、エンドポイントごとに個別の `MDX` ページを作成してください。
+
+いずれの方法でも次のことが可能です:
+
+- ページのメタデータをカスタマイズ
+- 例などの追加コンテンツを追加
+- ページごとにプレイグラウンドの挙動を制御
+
+`x-mint` 拡張の使用を推奨します。OpenAPI仕様からAPIドキュメントが自動生成され、1つのファイルで一元管理できます。
+
+個別の `MDX` ページは、小規模なAPIや、ページ単位で変更を試したい場合に適しています。
+
+詳細は、[x-mint extension](/ja/api-playground/openapi-setup#x-mint-extension) および [MDX Setup](/ja/api-playground/mdx/configuration) を参照してください。
+
+<div id="further-reading">
+  ## 参考情報
+</div>
+
+- WebSocket リファレンスページを生成するための AsyncAPI スキーマの作成については、[AsyncAPI Setup](/ja/api-playground/asyncapi/setup) を参照してください。

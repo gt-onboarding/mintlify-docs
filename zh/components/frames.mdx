@@ -1,0 +1,45 @@
+---
+title: "Frame"
+description: "使用 Frame 组件将图片或其他组件包裹在容器中。"
+icon: 'frame'
+---
+
+如果你想将图片居中，Frame 会很有帮助。
+
+<Frame>
+  <img src="https://mintlify-assets.b-cdn.net/yellowstone.jpeg" />
+</Frame>
+
+<div id="captions">
+  ## 说明文字
+</div>
+
+你可以使用可选的 `caption` 属性为图片补充说明信息。
+
+<Frame caption="Yosemite 国家公园每年接待超过 350 万名游客">
+  <img src="https://mintlify-assets.b-cdn.net/yosemite.jpg" />
+</Frame>
+
+<div id="props">
+  ## 属性
+</div>
+
+<ResponseField name="caption" type="string">
+  可选的说明文字，居中显示在组件下方。
+</ResponseField>
+
+<RequestExample>
+
+```mdx Frame
+<Frame>
+  <img src="/path/image.jpg" />
+</Frame>
+```
+
+```mdx Frame with Captions
+<Frame caption="Caption Text">
+  <img src="/path/image.jpg" />
+</Frame>
+```
+
+</RequestExample>
