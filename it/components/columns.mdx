@@ -1,0 +1,40 @@
+---
+title: "Colonne"
+description: "Mostra le schede affiancate in una griglia"
+icon: 'columns-2'
+keywords: ['gruppi di schede']
+---
+
+Il componente `Columns` consente di raggruppare più componenti `Card`. È usato soprattutto per disporre più schede in una griglia, specificando il numero di colonne.
+
+<Columns cols={2}>
+  <Card title="Prima scheda" icon="panel-left-close">
+    Neque porro quisquam est qui dolorem ipsum quia dolor sit amet
+  </Card>
+  <Card title="Seconda scheda" icon="panel-right-close">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  </Card>
+</Columns>
+
+<RequestExample>
+
+```mdx Card Group Example
+<Columns cols={2}>
+  <Card title="First Card">
+    Neque porro quisquam est qui dolorem ipsum quia dolor sit amet
+  </Card>
+  <Card title="Second Card">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  </Card>
+</Columns>
+```
+
+</RequestExample>
+
+<div id="props">
+  ### Props
+</div>
+
+<ResponseField name="cols" default={2}>
+  Numero di colonne per riga
+</ResponseField>

@@ -1,0 +1,55 @@
+---
+title: "自定义域名"
+description: "在您网站的自定义域名上托管文档"
+icon: "globe"
+---
+
+要在自定义域名上部署文档，您需要先在 Mintlify 设置中指定目标自定义域名，并在您的域名服务商处配置相应的 DNS 记录。
+
+<Info>
+  想要设置类似 `mintlify.com/docs` 的自定义子目录？请参阅[自定义子目录](/zh/advanced/subpath/cloudflare)文档。
+</Info>
+
+<div id="dashboard-settings">
+  ## 仪表板设置
+</div>
+
+1. 前往你的[仪表板](https://dashboard.mintlify.com)
+2. 选择**Settings**
+3. 选择**Domain Setup**
+4. 输入你想使用的自定义域名。例如：`docs.mintlify.com`
+
+<Frame>
+  <img alt="Custom Domain" className="block dark:hidden" src="/images/add-custom-domain-light.png" />
+
+  <img alt="Custom Domain" className="hidden dark:block" src="/images/add-custom-domain-dark.png" />
+</Frame>
+
+<div id="configuring-your-dns">
+  ## 配置 DNS
+</div>
+
+1. 前往域名提供商网站的 DNS 设置页面。
+2. 新建一条 DNS 记录，填写以下值：
+
+```bash
+CNAME | docs | cname.vercel-dns.com.
+```
+
+<Frame>
+  <img alt="DNS" src="https://mintlify-assets.b-cdn.net/mintlify-dns.png" />
+</Frame>
+
+<div id="provider-specific-settings">
+  ## 不同提供商的专用设置
+</div>
+
+<AccordionGroup>
+  <Accordion title="Vercel 验证">
+    如果 Vercel 是您的域名提供商，您需要添加一个用于验证的 `TXT` 记录。提交自定义域名后，相关信息会显示在您的控制台中，并通过电子邮件发送给您。
+  </Accordion>
+
+  <Accordion title="Cloudflare 安全设置">
+    如果 Cloudflare 是您的 DNS 提供商，您必须在 HTTPS 设置中启用“Full (strict)”安全选项。
+  </Accordion>
+</AccordionGroup>

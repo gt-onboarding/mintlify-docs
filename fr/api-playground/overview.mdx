@@ -1,0 +1,161 @@
+---
+title: "Terrain de jeu"
+description: "Permettre aux utilisateurs d’interagir avec votre API"
+icon: "play"
+---
+
+<div id="overview">
+  ## Aperçu
+</div>
+
+Le Terrain de jeu API est un environnement interactif qui permet aux utilisateurs de tester et d’explorer vos points de terminaison d’API. Les développeurs peuvent rédiger des requêtes API, les envoyer et consulter les réponses sans quitter votre documentation.
+
+<Frame>
+  <img src="/images/playground/API-playground-light.png" alt="Terrain de jeu API pour le point de terminaison « déclencher une mise à jour »." className="block dark:hidden" />
+
+  <img src="/images/playground/API-playground-dark.png" alt="Terrain de jeu API pour le point de terminaison « déclencher une mise à jour »." className="hidden dark:block" />
+</Frame>
+
+Le terrain de jeu est généré automatiquement à partir de votre spécification OpenAPI ou de votre schéma AsyncAPI, de sorte que toute mise à jour de votre API est automatiquement répercutée dans le terrain de jeu. Vous pouvez également créer manuellement des pages de référence API après avoir défini une URL de base et une méthode d’authentification dans votre `docs.json`.
+
+Nous recommandons de générer votre Terrain de jeu API à partir d’une spécification OpenAPI. Consultez [Configuration d’OpenAPI](/fr/api-playground/openapi-setup) pour plus d’informations sur la création de votre document OpenAPI.
+
+<div id="getting-started">
+  ## Prise en main
+</div>
+
+<Steps>
+  <Step title="Ajoutez votre fichier de spécification OpenAPI.">
+    <Info>
+      Vérifiez la validité de votre fichier de spécification OpenAPI avec le [Swagger Editor](https://editor.swagger.io/) ou le [Mint CLI](https://www.npmjs.com/package/mint).
+    </Info>
+
+    ```bash {2}
+    /your-project
+      |- docs.json
+      |- openapi.json
+    ```
+  </Step>
+
+  <Step title="Configurez `docs.json`.">
+    Mettez à jour votre `docs.json` pour référencer votre spécification OpenAPI. Ajoutez une propriété `openapi` à n’importe quel élément de navigation pour remplir automatiquement votre documentation avec des pages pour chaque endpoint défini dans votre document OpenAPI.
+
+    Cet exemple génère une page pour chaque endpoint défini dans `openapi.json` et les organise sous le groupe « API reference » dans votre navigation.
+
+    ```json
+    "navigation": {
+      "groups": [
+        {
+          "group": "API reference",
+          "openapi": "openapi.json"
+        }
+      ]
+    }
+    ```
+
+    Pour générer des pages uniquement pour certains endpoints, listez-les dans la propriété `pages` de l’élément de navigation.
+
+    Cet exemple génère des pages uniquement pour les endpoints `GET /users` et `POST /users`. Pour générer d’autres pages d’endpoint, ajoutez des endpoints supplémentaires au tableau `pages`.
+
+    ```json
+    "navigation": {
+      "groups": [
+          {
+            "group": "API reference",
+            "openapi": "openapi.json",
+            "pages": [
+              "GET /users",
+              "POST /users"
+            ]
+          }
+      ]
+    }
+    ```
+  </Step>
+</Steps>
+
+<div id="customizing-your-playground">
+  ## Personnaliser votre terrain de jeu
+</div>
+
+Vous pouvez personnaliser votre Terrain de jeu API en définissant les propriétés suivantes dans votre `docs.json`.
+
+<ResponseField name="playground" type="object">
+  Paramètres de configuration du Terrain de jeu API.
+
+  <Expandable title="playground" defaultOpen="True">
+    <ResponseField name="display" type="&#x22;interactive&#x22; | &#x22;simple&#x22; | &#x22;none&#x22;">
+      Le mode d’affichage du Terrain de jeu API.
+
+      - `"interactive"` : Affiche le terrain de jeu interactif.
+      - `"simple"` : Affiche un point de terminaison copiable sans terrain de jeu.
+      - `"none"` : N’affiche rien.
+
+      Valeur par défaut : `interactive`.
+    </ResponseField>
+
+    <ResponseField name="proxy" type="boolean" defaultOpen="True">
+      Indique s’il faut faire transiter les requêtes API par un serveur proxy. Valeur par défaut : `true`.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="examples" type="object">
+  Paramètres de configuration pour les exemples API générés automatiquement.
+
+  <Expandable title="examples" defaultOpen="True">
+    <ResponseField name="languages" type="array of string">
+      Langages pour les extraits d’API générés automatiquement.
+
+      Les langages s’affichent dans l’ordre spécifié.
+    </ResponseField>
+
+    <ResponseField name="defaults" type="&#x22;required&#x22; | &#x22;all&#x22;">
+      Indique s’il faut afficher les paramètres optionnels dans les exemples d’API. Valeur par défaut : `all`.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<div id="example-configuration">
+  ### Exemple de configuration
+</div>
+
+```json
+{
+ "api": {
+   "playground": {
+     "display": "interactive"
+   },
+   "examples": {
+     "languages": ["curl", "python", "javascript"],
+     "defaults": "required"
+   }
+ }
+}
+```
+
+Cet exemple configure le Terrain de jeu API pour être interactif, avec des extraits de code pour cURL, Python et JavaScript. Seuls les paramètres requis sont affichés dans les extraits.
+
+<div id="custom-endpoint-pages">
+  ### Pages d’endpoint personnalisées
+</div>
+
+Lorsque vous avez besoin de plus de contrôle sur votre documentation d’API, utilisez l’extension `x-mint` dans votre spécification OpenAPI ou créez des pages `MDX` individuelles pour vos endpoints.
+
+Ces deux options vous permettent de :
+
+- Personnaliser les métadonnées de page
+- Ajouter du contenu supplémentaire, comme des exemples
+- Contrôler le comportement du Terrain de jeu API page par page
+
+L’extension `x-mint` est recommandée afin que l’ensemble de votre documentation d’API soit automatiquement généré à partir de votre spécification OpenAPI et conservé dans un seul fichier.
+
+Les pages `MDX` individuelles sont recommandées pour les petites API ou lorsque vous souhaitez expérimenter des modifications page par page.
+
+Pour plus d’informations, consultez [x-mint extension](/fr/api-playground/openapi-setup#x-mint-extension) et [MDX Setup](/fr/api-playground/mdx/configuration).
+
+<div id="further-reading">
+  ## Pour aller plus loin
+</div>
+
+- [Configuration d’AsyncAPI](/fr/api-playground/asyncapi/setup) pour en savoir plus sur la création de votre schéma AsyncAPI afin de générer des pages de référence WebSocket.

@@ -1,0 +1,42 @@
+---
+title: "Icônes"
+description: "Utilisez des icônes issues de bibliothèques d’icônes populaires"
+icon: "flag"
+---
+
+import IconsRequired from "/snippets/fr/icons-required.mdx";
+
+Utilisez des icônes issues de Font Awesome, Lucide, de fichiers SVG, d’URL externes ou de fichiers de votre projet pour enrichir votre documentation.
+
+<Icon icon="flag" size={32} />
+
+```mdx Icon example
+<Icon icon="flag" size={32} />
+```
+
+
+<div id="inline-icons">
+  ## Icônes intégrées
+</div>
+
+Les icônes sont placées dans le flux du texte lorsqu’elles sont utilisées au sein d’un paragraphe.
+
+<Icon icon="flag" iconType="solid" /> La documentation que vous voulez, sans effort.
+
+```markdown Exemple d’icône intégrée
+<Icon icon="flag" iconType="solid" /> La documentation que vous voulez, sans effort.
+```
+
+<div id="properties">
+  ## Propriétés
+</div>
+
+<IconsRequired />
+
+<ResponseField name="color" type="string">
+  La couleur de l’icône sous forme de code hexadécimal (par exemple : `#FF5733`).
+</ResponseField>
+
+<ResponseField name="size" type="number">
+  La taille de l’icône en pixels.
+</ResponseField>

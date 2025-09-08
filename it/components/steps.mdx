@@ -1,0 +1,72 @@
+---
+title: "Passaggi"
+description: "Organizza il contenuto in sequenza utilizzando il componente Steps"
+icon: "list-todo"
+---
+
+import IconsOptional from "/snippets/it/icons-optional.mdx";
+
+Usa i passaggi per mostrare una serie di azioni o eventi in sequenza. Puoi aggiungere tutti i passaggi necessari.
+
+<Steps>
+  <Step title="First Step">
+    Queste sono istruzioni o contenuti che riguardano solo il primo passaggio.
+  </Step>
+
+  <Step title="Second Step">
+    Queste sono istruzioni o contenuti che riguardano solo il secondo passaggio.
+  </Step>
+
+  <Step title="Third Step">
+    Queste sono istruzioni o contenuti che riguardano solo il terzo passaggio.
+  </Step>
+</Steps>
+
+```mdx Steps example
+<Steps>
+  <Step title="First Step">
+    Queste sono istruzioni o contenuti che riguardano solo il primo passaggio.
+  </Step>
+  <Step title="Second Step">
+    Queste sono istruzioni o contenuti che riguardano solo il secondo passaggio.
+  </Step>
+  <Step title="Third Step">
+    Queste sono istruzioni o contenuti che riguardano solo il terzo passaggio.
+  </Step>
+</Steps>
+```
+
+
+<div id="steps-properties">
+  ## Proprietà di Steps
+</div>
+
+<ResponseField name="children" type="ReactElement<StepProps>[]" required>
+  Un elenco di componenti `Step`.
+</ResponseField>
+
+<ResponseField name="titleSize" type="string" default="p">
+  La dimensione dei titoli degli step. Una tra `p`, `h2` e `h3`.
+</ResponseField>
+
+<div id="individual-step-properties">
+  ## Proprietà del singolo passaggio
+</div>
+
+<ResponseField name="children" type="string | ReactNode" required>
+  Il contenuto di un passaggio, come testo semplice o componenti.
+</ResponseField>
+
+<IconsOptional />
+
+<ResponseField name="title" type="string">
+  Il titolo è il testo principale del passaggio e viene visualizzato accanto all'indicatore.
+</ResponseField>
+
+<ResponseField name="stepNumber" type="number">
+  Il numero del passaggio.
+</ResponseField>
+
+<ResponseField name="titleSize" type="string" default="p">
+  La dimensione dei titoli del passaggio. Uno tra `p`, `h2` e `h3`.
+</ResponseField>

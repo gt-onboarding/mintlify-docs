@@ -1,0 +1,122 @@
+---
+title: "Assistente"
+description: "Aiuta gli utenti a ottenere risultati con il tuo prodotto e a trovare risposte più rapidamente"
+icon: "bot"
+---
+
+<Info>
+  L'assistente è abilitato automaticamente nei [piani Pro e Custom](https://mintlify.com/pricing?ref=assistant).
+</Info>
+
+<div id="about-the-assistant">
+  ## Informazioni sull'assistente
+</div>
+
+L'assistente risponde alle domande sulla tua documentazione tramite richieste in linguaggio naturale. È integrato direttamente nel tuo sito di documentazione, offrendo agli utenti accesso immediato a un aiuto contestuale.
+
+L'assistente utilizza un RAG agentico (retrieval-augmented generation) con tool calling, basato su Claude Sonnet 4. Quando gli utenti pongono domande, l'assistente:
+
+- **Cerca e recupera** contenuti pertinenti dalla documentazione per fornire risposte accurate.
+- **Cita le fonti** e fornisce link navigabili per portare gli utenti direttamente alle pagine di riferimento.
+- **Genera esempi di codice copiabili** per aiutare gli utenti a implementare soluzioni tratte dalla documentazione.
+
+Ogni messaggio inviato all'assistente viene conteggiato ai fini del limite di messaggi del tuo piano. Se superi il limite, i messaggi aggiuntivi comportano costi di eccedenza. Puoi impostare limiti di spesa o disabilitare l'assistente al raggiungimento del limite.
+
+Puoi visualizzare l'utilizzo dell'assistente dalla dashboard per comprendere il comportamento degli utenti e l'efficacia della documentazione. Esporta e analizza i dati delle query per individuare:
+
+- Domande frequenti che potrebbero richiedere una copertura migliore.
+- Lacune nei contenuti in cui gli utenti faticano a trovare risposte.
+- Argomenti popolari che potrebbero beneficiare di contenuti aggiuntivi.
+
+<div id="managing-the-assistant">
+  ## Gestione dell'assistente
+</div>
+
+L'Assistente è abilitato per impostazione predefinita per i piani Pro e Custom. Puoi gestirlo dal tuo [dashboard](https://dashboard.mintlify.com/products/assistant/settings).
+
+**Abilita o disabilita l'assistente**
+
+Utilizza l'interruttore per abilitare o disabilitare l'Assistente per il tuo sito di documentazione.
+
+**Limite di spesa**
+
+Imposta un limite di spesa per controllare cosa accade quando raggiungi la tua quota di messaggi. Per impostazione predefinita, l'Assistente continuerà a rispondere alle domande degli utenti anche dopo il raggiungimento della quota, generando costi aggiuntivi.
+
+Nella scheda **Billing** della pagina [Assistant Configurations](https://dashboard.mintlify.com/products/assistant/settings) puoi impostare un limite di spesa per i messaggi dell'Assistente oltre la tua quota. Al raggiungimento del limite di spesa, l'Assistente viene disabilitato fino al reset della quota di messaggi.
+
+Puoi anche configurare avvisi di utilizzo per ricevere un'email quando raggiungi una certa percentuale del tuo limite di spesa.
+
+<div id="using-the-assistant">
+  ## Utilizzo dell’Assistente
+</div>
+
+Gli utenti possono accedere all’Assistente in tre modi:
+
+- **Scorciatoie da tastiera**: <kbd>?</kbd> oppure <kbd>Command</kbd> + <kbd>I</kbd> (<kbd>Ctrl</kbd> + <kbd>I</kbd> su Windows)
+- **Pulsante Assistente** accanto alla barra di ricerca
+  <img
+    src="/images/assistant/assistant-button-light.png"
+    className="block dark:hidden rounded-2xl border border-gray-100 shadow-lg"
+    style={{
+    width: '268px',
+    height: 'auto',
+  }}
+    alt="Barra di ricerca e pulsante dell’Assistente in modalità chiara."
+  />
+  <img
+    src="/images/assistant/assistant-button-dark.png"
+    className="hidden dark:block rounded-2xl border border-white/10 shadow-lg"
+    style={{
+    width: '268px',
+    height: 'auto',
+  }}
+    alt="Barra di ricerca e pulsante dell’Assistente in modalità scura."
+  />
+- **URL** con `?assistant=open` aggiunto apriranno l’Assistente al caricamento della pagina. Ad esempio, [https://mintlify.com/docs?assistant=open](https://mintlify.com/docs?assistant=open).
+
+Tutti questi metodi aprono un pannello di chat sul lato destro della documentazione. Gli utenti possono porre qualsiasi domanda e l’Assistente cercherà una risposta nella documentazione. Se non viene trovata alcuna informazione pertinente, l’Assistente risponderà che non può rispondere alla domanda.
+
+<div id="making-content-ai-ingestible">
+  ## Rendere i contenuti fruibili dall’IA
+</div>
+
+Struttura la documentazione per aiutare l’Assistente a fornire risposte accurate e pertinenti. Un’organizzazione chiara e un contesto completo favoriscono sia i lettori umani sia la comprensione da parte dell’IA.
+
+<Card title="Struttura e organizzazione">
+  - Usa un markup semantico.
+  - Scrivi titoli descrittivi per le sezioni.
+  - Crea una gerarchia informativa logica.
+  - Applica una formattazione coerente in tutta la documentazione.
+  - Includi metadati completi nel frontmatter della pagina.
+  - Suddividi i blocchi di testo lunghi in paragrafi più brevi.
+</Card>
+
+<Card title="Contesto">
+  - Definisci termini e acronimi specifici alla prima occorrenza.
+  - Fornisci contenuti concettuali sufficienti su funzionalità e procedure.
+  - Includi esempi e casi d’uso.
+  - Crea rimandi ad argomenti correlati.
+  - Aggiungi [pagine nascoste](/it/guides/hidden-pages) con contesto aggiuntivo non necessario agli utenti, ma a cui l’Assistente può fare riferimento.
+</Card>
+
+<div id="exporting-and-analyzing-queries">
+  ## Esportare e analizzare le query
+</div>
+
+Rivedi ed esporta le query dalla dashboard per capire come le persone interagiscono con la documentazione e individuare opportunità di miglioramento. In che modo l’analisi delle query può aiutarti a migliorare la documentazione:
+
+- Individua le lacune di contenuto in cui le query più frequenti ricevono risposte insufficienti.
+- Scopri i modelli di comportamento degli utenti e le esigenze informative ricorrenti a partire dai temi e dai pattern nelle query.
+- Dai priorità alle pagine con più traffico per interventi su accuratezza e qualità.
+
+Puoi esplorare le query dalla [dashboard](https://dashboard.mintlify.com/products/assistant), ma per ottenere insight più approfonditi consigliamo di esportare un file `CSV` con query, risposte e fonti da analizzare con il tuo strumento di IA preferito.
+
+1. Vai alla [pagina dell’Assistente](https://dashboard.mintlify.com/products/assistant) nella dashboard.
+2. Seleziona **Export to CSV**.
+3. Analizza i dati esportati utilizzando lo strumento che preferisci.
+
+<Card title="Esempi di prompt per l’analisi">
+  - Riassumi i temi più comuni delle query.
+  - Elenca le query senza fonti citate.
+  - Individua pattern nelle interazioni non riuscite.
+</Card>

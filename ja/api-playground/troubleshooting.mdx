@@ -1,0 +1,106 @@
+---
+title: "トラブルシューティング"
+description: "APIリファレンスでよくある問題"
+icon: "message-square-warning"
+---
+
+APIページが正しく表示されない場合は、次の一般的な設定ミスを確認してください：
+
+<AccordionGroup>
+  <Accordion title="All of my OpenAPI pages are completely blank">
+    この場合、Mintlify が OpenAPI ドキュメントを見つけられないか、OpenAPI ドキュメント自体が無効である可能性があります。
+
+    ローカルで `mint dev` を実行すると、これらの問題の一部が判明するはずです。
+
+    OpenAPI ドキュメントが検証に合格することを確認するには:
+
+    1. [このバリデーター](https://editor.swagger.io/)にアクセスする
+    2. 「Validate text」タブに切り替える
+    3. OpenAPI ドキュメントを貼り付ける
+    4. 「Validate it!」をクリックする
+
+    下に表示されるテキストボックスの枠が緑になれば、ドキュメントは検証に合格しています。
+    これは Mintlify が OpenAPI ドキュメントの検証に使用しているものとまったく同じ検証パッケージなので、ここで
+    検証に合格する場合は、問題が他にある可能性が高いです。
+
+    また、Mintlify は OpenAPI 2.0 をサポートしていません。ドキュメントがこの仕様バージョンを使用している場合は、
+    この問題が発生する可能性があります。ドキュメントは [editor.swagger.io](https://editor.swagger.io/)（Edit > Convert to OpenAPI 3）で変換できます:
+
+    <Frame>
+      ![](/images/convert-oas-3.png)
+    </Frame>
+  </Accordion>
+
+  <Accordion title="One of my OpenAPI pages is completely blank">
+    これは通常、ページのメタデータ内の `openapi` フィールドの誤記が原因です。HTTPメソッドとパスが、OpenAPIドキュメントのHTTPメソッドとパスと完全に一致していることを確認してください。
+
+    問題が起きる例を次に示します:
+
+    ```mdx get-user.mdx
+    ---
+    openapi: "GET /users/{id}/"
+    ---
+    ```
+
+    ```yaml openapi.yaml
+    paths:
+      "/users/{id}":
+        get: ...
+    ```
+
+    `openapi` フィールドのパスには末尾のスラッシュがありますが、OpenAPIドキュメントのパスにはありません。
+
+    もう一つのよくある原因は、ファイル名の誤記です。`openapi` フィールドで特定のOpenAPIドキュメントを指定している場合は、ファイル名が正しいか確認してください。たとえば、`openapi/v1.json` と `openapi/v2.json` の2つのOpenAPIドキュメントがある場合、メタデータは次のようになります:
+
+    ```mdx api-reference/v1/users/get-user.mdx
+    ---
+    openapi: "v1 GET /users/{id}"
+    ---
+    ```
+  </Accordion>
+
+  <Accordion title="Requests from the API Playground don't work">
+    カスタムドメインを設定している場合、リバースプロキシが原因の可能性があります。デフォルトでは、APIプレイグラウンドからのリクエストは、ドキュメントサイトの `/api/request` パスへの `POST` リクエストから始まります。リバースプロキシが `GET` リクエストのみを許可する設定になっている場合、これらのリクエストはすべて失敗します。解決するには、リバースプロキシで `/api/request` パスへの `POST` リクエストを許可するように設定してください。
+
+    また、リバースプロキシの制約で `POST` リクエストを受け付けられない場合は、[設定ドキュメント](/ja/settings#param-proxy)のとおり、`docs.json` の `api.playground.proxy` 設定を使って、Mintlify がプロキシを介さずバックエンドに直接リクエストを送信するよう構成できます。この構成を利用する場合、リクエストはプロキシを通らずユーザーのブラウザから直接送信されるため、サーバー側で CORS を設定する必要があります。
+  </Accordion>
+
+  <Accordion title="OpenAPI navigation entries are not generating pages">
+    OpenAPI のナビゲーション構成を使用しているのにページが生成されない場合は、次のよくある原因を確認してください。
+
+    1. **デフォルトの OpenAPI 仕様が未設定**: ナビゲーション要素に `openapi` フィールドが設定されていることを確認してください:
+
+    ```json {5}
+    "navigation": {
+      "groups": [
+        {
+          "group": "API reference",
+          "openapi": "/path/to/openapi.json",
+          "pages": [
+            "GET /users",
+            "POST /users"
+          ]
+        }
+      ]
+    }
+    ```
+
+    2. **OpenAPI 仕様の継承**: 入れ子のナビゲーションを使用している場合は、子グループが正しい OpenAPI 仕様を継承しているか、または個別に指定していることを確認してください。
+
+    3. **検証エラー**: `mint openapi-check <path-to-openapi-file>` を使用して、OpenAPI ドキュメントが有効であることを確認してください。
+  </Accordion>
+
+  <Accordion title="Some OpenAPI operations appear in navigation but others don't">
+    1. **非表示のオペレーション**: OpenAPI仕様で `x-hidden: true` が付与されたオペレーションは、自動生成のナビゲーションには表示されません。
+    2. **無効なオペレーション**: OpenAPI仕様で検証エラーのあるオペレーションは、スキップされる場合があります。OpenAPIドキュメントに構文エラーがないか確認してください。
+    3. **手動と自動の包含**: OpenAPI仕様からエンドポイントを参照する場合、ナビゲーションに表示されるのは明示的に参照したオペレーションのみです。その他のページが自動的に追加されることはありません。これは子ナビゲーション要素で参照されているオペレーションも同様です。
+  </Accordion>
+
+  <Accordion title="Mixed navigation (OpenAPI and MDX pages) not working correctly">
+    OpenAPI のオペレーションと通常のドキュメントページをナビゲーションで組み合わせる場合:
+
+    1. **ファイルの競合**: 同じオペレーションに対して `MDX` ファイルとナビゲーション項目の両方を持つことはできません。たとえば `get-users.mdx` がある場合は、ナビゲーションに `"GET /users"` を含めないでください。オペレーション名と同名のファイルが必要な場合は、そのエンドポイントの `x-mint` 拡張を使用して、href を別の場所を指すように設定してください。
+    2. **パス解決**: OpenAPI のオペレーションに一致しないナビゲーション項目はファイルパスとして扱われます。`MDX` ファイルが想定される場所に存在することを確認してください。
+    3. **大文字・小文字の区別**: OpenAPI のオペレーションの突き合わせは大文字・小文字を区別します。ナビゲーション項目内の HTTP メソッドは大文字にしてください。
+  </Accordion>
+</AccordionGroup>

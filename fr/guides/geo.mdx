@@ -1,0 +1,123 @@
+---
+title: "Guide GEO : optimiser la documentation pour la recherche et les moteurs de réponse IA"
+sidebarTitle: "GEO"
+description: "Rendez votre documentation plus facile à trouver et plus fréquemment citée par les outils d’IA"
+icon: "cpu"
+---
+
+Optimisez votre documentation à la fois pour les moteurs de recherche traditionnels et pour les moteurs de réponse alimentés par l’IA comme ChatGPT, Perplexity et Google AI Overviews.
+
+L’optimisation pour les moteurs génératifs (GEO) vise à être citée par les systèmes d’IA grâce à un contenu exhaustif et des informations structurées, tandis que le SEO traditionnel cible le classement dans les résultats de recherche.
+
+<div id="geo-quickstart">
+  ## Guide de démarrage rapide GEO
+</div>
+
+<div id="initial-setup">
+  ### Configuration initiale
+</div>
+
+1. **Assurez-vous que votre documentation est indexée** dans les paramètres de votre `docs.json`
+2. **Passez en revue les pages existantes** pour identifier les titres et descriptions manquants
+
+<div id="content-improvements">
+  ### Améliorations du contenu
+</div>
+
+1. **Ajouter des tableaux comparatifs** aux pages appropriées
+2. **Examiner les titres** pour s’assurer qu’ils répondent aux questions fréquentes
+3. **Améliorer les liens internes** entre les sujets connexes
+4. **Tester avec des outils d’IA** pour vérifier l’exactitude
+
+<div id="geo-best-practices">
+  ## Bonnes pratiques GEO
+</div>
+
+De manière générale, une documentation bien rédigée et bien structurée offrira de bonnes performances en matière de GEO. Continuez néanmoins à écrire d’abord pour vos utilisateurs : si votre contenu répond à leurs besoins, vous serez déjà sur la bonne voie pour l’optimisation vis-à-vis des outils d’IA. La création de contenu réellement utile, plutôt que l’optimisation pour l’optimisation, est valorisée tant par les moteurs de recherche traditionnels que par les moteurs de recherche à base d’IA.
+
+Concentrez-vous sur :
+
+- Du contenu aligné sur les besoins des utilisateurs plutôt que sur le simple appariement de mots-clés
+- Des informations structurées et rapidement scannables
+- Des réponses directes aux questions
+
+<div id="format-for-clarity">
+  ### Format pour plus de clarté
+</div>
+
+Ces pratiques de mise en forme aident les outils d’IA à analyser et à comprendre votre contenu :
+
+- Ne sautez pas de niveaux de titre (H1 → H2 → H3)
+- Utilisez des noms d’objets précis plutôt que « it » ou « this »
+- Indiquez la langue des blocs de code
+- Donnez aux images un texte alternatif descriptif
+- Liez les concepts associés pour aider l’IA à comprendre les relations
+
+<div id="answer-questions-directly">
+  ### Répondez directement aux questions
+</div>
+
+Rédigez du contenu qui répond à des questions d’utilisateurs spécifiques :
+
+- Commencez les sections par l’idée principale à retenir
+- Utilisez des titres descriptifs qui correspondent aux requêtes courantes
+- Scindez les sujets complexes en étapes numérotées
+
+<div id="mintlify-configuration">
+  ## Configuration de Mintlify
+</div>
+
+Utilisez ces fonctionnalités pour améliorer le GEO.
+
+<div id="add-descriptive-page-metadata">
+  ### Ajouter des métadonnées de page descriptives
+</div>
+
+Ajoutez des titres et des descriptions clairs dans votre frontmatter :
+
+```mdx
+---
+title: "Guide d’authentification API"
+description: "Guide complet pour mettre en œuvre l’authentification API avec des exemples de code"
+---
+```
+
+<div id="configure-global-indexing-settings">
+  ### Configurer les paramètres d’indexation globales
+</div>
+
+Ajoutez ceci à votre `docs.json` :
+
+```json
+{
+  "seo": {
+    "indexing": "all",
+    "metatags": {
+      "og:type": "website",
+      "og:site_name": "Your docs"
+    }
+  }
+}
+```
+
+<div id="llmstxt">
+  ### LLMs.txt
+</div>
+
+Les fichiers LLMs.txt aident les systèmes d’IA à comprendre la structure de votre documentation, comme les plans de site aident les moteurs de recherche. Mintlify génère automatiquement des fichiers LLMs.txt pour votre documentation. Aucune configuration n’est nécessaire.
+
+<div id="testing-your-documentation">
+  ## Tester votre documentation
+</div>
+
+Testez différents outils d’IA en leur posant des questions sur votre produit et votre documentation afin d’évaluer dans quelle mesure vos docs sont correctement citées.
+
+**Posez à des assistants d’IA des questions précises sur vos docs :**
+
+- « Comment configurer l’authentification avec cette API ? »
+- « Explique-moi le processus d’installation étape par étape. »
+
+**Vérifiez que les outils fournissent :**
+
+- Des exemples de code corrects
+- Des instructions détaillées, étape par étape

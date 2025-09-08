@@ -1,0 +1,40 @@
+---
+title: "Columns"
+description: "カードをグリッド形式で横並びに表示する"
+icon: "columns-2"
+keywords: ["card groups"]
+---
+
+`Columns` コンポーネントは、複数の `Card` コンポーネントをひとまとめにできます。列数を指定して、複数のカードをグリッドに配置する用途でよく使われます。
+
+<Columns cols={2}>
+  <Card title="First Card" icon="panel-left-close">
+    Neque porro quisquam est qui dolorem ipsum quia dolor sit amet
+  </Card>
+  <Card title="Second Card" icon="panel-right-close">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  </Card>
+</Columns>
+
+<RequestExample>
+
+```mdx Card Group Example
+<Columns cols={2}>
+  <Card title="First Card">
+    Neque porro quisquam est qui dolorem ipsum quia dolor sit amet
+  </Card>
+  <Card title="Second Card">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  </Card>
+</Columns>
+```
+
+</RequestExample>
+
+<div id="props">
+  ### Props
+</div>
+
+<ResponseField name="cols" default={2}>
+  1行あたりの列数
+</ResponseField>

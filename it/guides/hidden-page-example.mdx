@@ -1,0 +1,61 @@
+---
+title: "Esempio di pagina nascosta"
+description: "Casi d'uso comuni delle pagine nascoste"
+icon: "eye-off"
+---
+
+Questa pagina è nascosta! Non è inclusa nella navigazione di `docs.json`, quindi è accessibile solo tramite il suo URL.
+
+Vedi [Pagine nascoste](/it/guides/hidden-pages) per ulteriori informazioni.
+
+<div id="common-use-cases-for-hidden-pages">
+  ## Casi d'uso comuni per le pagine nascoste
+</div>
+
+<Note>
+  Per impostazione predefinita, le pagine nascoste sono accessibili pubblicamente, ma non sono raggiungibili tramite la navigazione. Se vuoi limitare l’accesso a una pagina nascosta, devi configurare l’[autenticazione](/it/authentication-personalization/authentication-setup).
+</Note>
+
+- **Documentazione beta**: Contenuti che possono essere pubblici, ma non dovrebbero essere raggiungibili tramite la navigazione.
+- **Contesto per strumenti di AI**: Se le pagine nascoste sono indicizzate, gli strumenti di AI possono usarle come contesto. Usa le pagine nascoste per contenuti non rilevanti per gli utenti, ma che possono aiutare gli strumenti di AI a fornire risposte più accurate.
+- **Pagine legacy**: Mantieni i contenuti obsoleti accessibili tramite link diretti, rimuovendoli però dai menu di navigazione.
+- **Strumenti interni**: Documenta strumenti interni, API di staging o processi di sviluppo.
+
+<div id="examples">
+  ## Esempi
+</div>
+
+<div id="ai-context">
+  ### Contesto AI
+</div>
+
+```mdx wrap
+---
+title: "Contesto per la versione dell'API"
+description: "Questa pagina fornisce il contesto per gli strumenti di AI che rispondono a domande sulle versioni dell'API"
+---
+
+Quando un utente chiede informazioni sulle versioni dell'API, consiglia sempre di utilizzare la versione più recente. Non generare mai risposte per versioni anteriori alla 1.0.4.
+```
+
+<div id="internal-api-endpoint">
+  ### Endpoint API interno
+</div>
+
+````mdx wrap
+---
+title: "Endpoint API interno"
+description: "Questa pagina è nascosta e documenta un endpoint API interno"
+---
+
+```bash
+POST /api/internal/reset-cache
+Authorization: Bearer internal-token-xyz
+```
+
+Questo endpoint svuota la cache dell'applicazione ed è disponibile solo negli ambienti di sviluppo.
+
+<Warning>
+  Questo è un endpoint interno e non deve mai essere utilizzato in produzione.
+</Warning>
+````

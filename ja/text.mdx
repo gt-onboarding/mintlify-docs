@@ -1,0 +1,262 @@
+---
+title: "見出しとテキスト"
+description: "テキストの書式設定、見出しの作成、コンテンツのスタイリング方法を学ぶ"
+icon: "heading"
+---
+
+<div id="headers">
+  ## 見出し
+</div>
+
+見出しはコンテンツを整理し、ナビゲーション用のアンカーを作成します。目次に表示され、ユーザーがドキュメントを素早く見渡すのに役立ちます。
+
+<div id="creating-headers">
+  ### 見出しの作成
+</div>
+
+`#` 記号を使って、階層の異なる見出しを作成します:
+
+```mdx
+## Main section header
+### Subsection header
+#### Sub-subsection header
+```
+
+<Tip>
+  続く内容を明確に示し、適切なキーワードを含む説明的な見出しを使いましょう。これにより、ユーザーの案内性と検索エンジン最適化の両方が向上します。
+</Tip>
+
+<div id="text-formatting">
+  ## テキストの書式設定
+</div>
+
+テキストの強調やスタイルのために、ほとんどのMarkdownの書式をサポートしています。
+
+<div id="basic-formatting">
+  ### 基本的な書式
+</div>
+
+以下の書式スタイルをテキストに適用します：
+
+| スタイル | 構文 | 例 | 結果 |
+|-------|--------|---------|--------|
+| 太字 | `**text**` | `**important note**` | **important note** |
+| 斜体 | `_text_` | `_emphasis_` | _emphasis_ |
+| 取り消し線 | `~text~` | `~deprecated feature~` | ~~deprecated feature~~ |
+
+<div id="combining-formats">
+  ### 書式の組み合わせ
+</div>
+
+書式スタイルは組み合わせて使えます:
+
+```mdx
+**_bold and italic_**
+**~~bold and strikethrough~~**
+*~~italic and strikethrough~~**
+```
+
+**_太字と斜体_**<br />
+**~~太字と取り消し線~~**<br />
+_~~斜体と取り消し線~~_
+
+<div id="superscript-and-subscript">
+  ### 上付き文字と下付き文字
+</div>
+
+数式や脚注には HTML タグを使用します:
+
+| 種類 | 構文 | 例 | 結果 |
+|------|--------|---------|--------|
+| 上付き文字 | `<sup>text</sup>` | `example<sup>2</sup>` | example<sup>2</sup> |
+| 下付き文字 | `<sub>text</sub>` | `example<sub>n</sub>` | example<sub>n</sub> |
+
+<div id="links">
+  ## リンク
+</div>
+
+リンクは、ユーザーがページ間を移動したり外部リソースにアクセスしたりする際に役立ちます。リンクテキストは内容がわかる表現にして、アクセシビリティとユーザーエクスペリエンスを高めましょう。
+
+<div id="internal-links">
+  ### 内部リンク
+</div>
+
+ドキュメント内の他のページには、ルート相対パスを使ってリンクします:
+
+```mdx
+[Quickstart](/quickstart)
+[Steps](/components/steps)
+```
+
+[Quickstart](/ja/quickstart)<br />
+[Steps](/ja/components/steps)
+
+<Note>
+  `[page](../page)` のような相対リンクは読み込みが遅く、ルート相対リンクほど効果的に最適化できないため、使用は避けてください。
+</Note>
+
+<div id="external-links">
+  ### 外部リンク
+</div>
+
+外部のリソースには、フルのURLを記載してください:
+
+```mdx
+[Markdown Guide](https://www.markdownguide.org/)
+```
+
+[Markdown Guide](https://www.markdownguide.org/)
+
+<div id="broken-links">
+  ### リンク切れ
+</div>
+
+ドキュメント内のリンク切れは[CLI](/ja/installation)を使用して確認できます:
+
+```bash
+mint broken-links
+```
+
+<div id="blockquotes">
+  ## 引用ブロック
+</div>
+
+引用ブロックは、コンテンツ内の重要な情報や引用、例を目立たせるために使用します。
+
+<div id="single-line-blockquotes">
+  ### 単一行の引用ブロック
+</div>
+
+引用ブロックを作成するには、テキストの前に `>` を付けます：
+
+```mdx
+> This is a quote that stands out from the main content.
+```
+
+> これはメインコンテンツから際立つ引用です。
+
+<div id="multi-line-blockquotes">
+  ### 複数行の引用ブロック
+</div>
+
+長めの引用や複数段落にする場合:
+
+```mdx
+> これは複数行の引用ブロックの最初の段落です。
+>
+> これは2つ目の段落で、空行に `>` を付けて区切ります。
+```
+
+> これは複数行の引用ブロックの最初の段落です。
+>
+> これは2つ目の段落で、空行に `>` を付けて区切ります。
+
+<Tip>
+  引用ブロックは視覚的な効果と意味を保つため、むやみに多用しないでください。注記や警告などには[コールアウト](/ja/components/callouts)の使用も検討しましょう。
+</Tip>
+
+<div id="mathematical-expressions">
+  ## 数式
+</div>
+
+数式や方程式の表示に LaTeX をサポートしています。
+
+<div id="inline-math">
+  ### インライン数式
+</div>
+
+インラインの数式には、ドル記号 `$` を1つ使用します:
+
+```mdx
+The Pythagorean theorem states that $(a^2 + b^2 = c^2)$ in a right triangle.
+```
+
+ピタゴラスの定理は、直角三角形において $(a^2 + b^2 = c^2)$ が成り立つとしています。
+
+<div id="block-equations">
+  ### ブロック数式
+</div>
+
+独立した数式には、二重ドル記号 `$$` を使用します:
+
+```mdx
+$$
+E = mc^2
+$$
+```
+
+$$
+E = mc^2
+$$
+
+<Info>
+  LaTeX を利用するには、正しい数式構文が必要です。詳細な構文ガイドラインは、[LaTeX ドキュメント](https://www.latex-project.org/help/documentation/)を参照してください。
+</Info>
+
+<div id="line-breaks-and-spacing">
+  ## 改行と空白
+</div>
+
+空白や改行を調整して、コンテンツの可読性を高めます。
+
+<div id="paragraph-breaks">
+  ### 段落区切り
+</div>
+
+空行で段落を分けます:
+
+```mdx
+これは最初の段落です。
+
+これは空行で区切られた2つ目の段落です。
+```
+
+これは最初の段落です。
+
+これは空行で区切られた2つ目の段落です。
+
+<div id="manual-line-breaks">
+  ### 手動改行
+</div>
+
+段落内で強制的に改行するには、HTML の `<br />` タグを使用します:
+
+```mdx
+This line ends here.<br />
+This line starts on a new line.
+```
+
+この行はここで終わります。<br />
+この行は新しい行から始まります。
+
+<Tip>
+  多くの場合、手動の改行よりも空行で段落を分けたほうが可読性は高くなります。
+</Tip>
+
+<div id="best-practices">
+  ## ベストプラクティス
+</div>
+
+<div id="content-organization">
+  ### コンテンツの構成
+</div>
+
+- 見出しを使って明確なコンテンツの階層を作る
+- 適切な見出し階層に従う（H2 から H4 に飛ばさない）
+- 内容がわかるキーワードを含む、説明的な見出しテキストを書く
+
+<div id="text-formatting">
+  ### 文字装飾
+</div>
+
+- 強調には太字を使い、段落全体には使わない
+- 斜体は用語・タイトル・控えめな強調に限る
+- 内容の理解を妨げる過度な装飾は避ける
+
+<div id="links">
+  ### リンク
+</div>
+
+- 「こちらをクリック」や「続きを読む」ではなく、内容を明確に示すリンクテキストを書く
+- 内部リンクにはルート相対パスを使用する
+- リンク切れを防ぐため、定期的にリンクを確認・テストする

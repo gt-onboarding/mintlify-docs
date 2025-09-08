@@ -1,0 +1,163 @@
+---
+title: "MDXのAPIページをOpenAPIのナビゲーションへ移行する"
+sidebarTitle: "MDXからの移行"
+description: "個別のMDXエンドポイントページから、柔軟なナビゲーションに対応するOpenAPIの自動生成へ更新する"
+icon: "arrow-big-right-dash"
+---
+
+現在、各APIエンドポイントに個別の`MDX`ページを使用している場合でも、各ページのカスタマイズ性を保ちながら、OpenAPI仕様からページを自動生成する方式へ移行できます。これにより、管理するファイル数を削減し、APIドキュメントの一貫性を高められます。
+
+OpenAPI仕様内で各エンドポイントのメタデータとコンテンツを定義し、ナビゲーション上の任意の位置にエンドポイントを配置できます。
+
+<div id="cli-migration">
+  ## CLI の移行
+</div>
+
+`mint migrate-mdx` コマンドは、MDX のエンドポイントページから自動生成ページへ移行するための推奨手段です。
+
+このコマンドは次の処理を行います:
+
+- `docs.json` のナビゲーション構造を解析します。
+- OpenAPI のエンドポイントページを生成している MDX ページを特定します。
+- MDX ファイルのコンテンツを抽出し、OpenAPI 仕様の `x-mint` 拡張へ移します。
+- `docs.json` を更新し、MDX ファイルではなく OpenAPI のエンドポイントを直接参照するようにします。
+- 元の MDX のエンドポイントファイルを削除します。
+
+<Info>
+  エンドポイントにすでに `x-mint` が定義されており、同じエンドポイントにコンテンツを持つ MDX ページが存在する場合、MDX のコンテンツが既存の `x-mint` 設定を上書きします。
+
+  同一エンドポイントに対して内容の異なる MDX ページが複数ある場合、スクリプトは `docs.json` 上で最後に現れるページのコンテンツを使用します。
+
+  移行ツールは、適用前の変更プレビューをサポートしていません。
+</Info>
+
+<Steps>
+  <Step title="OpenAPI 仕様を準備する">
+    OpenAPI 仕様が有効で、ドキュメント化したいすべてのエンドポイントを含んでいることを確認してください。
+
+    移行する MDX ページには、対象エンドポイントを参照する `openapi:` フロントマターが必要です。
+
+    <Tip>
+      [Swagger Editor](https://editor.swagger.io/) または [Mint CLI](https://www.npmjs.com/package/mint) を使用して OpenAPI ファイルを検証してください。
+    </Tip>
+  </Step>
+
+  <Step title="Mint CLI をインストールする">
+    必要に応じて、[Mint CLI](/ja/installation) をインストールまたは更新してください。
+  </Step>
+
+  <Step title="移行コマンドを実行する">
+    ```bash
+    mint migrate-mdx
+    ```
+  </Step>
+</Steps>
+
+<div id="manual-migration-steps">
+  ## 手動移行手順
+</div>
+
+<Steps>
+  <Step title="OpenAPI仕様を準備する">
+    OpenAPI仕様が有効で、ドキュメント化したいすべてのエンドポイントを含んでいることを確認してください。
+
+    メタデータやコンテンツをカスタマイズしたいエンドポイントには、そのエンドポイントに `x-mint` 拡張を追加してください。詳細は [x-mint extension](/ja/api-playground/openapi-setup#x-mint-extension) を参照してください。
+
+    ドキュメントから除外したいエンドポイントには、そのエンドポイントに `x-hidden` 拡張を追加してください。
+
+    <Info>
+      [Swagger Editor](https://editor.swagger.io/) または [Mint CLI（mint）](https://www.npmjs.com/package/mint) を使用して OpenAPI ファイルを検証してください。
+    </Info>
+  </Step>
+
+  <Step title="ナビゲーション構造を更新する">
+    `docs.json` の `MDX` ページ参照を OpenAPI のエンドポイントに置き換えてください。
+
+    ```json
+    "navigation": {
+      "groups": [
+        {
+          "group": "API Reference",
+          "openapi": "/path/to/openapi.json",
+          "pages": [
+            "overview",
+            "authentication",
+            "introduction",
+            "GET /health",
+            "quickstart", 
+            "POST /users",
+            "GET /users/{id}",
+            "advanced-features"
+          ]
+        }
+      ]
+    }
+    ```
+  </Step>
+
+  <Step title="古い MDX ファイルを削除する">
+    新しいナビゲーションが正しく機能することを確認したら、不要になった `MDX` のエンドポイントファイルを削除してください。
+  </Step>
+</Steps>
+
+<div id="navigation-patterns">
+  ## ナビゲーションパターン
+</div>
+
+ナビゲーションでの API ドキュメントの見せ方をカスタマイズできます。
+
+<div id="mixed-content-navigation">
+  ### 混在コンテンツのナビゲーション
+</div>
+
+自動生成されたAPIページをほかのページと組み合わせる:
+
+```json
+"navigation": {
+  "groups": [
+    {
+      "group": "API Reference",
+      "openapi": "openapi.json",
+      "pages": [
+        "api/overview",
+        "GET /users",
+        "POST /users", 
+        "api/authentication"
+      ]
+    }
+  ]
+}
+```
+
+<div id="multiple-api-versions">
+  ### 複数の API バージョン
+</div>
+
+タブやグループを使って異なる API バージョンを整理します:
+
+```json
+"navigation": {
+  "tabs": [
+    {
+      "tab": "API v1",
+      "openapi": "specs/v1.json"
+    },
+    {
+      "tab": "API v2", 
+      "openapi": "specs/v2.json"
+    }
+  ]
+}
+```
+
+<div id="when-to-use-individual-mdx-pages">
+  ## 個別の `MDX` ページを使うべきとき
+</div>
+
+次のような場合は、個別の `MDX` ページを残すことを検討してください:
+
+- 各エンドポイントごとに、Reactコンポーネントや長文のサンプルなど、自由度の高いカスタムコンテンツが必要な場合
+- ページごとに独自のレイアウトが必要な場合
+- 特定のエンドポイントで実験的なドキュメント手法を試したい場合
+
+多くのケースでは、OpenAPI のナビゲーションを用いる方が保守性と一貫性に優れます。

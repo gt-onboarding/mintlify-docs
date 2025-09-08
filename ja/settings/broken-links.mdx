@@ -1,0 +1,47 @@
+---
+title: "リダイレクトとリンク切れ"
+description: "無効なリンクを防ぐためのツール"
+icon: "link-2"
+---
+
+docs フォルダ内のファイルパスを変更すると、そのページの URL パスも変更されます。これは、ドキュメントの構成を見直したり、サイドバーのタイトルを変更したりする際に起こり得ます。
+
+<div id="broken-links">
+  ## 壊れたリンク
+</div>
+
+Mint CLIで壊れたリンクを検出できます。[CLIをインストール](/ja/installation)して、次のコマンドを実行します。
+
+```bash
+mint broken-links
+```
+
+CLIは、ドキュメント内の存在しない相対リンクを検出します。
+
+<div id="redirects">
+  ## リダイレクト
+</div>
+
+`docs.json` ファイルに `redirects` フィールドを追加して、301 リダイレクトを設定します。
+
+```json
+"redirects": [
+  {
+    "source": "/source/path",
+    "destination": "/destination/path"
+  }
+]
+```
+
+これにより、`/source/path` は `/destination/path` へ恒久的にリダイレクトされ、元のページで蓄積された SEO 評価を維持できます。
+
+ワイルドカードのパスに一致させるには、パラメータの後に `*` を付けます。次の例では、`/beta/:slug*` は `/beta/introduction` に一致し、`/v2/introduction` へリダイレクトします。
+
+```json
+"redirects": [
+  {
+    "source": "/beta/:slug*",
+    "destination": "/v2/:slug*"
+  }
+]
+```

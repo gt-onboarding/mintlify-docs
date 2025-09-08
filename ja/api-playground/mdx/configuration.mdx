@@ -1,0 +1,170 @@
+---
+title: "MDX のセットアップ"
+description: "`MDX` を使用して API エンドポイントのドキュメントページを生成する"
+---
+
+OpenAPI 仕様を使わず、個別の `MDX` ファイルで API エンドポイントを手動で定義できます。この方法はカスタムコンテンツに柔軟に対応できますが、保守性と機能面で優れているため、ほとんどのプロジェクトでは OpenAPI 仕様ファイルから API ドキュメントを生成することを推奨します。とはいえ、小規模な API の記述やプロトタイピングには `MDX` ページでの作成が有用です。
+
+`MDX` を使って API エンドポイントのページを生成するには、`docs.json` で API 設定を行い、各エンドポイント用に個別の `MDX` ファイルを作成し、`<ParamFields />` などのコンポーネントでパラメータを定義します。これらの定義から、Mintlify はインタラクティブな APIプレイグラウンド、リクエスト例、レスポンス例を生成します。
+
+<Steps>
+  <Step title="API を構成する">
+    `docs.json` ファイルで、ベースURLと認証方式を定義します:
+
+    ```json
+     "api": {
+      "mdx": {
+        "server": "https://mintlify.com/api", // 複数のベースURLに対応する文字列配列
+        "auth": {
+          "method": "key",
+          "name": "x-api-key" // オプション: bearer, basic, key
+        }
+      }
+    }
+    ```
+
+    APIプレイグラウンドを非表示にする場合は、`display` フィールドを使用します。プレイグラウンドを非表示にする場合は、認証方式を設定する必要はありません。
+
+    ```json
+    "api": {
+      "playground": {
+        "display": "none"
+      }
+    }
+    ```
+
+    API 設定の全リストは [Settings](/ja/settings#api-configurations) を参照してください。
+  </Step>
+
+  <Step title="エンドポイントページを作成する">
+    各 API エンドポイントページには対応する `MDX` ファイルが必要です。各ファイルの先頭（フロントマター）で `title` と `api` を定義します:
+
+    ```mdx
+    ---
+    title: 'Create new user'
+    api: 'POST https://api.mintlify.com/user'
+    ---
+    ```
+
+    パスパラメータは、パス内にパラメータ名を `{}` で囲んで指定します:
+
+    ```bash
+    https://api.example.com/v1/endpoint/{userId}
+    ```
+
+    <Note>
+      `docs.json` に `server` フィールドが設定されている場合は、`/v1/endpoint` のような相対パスを使用できます。
+    </Note>
+
+    ページ単位で APIプレイグラウンドのグローバル表示モードを上書きするには、フロントマターに `playground` を追加します:
+
+    ```mdx
+    ---
+    title: 'Create new user'
+    api: 'POST https://api.mintlify.com/user'
+    playground: 'none'
+    ---
+    ```
+
+    - `playground: 'interactive'` - インタラクティブなプレイグラウンドを表示します。
+    - `playground: 'simple'` - プレイグラウンドなしでコピー可能なエンドポイントを表示します。
+    - `playground: 'none'` - プレイグラウンドを非表示にします。
+  </Step>
+
+  <Step title="ドキュメントにエンドポイントを追加する">
+    `docs.json` の `navigation` フィールドにパスを追加して、エンドポイントページをサイドバーに表示します。ドキュメントの構成については [Navigation](/ja/navigation) を参照してください。
+  </Step>
+</Steps>
+
+<div id="enabling-authentication">
+  ## 認証の有効化
+</div>
+
+`docs.json` に認証方式を追加して全ページで一括有効化することも、ページ単位で設定することもできます。
+
+両方が設定されている場合は、ページ固有の認証方式がグローバル設定を上書きします。
+
+<div id="bearer-token">
+  ### ベアラートークン
+</div>
+
+<CodeGroup>
+  ```json docs.json
+  "api": {
+      "mdx": {
+        "auth": {
+          "method": "bearer"
+        }
+      }
+  }
+  ```
+
+  ```mdx Page Metadata
+  ---
+  title: "Your page title"
+  authMethod: "bearer"
+  ---
+  ```
+</CodeGroup>
+
+<div id="basic-authentication">
+  ### Basic認証
+</div>
+
+<CodeGroup>
+  ```json docs.json
+  "api": {
+      "mdx": {
+        "auth": {
+          "method": "basic"
+        }
+      }
+  }
+  ```
+
+  ```mdx Page Metadata
+  ---
+  title: "ページタイトル"
+  authMethod: "basic"
+  ---
+  ```
+</CodeGroup>
+
+<div id="api-key">
+  ### APIキー
+</div>
+
+<CodeGroup>
+  ```json docs.json
+  "api": {
+      "mdx": {
+        "auth": {
+          "method": "key",
+          "name": "x-api-key"
+        }
+      }
+  }
+  ```
+
+  ```mdx Page Metadata
+  ---
+  title: "ページのタイトル"
+  authMethod: "key"
+  ---
+  ```
+</CodeGroup>
+
+<div id="none">
+  ### None
+</div>
+
+`none` 認証メソッドは、docs.json でデフォルトを設定した後に、特定のエンドポイントの認証を無効化するのに役立ちます。
+
+<CodeGroup>
+  ```mdx Page Metadata
+  ---
+  title: "Your page title"
+  authMethod: "none"
+  ---
+  ```
+</CodeGroup>

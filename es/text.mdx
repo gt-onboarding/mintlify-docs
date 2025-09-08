@@ -1,0 +1,262 @@
+---
+title: "Encabezados y texto"
+description: "Aprende a dar formato al texto, crear encabezados y estilizar el contenido"
+icon: "heading"
+---
+
+<div id="headers">
+  ## Encabezados
+</div>
+
+Los encabezados organizan el contenido y crean anclas de navegación. Aparecen en la tabla de contenido y ayudan a los usuarios a explorar la documentación.
+
+<div id="creating-headers">
+  ### Creación de encabezados
+</div>
+
+Usa los símbolos `#` para crear encabezados de distintos niveles:
+
+```mdx
+## Encabezado de la sección principal
+### Encabezado de la subsección
+#### Encabezado de la sub-subsección
+```
+
+<Tip>
+  Usa encabezados descriptivos y con palabras clave que indiquen claramente el contenido que sigue. Esto mejora tanto la navegación del usuario como el posicionamiento en buscadores.
+</Tip>
+
+<div id="text-formatting">
+  ## Formato de texto
+</div>
+
+Compatibilizamos la mayoría del formato de Markdown para enfatizar y dar estilo al texto.
+
+<div id="basic-formatting">
+  ### Formato básico
+</div>
+
+Aplica estos estilos de formato a tu texto:
+
+| Estilo | Sintaxis | Ejemplo | Resultado |
+|-------|--------|---------|--------|
+| **Negrita** | `**text**` | `**nota importante**` | **nota importante** |
+| _Cursiva_ | `_text_` | `_énfasis_` | _énfasis_ |
+| ~~Tachado~~ | `~text~` | `~función obsoleta~` | ~~función obsoleta~~ |
+
+<div id="combining-formats">
+  ### Combinación de formatos
+</div>
+
+Puedes combinar estilos de formato:
+
+```mdx
+**_bold and italic_**
+**~~bold and strikethrough~~**
+*~~italic and strikethrough~~**
+```
+
+**_negrita y cursiva_**<br />
+**~~negrita y tachado~~**<br />
+_~~cursiva y tachado~~_
+
+<div id="superscript-and-subscript">
+  ### Superíndice y subíndice
+</div>
+
+Para expresiones matemáticas o notas al pie, utiliza etiquetas HTML:
+
+| Tipo | Sintaxis | Ejemplo | Resultado |
+|------|--------|---------|--------|
+| Superíndice | `<sup>text</sup>` | `example<sup>2</sup>` | example<sup>2</sup> |
+| Subíndice | `<sub>text</sub>` | `example<sub>n</sub>` | example<sub>n</sub> |
+
+<div id="links">
+  ## Enlaces
+</div>
+
+Los enlaces ayudan a los usuarios a navegar entre páginas y acceder a recursos externos. Utiliza texto de enlace descriptivo para mejorar la accesibilidad y la experiencia del usuario.
+
+<div id="internal-links">
+  ### Enlaces internos
+</div>
+
+Vincula a otras páginas de tu documentación usando rutas relativas a la raíz:
+
+```mdx
+[Quickstart](/quickstart)
+[Steps](/components/steps)
+```
+
+[Quickstart](/es/quickstart)<br />
+[Steps](/es/components/steps)
+
+<Note>
+  Evita enlaces relativos como `[page](../page)`, ya que cargan más lento y no pueden optimizarse tan eficazmente como los relativos a la raíz.
+</Note>
+
+<div id="external-links">
+  ### Enlaces externos
+</div>
+
+Para recursos externos, incluye la URL completa:
+
+```mdx
+[Guía de Markdown](https://www.markdownguide.org/)
+```
+
+[Guía de Markdown](https://www.markdownguide.org/)
+
+<div id="broken-links">
+  ### Enlaces rotos
+</div>
+
+Puede verificar si hay enlaces rotos en su documentación usando la [CLI](/es/installation):
+
+```bash
+mint broken-links
+```
+
+<div id="blockquotes">
+  ## Citas en bloque
+</div>
+
+Las citas en bloque destacan información importante, citas o ejemplos dentro de tu contenido.
+
+<div id="single-line-blockquotes">
+  ### Citas en bloque de una sola línea
+</div>
+
+Agrega `>` antes del texto para crear una cita en bloque:
+
+```mdx
+> This is a quote that stands out from the main content.
+```
+
+> Esta es una cita que destaca del contenido principal.
+
+<div id="multi-line-blockquotes">
+  ### Citas en bloque de varias líneas
+</div>
+
+Para citas más extensas o con varios párrafos:
+
+```mdx
+> Este es el primer párrafo de una cita en bloque de varias líneas.
+>
+> Este es el segundo párrafo, separado por una línea en blanco con `>`.
+```
+
+> Este es el primer párrafo de una cita en bloque de varias líneas.
+>
+> Este es el segundo párrafo, separado por una línea en blanco con `>`.
+
+<Tip>
+  Use las citas en bloque con moderación para mantener su impacto visual y su significado. Considere usar [callouts](/es/components/callouts) para notas, advertencias y otra información.
+</Tip>
+
+<div id="mathematical-expressions">
+  ## Expresiones matemáticas
+</div>
+
+Compatibilidad con LaTeX para representar expresiones y ecuaciones matemáticas.
+
+<div id="inline-math">
+  ### Matemática en línea
+</div>
+
+Usa signos de dólar simples, `$`, para las expresiones matemáticas en línea:
+
+```mdx
+The Pythagorean theorem states that $(a^2 + b^2 = c^2)$ in a right triangle.
+```
+
+El teorema de Pitágoras establece que $(a^2 + b^2 = c^2)$ en un triángulo rectángulo.
+
+<div id="block-equations">
+  ### Ecuaciones en bloque
+</div>
+
+Utilice dobles signos de dólar, `$$`, para ecuaciones en bloque:
+
+```mdx
+$$
+E = mc^2
+$$
+```
+
+$$
+E = mc^2
+$$
+
+<Info>
+  La compatibilidad con LaTeX requiere una sintaxis matemática correcta. Consulte la [documentación de LaTeX](https://www.latex-project.org/help/documentation/) para obtener pautas de sintaxis detalladas.
+</Info>
+
+<div id="line-breaks-and-spacing">
+  ## Saltos de línea y espaciado
+</div>
+
+Controle el espaciado y los saltos de línea para mejorar la legibilidad del contenido.
+
+<div id="paragraph-breaks">
+  ### Saltos de párrafo
+</div>
+
+Separe los párrafos con líneas en blanco:
+
+```mdx
+This is the first paragraph.
+
+This is the second paragraph, separated by a blank line.
+```
+
+Este es el primer párrafo.
+
+Este es el segundo párrafo, separado por una línea en blanco.
+
+<div id="manual-line-breaks">
+  ### Saltos de línea manuales
+</div>
+
+Utiliza etiquetas HTML `<br />` para forzar saltos de línea dentro de los párrafos:
+
+```mdx
+This line ends here.<br />
+This line starts on a new line.
+```
+
+Esta línea termina aquí.<br />
+Esta línea comienza en una nueva línea.
+
+<Tip>
+  En la mayoría de los casos, los saltos de párrafo con líneas en blanco ofrecen una mejor legibilidad que los saltos de línea manuales.
+</Tip>
+
+<div id="best-practices">
+  ## Prácticas recomendadas
+</div>
+
+<div id="content-organization">
+  ### Organización del contenido
+</div>
+
+- Usa encabezados para crear una jerarquía de contenido clara
+- Sigue la jerarquía adecuada de encabezados (no saltes de H2 a H4)
+- Escribe encabezados descriptivos y ricos en palabras clave
+
+<div id="text-formatting">
+  ### Formato de texto
+</div>
+
+- Usa negritas para enfatizar, no para párrafos completos
+- Reserva las cursivas para términos, títulos o un énfasis sutil
+- Evita el sobreformato que distraiga del contenido
+
+<div id="links">
+  ### Enlaces
+</div>
+
+- Utiliza texto de enlace descriptivo en lugar de «haz clic aquí» o «leer más»
+- Usa rutas relativas a la raíz para los enlaces internos
+- Revisa los enlaces regularmente para evitar referencias rotas

@@ -1,0 +1,157 @@
+---
+title: "コンテキストメニュー"
+description: "ワンクリックでAI連携をドキュメントに追加"
+icon: "square-menu"
+---
+
+import { PreviewButton } from "/snippets/previewbutton.jsx"
+import IconsRequired from "/snippets/ja/icons-required.mdx";
+
+コンテキストメニューは、AI向けに最適化されたコンテンツへのすばやいアクセスと、主要なAIツールとの直接連携を提供します。ユーザーが任意のページでコンテキストメニューを開くと、AIツールのコンテキストとしてコンテンツをコピーしたり、ChatGPT、Claude、Perplexity、または任意のカスタムツールで会話を開始したりでき、ドキュメントはあらかじめコンテキストとして読み込まれた状態で開きます。
+
+
+<div id="menu-options">
+  ## メニューオプション
+</div>
+
+コンテキストメニューには、設定に識別子を追加することで有効化できる、いくつかのプリセットオプションが含まれています。
+
+| オプション | 識別子 | 説明 |
+|:--------|:------------|:-------------|
+| **ページをコピー** | `copy` | 現在のページをMarkdownとしてコピーし、AIツールのコンテキストとして貼り付けられるようにします |
+| **Markdownとして表示** | `view` | 現在のページをMarkdownで開きます |
+| **ChatGPTで開く** | `chatgpt` | 現在のページをコンテキストにしたChatGPTの会話を作成します |
+| **Claudeで開く** | `claude` | 現在のページをコンテキストにしたClaudeの会話を作成します |
+| **Perplexityで開く** | `perplexity` | 現在のページをコンテキストにしたPerplexityの会話を作成します |
+| **MCPサーバーURLをコピー** | `mcp` | MCPサーバーのURLをクリップボードにコピーします |
+| **Cursorに接続** | `cursor` | ホスト済みのMCPサーバーをCursorにインストールします |
+| **VS Codeに接続** | `vscode` | ホスト済みのMCPサーバーをVS Codeにインストールします |
+
+<Frame>
+    <img 
+    src="/images/contextual-menu/contextual-menu.png" 
+    alt="展開されたコンテキストメニューに「ページをコピー」「Markdownとして表示」「ChatGPTで開く」「Claudeで開く」の項目が表示されています。" 
+  />
+</Frame>
+
+<div id="enabling-the-contextual-menu">
+  ## コンテキストメニューを有効にする
+</div>
+
+`docs.json` に `contextual` フィールドを追加し、含めるオプションを指定します。
+
+```json
+{
+ "contextual": {
+   "options": [
+     "copy",
+     "view",
+     "chatgpt",
+     "claude",
+     "perplexity",
+     "mcp",
+     "cursor",
+     "vscode"
+   ]
+ }
+}
+```
+
+<div id="adding-custom-options">
+  ## カスタムオプションの追加
+</div>
+
+`options` 配列にオブジェクトを追加して、コンテキストメニューにカスタムオプションを作成します。各カスタムオプションには次のプロパティが必要です：
+
+<ResponseField name="title" type="string" required>
+  オプションのタイトル。
+</ResponseField>
+
+<ResponseField name="description" type="string" required>
+  オプションの説明。コンテキストメニュー展開時にタイトルの下に表示されます。
+</ResponseField>
+
+<IconsRequired />
+
+<ResponseField name="href" type="string | object" required>
+  オプションの href。単純なリンクには文字列を、クエリパラメータ付きの動的リンクにはオブジェクトを使用します。
+  
+  <Expandable title="href object">
+    <ResponseField name="base" type="string" required>
+      オプションのベースURL。
+    </ResponseField>
+
+    <ResponseField name="query" type="object" required>
+      オプションのクエリパラメータ。
+
+      <Expandable title="query object">
+        <ResponseField name="key" type="string" required>
+          クエリパラメータのキー。
+        </ResponseField>
+
+        <ResponseField name="value" type="string" required>
+          クエリパラメータの値。次のプレースホルダーは対応する値に置き換えられます：
+          - 現在のページ内容（Markdown）を挿入するには `$page` を使用します。
+          - 現在のページのパスを挿入するには `$path` を使用します。
+          - ホストされている MCP サーバーのURLを挿入するには `$mcp` を使用します。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+カスタムオプションの例：
+
+```json {9-14} wrap
+{
+    "contextual": {
+        "options": [
+            "copy",
+            "view",
+            "chatgpt",
+            "claude",
+            "perplexity",
+            {
+                "title": "Request a feature",
+                "description": "Join the discussion on GitHub to request a new feature",
+                "icon": "plus",
+                "href": "https://github.com/orgs/mintlify/discussions/categories/feature-requests"
+            }
+        ]
+    }
+}
+```
+
+<div id="custom-option-examples">
+  ### カスタムオプションの例
+</div>
+
+<AccordionGroup>
+<Accordion title="シンプルなリンク">
+```json
+{
+  "title": "機能をリクエスト",
+  "description": "GitHubでディスカッションに参加する",
+  "icon": "plus",
+  "href": "https://github.com/orgs/mintlify/discussions/categories/feature-requests"
+}
+```
+</Accordion>
+
+<Accordion title="ページ内容を利用した動的リンク">
+```json
+{
+  "title": "Xでシェア",
+  "description": "このページをXでシェアする",
+  "icon": "x",
+  "href": {
+    "base": "https://x.com/intent/tweet",
+    "query": {
+      "key": "text",
+      "value": "このドキュメントをチェック: $page"
+    }
+  }
+}
+```
+</Accordion>
+</AccordionGroup>

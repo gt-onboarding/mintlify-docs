@@ -1,0 +1,174 @@
+---
+title: "Claude Code"
+description: "Claude Code を設定して、ドキュメントの作成・レビュー・更新を支援する"
+icon: "asterisk"
+---
+
+Claude Code は、ドキュメントの保守に役立つエージェント型のコマンドラインツールです。新規コンテンツの作成、既存ページのレビュー、ドキュメントの最新状態の維持を行えます。
+
+`CLAUDE.md` ファイルをプロジェクトに追加し、継続的に調整していくことで、Claude Code にドキュメントの標準やワークフローを理解させられます。
+
+<div id="getting-started">
+  ## はじめに
+</div>
+
+**前提条件:**
+
+- 有効な Claude のサブスクリプション（Pro、Max、または API アクセス）
+
+**セットアップ:**
+
+1. Claude Code をインストールします:
+
+```bash
+  npm install -g @anthropic-ai/claude-code
+  ```
+
+2. ドキュメント用ディレクトリに移動します。
+3. （任意）以下の `CLAUDE.md` をプロジェクトに追加します。
+4. `claude` を実行して開始します。
+
+<div id="claudemd-template">
+  ## CLAUDE.md テンプレート
+</div>
+
+ドキュメントディレクトリのルートに `CLAUDE.md` を保存して、Claude Code がプロジェクトを理解できるようにします。このファイルは、ドキュメントの標準、好み、ワークフローについて Claude Code を学習させます。詳細は Anthropic のドキュメント内の [Manage Claude's memory](https://docs.anthropic.com/en/docs/claude-code/memory) を参照してください。
+
+以下のサンプルテンプレートをコピーするか、ドキュメントの要件に合わせて編集してください:
+
+```mdx
+# Mintlify documentation
+
+## Working relationship
+- 提案に異議を唱えてかまいません—その方がより良いドキュメントにつながることがあります。その際は必ず出典を示し、根拠を説明してください
+- 推測せず、必ず確認を取ってください
+- 嘘をつかない・当てずっぽうで答えない・情報をでっち上げないこと
+
+## Project context
+- 形式: YAML フロントマター付きの MDX ファイル
+- 設定: ナビゲーション、テーマ、各種設定は docs.json
+- コンポーネント: Mintlify コンポーネント
+
+## Content strategy
+- ユーザーが成功するのに必要十分な情報だけを文書化する（多すぎず、少なすぎず）
+- 情報の正確性と使いやすさを最優先する
+- 可能な限り内容を長く使える形（エバーグリーン）にする
+- 新規に追加する前に既存情報を検索する。戦略的な理由がない限り重複は避ける
+- 既存のパターンとの一貫性を確認する
+- まずは最小限で妥当な変更から始める
+
+## docs.json
+
+- docs.json とサイトナビゲーションの作成時は [docs.json スキーマ](https://mintlify.com/docs.json) を参照する
+
+## Frontmatter requirements for pages
+- title: 明確で説明的なページタイトル
+- description: SEO / ナビゲーション向けの簡潔な要約
+
+## Writing standards
+- 二人称（“you”）で記述する
+- 手順型コンテンツの冒頭に前提条件を記載する
+- 公開前にすべてのコード例を検証する
+- 既存ページの文体と書式に合わせる
+- 基本と発展的なユースケースを両方含める
+- すべてのコードブロックに言語タグを付与する
+- すべての画像に代替テキスト（alt）を付与する
+- 内部リンクは相対パスを使用する
+
+## Git workflow
+- コミット時に --no-verify を絶対に使用しない
+- 着手前に未コミットの変更の扱いを確認する
+- 変更用の明確なブランチがない場合は新しいブランチを作成する
+- 開発中はこまめにコミットする
+- pre-commit フックをスキップ・無効化しない
+
+## Do not
+- どの MDX ファイルでもフロントマターを省略しない
+- 内部リンクに絶対 URL を使わない
+- 未検証のコード例を掲載しない
+- 推測で判断しない—必ず確認を取る
+```
+
+<div id="sample-prompts">
+  ## サンプルプロンプト
+</div>
+
+Claude Code の設定が完了したら、以下のプロンプトを試して、一般的なドキュメント作成タスクでどのように役立つかを確認してください。これらの例は、そのままコピーして貼り付けることも、ニーズに合わせて調整することもできます。
+
+<div id="convert-notes-to-polished-docs">
+  ### メモを完成度の高いドキュメントに仕上げる
+</div>
+
+ラフな下書きを、コンポーネントとフロントマターを備えた適切な Markdown ページに変換します。
+
+**プロンプト例:**
+
+```text wrap
+Convert this text into a properly formatted MDX page: [paste your text here]
+```
+
+<div id="review-docs-for-consistency">
+  ### ドキュメントの一貫性をレビューする
+</div>
+
+スタイル、書式、コンポーネントの使い方の改善提案を受け取れます。
+
+**プロンプト例:**
+
+```text wrap
+docs/ 内のファイルをレビューして、一貫性と明確性の向上提案をしてください
+```
+
+<div id="update-docs-when-features-change">
+  ### 機能変更時にドキュメントを更新する
+</div>
+
+プロダクトの進化に合わせてドキュメントを最新に保ちましょう。
+
+**プロンプト例:**
+
+```text wrap
+Our API now requires a version parameter. Update our docs to include version=2024-01 in all examples
+```
+
+<div id="generate-comprehensive-code-examples">
+  ### 網羅的なコード例を生成する
+</div>
+
+エラーハンドリングを備えた多言語のサンプルを作成します。
+
+**プロンプト例:**
+
+```text wrap
+Create code examples for [your API endpoint] in JavaScript, Python, and cURL with error handling
+```
+
+<div id="extending-claude-code">
+  ## Claude Code の拡張
+</div>
+
+Claude Code を手動でのプロンプトにとどめず、既存のワークフローに統合することもできます。
+
+<div id="automation-with-github-actions">
+  ### GitHub Actionsによる自動化
+</div>
+
+コードが変更されたタイミングでClaude Codeを自動実行し、ドキュメントを常に最新に保ちます。プルリクエストでドキュメントレビューを開始したり、APIの変更を検知した際にサンプルを更新したりできます。
+
+<div id="multi-instance-workflows">
+  ### 複数インスタンスのワークフロー
+</div>
+
+タスクごとに Claude Code のセッションを分けて使用しましょう。たとえば、新しいコンテンツの作成用と、レビュー・品質保証用で分離します。こうすることで一貫性を保ち、単一のセッションでは見落としがちな問題も検知しやすくなります。
+
+<div id="team-collaboration">
+  ### チームでのコラボレーション
+</div>
+
+更新した `CLAUDE.md` ファイルをチームで共有し、すべての貢献者間でドキュメントの基準を一貫させましょう。チームでは、プロジェクトに特化したプロンプトやワークフローが作成され、ドキュメント運用の一部として定着することがよくあります。
+
+<div id="custom-commands">
+  ### カスタムコマンド
+</div>
+
+プロジェクトやチーム固有のドキュメント作業で頻繁に使うスラッシュコマンドを再利用できるよう、`.claude/commands/` に作成します。

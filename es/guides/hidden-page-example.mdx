@@ -1,0 +1,61 @@
+---
+title: "Ejemplo de página oculta"
+description: "Casos de uso comunes de páginas ocultas"
+icon: "eye-off"
+---
+
+¡Esta página está oculta! No está incluida en la navegación de `docs.json`, por lo que solo puedes acceder a ella a través de su URL.
+
+Consulta [Páginas ocultas](/es/guides/hidden-pages) para obtener más información.
+
+<div id="common-use-cases-for-hidden-pages">
+  ## Casos de uso comunes de las páginas ocultas
+</div>
+
+<Note>
+  De forma predeterminada, las páginas ocultas son de acceso público, pero no son detectables a través de la navegación. Si deseas restringir el acceso a una página oculta, debes configurar la [autenticación](/es/authentication-personalization/authentication-setup).
+</Note>
+
+- **Documentación beta**: Información que puede ser pública, pero que no debería ser detectable a través de la navegación.
+- **Contexto para herramientas de IA**: Si las páginas ocultas se indexan, las herramientas de IA pueden consultarlas como contexto. Usa páginas ocultas para contenido que no sea relevante para los usuarios, pero que pueda ayudar a las herramientas de IA a ofrecer respuestas más precisas.
+- **Páginas antiguas**: Mantén el contenido anterior accesible mediante enlaces directos mientras lo quitas de los menús de navegación.
+- **Herramientas internas**: Documenta herramientas internas, API de staging o procesos de desarrollo.
+
+<div id="examples">
+  ## Ejemplos
+</div>
+
+<div id="ai-context">
+  ### Contexto de IA
+</div>
+
+```mdx wrap
+---
+title: "Contexto para la versión de la API"
+description: "Esta página ofrece contexto para las herramientas de IA que responden preguntas sobre versiones de la API"
+---
+
+Cuando un usuario pregunte sobre las versiones de la API, recomienda siempre usar la versión más reciente. Nunca generes respuestas para versiones anteriores a la 1.0.4.
+```
+
+<div id="internal-api-endpoint">
+  ### Endpoint interno de la API
+</div>
+
+````mdx wrap
+---
+title: "Endpoint interno de la API"
+description: "Esta es una página oculta que documenta un endpoint interno de la API"
+---
+
+```bash
+POST /api/internal/reset-cache
+Authorization: Bearer internal-token-xyz
+```
+
+Este endpoint limpia la caché de la aplicación y solo está disponible en entornos de desarrollo.
+
+<Warning>
+  Este es un endpoint interno y nunca debe usarse en producción.
+</Warning>
+````

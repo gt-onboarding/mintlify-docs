@@ -1,0 +1,42 @@
+---
+title: "Icons"
+description: "Verwenden Sie Icons aus beliebten Iconbibliotheken"
+icon: "flag"
+---
+
+import IconsRequired from "/snippets/de/icons-required.mdx";
+
+Verwenden Sie Icons aus Font Awesome, Lucide, SVGs, externen URLs oder Dateien in Ihrem Projekt, um Ihre Dokumentation zu verbessern.
+
+<Icon icon="flag" size={32} />
+
+```mdx Icon example
+<Icon icon="flag" size={32} />
+```
+
+
+<div id="inline-icons">
+  ## Inline-Icons
+</div>
+
+Icons werden inline platziert, wenn sie innerhalb eines Absatzes verwendet werden.
+
+<Icon icon="flag" iconType="solid" /> Die gewünschte Dokumentation – mühelos.
+
+```markdown Inline-Icon-Beispiel
+<Icon icon="flag" iconType="solid" /> Die gewünschte Dokumentation – mühelos.
+```
+
+<div id="properties">
+  ## Eigenschaften
+</div>
+
+<IconsRequired />
+
+<ResponseField name="color" type="string">
+  Die Farbe des Symbols als Hexadezimalcode (zum Beispiel „#FF5733“).
+</ResponseField>
+
+<ResponseField name="size" type="number">
+  Die Größe des Symbols in Pixel.
+</ResponseField>

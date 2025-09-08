@@ -1,0 +1,53 @@
+---
+title: "Google Analytics 4"
+---
+
+Sie müssen eine neue <Tooltip tip="Google Analytics 4">GA4</Tooltip>-Property erstellen, um sie mit Mintlify zu verwenden. Die erfassten Daten fließen in dasselbe Projekt wie Ihre anderen Google-Analytics-Daten.
+
+Wenn Sie die alte Version von Google Analytics, Universal Analytics, verwenden, können Sie weiterhin eine <Tooltip tip="Google Analytics 4">GA4</Tooltip>-Property erstellen. <Tooltip tip="Google Analytics 4">GA4</Tooltip>-Daten unterscheiden sich leicht von UA-Daten, werden aber dennoch im selben Projekt erfasst.
+
+<div id="how-to-connect-ga4-to-mintlify">
+  ## GA4 mit Mintlify verbinden
+</div>
+
+<div id="create-a-web-stream">
+  ### Erstellen Sie einen Web-Stream
+</div>
+
+Sie müssen einen Web-Stream erstellen, um die Measurement ID zu erhalten, die Sie in Mintlify eintragen.
+
+Klicken Sie auf das Zahnrad unten links im Google-Analytics-Bildschirm. Klicken Sie dann auf Data Streams.
+
+<Frame>![](/images/ga4-web-streams.png)</Frame>
+
+Erstellen Sie einen Web-Stream und geben Sie die URL Ihrer Mintlify-Dokumentationsseite als Stream-URL an.
+
+Ihre Measurement ID sieht aus wie `G-XXXXXXX` und wird unmittelbar nach dem Erstellen des Web-Streams unter Stream Details angezeigt.
+
+<div id="put-measurement-id-in-docsjson">
+  ### Measurement-ID in docs.json eintragen
+</div>
+
+Tragen Sie Ihre Measurement-ID wie folgt in die Datei `docs.json` ein:
+
+```json docs.json
+"integrations": {
+    "ga4": {
+        "measurementId": "G-XXXXXXX"
+    }
+}
+```
+
+<div id="wait">
+  ### Warten
+</div>
+
+Google Analytics benötigt zwei bis drei Tage, um Ihre Daten anzuzeigen.
+
+Sie können den [Google Analytics Debugger](https://chrome.google.com/webstore/detail/google-analytics-debugger/jnkmfdileelhofjcijamephohjechhna?hl=en) verwenden, um zu prüfen, ob Analytics korrekt aktiviert ist. Die Erweiterung protokolliert in der Browserkonsole jedes Mal, wenn GA4 eine Anfrage sendet.
+
+<Note>
+
+Bei Vorschaulinks ist Analytics deaktiviert.
+
+</Note>

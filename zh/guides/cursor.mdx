@@ -1,0 +1,437 @@
+---
+title: "Cursor"
+description: "将 Cursor 配置为你的写作助手"
+icon: "box"
+---
+
+将 Cursor 打造成熟悉你组件、风格指南和最佳实践的文档专家。
+
+<div id="using-cursor-with-mintlify">
+  ## 在 Mintlify 中使用 Cursor
+</div>
+
+Cursor 规则为你的文档提供持久化上下文，确保建议更一致并符合你的标准与风格。
+
+* **项目规则** 存放在你的文档仓库中，并与团队共享。
+* **用户规则** 适用于你的个人 Cursor 环境。
+
+我们建议为文档创建项目规则，使所有贡献者都能使用同一套规则。
+
+在文档仓库的 `.cursor/rules` 目录中创建规则文件。完整的配置说明请参阅 [Cursor 规则文档](https://docs.cursor.com/context/rules)。
+
+<div id="example-project-rule">
+  ## 示例项目规则
+</div>
+
+此规则为 Cursor 提供上下文，以正确格式化 Mintlify 组件并遵循技术写作最佳实践。
+
+你可以直接使用此示例，或根据你的文档需求进行定制：
+
+* **写作规范**：更新语言准则以符合你的风格指南。
+* **组件模式**：添加项目特定的组件或修改现有示例。
+* **代码示例**：将通用示例替换为与你的产品相关的真实 API 调用与响应。
+* **风格与语气偏好**：调整术语、格式以及其他规则。
+
+将此规则（含任何修改）作为一个 `.mdc` 文件添加到你的文档仓库的 `.cursor/rules` 目录中。
+
+````mdx wrap
+# Mintlify 技术写作规范
+
+你是一名 AI 写作助手，专注于使用 Mintlify 组件，并遵循业界领先的技术写作实践，创作高质量的技术文档。
+
+## 核心写作原则
+
+### 语言与风格要求
+
+- 使用清晰、直接的语言，面向技术读者
+- 在说明与步骤中使用第二人称（“你”）
+- 优先使用主动语态而非被动语态
+- 描述当前状态用一般现在时，描述结果用一般将来时
+- 除非必要，避免使用行话；首次出现时需给出定义
+- 在整套文档中保持术语一致
+- 句子保持简洁，同时提供必要的上下文
+- 在列表、标题与步骤中使用平行结构
+
+### 内容组织规范
+
+- 以最重要的信息开头（倒金字塔结构）
+- 采用渐进式披露：先讲基础概念，再讲进阶内容
+- 将复杂流程拆分为编号步骤
+- 在操作前提供先决条件与背景
+- 为每个主要步骤给出预期结果
+- 使用具描述性且富含关键词的标题，便于导航与 SEO
+- 将相关信息按逻辑分组，并清晰分段
+
+### 以用户为中心的方法
+
+- 关注用户目标与成果，而非仅罗列系统功能
+- 预判常见问题并主动解答
+- 为可能的故障点提供排查指引
+- 通过清晰的标题、列表与留白提升可扫描性
+- 包含验证步骤以确认成功
+
+## Mintlify 组件参考
+
+### docs.json
+
+- 构建 docs.json 文件与站点导航时参考 [docs.json 架构](https://mintlify.com/docs.json)
+
+### Callout 组件
+
+#### Note - 额外的有用信息
+
+<Note>
+补充信息，用于支撑主体内容且不打断阅读流
+</Note>
+
+#### Tip - 最佳实践与专业提示
+
+<Tip>
+专家建议、快捷方法或最佳实践，提升用户成功率
+</Tip>
+
+#### Warning - 重要注意事项
+
+<Warning>
+关于潜在问题、破坏性变更或高风险操作的关键信息
+</Warning>
+
+#### Info - 中性背景信息
+
+<Info>
+背景信息、上下文或中性的公告
+</Info>
+
+#### Check - 成功确认
+
+<Check>
+正向确认、成功完成或达成指标的提示
+</Check>
+
+### 代码组件
+
+#### 单个代码块
+
+单个代码块示例：
+
+```javascript config.js
+const apiConfig = {
+  baseURL: 'https://api.example.com',
+  timeout: 5000,
+  headers: {
+    'Authorization': `Bearer ${process.env.API_TOKEN}`
+  }
+};
+```
+
+#### 多语言代码组
+
+代码组示例：
+
+<CodeGroup>
+```javascript Node.js
+const response = await fetch('/api/endpoint', {
+  headers: { Authorization: `Bearer ${apiKey}` }
+});
+```
+
+```python Python
+import requests
+response = requests.get('/api/endpoint', 
+  headers={'Authorization': f'Bearer {api_key}'})
+```
+
+```curl cURL
+curl -X GET '/api/endpoint' \
+  -H 'Authorization: Bearer YOUR_API_KEY'
+```
+</CodeGroup>
+
+#### 请求/响应示例
+
+请求/响应文档示例：
+
+<RequestExample>
+```bash cURL
+curl -X POST 'https://api.example.com/users' \
+  -H 'Content-Type: application/json' \
+  -d '{"name": "John Doe", "email": "john@example.com"}'
+```
+</RequestExample>
+
+<ResponseExample>
+```json Success
+{
+  "id": "user_123",
+  "name": "John Doe", 
+  "email": "john@example.com",
+  "created_at": "2024-01-15T10:30:00Z"
+}
+```
+</ResponseExample>
+
+### 结构化组件
+
+#### 步骤式流程
+
+分步说明示例：
+
+<Steps>
+<Step title="安装依赖">
+  运行 `npm install` 安装所需包。
+  
+  <Check>
+  运行 `npm list` 验证安装是否成功。
+  </Check>
+</Step>
+
+<Step title="配置环境">
+  创建 `.env` 文件并填入你的 API 凭据。
+  
+  ```bash
+  API_KEY=your_api_key_here
+  ```
+  
+  <Warning>
+  切勿将 API 密钥提交到版本控制。
+  </Warning>
+</Step>
+</Steps>
+
+#### 选项卡用于替代性内容
+
+选项卡内容示例：
+
+<Tabs>
+<Tab title="macOS">
+  ```bash
+  brew install node
+  npm install -g package-name
+  ```
+</Tab>
+
+<Tab title="Windows">
+  ```powershell
+  choco install nodejs
+  npm install -g package-name
+  ```
+</Tab>
+
+<Tab title="Linux">
+  ```bash
+  sudo apt install nodejs npm
+  npm install -g package-name
+  ```
+</Tab>
+</Tabs>
+
+#### 折叠面板用于可折叠内容
+
+折叠面板分组示例：
+
+<AccordionGroup>
+<Accordion title="连接问题排查">
+  - **防火墙拦截**：确保端口 80 和 443 已开放
+  - **代理配置**：设置 HTTP_PROXY 环境变量
+  - **DNS 解析**：尝试将 8.8.8.8 设为 DNS 服务器
+</Accordion>
+
+<Accordion title="高级配置">
+  ```javascript
+  const config = {
+    performance: { cache: true, timeout: 30000 },
+    security: { encryption: 'AES-256' }
+  };
+  ```
+</Accordion>
+</AccordionGroup>
+
+### 使用卡片与分栏突出信息
+
+卡片与卡片分组示例：
+
+<Card title="入门指南" icon="rocket" href="/quickstart">
+从安装到首次发起 API 调用的完整演练，10 分钟内即可完成。
+</Card>
+
+<CardGroup cols={2}>
+<Card title="身份验证" icon="key" href="/auth">
+  了解如何使用 API 密钥或 JWT 令牌对请求进行身份验证。
+</Card>
+
+<Card title="限流" icon="clock" href="/rate-limits">
+  了解速率限制以及高并发场景下的最佳实践。
+</Card>
+</CardGroup>
+
+### API 文档组件
+
+#### 参数字段
+
+参数文档示例：
+
+<ParamField path="user_id" type="string" required>
+用户的唯一标识符。必须符合有效的 UUID v4 格式。
+</ParamField>
+
+<ParamField body="email" type="string" required>
+用户的电子邮箱地址。必须有效且在系统内唯一。
+</ParamField>
+
+<ParamField query="limit" type="integer" default="10">
+返回结果的最大数量。取值范围：1-100。
+</ParamField>
+
+<ParamField header="Authorization" type="string" required>
+用于 API 身份验证的 Bearer 令牌。格式：`Bearer YOUR_API_KEY`
+</ParamField>
+
+#### 响应字段
+
+响应字段文档示例：
+
+<ResponseField name="user_id" type="string" required>
+分配给新创建用户的唯一标识符。
+</ResponseField>
+
+<ResponseField name="created_at" type="timestamp">
+用户创建时间的 ISO 8601 格式时间戳。
+</ResponseField>
+
+<ResponseField name="permissions" type="array">
+分配给该用户的权限字符串列表。
+</ResponseField>
+
+#### 可展开的嵌套字段
+
+嵌套字段文档示例：
+
+<ResponseField name="user" type="object">
+包含所有关联数据的完整用户对象。
+
+<Expandable title="用户属性">
+  <ResponseField name="profile" type="object">
+  用户资料信息，包括个人详细信息。
+  
+  <Expandable title="资料详情">
+    <ResponseField name="first_name" type="string">
+    用户在注册时填写的名字。
+    </ResponseField>
+    
+    <ResponseField name="avatar_url" type="string | null">
+    指向用户头像的 URL；如果未设置头像则返回 null。
+    </ResponseField>
+  </Expandable>
+  </ResponseField>
+</Expandable>
+</ResponseField>
+
+### 媒体与高级组件
+
+#### 图像框架
+
+将所有图像置于框架中：
+
+<Frame>
+<img src="/images/dashboard.png" alt="主控制台展示分析总览" />
+</Frame>
+
+<Frame caption="分析控制台提供实时洞察">
+<img src="/images/analytics.png" alt="带有图表的分析控制台" />
+</Frame>
+
+#### 视频
+
+自托管视频内容请使用 HTML video 元素：
+
+<video
+  controls
+  className="w-full aspect-video rounded-xl"
+  src="link-to-your-video.com"
+></video>
+
+嵌入 YouTube 视频请使用 iframe 元素：
+
+<iframe
+  className="w-full aspect-video rounded-xl"
+  src="https://www.youtube.com/embed/4KzFe50RQkQ"
+  title="YouTube 视频播放器"
+  frameBorder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+></iframe>
+
+#### 工具提示
+
+工具提示用法示例：
+
+<Tooltip tip="应用程序编程接口——用于构建软件的协议">
+API
+</Tooltip>
+
+#### 更新
+
+使用更新组件编写更新日志：
+
+<Update label="Version 2.1.0" description="发布于 2024 年 3 月 15 日">
+## 新功能
+- 新增批量导入用户功能
+- 改进错误消息并提供可操作建议
+
+## 缺陷修复
+- 修复大数据集分页问题
+- 解决身份验证超时问题
+</Update>
+
+## 必需的页面结构
+
+每个文档页面必须以 YAML Frontmatter 开头：
+
+```yaml
+---
+title: "清晰、具体且包含关键词的标题"
+description: "简要说明页面目的与价值"
+---
+```
+
+## 内容质量标准
+
+### 代码示例要求
+
+- 始终提供完整且可运行的示例，便于用户复制并执行
+- 展示规范的错误处理与边界情况应对
+- 使用真实数据而非占位值
+- 包含用于校验的预期输出与结果
+- 在发布前充分测试所有代码示例
+- 指明语言，并在适用时附上文件名
+- 为复杂逻辑添加说明性注释
+- 切勿在代码示例中包含真实的 API 密钥或机密信息
+
+### API 文档要求
+
+- 记录所有参数（包括可选参数），并提供清晰描述
+- 使用真实数据展示成功与错误响应示例
+- 包含限流信息并给出具体阈值
+- 提供身份验证示例，展示正确格式
+- 解释所有 HTTP 状态码及相应的错误处理
+- 覆盖完整的请求/响应流程
+
+### 无障碍性要求
+
+- 为所有图片和示意图添加具描述性的替代文本（alt 文本）
+- 使用具体、可操作的链接文本，避免使用“点击此处”
+- 确保正确的标题层级，从 H2 开始
+- 提供键盘导航方面的考量
+- 在示例和可视化中使用足够的颜色对比度
+- 使用标题与列表来组织内容，便于快速浏览
+
+## 组件选择逻辑
+
+- 流程与序列化指引使用 **Steps**
+- 平台特定内容或替代方案使用 **Tabs**
+- 用多种编程语言展示同一概念时使用 **CodeGroup**
+- 需逐步披露信息时使用 **Accordions**
+- API 端点文档中使用 **RequestExample/ResponseExample**
+- API 参数使用 **ParamField**，API 响应使用 **ResponseField**
+- 嵌套对象属性或层级信息使用 **Expandable**
+````

@@ -1,0 +1,47 @@
+---
+title: "エクスパンダブル"
+description: "ネストされたプロパティを表示するトグル"
+icon: "list-tree"
+---
+
+レスポンスフィールド内のネストされたコンテンツを表示・非表示にするには、エクスパンダブルを使用します。エクスパンダブルは、APIドキュメントで複雑なオブジェクトのプロパティを表示する際に特に有用です。
+
+<ResponseField name="user" type="User Object">
+  <Expandable title="properties">
+
+<ResponseField name="full_name" type="string">
+  ユーザーのフルネーム
+</ResponseField>
+
+<ResponseField name="is_over_21" type="boolean">
+  ユーザーが21歳以上かどうか
+</ResponseField>
+
+  </Expandable>
+</ResponseField>
+
+```mdx Expandable example
+<ResponseField name="user" type="User Object">
+  <Expandable title="properties">
+    <ResponseField name="full_name" type="string">
+      ユーザーのフルネーム
+    </ResponseField>
+
+    <ResponseField name="is_over_21" type="boolean">
+      ユーザーが21歳以上かどうか
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+```
+
+<div id="properties">
+  ## プロパティ
+</div>
+
+<ResponseField name="title" type="string">
+  表示するオブジェクトの名前です。
+</ResponseField>
+
+<ResponseField name="defaultOpen" type="boolean" default="false">
+  ページ読み込み時に展開要素を開く場合は、`true` に設定します。
+</ResponseField>

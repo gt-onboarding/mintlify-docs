@@ -1,0 +1,109 @@
+---
+title: "Acordeones"
+description: "Componentes plegables para mostrar y ocultar contenido"
+icon: "chevron-down"
+---
+
+import IconsOptional from "/snippets/es/icons-optional.mdx";
+
+Los acordeones permiten que los usuarios expandan y contraigan secciones de contenido. Utiliza acordeones para la revelación progresiva y para organizar la información.
+
+
+<div id="single-accordion">
+  ## Acordeón individual
+</div>
+
+<Accordion title="I am an Accordion.">
+  Puedes incluir cualquier contenido aquí, incluidos otros componentes, como código:
+   ```java HelloWorld.java
+    class HelloWorld {
+        public static void main(String[] args) {
+            System.out.println("Hello, World!");
+        }
+    }
+    ```
+</Accordion>
+
+````mdx Accordion example
+<Accordion title="I am an Accordion.">
+  Puedes incluir cualquier contenido aquí, incluidos otros componentes, como código:
+
+   ```java HelloWorld.java
+    class HelloWorld {
+        public static void main(String[] args) {
+            System.out.println("Hello, World!");
+        }
+    }
+  ```
+</Accordion>
+````
+
+<div id="accordion-groups">
+  ## Grupos de acordeones
+</div>
+
+Agrupa acordeones relacionados con `<AccordionGroup>`. Esto crea una sección coherente de acordeones que se pueden expandir o contraer de forma individual.
+
+<AccordionGroup>
+  <Accordion title="Primeros pasos">
+    Puedes incluir otros componentes dentro de los acordeones.
+
+    ```java HelloWorld.java
+    class HelloWorld {
+        public static void main(String[] args) {
+            System.out.println("Hello, World!");
+        }
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="Funciones avanzadas" icon="bot">
+    Añade iconos para que los acordeones sean más diferenciables visualmente y fáciles de recorrer.
+  </Accordion>
+  
+  <Accordion title="Solución de problemas">
+    Mantén el contenido relacionado organizado en grupos.
+  </Accordion>
+</AccordionGroup>
+
+````mdx Accordion Group Example
+<AccordionGroup>
+  <Accordion title="Primeros pasos">
+    Puedes incluir otros componentes dentro de los acordeones.
+
+    ```java HelloWorld.java
+    class HelloWorld {
+        public static void main(String[] args) {
+            System.out.println("Hello, World!");
+        }
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="Funciones avanzadas" icon="alien-8bit">
+    Añade iconos para que los acordeones sean más diferenciables visualmente y fáciles de recorrer.
+  </Accordion>
+
+  <Accordion title="Solución de problemas">
+    Mantén el contenido relacionado organizado en grupos.
+  </Accordion>
+</AccordionGroup>
+````
+
+<div id="properties">
+  ## Propiedades
+</div>
+
+<ResponseField name="title" type="string" required>
+  Título en la vista previa del acordeón.
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  Detalle debajo del título en la vista previa del acordeón.
+</ResponseField>
+
+<ResponseField name="defaultOpen" type="boolean" default="false">
+  Indica si el acordeón está abierto de forma predeterminada.
+</ResponseField>
+
+<IconsOptional />

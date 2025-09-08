@@ -1,0 +1,56 @@
+---
+title: "llms.txt"
+description: "Facilita que los LLM puedan leer e indexar tu contenido"
+icon: "file-code"
+---
+
+import { PreviewButton } from "/snippets/previewbutton.jsx"
+
+El [archivo llms.txt](https://llmstxt.org) es un estándar del sector que ayuda a los LLM a indexar contenido de forma más eficiente, de manera similar a como un mapa del sitio ayuda a los motores de búsqueda. Las herramientas de IA pueden usar este archivo para comprender la estructura de su documentación y encontrar contenido relevante para las consultas de los usuarios.
+
+Mintlify aloja automáticamente un archivo `llms.txt` en la raíz de su proyecto que enumera todas las páginas disponibles en su documentación. Este archivo siempre está actualizado y no requiere mantenimiento. Opcionalmente, puede añadir un archivo `llms.txt` personalizado en la raíz de su proyecto.
+
+Vea su `llms.txt` añadiendo `/llms.txt` a la URL del sitio de su documentación.
+
+<PreviewButton href="https://mintlify.com/docs/llms.txt">Abrir el llms.txt de este sitio.</PreviewButton>
+
+
+<div id="llmstxt-structure">
+  ## Estructura de llms.txt
+</div>
+
+Un archivo `llms.txt` es un archivo Markdown sin formato que contiene:
+
+- **Título del sitio** como encabezado H1.
+- **Secciones de contenido estructuradas** con enlaces y una descripción de cada página de tu documentación.
+
+```mdx Example llms.txt
+# Example product docs
+
+## Guides
+- [Getting started](https://example.com/docs/start): Intro guide
+- [Install](https://example.com/docs/install): Setup steps
+
+## Reference
+- [API](https://example.com/docs/api): Endpoint list and usage
+```
+
+Este enfoque estructurado permite que los LLM procesen tu documentación de forma eficiente a alto nivel y localicen contenido relevante para las consultas de los usuarios, mejorando la precisión y la velocidad de las búsquedas de documentación asistidas por IA.
+
+<div id="llms-fulltxt">
+  ## llms-full.txt
+</div>
+
+El archivo `llms-full.txt` combina todo su sitio de documentación en un único archivo como contexto para herramientas de IA y es indexado por el tráfico de LLM.
+
+Mintlify aloja automáticamente un archivo `llms-full.txt` en la raíz de su proyecto. Consulte su `llms-full.txt` agregando `/llms-full.txt` a la URL de su sitio de documentación.
+
+<PreviewButton href="https://mintlify.com/docs/llms-full.txt">Abrir el llms-full.txt de este sitio.</PreviewButton>
+
+<div id="custom-files">
+  ## Archivos personalizados
+</div>
+
+Para añadir un archivo personalizado `llms.txt` o `llms-full.txt`, crea un archivo `llms.txt` o `llms-full.txt` en la raíz de tu proyecto. Al añadir un archivo personalizado, se reemplazará el archivo generado automáticamente con el mismo nombre. Si eliminas el archivo personalizado, se volverá a usar el archivo predeterminado.
+
+Tu archivo personalizado `llms.txt` o `llms-full.txt` debe incluir el título del sitio como un encabezado H1. El resto del contenido es opcional. Consulta [Format](https://llmstxt.org/#format) en la especificación de `llms.txt` para más información sobre las secciones opcionales y las mejores prácticas.

@@ -1,0 +1,78 @@
+---
+title: "Vercel"
+description: "使用 Vercel 在 /docs 子路径下托管文档"
+---
+
+<div id="verceljson-file">
+  ## vercel.json 文件
+</div>
+
+`vercel.json` 文件是 Vercel 的配置文件，用于自定义项目的构建与部署方式。它位于项目根目录，控制部署的各个方面，包括路由、重定向、请求头（headers）以及构建设置。
+
+我们使用 `rewrites` 配置将来自主域名的请求代理到你的文档。
+
+Rewrites 允许你在不更改浏览器 URL 的情况下，将传入请求映射到不同的目标。当有人访问 `yoursite.com/docs` 时，Vercel 会在内部从 `your-subdomain.mintlify.dev/docs` 获取内容，但用户在浏览器中仍会看到 `yoursite.com/docs`。这与重定向不同，重定向会将用户带到一个完全不同的 URL。
+
+<div id="configuration">
+  ## 配置
+</div>
+
+要在 Vercel 上将文档托管在自定义的 `/docs` 子路径下，请在 `vercel.json` 文件中添加以下配置：
+
+```json
+{
+  "rewrites": [
+    {
+      "source": "/docs",
+      "destination": "https://[subdomain].mintlify.dev/docs"
+    },
+    {
+      "source": "/docs/:match*",
+      "destination": "https://[subdomain].mintlify.dev/docs/:match*"
+    }
+  ]
+}
+```
+
+- **`source`**：你域名上触发重写的路径模式。
+- **`destination`**：请求将被代理到的目标地址。
+- **`:match*`**：用于捕获 `/docs/` 之后任意路径段的通配符。
+
+更多信息请参阅 Vercel 文档中的 [Configuring projects with vercel.json: Rewrites](https://vercel.com/docs/projects/project-configuration#rewrites)。
+
+<div id="using-external-proxies-with-vercel">
+  ## 在 Vercel 中使用外部代理
+</div>
+
+如果您在 Vercel 部署前使用外部代理（如 Cloudflare 或 AWS CloudFront），必须正确配置以避免与 Vercel 的域名验证和 SSL 证书签发产生冲突。
+
+错误的代理配置可能会导致 Vercel 无法为您签发 Let's Encrypt SSL 证书，并引发域名验证失败。
+
+请参阅 Vercel 文档中的[受支持的服务商](https://vercel.com/guides/how-to-setup-verified-proxy#supported-providers-verified-proxy-lite)。
+
+<div id="required-path-allowlist">
+  ### 必需的路径允许列表
+</div>
+
+你的外部代理必须允许以下特定路径的流量通过，不得阻止、重定向或进行过度缓存：
+
+- `/.well-known/acme-challenge/*` - 用于 Let's Encrypt 证书验证
+- `/.well-known/vercel/*` - 用于 Vercel 域名验证
+
+这些路径应直接原样透传至你的 Vercel 部署，不做任何修改。
+
+<div id="header-forwarding-requirements">
+  ### 头部转发要求
+</div>
+
+确保你的代理正确转发 `HOST` 头部。若未正确转发该头部，验证请求将失败。
+
+<div id="testing-your-proxy-setup">
+  ### 测试你的代理设置
+</div>
+
+要验证代理是否已正确配置：
+
+1. 测试 `https://[yourdomain].com/.well-known/vercel/` 是否有返回。
+2. 在 Vercel 控制台中确认 SSL 证书已正确签发。
+3. 检查域名验证是否已成功完成。

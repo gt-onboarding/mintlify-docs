@@ -1,0 +1,45 @@
+---
+title: "Cornici"
+description: "Usa il componente Frame per racchiudere immagini o altri componenti in un contenitore."
+icon: 'frame'
+---
+
+Le cornici sono molto utili per centrare un'immagine.
+
+<Frame>
+  <img src="https://mintlify-assets.b-cdn.net/yellowstone.jpeg" />
+</Frame>
+
+<div id="captions">
+  ## Didascalie
+</div>
+
+Puoi aggiungere ulteriore contesto a un’immagine usando la prop opzionale `caption`.
+
+<Frame caption="Il Parco nazionale di Yosemite è visitato da oltre 3,5 milioni di persone ogni anno">
+  <img src="https://mintlify-assets.b-cdn.net/yosemite.jpg" />
+</Frame>
+
+<div id="props">
+  ## Props
+</div>
+
+<ResponseField name="caption" type="string">
+  Testo della didascalia facoltativo da visualizzare centrato sotto il componente.
+</ResponseField>
+
+<RequestExample>
+
+```mdx Frame
+<Frame>
+  <img src="/path/image.jpg" />
+</Frame>
+```
+
+```mdx Frame with Captions
+<Frame caption="Caption Text">
+  <img src="/path/image.jpg" />
+</Frame>
+```
+
+</RequestExample>

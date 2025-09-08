@@ -1,0 +1,46 @@
+---
+title: "Introducción"
+description: "Desencadena actualizaciones, integra el Asistente de IA y más"
+icon: "book-open"
+---
+
+La API REST de Mintlify te permite interactuar de forma programática con tu documentación, desencadenar actualizaciones e integrar experiencias de chat con IA.
+
+<div id="endpoints">
+  ## Endpoints
+</div>
+
+- [Activar actualización](/es/api-reference/update/trigger): Activa una actualización de tu sitio cuando lo desees.
+- [Obtener el estado de la actualización](/es/api-reference/update/status): Obtén el estado de una actualización y otros detalles sobre tu documentación.
+- [Generar mensaje del Asistente](/es/api-reference/assistant/create-assistant-message): Inserta el Asistente, entrenado con tu documentación, en cualquier aplicación que elijas.
+- [Buscar en la documentación](/es/api-reference/assistant/search): Busca en tu documentación.
+
+<div id="authentication">
+  ## Autenticación
+</div>
+
+Puedes generar una clave de API desde el [panel](https://dashboard.mintlify.com/settings/organization/api-keys). Las claves de API están asociadas a toda la organización y pueden usarse en múltiples despliegues.
+
+<div id="admin-api-key">
+  ### Clave de API de administración
+</div>
+
+La clave de API de administración se utiliza en los endpoints [Trigger update](/es/api-reference/update/trigger) y [Get update status](/es/api-reference/update/status).
+
+Las claves de API de administración comienzan con el prefijo `mint_`. Mantén tus claves de API de administración en secreto.
+
+<div id="assistant-api-key">
+  ### Clave de la API del Asistente
+</div>
+
+La clave de la API del Asistente se utiliza en los endpoints [Generar mensaje del asistente](/es/api-reference/assistant/create-assistant-message) y [Buscar documentación](/es/api-reference/assistant/search).
+
+Las claves de la API del Asistente comienzan con el prefijo `mint_dsc_`.
+
+La **clave** de la API del Asistente es un token del lado del servidor que debe mantenerse en secreto.
+
+El **token** de la API del Asistente es un token público que puedes usar en tu código de frontend.
+
+<Note>
+  Las llamadas que usan el token de la API del Asistente pueden generar costos: ya sea consumiendo tus créditos del Asistente de IA o incurriendo en cargos adicionales.
+</Note>

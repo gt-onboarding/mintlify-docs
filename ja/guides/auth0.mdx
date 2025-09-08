@@ -1,0 +1,60 @@
+---
+title: "OAuth ハンドシェイクで Auth0 を使用する"
+description: "ユーザーデータの真正な情報源が Auth0 の場合、Mintlify を OAuth クライアントアプリとして設定してユーザー認証を行うことができます。"
+---
+
+<Note>
+  **セキュリティに関する免責事項**: 本ガイドは Auth0 と Mintlify の統合を支援する目的で提供していますが、いずれの認証ソリューションを実装する場合も、事前に必ず貴社のセキュリティチームにご相談ください。特定の実装に起因して発生し得るセキュリティ上の問題について、Mintlify は一切の責任を負いません。
+</Note>
+
+<div id="overview">
+  ## 概要
+</div>
+
+このガイドでは、Mintlify のドキュメントで認証プロバイダーとして Auth0 を設定する手順を説明します。完了すると、ユーザーは Auth0 の資格情報を使ってドキュメントにログインできるようになります。
+
+<Steps>
+  <Step title="Auth0 で Regular Web Application を作成する">
+    Auth0 のダッシュボードにログインし、**Applications** > **Applications** に移動します。**Create Application** をクリックし、アプリケーション名（例: "Mintlify"）を入力して、アプリケーションタイプに **Regular Web Applications** を選択します。続いて **Create** をクリックします。
+    
+    <Frame>![Auth0 で新しいアプリケーションを作成する](/images/guides/auth0/auth0-create-application.png)</Frame>
+  </Step>
+  <Step title="クライアント情報を取得する">
+    アプリケーション作成後、アプリケーション設定ページに移動します。ここで、OAuth 連携に必要な主要な資格情報を確認できます。
+    
+    <Frame>![Auth0 クライアント設定ページ](/images/guides/auth0/auth0clientsettings.png)</Frame>
+    
+    次の情報を控えておいてください:
+    - **Domain**: Auth0 テナントドメイン（例: `your-tenant.auth0.com`）
+    - **Client ID**: アプリケーションの公開識別子
+    - **Client Secret**: アプリケーションのシークレットキー（厳重に保管してください）
+    
+    次のステップで Mintlify を設定する際にこれらの値を使用します。
+  </Step>
+  <Step title="Mintlify クライアントをセットアップする">
+    Mintlify Dashboard に移動し、**Settings** > **Authentication** セクションに進みます。認証方法として **OAuth** を選択すると、OAuth 構成フォームが表示されます。
+    
+    <Frame>![Mintlify OAuth クライアント設定](/images/guides/auth0/mintlifyoauthclientsettings.png)</Frame>
+    
+    次の値を入力します。
+    
+    - **Authorization URL**: `https://YOUR_AUTH0_DOMAIN/authorize`（`YOUR_AUTH0_DOMAIN` はステップ 2 で確認した実際の Auth0 ドメインに置き換えてください）
+    - **Client ID**: Auth0 アプリケーションの Client ID
+    - **Client Secret**: Auth0 アプリケーションの Client Secret
+    - **Scopes**: Auth0 でカスタムスコープを設定していない限り空欄のままにする
+    - **Token URL**: `https://YOUR_AUTH0_DOMAIN/oauth/token`（`YOUR_AUTH0_DOMAIN` は実際の Auth0 ドメインに置き換えてください）
+    
+    入力後、**Save changes** をクリックして OAuth 構成を保存します。
+  </Step>
+  <Step title="Callback URL を構成する">
+    Mintlify は、OAuth フローが正しく動作するために Auth0 が認識する必要のある一意の Redirect URL を生成します。
+    
+    Mintlify Dashboard の Authentication 設定から Redirect URL をコピーします。
+    <Frame>![Mintlify のリダイレクト URL](/images/guides/auth0/mintlifyredirecturl.png)</Frame>
+    
+    Auth0 のアプリケーション設定ページに戻り、**Application URIs** セクションまでスクロールして、**Allowed Callback URLs** フィールドに Redirect URL を貼り付けます。
+    <Frame>![Auth0 のリダイレクト URL 構成](/images/guides/auth0/auth0redirecturl.png)</Frame>
+    
+    画面下部の **Save Changes** をクリックして設定を保存します。
+  </Step>
+</Steps>

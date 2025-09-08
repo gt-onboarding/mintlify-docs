@@ -1,0 +1,31 @@
+---
+title: "Bereitstellungen"
+description: "Beheben Sie Probleme mit Ihren Bereitstellungen"
+icon: "boxes"
+---
+
+Ihre Dokumentationsseite wird automatisch bereitgestellt, wenn Sie Änderungen in Ihr verbundenes Repository pushen. Dafür muss die Mintlify-GitHub-App korrekt installiert und verbunden sein.
+
+Wenn Ihre neuesten Änderungen nicht auf Ihrer Live-Seite erscheinen, prüfen Sie zunächst, ob die GitHub-App auf dem Konto oder in der Organisation installiert ist, die Ihr Docs-Repository besitzt. Weitere Informationen finden Sie unter [GitHub-Problembehandlung](/de/settings/github#troubleshooting).
+
+Wenn die GitHub-App verbunden ist, Änderungen aber weiterhin nicht bereitgestellt werden, können Sie in Ihrem Dashboard manuell einen Neuaufbau auslösen.
+
+<div id="manually-triggering-a-deployment">
+  ## Eine Bereitstellung manuell auslösen
+</div>
+
+<Steps>
+  <Step title="Prüfen Sie, ob Ihr letzter Commit erfolgreich war.">
+    Vergewissern Sie sich, dass Ihr letzter Commit im Docs-Repository erscheint und keine Fehler aufgetreten sind.
+  </Step>
+
+  <Step title="Bereitstellung manuell auslösen.">
+    Öffnen Sie Ihr [Dashboard](https://dashboard.mintlify.com) und klicken Sie auf die Schaltfläche Deploy.
+
+    <Frame>
+      <img src="/images/deployments/manual-update-light.png" alt="Die Schaltfläche für das manuelle Update, hervorgehoben durch ein orangefarbenes Rechteck." className="block dark:hidden" />
+
+      <img src="/images/deployments/manual-update-dark.png" alt="Die Schaltfläche für das manuelle Update, hervorgehoben durch ein orangefarbenes Rechteck." className="hidden dark:block" />
+    </Frame>
+  </Step>
+</Steps>

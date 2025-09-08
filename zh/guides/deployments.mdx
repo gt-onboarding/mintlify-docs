@@ -1,0 +1,31 @@
+---
+title: "部署"
+description: "部署问题排查"
+icon: "boxes"
+---
+
+当你向已连接的代码库推送更改时，文档站点会自动部署。为此需要正确安装并连接 Mintlify 的 GitHub 应用。
+
+如果最新更改没有出现在线上站点上，首先检查该 GitHub 应用是否已安装在拥有文档代码库的个人账户或组织上。更多信息参见[GitHub 故障排查](/zh/settings/github#troubleshooting)。
+
+如果 GitHub 应用已连接，但更改仍未部署，你可以在控制台手动触发重建。
+
+<div id="manually-triggering-a-deployment">
+  ## 手动触发部署
+</div>
+
+<Steps>
+  <Step title="确认你的最新提交已成功。">
+    检查你的最新提交是否已出现在文档仓库中，且未出现任何错误。
+  </Step>
+
+  <Step title="手动触发部署。">
+    前往你的[仪表盘](https://dashboard.mintlify.com)并点击“部署”按钮。
+
+    <Frame>
+      <img src="/images/deployments/manual-update-light.png" alt="用橙色矩形标注的手动更新按钮。" className="block dark:hidden" />
+
+      <img src="/images/deployments/manual-update-dark.png" alt="用橙色矩形标注的手动更新按钮。" className="hidden dark:block" />
+    </Frame>
+  </Step>
+</Steps>

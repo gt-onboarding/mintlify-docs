@@ -1,0 +1,48 @@
+---
+title: "Agregar ejemplos de SDK"
+description: "Muestre fragmentos de código específicos por lenguaje junto a sus endpoints de API para mostrar a los desarrolladores cómo usar sus SDK"
+---
+
+Si sus usuarios interactúan con su API mediante un SDK en lugar de hacerlo directamente a través de una solicitud de red, puede usar la extensión `x-codeSamples` para agregar ejemplos de código a su documento de OpenAPI y mostrarlos en sus páginas de OpenAPI.
+
+Esta propiedad se puede agregar a cualquier método de solicitud y tiene el siguiente esquema.
+
+<ParamField body="lang" type="string" required>
+  El lenguaje del fragmento de código.
+</ParamField>
+
+<ParamField body="label" type="string">
+  La etiqueta del ejemplo. Es útil cuando se proporcionan varios ejemplos para un mismo endpoint.
+</ParamField>
+
+<ParamField body="source" type="string" required>
+  El código fuente del ejemplo.
+</ParamField>
+
+A continuación se muestra un ejemplo de fragmentos de código para una aplicación de seguimiento de plantas, que cuenta tanto con una herramienta de Bash (CLI) como con un SDK de JavaScript.
+
+```yaml
+paths:
+  /plants:
+    get:
+      # ...
+      x-codeSamples:
+        - lang: bash
+          label: List all unwatered plants
+          source: |
+            planter list -u
+        - lang: javascript
+          label: List all unwatered plants
+          source: |
+            const planter = require('planter');
+            planter.list({ unwatered: true });
+        - lang: bash
+          label: List all potted plants
+          source: |
+            planter list -p
+        - lang: javascript
+          label: List all potted plants
+          source: |
+            const planter = require('planter');
+            planter.list({ potted: true });
+```

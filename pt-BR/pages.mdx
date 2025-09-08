@@ -1,0 +1,163 @@
+---
+title: "Páginas"
+description: "Páginas são os blocos fundamentais da sua documentação"
+icon: "letter-text"
+keywords: ["tags", "tag"]
+---
+
+import IconsOptional from "/snippets/pt-BR/icons-optional.mdx";
+
+Cada página é um arquivo MDX que combina conteúdo em Markdown com componentes do React, permitindo criar documentação rica e interativa.
+
+<div id="page-metadata">
+  ## Metadados da página
+</div>
+
+Toda página começa com frontmatter, os metadados YAML delimitados por `---` no início do arquivo. Esses metadados definem como sua página é exibida e como se comporta.
+
+Use os metadados para controlar:
+
+- Títulos e descrições da página
+- Títulos, ícones e tags da barra lateral
+
+<ResponseField name="title" type="string" required>
+  O título da sua página que aparece na navegação e nas abas do navegador.
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  Uma breve descrição do conteúdo desta página. É exibida abaixo do título e melhora o SEO.
+</ResponseField>
+
+<ResponseField name="sidebarTitle" type="string">
+  Um título curto exibido na navegação da barra lateral.
+</ResponseField>
+
+<IconsOptional />
+
+<ResponseField name="tag" type="string">
+  Uma tag exibida ao lado do título da sua página na barra lateral.
+</ResponseField>
+
+```yaml Example YAML frontmatter wrap
+---
+title: "About frontmatter"
+description: "Frontmatter is the metadata that controls how your page appears and behaves"
+sidebarTitle: "Frontmatter"
+icon: "book"
+tag: "NEW"
+---
+```
+
+<div id="page-mode">
+  ## Modo da página
+</div>
+
+Controle como sua página é exibida com a configuração `mode`.
+
+<div id="default">
+  ### Padrão
+</div>
+
+Se nenhum modo for definido, usa-se um layout padrão com navegação lateral e índice.
+
+```yaml
+---
+title: "Default page title"
+---
+```
+
+<div id="wide">
+  ### Amplo
+</div>
+
+O modo amplo oculta o sumário. Isso é útil para páginas sem títulos ou se você preferir aproveitar o espaço horizontal extra.
+
+```yaml
+---
+title: "Título de página amplo"
+mode: "wide"
+---
+```
+
+<div id="custom">
+  ### Personalizado
+</div>
+
+O modo personalizado oferece um layout minimalista que remove todos os elementos, exceto a barra de navegação superior. É uma tela em branco para criar landing pages ou outros layouts exclusivos nos quais você queira manter a navegação ao mínimo.
+
+```yaml
+---
+title: "Custom page title"
+mode: "custom"
+---
+```
+
+<div id="center">
+  ### Centralizado
+</div>
+
+O modo centralizado remove a barra lateral e o índice, centralizando o conteúdo. Isso é útil para changelogs ou outras páginas nas quais você deseja enfatizar o conteúdo.
+
+```yaml
+---
+title: "Center page title"
+mode: "center"
+---
+```
+
+<div id="api-pages">
+  ## Páginas de API
+</div>
+
+Crie playgrounds de API interativos adicionando uma especificação de API ao frontmatter, `api` ou `openapi`.
+
+```yaml
+---
+openapi: "GET /endpoint"
+---
+```
+
+Saiba mais sobre como criar [documentação de API](/pt-BR/api-playground/overview).
+
+<div id="external-links">
+  ## Links externos
+</div>
+
+Crie links para sites externos diretamente na navegação usando o metadado `url`.
+
+```yaml
+---
+title: "npm Package"
+url: "https://www.npmjs.com/package/mint"
+---
+```
+
+<div id="search-engine-optimization">
+  ## Otimização para mecanismos de busca
+</div>
+
+A maioria das meta tags de SEO é gerada automaticamente. Você pode definir meta tags de SEO manualmente para melhorar o SEO do seu site, o compartilhamento em redes sociais e a compatibilidade com navegadores.
+
+<Note>
+  Meta tags com dois-pontos devem estar entre aspas.
+</Note>
+
+```yaml
+---
+"twitter:image": "/images/social-preview.jpg"
+---
+```
+
+Consulte [SEO](/pt-BR/settings/seo) para ver todas as opções de metadados de SEO.
+
+<div id="internal-search-keywords">
+  ## Palavras-chave de pesquisa interna
+</div>
+
+Aumente a encontrabilidade de uma página específica na pesquisa integrada fornecendo `keywords` nos seus metadados. Essas palavras-chave não aparecerão como parte do conteúdo da página nem nos resultados da pesquisa, mas usuários que as pesquisarem verão a página como resultado.
+
+```yaml
+---
+keywords: ['configuration', 'setup', 'getting started']
+---
+```
