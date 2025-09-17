@@ -1,0 +1,46 @@
+---
+title: "概要"
+description: "更新のトリガー、AIアシスタントの埋め込みなど"
+icon: "book-open"
+---
+
+Mintlify REST API を使うと、ドキュメントをプログラムから操作し、更新をトリガーし、AI を活用したチャット体験を埋め込めます。
+
+<div id="endpoints">
+  ## エンドポイント
+</div>
+
+* [更新をトリガー](/ja/api-reference/update/trigger): 必要なときにサイトの更新を開始します。
+* [更新ステータスを取得](/ja/api-reference/update/status): 更新の状況やドキュメントに関する詳細を取得します。
+* [アシスタントメッセージを生成](/ja/api-reference/assistant/create-assistant-message): ドキュメントで学習したアシスタントを任意のアプリケーションに埋め込みます。
+* [ドキュメントを検索](/ja/api-reference/assistant/search): ドキュメントを検索します。
+
+<div id="authentication">
+  ## 認証
+</div>
+
+[ダッシュボード](https://dashboard.mintlify.com/settings/organization/api-keys)からAPIキーを生成できます。APIキーは組織全体に紐づき、複数のデプロイで使用できます。
+
+<div id="admin-api-key">
+  ### 管理者 API キー
+</div>
+
+管理者 API キーは、[Trigger update](/ja/api-reference/update/trigger) と [Get update status](/ja/api-reference/update/status) の各エンドポイントで使用します。
+
+管理者 API キーは `mint_` というプレフィックスで始まります。管理者 API キーは厳重に管理し、秘密にしてください。
+
+<div id="assistant-api-key">
+  ### アシスタント API キー
+</div>
+
+アシスタント API キーは、[Generate assistant message](/ja/api-reference/assistant/create-assistant-message) と [Search documentation](/ja/api-reference/assistant/search) の各エンドポイントで使用します。
+
+アシスタント API キーは `mint_dsc_` という接頭辞で始まります。
+
+アシスタント API の「キー」は、秘密にしておくべきサーバーサイドのトークンです。
+
+アシスタント API の「トークン」は、フロントエンドのコードで参照できる公開トークンです。
+
+<Note>
+  アシスタント API トークンを使った呼び出しには費用が発生する場合があります。AI アシスタントのクレジットを消費するか、超過料金が発生する可能性があります。
+</Note>

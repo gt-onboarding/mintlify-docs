@@ -1,0 +1,92 @@
+---
+title: "Erste Schritte mit dem Web-Editor"
+sidebarTitle: "Erste Schritte"
+description: "Erfahren Sie, wie Sie mit dem Web-Editor Dokumentationen erstellen und bearbeiten"
+---
+
+<img className="block dark:hidden my-0 pointer-events-none" src="/images/editor/editor-light.png" alt="Mintlify-Web-Editor-Oberfläche im Hellmodus" />
+
+<img className="hidden dark:block my-0 pointer-events-none" src="/images/editor/editor-dark.png" alt="Mintlify-Web-Editor-Oberfläche im Dunkelmodus" />
+
+Der Web-Editor ist eine visuelle Oberfläche zum Erstellen, Bearbeiten und Prüfen von Dokumentationen direkt im Browser.
+
+* **Visuelles Bearbeiten**: Nehmen Sie Änderungen mit einem WYSIWYG-Editor (What You See Is What You Get) vor, der zeigt, wie Ihre Inhalte nach der Veröffentlichung aussehen.
+* **Git-Synchronisierung**: Alle Änderungen werden automatisch mit Ihrem Git-Repository synchronisiert, um die Versionskontrolle sicherzustellen.
+* **Teamzusammenarbeit**: Mehrere Personen können gleichzeitig an der Dokumentation arbeiten.
+* **Komponentenintegration**: Fügen Sie Callouts, Codeblöcke und andere Komponenten per Slash-Befehl hinzu.
+* **Keine Einrichtung erforderlich**: Beginnen Sie direkt vom Dashboard aus mit dem Schreiben.
+
+<div id="web-editor-workflow">
+  ## Web-Editor-Workflow
+</div>
+
+So arbeiten Sie typischerweise im Web-Editor:
+
+<Steps>
+  <Step title="Wählen Sie Ihren Branch">
+    Erstellen Sie einen Branch oder nehmen Sie Änderungen direkt an Ihrem Deployment-Branch vor. Wir empfehlen, einen Branch zu erstellen, damit Sie Ihre Änderungen in der Vorschau sehen können, bevor sie live gehen.
+  </Step>
+
+  <Step title="Öffnen Sie Ihre Datei">
+    Navigieren Sie in der Seitenleiste zu einer vorhandenen Datei oder erstellen Sie eine neue über den Dateiexplorer.
+  </Step>
+
+  <Step title="Bearbeiten Sie Ihren Inhalt">
+    Nehmen Sie Änderungen im Web-Editor vor. Wechseln Sie über den Schalter oben rechts zwischen dem visuellen Modus und dem Markdown-Modus, um herauszufinden, welchen Modus Sie bevorzugen.
+  </Step>
+
+  <Step title="Änderungen in der Vorschau ansehen">
+    Der visuelle Modus zeigt, wie Ihre Änderungen auf Ihrer Live-Website erscheinen. Nutzen Sie ihn, um zu prüfen, ob alles korrekt aussieht.
+  </Step>
+
+  <Step title="Änderungen veröffentlichen">
+    Wenn Sie in Ihrem Deployment-Branch arbeiten, veröffentlichen Sie Ihre Änderungen direkt aus dem Web-Editor. In anderen Branches erstellen Sie vor der Veröffentlichung eine Pull-Request zur Überprüfung.
+  </Step>
+</Steps>
+
+<div id="editor-modes">
+  ## Editor-Modi
+</div>
+
+Der Web-Editor bietet zwei Modi, um unterschiedlichen Vorlieben und Anforderungen beim Bearbeiten gerecht zu werden. Verwenden Sie den Schalter in der oberen rechten Ecke der Editor-Symbolleiste, um zwischen den Bearbeitungsmodi zu wechseln.
+
+<Frame>
+  <img src="/images/editor/mode-toggle-light.png" alt="Hervorgehobene Modus-Umschaltsymbole im Web-Editor." className="block dark:hidden" />
+
+  <img src="/images/editor/mode-toggle-dark.png" alt="Hervorgehobene Modus-Umschaltsymbole im Web-Editor." className="hidden dark:block" />
+</Frame>
+
+<div id="visual-mode">
+  ### Visueller Modus
+</div>
+
+Der visuelle Modus bietet eine WYSIWYG-Umgebung, in der die Änderungen, die Sie im Editor vornehmen, genau so veröffentlicht werden, wie sie auf Ihrer Dokumentationsseite erscheinen. Dieser Modus ist ideal, wenn Sie in Echtzeit sehen möchten, wie Ihre Änderungen aussehen.
+
+Drücken Sie „/“, um das Komponentenmenü zu öffnen und formatierten Inhalt, Hinweisfelder, Code-Snippets oder andere Komponenten hinzuzufügen.
+
+<Frame>
+  <img src="/images/editor/visual-mode-light.png" alt="Visueller Bearbeitungsmodus im Mintlify Web-Editor" className="block dark:hidden" />
+
+  <img src="/images/editor/visual-mode-dark.png" alt="Visueller Bearbeitungsmodus im Mintlify Web-Editor" className="hidden dark:block" />
+</Frame>
+
+<div id="markdown-mode">
+  ### Markdown-Modus
+</div>
+
+Der Markdown-Modus bietet direkten Zugriff auf den zugrunde liegenden `MDX`-Code Ihrer Dokumentation. Dieser Modus ist ideal, wenn Sie die Eigenschaften von Komponenten präzise steuern möchten oder lieber in Markdown-Syntax schreiben.
+
+<Frame>
+  <img src="/images/editor/markdown-mode-light.png" alt="Markdown-Modus im Mintlify Web-Editor" className="block dark:hidden" />
+
+  <img src="/images/editor/markdown-mode-dark.png" alt="Markdown-Modus im Mintlify Web-Editor" className="hidden dark:block" />
+</Frame>
+
+<div id="next-steps">
+  ## Nächste Schritte
+</div>
+
+* Lerne die grundlegenden [Git-Konzepte](/de/editor/git-concepts) kennen.
+* Erfahre Best Practices für die Zusammenarbeit mit [Branches](/de/editor/branches).
+* Erkunde das [Content-Management](/de/editor/content-management) mit dem Web-Editor.
+* Verstehe die [Veröffentlichungsoptionen](/de/editor/publishing) für verschiedene Szenarien.

@@ -1,0 +1,45 @@
+---
+title: "Individuelle 404-Seite"
+description: "Titel und Beschreibung Ihrer 404-Fehlerseite anpassen"
+icon: "file-warning"
+---
+
+Sie können den Titel und die Beschreibung der 404-Fehlerseite festlegen, die erscheint, wenn Nutzerinnen und Nutzer auf defekte oder fehlende Links stoßen.
+
+Wenn Sie Ihre 404-Seite anpassen, nutzen Sie die Beschreibung, um Nutzerinnen und Nutzer zu hilfreichen Ressourcen oder Links in Ihrer Dokumentation zu führen, damit sie schneller finden, was sie suchen.
+
+<div id="configuration">
+  ## Konfiguration
+</div>
+
+Konfigurieren Sie Ihre 404-Seite im Abschnitt `errors.404` Ihrer `docs.json`-Datei:
+
+```json
+"errors": {
+  "404": {
+    "redirect": false,
+    "title": "Ich kann nicht gefunden werden",
+    "description": "Was ist nur mit dieser _Seite_ **passiert**?"
+  }
+}
+```
+
+<div id="parameters">
+  ## Parameter
+</div>
+
+<ResponseField name="redirect" type="boolean">
+  Legt fest, ob automatisch zur Startseite weitergeleitet wird, wenn eine Seite nicht gefunden wird.
+  
+  Auf `true` setzen, um zur Startseite weiterzuleiten.
+
+  Auf `false` setzen, um die benutzerdefinierte 404-Seite anzuzeigen.
+</ResponseField>
+
+<ResponseField name="title" type="string">
+  Benutzerdefinierter Titel für die 404-Fehlerseite. Ersetzt die Standardüberschrift „Seite nicht gefunden“.
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  Benutzerdefinierte Beschreibung für die 404-Fehlerseite. Unterstützt Markdown-Formatierung.
+</ResponseField>

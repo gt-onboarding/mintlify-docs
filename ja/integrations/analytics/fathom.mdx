@@ -1,0 +1,27 @@
+---
+title: "Fathom"
+---
+
+Fathom にアナリティクスを送信するには、`docs.json` に次の設定を追加します。
+
+`siteId` はスクリプトの設定から取得できます。
+
+<CodeGroup>
+
+```json Analytics options in docs.json
+"integrations": {
+    "fathom": {
+        "siteId": "required"
+    }
+}
+```
+
+```json Example
+"integrations": {
+    "fathom": {
+        "siteId": "YSVMSDAY"
+    }
+}
+```
+
+</CodeGroup>

@@ -1,0 +1,34 @@
+---
+title: Stainless
+description: APIプレイグラウンドでSDKのサンプルスニペットを自動生成する
+---
+
+<div id="prerequisites">
+  ## 前提条件
+</div>
+
+* [Stainless](https://app.stainless.com) のアカウントをお持ちであること。
+
+<div id="integrate-with-stainless">
+  ## Stainless と統合する
+</div>
+
+<Steps>
+  <Step title="Stainless で OpenAPI のデコレーションを設定します。">
+    `stainless.yml` の設定ファイルに `openapi.code_samples: 'mintlify'` を追加します。詳しくは [Stainless のドキュメント](https://app.stainless.com/docs/guides/integrate-docs)を参照してください。
+  </Step>
+
+  <Step title="OpenAPI 仕様の URL を公開します。">
+    Stainless プロジェクトで次を行います:
+
+    1. **Release** タブを選択します。
+    2. **Setup OpenAPI publishing** を選択します。
+    3. 公開アクセス可能な OpenAPI 仕様の URL をコピーします。
+
+    <img src="/images/stainless-public-OpenAPI-spec.png" alt="OpenAPI 仕様の URL が緑色の枠で強調表示された Stainless のリリースページ。" />
+  </Step>
+
+  <Step title={<>OpenAPI 仕様の URL を <code>docs.json</code> に追加します。</>}>
+    `docs.json` の `openapi` フィールドに、Stainless で取得した URL を追加します。詳しくは [OpenAPI Setup](/ja/api-playground/openapi-setup) を参照してください。
+  </Step>
+</Steps>

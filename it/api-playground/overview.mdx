@@ -1,0 +1,161 @@
+---
+title: "API playground"
+description: "Consenti agli utenti di interagire con la tua API"
+icon: "play"
+---
+
+<div id="overview">
+  ## Panoramica
+</div>
+
+L&#39;API playground è un ambiente interattivo che consente agli utenti di testare ed esplorare gli endpoint della tua API. Gli sviluppatori possono comporre richieste, inviarle e visualizzare le risposte senza uscire dalla documentazione.
+
+<Frame>
+  <img src="/images/playground/API-playground-light.png" alt="API playground per l'endpoint che avvia un aggiornamento." className="block dark:hidden" />
+
+  <img src="/images/playground/API-playground-dark.png" alt="API playground per l'endpoint che avvia un aggiornamento." className="hidden dark:block" />
+</Frame>
+
+Il playground viene generato automaticamente dalla tua specifica OpenAPI o dallo schema AsyncAPI, quindi qualsiasi aggiornamento alla tua API si rifletterà automaticamente nel playground. Puoi anche creare manualmente pagine di riferimento dell&#39;API dopo aver definito un URL di base e un metodo di autenticazione nel file `docs.json`.
+
+Consigliamo di generare l&#39;API playground a partire da una specifica OpenAPI. Consulta [OpenAPI Setup](/it/api-playground/openapi-setup) per maggiori informazioni sulla creazione del tuo documento OpenAPI.
+
+<div id="getting-started">
+  ## Guida introduttiva
+</div>
+
+<Steps>
+  <Step title="Aggiungi il file della specifica OpenAPI.">
+    <Info>
+      Verifica che il file della specifica OpenAPI sia valido utilizzando lo [Swagger Editor](https://editor.swagger.io/) o il [Mint CLI](https://www.npmjs.com/package/mint).
+    </Info>
+
+    ```bash {2}
+    /your-project
+      |- docs.json
+      |- openapi.json
+    ```
+  </Step>
+
+  <Step title="Configura `docs.json`.">
+    Aggiorna `docs.json` per fare riferimento alla tua specifica OpenAPI. Aggiungi la proprietà `openapi` a qualsiasi elemento della navigazione per popolare automaticamente la documentazione con una pagina per ogni endpoint definito nel documento OpenAPI.
+
+    In questo esempio viene generata una pagina per ciascun endpoint definito in `openapi.json`, organizzata nel gruppo &quot;API reference&quot; della navigazione.
+
+    ```json
+    "navigation": {
+      "groups": [
+        {
+          "group": "API reference",
+          "openapi": "openapi.json"
+        }
+      ]
+    }
+    ```
+
+    Per generare pagine solo per determinati endpoint, elencali nella proprietà `pages` dell’elemento di navigazione.
+
+    Questo esempio genera pagine solo per gli endpoint `GET /users` e `POST /users`. Per generare le pagine di altri endpoint, aggiungili all’array `pages`.
+
+    ```json
+    "navigation": {
+      "groups": [
+          {
+            "group": "API reference",
+            "openapi": "openapi.json",
+            "pages": [
+              "GET /users",
+              "POST /users"
+            ]
+          }
+      ]
+    }
+    ```
+  </Step>
+</Steps>
+
+<div id="customizing-your-playground">
+  ## Personalizzazione del playground
+</div>
+
+Puoi personalizzare l’API playground definendo le seguenti proprietà in `docs.json`.
+
+<ResponseField name="playground" type="object">
+  Configurazione dell’API playground.
+
+  <Expandable title="playground" defaultOpen="True">
+    <ResponseField name="display" type="&#x22;interactive&#x22; | &#x22;simple&#x22; | &#x22;none&#x22;">
+      Modalità di visualizzazione dell’API playground.
+
+      * `"interactive"`: Mostra il playground interattivo.
+      * `"simple"`: Mostra un endpoint copiabile senza playground.
+      * `"none"`: Non mostra nulla.
+
+      Valore predefinito: `interactive`.
+    </ResponseField>
+
+    <ResponseField name="proxy" type="boolean" defaultOpen="True">
+      Indica se instradare le richieste API tramite un server proxy. Valore predefinito: `true`.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="examples" type="object">
+  Configurazione degli esempi API generati automaticamente.
+
+  <Expandable title="examples" defaultOpen="True">
+    <ResponseField name="languages" type="array of string">
+      Lingue per gli snippet API generati automaticamente.
+
+      Le lingue vengono mostrate nell’ordine specificato.
+    </ResponseField>
+
+    <ResponseField name="defaults" type="&#x22;required&#x22; | &#x22;all&#x22;">
+      Indica se mostrare i parametri opzionali negli esempi API. Valore predefinito: `all`.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<div id="example-configuration">
+  ### Esempio di configurazione
+</div>
+
+```json
+{
+ "api": {
+   "playground": {
+     "display": "interactive"
+   },
+   "examples": {
+     "languages": ["curl", "python", "javascript"],
+     "defaults": "required"
+   }
+ }
+}
+```
+
+Questo esempio configura l&#39;API playground come interattivo, con snippet di codice per cURL, Python e JavaScript. Negli snippet vengono mostrati solo i parametri obbligatori.
+
+<div id="custom-endpoint-pages">
+  ### Pagine endpoint personalizzate
+</div>
+
+Quando ti serve un controllo più fine sulla documentazione della tua API, usa l’estensione `x-mint` nella specifica OpenAPI oppure crea pagine `MDX` dedicate per i singoli endpoint.
+
+Entrambe le opzioni ti permettono di:
+
+* Personalizzare i metadati della pagina
+* Aggiungere contenuti aggiuntivi come esempi
+* Controllare il comportamento dell’API playground per pagina
+
+L’estensione `x-mint` è consigliata per generare automaticamente tutta la documentazione della tua API dalla specifica OpenAPI e mantenerla in un unico file.
+
+Le pagine `MDX` individuali sono consigliate per API piccole o quando vuoi sperimentare modifiche a livello di singola pagina.
+
+Per maggiori informazioni, vedi [x-mint extension](/it/api-playground/openapi-setup#x-mint-extension) e [MDX Setup](/it/api-playground/mdx/configuration).
+
+<div id="further-reading">
+  ## Approfondimenti
+</div>
+
+* [Configurazione di AsyncAPI](/it/api-playground/asyncapi/setup) per ulteriori informazioni sulla creazione dello schema AsyncAPI e la generazione delle pagine di riferimento per WebSocket.

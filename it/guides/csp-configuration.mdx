@@ -1,0 +1,140 @@
+---
+title: "Configurazione della Content Security Policy (CSP)"
+sidebarTitle: "Configurazione CSP"
+description: "Elenco consentiti dei domini e configurazioni degli header per reverse proxy, firewall e reti che applicano policy di sicurezza rigorose"
+---
+
+La Content Security Policy (CSP) è uno standard di sicurezza che aiuta a prevenire gli attacchi di cross-site scripting (XSS) controllando quali risorse può caricare una pagina web. Mintlify serve una CSP predefinita che protegge la maggior parte dei siti. Se pubblichi la tua documentazione dietro un reverse proxy o un firewall che sovrascrive la CSP predefinita, potresti dover configurare gli header CSP affinché le funzionalità funzionino correttamente.
+
+<div id="csp-directives">
+  ## Direttive CSP
+</div>
+
+Le seguenti direttive CSP vengono utilizzate per controllare quali risorse possono essere caricate:
+
+- `script-src`: Controlla quali script possono essere eseguiti
+- `style-src`: Controlla quali fogli di stile possono essere caricati
+- `font-src`: Controlla quali font possono essere caricati
+- `img-src`: Controlla quali immagini, icone e loghi possono essere caricati
+- `connect-src`: Controlla a quali URL è possibile connettersi per le chiamate API e le connessioni WebSocket
+- `frame-src`: Controlla quali URL possono essere incorporati in frame o iframe
+- `default-src`: Valore di fallback per le altre direttive quando non sono specificate esplicitamente
+
+<div id="domain-whitelist">
+  ## Elenco consentiti di domini
+</div>
+
+| Dominio | Scopo | Direttiva CSP | Obbligatorio |
+|:-------|:--------|:--------------|:-------|
+| `d4tuoctqmanu0.cloudfront.net` | CSS e font KaTeX | `style-src`, `font-src` | Obbligatorio |
+| `*.mintlify.dev` | Contenuti della documentazione | `connect-src` | Obbligatorio |
+| `d3gk2c5xim1je2.cloudfront.net` | Icone, immagini, loghi | `img-src` | Obbligatorio |
+| `www.googletagmanager.com` | Google Analytics/GTM | `script-src`, `connect-src` | Facoltativo |
+| `cdn.segment.com` | Segment (analytics) | `script-src`, `connect-src` | Facoltativo |
+| `plausible.io` | Plausible (analytics) | `script-src`, `connect-src` | Facoltativo |
+| `tag.clearbitscripts.com` | Tracciamento Clearbit | `script-src` | Facoltativo |
+| `cdn.heapanalytics.com` | Heap (analytics) | `script-src` | Facoltativo |
+| `chat.cdn-plain.com` | Widget di chat Plain | `script-src` | Facoltativo |
+| `chat-assets.frontapp.com` | Widget di chat Front | `script-src` | Facoltativo |
+
+<div id="example-csp-configuration">
+  ## Esempio di configurazione CSP
+</div>
+
+<Note>
+  Includi solo i domini dei servizi che utilizzi. Rimuovi eventuali domini di analytics che non hai configurato per la tua documentazione.
+</Note>
+
+```text wrap
+Content-Security-Policy:
+default-src 'self';
+script-src 'self' 'unsafe-inline' 'unsafe-eval' www.googletagmanager.com cdn.segment.com plausible.io tag.clearbitscripts.com cdn.heapanalytics.com
+chat.cdn-plain.com chat-assets.frontapp.com;
+style-src 'self' 'unsafe-inline' d4tuoctqmanu0.cloudfront.net;
+font-src 'self' d4tuoctqmanu0.cloudfront.net;
+img-src 'self' data: blob: d3gk2c5xim1je2.cloudfront.net;
+connect-src 'self' *.mintlify.dev www.googletagmanager.com cdn.segment.com plausible.io;
+frame-src 'self' *.mintlify.dev;
+```
+
+<div id="common-configurations-by-proxy-type">
+  ## Configurazioni comuni per tipo di proxy
+</div>
+
+La maggior parte dei reverse proxy supporta l’aggiunta di intestazioni personalizzate.
+
+<div id="cloudflare-configuration">
+  ### Configurazione Cloudflare
+</div>
+
+Crea una regola di trasformazione dell’header di risposta:
+
+1. Nel dashboard di Cloudflare, vai su **Rules > Overview**.
+2. Seleziona **Create rule > Response Header Transform Rule**. 
+3. Configura la regola:
+
+- **Modify response header**: imposta su static
+  - **Header name**: `Content-Security-Policy`
+  - **Header value**:
+    ```text wrap
+    default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' d4tuoctqmanu0.cloudfront.net; font-src 'self' d4tuoctqmanu0.cloudfront.net; img-src 'self' data: blob: d3gk2c5xim1je2.cloudfront.net; connect-src 'self' *.mintlify.dev; frame-src 'self' *.mintlify.dev;
+    ```
+
+4. Distribuisci la regola.
+
+<div id="aws-cloudfront-configuration">
+  ### Configurazione di AWS CloudFront
+</div>
+
+Aggiungi una policy per le intestazioni di risposta in CloudFront:
+
+```json
+{
+"ResponseHeadersPolicy": {
+    "Name": "MintlifyCSP",
+    "Config": {
+    "SecurityHeadersConfig": {
+        "ContentSecurityPolicy": {
+        "ContentSecurityPolicy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' d4tuoctqmanu0.cloudfront.net; font-src 'self' d4tuoctqmanu0.cloudfront.net; img-src 'self' data: blob: d3gk2c5xim1je2.cloudfront.net; connect-src 'self' *.mintlify.dev; frame-src 'self' *.mintlify.dev;",
+        "Override": true
+        }
+      }
+    }
+  }
+}
+```
+
+<div id="vercel-configuration">
+  ### Configurazione di Vercel
+</div>
+
+Aggiungi al file `vercel.json`:
+
+```json
+{
+"headers": [
+    {
+    "source": "/(.*)",
+    "headers": [
+        {
+        "key": "Content-Security-Policy",
+        "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' d4tuoctqmanu0.cloudfront.net; font-src 'self' d4tuoctqmanu0.cloudfront.net; img-src 'self' data: blob: d3gk2c5xim1je2.cloudfront.net; connect-src 'self' *.mintlify.dev; frame-src 'self' *.mintlify.dev;"
+        }
+      ]
+    }
+  ]
+}
+```
+
+<div id="troubleshooting">
+  ## Risoluzione dei problemi
+</div>
+
+Individua le violazioni della CSP nella console del browser:
+
+1. Apri gli Strumenti per sviluppatori del browser.
+2. Vai alla scheda **Console**.
+3. Cerca errori che iniziano con:
+    - `Content Security Policy: The page's settings blocked the loading of a resource`
+    - `Refused to load the script/stylesheet because it violates the following Content Security Policy directive`
+    - `Refused to connect to because it violates the following Content Security Policy directive`

@@ -1,0 +1,79 @@
+---
+title: "Pubblicazione delle modifiche"
+description: "Distribuisci gli aggiornamenti della documentazione direttamente in produzione o tramite pull request"
+---
+
+La modalità di pubblicazione delle modifiche dipende dal branch su cui stai lavorando:
+
+* **Branch di deployment**: la pubblicazione aggiorna immediatamente il sito in produzione.
+* **Altri branch**: la pubblicazione crea una pull request, così puoi rivedere le modifiche prima che siano distribuite in produzione.
+
+<Frame>
+  <img 
+    src="/images/editor/publish-flow-light.png" 
+    alt="Il pulsante Pubblica evidenziato nell'Editor web di Mintlify" 
+    className="block dark:hidden" 
+  />
+  <img 
+    src="/images/editor/publish-flow-dark.png" 
+    alt="Il pulsante Pubblica evidenziato nell'Editor web di Mintlify" 
+    className="hidden dark:block" 
+  />
+</Frame>
+
+<div id="pull-requests-and-reviewing-changes">
+  ## Pull request e revisione delle modifiche
+</div>
+
+Le pull request ti permettono di proporre modifiche dal tuo branch affinché altre persone possano esaminarle prima di eseguire il merge nella documentazione in produzione. Questo aiuta a garantire che le modifiche siano corrette e offre al tuo team l'opportunità di collaborare sui contenuti.
+
+<Tip>
+  Anche se lavori da solo, le pull request sono utili per visualizzare in anteprima le modifiche e mantenere una cronologia chiara degli aggiornamenti.
+</Tip>
+
+<div id="creating-a-pull-request">
+  ### Creare una pull request
+</div>
+
+<Steps>
+  <Step title="Salva il tuo lavoro">
+    Assicurati di aver salvato tutte le modifiche nel tuo branch usando **Save Changes**.
+  </Step>
+  <Step title="Crea la pull request">
+    Seleziona **Publish Pull Request** nell’angolo in alto a destra dell’editor.
+  </Step>
+  <Step title="Aggiungi un titolo e una descrizione">
+    Scrivi un titolo e una descrizione chiari che spieghino:
+    - Quali modifiche hai apportato
+    - Perché le hai apportate
+    - Eventuali aree specifiche da sottoporre a revisione
+  </Step>
+  <Step title="Crea e condividi">
+    Seleziona **Publish Pull Request**. L’editor fornirà un link per visualizzare la tua pull request.
+
+  <Frame>
+  <img 
+    src="/images/editor/pull-request-light.png" 
+    alt="Pulsante Publish Pull Request evidenziato nell'Editor web di Mintlify" 
+    className="block dark:hidden" 
+  />
+  <img 
+    src="/images/editor/pull-request-dark.png" 
+    alt="Pulsante Publish Pull Request evidenziato nell'Editor web di Mintlify" 
+    className="hidden dark:block" 
+  />
+  </Frame>
+  </Step>
+</Steps>
+
+<div id="reviewing-pull-requests">
+  ## Revisione delle pull request
+</div>
+
+Una volta creata la pull request:
+
+1. **Rivedi le modifiche**: Tu e i membri del team potete rivedere la pull request nel vostro fornitore Git, ad esempio GitHub o GitLab.
+2. **Lascia feedback**: Aggiungi commenti o richiedi modifiche.
+3. **Apporta ulteriori modifiche**: Apporta ulteriori modifiche nell'Editor web. Quando salvi, l'editor le invia alla pull request.
+4. **Approva**: Approva la pull request quando sei soddisfatto delle modifiche.
+5. **Esegui il merge**: Esegui il merge della pull request quando sei pronto a distribuire le modifiche in produzione.

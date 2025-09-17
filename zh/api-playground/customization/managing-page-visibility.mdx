@@ -1,0 +1,90 @@
+---
+title: "管理页面可见性"
+description: "控制 OpenAPI 规范中的哪些端点会显示在文档导航中"
+---
+
+你可以控制哪些 OpenAPI 操作会作为文档页面发布，以及它们在导航中的可见性。这对于仅内部使用的端点、已弃用的操作、测试版功能，或需要通过直接 URL 访问但不应通过站点导航被发现的端点非常有用。
+
+如果你的页面是从 OpenAPI 文档自动生成的，你可以使用 `x-hidden` 和 `x-excluded` 扩展来管理页面可见性。
+
+<div id="x-hidden">
+  ## `x-hidden`
+</div>
+
+`x-hidden` 扩展会为某个端点创建页面，但不在导航中显示。该页面只能通过直接访问其 URL 打开。
+
+`x-hidden` 的常见用例包括：
+
+- 需要记录但不希望在导航中推广的端点。
+- 作为其他内容的链接目标的页面。
+- 面向特定用户的端点。
+
+<div id="x-excluded">
+  ## `x-excluded`
+</div>
+
+`x-excluded` 扩展会将某个端点从文档中完全排除。
+
+`x-excluded` 的常见用例包括：
+
+- 仅供内部使用的端点。
+- 不再希望在文档中展示的已弃用端点。
+- 尚未准备公开文档的 Beta 功能。
+
+<div id="implementation">
+  ## 实现
+</div>
+
+在你的 OpenAPI 规范中，将 `x-hidden` 或 `x-excluded` 扩展添加到对应的 HTTP 方法下。
+
+下面是在 OpenAPI 架构文档中针对某个端点和一个 webhook 路径分别使用这两个属性的示例。
+
+```json {11, 19}
+"paths": {
+  "/plants": {
+    "get": {
+      "description": "Returns all plants from the store",
+      "parameters": { /*...*/ },
+      "responses": { /*...*/ }
+    }
+  },
+  "/hidden_plants": {
+    "get": {
+      "x-hidden": true,
+      "description": "Returns all somewhat secret plants from the store",
+      "parameters": { /*...*/ },
+      "responses": { /*...*/ }
+    }
+  },
+  "/secret_plants": {
+    "get": {
+      "x-excluded": true,
+      "description": "Returns all top secret plants from the store (do not publish this endpoint!)",
+      "parameters": { /*...*/ },
+      "responses": { /*...*/ }
+    }
+  }
+},
+```
+
+```json {9, 15}
+"webhooks": {
+  "/plants_hook": {
+    "post": {
+      "description": "Webhook for information about a new plant added to the store",
+    }
+  },
+  "/hidden_plants_hook": {
+    "post": {
+      "x-hidden": true,
+      "description": "Webhook for somewhat secret information about a new plant added to the store"
+    }
+  },
+  "/secret_plants_hook": {
+    "post": {
+      "x-excluded": true,
+      "description": "Webhook for top secret information about a new plant added to the store (do not publish this endpoint!)"
+    }
+  }
+}
+```

@@ -1,0 +1,102 @@
+---
+title: "代码组"
+description: "在一个组件中展示多个代码示例"
+icon: "group"
+---
+
+使用 `CodeGroup` 组件以选项卡界面展示多个代码块，便于用户比较不同编程语言的实现，或查看完成同一任务的替代方案。
+
+<CodeGroup>
+
+```javascript helloWorld.js
+console.log("Hello World");
+```
+
+```python hello_world.py
+print('Hello World!')
+```
+
+```java HelloWorld.java
+class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+```
+
+</CodeGroup>
+
+<div id="creating-code-groups">
+  ## 创建代码组
+</div>
+
+要创建代码组，请使用 `<CodeGroup>` 标签包裹多个代码块。每个代码块必须包含一个标题，该标题将用作选项卡标签。
+
+````mdx
+<CodeGroup>
+
+```javascript helloWorld.js
+console.log("Hello World");
+```
+
+```python hello_world.py
+print('Hello World!')
+```
+
+```java HelloWorld.java
+class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+```
+
+</CodeGroup>
+````
+
+<div id="language-dropdown">
+  ## 语言下拉菜单
+</div>
+
+你可以通过使用 `dropdown` 属性，将代码组中的选项卡替换为下拉菜单，以在不同语言之间切换。
+
+<CodeGroup dropdown>
+
+```javascript helloWorld.js
+console.log("Hello World");
+```
+
+```python hello_world.py
+print('Hello World!')
+```
+
+```java HelloWorld.java
+class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+```
+
+</CodeGroup>
+
+````mdx highlight=1
+<CodeGroup dropdown>
+
+```javascript helloWorld.js
+console.log("Hello World");
+```
+
+```python hello_world.py
+print('Hello World!')
+```
+
+```java HelloWorld.java
+class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+```
+</CodeGroup>
+````

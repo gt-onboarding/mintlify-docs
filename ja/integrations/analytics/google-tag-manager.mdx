@@ -1,0 +1,27 @@
+---
+title: "Google Tag Manager"
+---
+
+`docs.json` ファイルにタグ ID を追加すると、すべてのページに Google Tag Manager のスクリプトが自動的に挿入されます。
+
+クッキー同意バナーが必要な場合は、Google Tag Manager での設定はお客様の責任となります。
+
+<CodeGroup>
+
+```json Analytics options in docs.json
+"integrations": {
+    "gtm": {
+        "tagId": "required"
+    }
+}
+```
+
+```json Example
+"integrations": {
+    "gtm": {
+        "tagId": "GTM-MGBL4PW"
+    }
+}
+```
+
+</CodeGroup>

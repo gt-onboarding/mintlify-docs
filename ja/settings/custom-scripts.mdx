@@ -1,0 +1,193 @@
+---
+title: "カスタムスクリプト"
+description: "カスタムCSSとJSでドキュメントをフルにカスタマイズ"
+icon: "code"
+---
+
+CSSでHTML要素をスタイリングしたり、カスタムCSSとJavaScriptを追加して、ドキュメントの見た目や使い心地を思い通りにカスタマイズできます。
+
+<div id="styling-with-tailwind-css">
+  ## Tailwind CSS でのスタイリング
+</div>
+
+Tailwind CSS v3 を使って HTML 要素をスタイルします。レイアウト、間隔、色などの見た目のプロパティを制御できます。代表的なクラスは次のとおりです:
+
+- `w-full` - 幅いっぱい
+- `aspect-video` - 16:9 のアスペクト比
+- `rounded-xl` - 大きめの角丸
+- `block`, `hidden` - 表示の切り替え
+- `dark:hidden`, `dark:block` - ダークモード時の表示
+
+Tailwind CSS の任意値（arbitrary values）はサポートされていません。カスタム値が必要な場合は `style` プロップを使用してください。
+
+```html
+<img style={{ width: '350px', margin: '12px auto' }} src="/path/image.jpg" />
+```
+
+<div id="custom-css">
+  ## カスタムCSS
+</div>
+
+CSS ファイルをリポジトリに追加すると、そこで定義したクラス名をすべての `MDX` ファイルで適用・利用できるようになります。
+
+<div id="adding-stylecss">
+  ### `style.css` を追加する
+</div>
+
+たとえば、ナビバーとフッターのスタイルをカスタマイズするために、次の `style.css` ファイルを追加できます。
+
+```css
+#navbar {
+  background: "#fffff2";
+  padding: 1rem;
+}
+
+footer {
+  margin-top: 2rem;
+}
+```
+
+<div id="using-identifiers-and-selectors">
+  ### 識別子とセレクタの使用
+</div>
+
+Mintlify には、UI の重要な要素にタグ付けするための共通の識別子とセレクタが用意されています。
+
+<Tip>
+  カスタマイズしたい要素を特定するには、検証ツール（Inspect element）を使って該当要素を確認してください。
+</Tip>
+
+<AccordionGroup>
+  <Accordion title="識別子">
+  - APIPlaygroundInput: `api-playground-input`
+  - AssistantEntry: `assistant-entry`
+  - AssistantEntryMobile: `assistant-entry-mobile`
+  - Banner: `banner`
+  - ChangelogFilters: `changelog-filters`
+  - ChangelogFiltersContent: `changelog-filters-content`
+  - ChatAssistantSheet: `chat-assistant-sheet`
+  - ChatAssistantTextArea: `chat-assistant-textarea`
+  - ContentArea: `content-area`
+  - ContentContainer: `content-container`
+  - ContentSideLayout: `content-side-layout`
+  - Footer: `footer`
+  - Header: `header`
+  - NavBarTransition: `navbar-transition`
+  - NavigationItems: `navigation-items`
+  - Navbar: `navbar`
+  - PageContextMenu: `page-context-menu`
+  - PageContextMenuButton: `page-context-menu-button`
+  - PageTitle: `page-title`
+  - Pagination: `pagination`
+  - Panel: `panel`
+  - RequestExample: `request-example`
+  - ResponseExample: `response-example`
+  - SearchBarEntry: `search-bar-entry`
+  - SearchBarEntryMobile: `search-bar-entry-mobile`
+  - SearchInput: `search-input`
+  - Sidebar: `sidebar`
+  - SidebarContent: `sidebar-content`
+  - TableOfContents: `table-of-contents`
+  - TableOfContentsContent: `table-of-contents-content`
+  - TableOfContentsLayout: `table-of-contents-layout`
+  - TopbarCtaButton: `topbar-cta-button`
+  </Accordion>
+  <Accordion title="セレクター">
+  - Accordion: `accordion`
+  - AccordionGroup: `accordion-group`
+  - AlmondLayout: `almond-layout`
+  - AlmondNavBottomSection: `almond-nav-bottom-section`
+  - AlmondNavBottomSectionDivider: `almond-nav-bottom-section-divider`
+  - Anchor: `nav-anchor`
+  - Anchors: `nav-anchors`
+  - APISection: `api-section`
+  - APISectionHeading: `api-section-heading`
+  - APISectionHeadingSubtitle: `api-section-heading-subtitle`
+  - APISectionHeadingTitle: `api-section-heading-title`
+  - Callout: `callout`
+  - Card: `card`
+  - CardGroup: `card-group`
+  - ChatAssistantSheet: `chat-assistant-sheet`
+  - ChatAssistantSheetHeader: `chat-assistant-sheet-header`
+  - ChatAssistantSheetContent: `chat-assistant-sheet-content`
+  - ChatAssistantInput: `chat-assistant-input`
+  - ChatAssistantSendButton: `chat-assistant-send-button`
+  - CodeBlock: `code-block`
+  - CodeGroup: `code-group`
+  - Content: `mdx-content`
+  - DropdownTrigger: `nav-dropdown-trigger`
+  - DropdownContent: `nav-dropdown-content`
+  - DropdownItem: `nav-dropdown-item`
+  - DropdownItemTextContainer: `nav-dropdown-item-text-container`
+  - DropdownItemTitle: `nav-dropdown-item-title`
+  - DropdownItemDescription: `nav-dropdown-item-description`
+  - DropdownItemIcon: `nav-dropdown-item-icon`
+  - Expandable: `expandable`
+  - Eyebrow: `eyebrow`
+  - FeedbackToolbar: `feedback-toolbar`
+  - Field: `field`
+  - Frame: `frame`
+  - Icon: `icon`
+  - Link: `link`
+  - LoginLink: `login-link`
+  - Logo: `nav-logo`
+  - Mermaid: `mermaid`
+  - MethodNavPill: `method-nav-pill`
+  - MethodPill: `method-pill`
+  - NavBarLink: `navbar-link`
+  - NavTagPill: `nav-tag-pill`
+  - NavTagPillText: `nav-tag-pill-text`
+  - OptionDropdown: `option-dropdown`
+  - PaginationNext: `pagination-next`
+  - PaginationPrev: `pagination-prev`
+  - PaginationTitle: `pagination-title`
+  - Panel: `panel`
+  - SidebarGroup: `sidebar-group`
+  - SidebarGroupIcon: `sidebar-group-icon`
+  - SidebarGroupHeader: `sidebar-group-header`
+  - SidebarNavGroupDivider: `sidebar-nav-group-divider`
+  - SidebarTitle: `sidebar-title`
+  - Step: `step`
+  - Steps: `steps`
+  - Tab: `tab`
+  - Tabs: `tabs`
+  - TabsBar: `nav-tabs`
+  - TabsBarItem: `nav-tabs-item`
+  - TableOfContents: `toc`
+  - TableOfContentsItem: `toc-item`
+  - Tooltip: `tooltip`
+  - TopbarRightContainer: `topbar-right-container`
+  - TryitButton: `tryit-button`
+  - Update: `update`
+  </Accordion>
+</AccordionGroup>
+
+<Warning>
+  参照や共通要素のスタイルは、プラットフォームの進化に伴い変更される場合があります。カスタムスタイルの適用は慎重に行ってください。
+</Warning>
+
+<div id="custom-javascript">
+  ## カスタムJavaScript
+</div>
+
+カスタムJSを使うと、独自の実行コードをサイト全体に追加できます。すべてのページにJSコード入りの `<script>` タグを挿入するのと同等です。
+
+<div id="adding-custom-javascript">
+  ### カスタム JavaScript の追加
+</div>
+
+ドキュメントのコンテンツディレクトリ内にある `.js` ファイルは、すべてのドキュメントページで読み込まれます。たとえば、ドキュメント全体で [Google Analytics](https://marketingplatform.google.com/about/analytics) を有効化するには、次の `ga.js` ファイルを追加します。
+
+```js
+window.dataLayer = window.dataLayer || [];
+function gtag() {
+  dataLayer.push(arguments);
+}
+gtag('js', new Date());
+
+gtag('config', 'TAG_ID');
+```
+
+<Warning>
+  セキュリティ上の脆弱性を生じさせないよう、慎重にご利用ください。
+</Warning>

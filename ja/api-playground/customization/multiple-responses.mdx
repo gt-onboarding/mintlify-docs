@@ -1,0 +1,31 @@
+---
+title: "複数のレスポンス"
+description: "同じエンドポイントに対するレスポンスのバリエーションを表示する"
+---
+
+APIが入力パラメータ、ユーザーコンテキスト、またはリクエストのその他の条件に応じて異なるレスポンスを返す場合、`examples` プロパティを使って複数のレスポンス例を記載できます。
+
+このプロパティは任意のレスポンスに追加でき、以下のスキーマを持ちます。
+
+```yaml
+responses:
+  "200":
+    description: Successful response
+    content:
+      application/json:
+        schema:
+          $ref: "#/components/schemas/YourResponseSchema"
+        examples:
+          us:
+            summary: Response for United States
+            value:
+              countryCode: "US"
+              currencyCode: "USD"
+              taxRate: 0.0825
+          gb:
+            summary: Response for United Kingdom
+            value:
+              countryCode: "GB"
+              currencyCode: "GBP"
+              taxRate: 0.20
+```

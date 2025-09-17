@@ -1,0 +1,62 @@
+---
+title: "Fehlerbehebung im Web-Editor"
+sidebarTitle: "Fehlerbehebung"
+description: "Lösungen für häufige Probleme"
+---
+
+Finden Sie Lösungen für häufige Probleme, die bei der Verwendung des Web-Editors auftreten können.
+
+<AccordionGroup>
+  <Accordion title="Änderungen erscheinen nach dem Veröffentlichen nicht">
+    **Mögliche Ursachen:**
+
+    * Bereitstellung läuft noch
+    * Browser-Caching-Probleme
+    * Build- oder Bereitstellungsfehler
+
+    **Lösungen:**
+
+    1. Prüfen Sie den Bereitstellungsstatus in Ihrem Dashboard.
+    2. Führen Sie einen Hard-Reload Ihres Browsers durch (<kbd>Ctrl</kbd> + <kbd>F5</kbd> oder <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>R</kbd>)
+    3. Leeren Sie den Browser-Cache.
+  </Accordion>
+
+  <Accordion title="Berechtigungsfehler beim Veröffentlichen">
+    **Mögliche Ursachen:**
+
+    * Unzureichende Berechtigungen für das Git-Repository
+    * Authentifizierungsprobleme mit Ihrem Git-Anbieter
+
+    **Lösungen:**
+
+    1. Stellen Sie sicher, dass Sie über die erforderlichen Zugriffsrechte auf das Repository verfügen.
+    2. Überprüfen Sie, ob Ihre Git-Integration korrekt konfiguriert ist.
+    3. Lesen Sie die Dokumentation zu [Editor Permissions](/de/advanced/dashboard/permissions).
+  </Accordion>
+
+  <Accordion title="Editor lädt nicht">
+    **Mögliche Ursachen:**
+
+    * Netzwerkprobleme
+    * Große Dokumentations-Repositories
+
+    **Lösungen:**
+
+    1. Überprüfen Sie Ihre Internetverbindung.
+    2. Laden Sie die Seite neu.
+    3. Kontaktieren Sie den Support, wenn das Problem weiterhin besteht.
+  </Accordion>
+
+  <Accordion title="Dateien werden nicht geladen oder zeigen Fehler">
+    **Mögliche Ursachen:**
+
+    * Ungültige MDX-Syntax in Dateien
+    * Fehlende oder beschädigte Dateien
+    * Große Dateien verursachen Timeouts
+
+    **Lösungen:**
+
+    1. Überprüfen Sie die Dateisyntax auf MDX-Formatierungsfehler.
+    2. Vergewissern Sie sich, dass die Datei in Ihrem Repository vorhanden ist.
+  </Accordion>
+</AccordionGroup>

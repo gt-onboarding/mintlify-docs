@@ -1,0 +1,89 @@
+---
+title: "列表与表格"
+description: "使用列表和表格展示信息"
+icon: "list"
+---
+
+<div id="lists">
+  ## 列表
+</div>
+
+列表遵循官方的[Markdown 语法](https://www.markdownguide.org/basic-syntax/#lists-1)。
+
+<div id="ordered-list">
+  ### 有序列表
+</div>
+
+要创建有序列表，请在列表项前添加数字并加上句点。
+
+1. 第一项
+2. 第二项
+3. 第三项
+4. 第四项
+
+```mdx
+1. First item
+2. Second item
+3. Third item
+4. Fourth item
+```
+
+<div id="unordered-list">
+  ### 无序列表
+</div>
+
+要创建无序列表，可在列表项前添加连字号（`-`）、星号（`*`）或加号（`+`）。
+
+- 第一项
+- 第二项
+- 第三项
+- 第四项
+
+```mdx
+- First item
+- Second item
+- Third item
+- Fourth item
+```
+
+<div id="nested-list">
+  ### 嵌套列表
+</div>
+
+通过缩进列表项来创建嵌套。
+
+- 第一项
+- 第二项
+  - 其他项
+  - 其他项
+- 第三项
+
+```mdx
+- First item
+- Second item
+  - Additional item
+  - Additional item
+- Third item
+```
+
+<div id="tables">
+  ## 表格
+</div>
+
+表格遵循官方的 [Markdown 语法](https://www.markdownguide.org/extended-syntax/#tables)。
+
+要添加表格，请使用三个或更多连字符（`---`）创建每一列的表头，并使用竖线（`|`）分隔各列。为保证兼容性，你还应在每行的两端各加一个竖线。
+
+| 属性     | 描述                                   |
+| -------- | -------------------------------------- |
+| Name     | 用户全名                               |
+| Age      | 填报年龄                               |
+| Joined   | 用户是否已加入社区                     |
+
+```mdx
+| Property | Description                           |
+| -------- | ------------------------------------- |
+| Name     | Full name of user                     |
+| Age      | Reported age                          |
+| Joined   | Whether the user joined the community |
+```

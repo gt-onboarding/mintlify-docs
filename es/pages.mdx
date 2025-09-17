@@ -1,0 +1,176 @@
+---
+title: "Páginas"
+description: "Las páginas son los bloques fundamentales de tu documentación"
+icon: "letter-text"
+keywords: ["etiquetas", "etiqueta"]
+---
+
+import IconsOptional from "/snippets/es/icons-optional.mdx";
+
+Cada página es un archivo MDX que combina contenido Markdown con componentes de React para crear documentación rica e interactiva.
+
+<div id="page-metadata">
+  ## Metadatos de la página
+</div>
+
+Cada página comienza con frontmatter, los metadatos YAML delimitados por `---` al inicio del archivo. Estos metadatos definen cómo se muestra y cómo se comporta tu página.
+
+Usa los metadatos para controlar:
+
+* Títulos y descripciones de la página
+* Títulos, iconos y etiquetas de la barra lateral
+
+<ResponseField name="title" type="string" required>
+  El título de tu página que aparece en la navegación y en las pestañas del navegador.
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  Una breve descripción de lo que trata esta página. Aparece debajo del título y mejora el SEO.
+</ResponseField>
+
+<ResponseField name="sidebarTitle" type="string">
+  Un título breve que se muestra en la navegación de la barra lateral.
+</ResponseField>
+
+<IconsOptional />
+
+<ResponseField name="tag" type="string">
+  Una etiqueta que aparece junto al título de tu página en la barra lateral.
+</ResponseField>
+
+```yaml Example YAML frontmatter wrap
+---
+title: "About frontmatter"
+description: "Frontmatter is the metadata that controls how your page appears and behaves"
+sidebarTitle: "Frontmatter"
+icon: "book"
+tag: "NEW"
+---
+```
+
+<div id="page-mode">
+  ## Modo de página
+</div>
+
+Controla cómo se muestra tu página con la configuración `mode`.
+
+<div id="default">
+  ### Predeterminado
+</div>
+
+Si no se define un modo, se utiliza un diseño estándar con navegación lateral y tabla de contenidos.
+
+```yaml
+---
+title: "Default page title"
+---
+```
+
+<div id="wide">
+  ### Ancho
+</div>
+
+El modo ancho oculta la tabla de contenidos. Es útil para páginas que no tienen encabezados o si prefieres aprovechar el espacio horizontal adicional. El modo ancho está disponible para todos los temas.
+
+```yaml
+---
+title: "Wide page title"
+mode: "wide"
+---
+```
+
+<div id="custom">
+  ### Personalizado
+</div>
+
+El modo personalizado ofrece un diseño minimalista que elimina todos los elementos excepto la barra de navegación superior. Es un lienzo en blanco para crear páginas de aterrizaje u otros diseños únicos en los que quieras mantener la navegación al mínimo. El modo personalizado está disponible para todos los temas.
+
+```yaml
+---
+title: "Custom page title"
+mode: "custom"
+---
+```
+
+<div id="frame">
+  ### Marco
+</div>
+
+El modo Marco ofrece un diseño similar al modo personalizado, pero conserva la navegación de la barra lateral. Este modo de página permite usar HTML y componentes personalizados mientras mantiene la experiencia de navegación predeterminada. El modo Marco solo está disponible para los temas Aspen y Almond.
+
+```yaml
+---
+title: "Frame page title"
+mode: "frame"
+---
+```
+
+<div id="center">
+  ### Centrado
+</div>
+
+El modo centrado oculta la barra lateral y la tabla de contenido, y centra el contenido. Es útil para registros de cambios u otras páginas en las que quieras destacar el contenido. El modo centrado está disponible en los temas Mint y Linden.
+
+```yaml
+---
+title: "Center page title"
+mode: "center"
+---
+```
+
+<div id="api-pages">
+  ## Páginas de API
+</div>
+
+Crea zonas de pruebas de API interactivas agregando una especificación de API al frontmatter, `api` u `openapi`.
+
+```yaml
+---
+openapi: "GET /endpoint"
+---
+```
+
+Obtén más información sobre cómo crear [documentación de API](/es/api-playground/overview).
+
+<div id="external-links">
+  ## Enlaces externos
+</div>
+
+Enlaza sitios externos directamente desde tu navegación con el metadato `url`.
+
+```yaml
+---
+title: "Paquete npm"
+url: "https://www.npmjs.com/package/mint"
+---
+```
+
+<div id="search-engine-optimization">
+  ## Optimización para motores de búsqueda
+</div>
+
+La mayoría de las metaetiquetas de SEO se generan automáticamente. Puedes configurar metaetiquetas de SEO manualmente para mejorar el SEO de tu sitio, el contenido compartido en redes sociales y la compatibilidad del navegador.
+
+<Note>
+  Las metaetiquetas con dos puntos deben ir entre comillas.
+</Note>
+
+```yaml
+---
+"twitter:image": "/images/social-preview.jpg"
+---
+```
+
+Consulta [SEO](/es/settings/seo) para ver todas las opciones de metadatos de SEO.
+
+<div id="internal-search-keywords">
+  ## Palabras clave para la búsqueda interna
+</div>
+
+Mejora la capacidad de descubrimiento de una página específica en la búsqueda integrada proporcionando `keywords` en tus metadatos. Estas palabras clave no aparecerán como parte del contenido de la página ni en los resultados de búsqueda, pero cuando los usuarios las busquen, se les mostrará la página como resultado.
+
+```yaml
+---
+keywords: ['configuration', 'setup', 'getting started']
+---
+```

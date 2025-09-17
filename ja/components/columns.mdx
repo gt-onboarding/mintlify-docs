@@ -1,0 +1,36 @@
+---
+title: "列"
+description: "カードをグリッド形式で横並びに表示する"
+icon: 'columns-2'
+keywords: ['card groups']
+---
+
+`Columns` コンポーネントは、複数の `Card` コンポーネントをひとまとめにできます。グリッドの列数を指定してカードを配置する用途でよく使われます。
+
+<Columns cols={2}>
+  <Card title="はじめに" icon="rocket">
+    クイックスタートガイドでプロジェクトをセットアップしましょう。
+  </Card>
+  <Card title="APIリファレンス" icon="code">
+    APIのエンドポイント、パラメータ、サンプルを確認できます。
+  </Card>
+</Columns>
+
+```mdx Columns example
+<Columns cols={2}>
+  <Card title="Get started">
+    Set up your project with our quickstart guide.
+  </Card>
+  <Card title="API reference">
+    Explore endpoints, parameters, and examples for your API.
+  </Card>
+</Columns>
+```
+
+<div id="properties">
+  ## プロパティ
+</div>
+
+<ResponseField name="cols" default={2}>
+  1行あたりの列数。
+</ResponseField>

@@ -1,0 +1,88 @@
+---
+title: "Introduzione all'editor web"
+sidebarTitle: "Introduzione"
+description: "Scopri come creare e modificare la documentazione con l'editor web"
+---
+
+<img className="block dark:hidden my-0 pointer-events-none" src="/images/editor/editor-light.png" alt="Interfaccia dell'editor web di Mintlify in modalità chiara" />
+
+<img className="hidden dark:block my-0 pointer-events-none" src="/images/editor/editor-dark.png" alt="Interfaccia dell'editor web di Mintlify in modalità scura" />
+
+L&#39;editor web è un&#39;interfaccia visuale per creare, modificare e revisionare la documentazione direttamente nel browser.
+
+* **Modifica visuale**: Apporta modifiche alla documentazione usando un editor what-you-see-is-what-you-get (WYSIWYG) che mostra come apparirà il contenuto una volta pubblicato.
+* **Sincronizzazione con Git**: Tutte le modifiche vengono sincronizzate automaticamente con il repository Git per mantenere il controllo delle versioni.
+* **Collaborazione del team**: Più persone possono lavorare sulla documentazione contemporaneamente.
+* **Integrazione dei componenti**: Aggiungi callout, blocchi di codice e altri componenti con comandi slash.
+* **Nessuna configurazione richiesta**: Inizia a scrivere subito dalla dashboard.
+
+## Flusso di lavoro dell&#39;Editor web
+
+Ecco come in genere lavorerai nell&#39;Editor web:
+
+<Steps>
+  <Step title="Scegli il tuo branch">
+    Crea un branch o apporta modifiche direttamente al branch di deployment. Ti consigliamo di creare un branch per poter visualizzare un’anteprima delle modifiche prima che vadano online.
+  </Step>
+
+  <Step title="Apri il file">
+    Apri un file esistente dalla barra laterale o creane uno nuovo usando l’esplora file.
+  </Step>
+
+  <Step title="Modifica i contenuti">
+    Apporta modifiche nell’Editor web. Prova a passare tra la modalità visuale e la modalità Markdown usando l’interruttore nell’angolo in alto a destra per capire quale preferisci.
+  </Step>
+
+  <Step title="Visualizza l’anteprima delle modifiche">
+    La modalità visuale mostra come appariranno le modifiche sul sito live. Usala per verificare che sia tutto corretto.
+  </Step>
+
+  <Step title="Pubblica le modifiche">
+    Se stai lavorando sul branch di deployment, pubblica le modifiche direttamente dall’Editor web. Sugli altri branch, crea una pull request per la revisione prima della pubblicazione.
+  </Step>
+</Steps>
+
+## Modalità dell&#39;editor
+
+L&#39;Editor web offre due modalità per adattarsi a preferenze ed esigenze di editing diverse. Usa il toggle nell&#39;angolo in alto a destra della barra degli strumenti dell&#39;editor per passare da una modalità all&#39;altra.
+
+<Frame>
+  <img src="/images/editor/mode-toggle-light.png" alt="Icone del toggle modalità evidenziate nell'Editor web." className="block dark:hidden" />
+
+  <img src="/images/editor/mode-toggle-dark.png" alt="Icone del toggle modalità evidenziate nell'Editor web." className="hidden dark:block" />
+</Frame>
+
+<div id="visual-mode">
+  ### Modalità visiva
+</div>
+
+La modalità visiva offre un’esperienza WYSIWYG in cui le modifiche che apporti nell’editor sono esattamente quelle che verranno pubblicate sul tuo sito di documentazione. Questa modalità è ideale quando vuoi vedere in tempo reale come appariranno le modifiche.
+
+Premi “/” per aprire il menu dei componenti e aggiungere contenuti stilizzati, callout, snippet di codice o altri componenti.
+
+<Frame>
+  <img src="/images/editor/visual-mode-light.png" alt="Modalità di modifica visiva nell'Editor web di Mintlify" className="block dark:hidden" />
+
+  <img src="/images/editor/visual-mode-dark.png" alt="Modalità di modifica visiva nell'Editor web di Mintlify" className="hidden dark:block" />
+</Frame>
+
+<div id="markdown-mode">
+  ### Modalità Markdown
+</div>
+
+La modalità Markdown offre accesso diretto al codice `MDX` alla base della tua documentazione. È ideale quando ti serve un controllo preciso sulle proprietà dei componenti o quando preferisci scrivere con la sintassi Markdown.
+
+<Frame>
+  <img src="/images/editor/markdown-mode-light.png" alt="Modalità Markdown nell'Editor web di Mintlify" className="block dark:hidden" />
+
+  <img src="/images/editor/markdown-mode-dark.png" alt="Modalità Markdown nell'Editor web di Mintlify" className="hidden dark:block" />
+</Frame>
+
+<div id="next-steps">
+  ## Prossimi passi
+</div>
+
+* Impara i concetti fondamentali di [Git](/it/editor/git-concepts).
+* Scopri le best practice per collaborare con i [branch](/it/editor/branches).
+* Esplora la [gestione dei contenuti](/it/editor/content-management) con l&#39;Editor web.
+* Scopri le [opzioni di pubblicazione](/it/editor/publishing) per diversi scenari.

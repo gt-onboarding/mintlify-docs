@@ -1,0 +1,71 @@
+---
+title: "Tabs"
+description: "Tabs コンポーネントでコンテンツを切り替える"
+icon: "panel-top"
+---
+
+タブを使って、ユーザーが切り替えられる複数のパネルにコンテンツを整理できます。タブはいくつでも追加でき、各タブ内に他のコンポーネントも含められます。
+
+<Tabs>
+  <Tab title="First tab">
+    ☝️ 最初のタブ内でのみ表示されるコンテンツへようこそ。
+
+    タブ内にはコンポーネントを好きなだけ追加できます。例えば、コードブロック：
+    ```java HelloWorld.java
+      class HelloWorld {
+          public static void main(String[] args) {
+              System.out.println("Hello, World!");
+          }
+      }
+    ```
+  </Tab>
+  <Tab title="Second tab" icon="leaf">
+    ✌️ こちらは2番目のタブ内にのみあるコンテンツです。
+
+    これは <Icon icon="leaf" /> アイコン付きです！
+  </Tab>
+  <Tab title="Third tab">
+    💪 こちらは3番目のタブ内にのみあるコンテンツです。
+  </Tab>
+</Tabs>
+
+````mdx Tabs example
+<Tabs>
+  <Tab title="First tab">
+    ☝️ 最初のタブ内でのみ表示されるコンテンツへようこそ。
+
+    タブ内にはコンポーネントを好きなだけ追加できます。例えば、コードブロック：
+    ```java HelloWorld.java
+      class HelloWorld {
+          public static void main(String[] args) {
+              System.out.println("Hello, World!");
+          }
+      }
+    ```
+  </Tab>
+  <Tab title="Second tab" icon="leaf">
+    ✌️ こちらは2番目のタブ内にのみあるコンテンツです。
+
+    これは <Icon icon="leaf" /> アイコン付きです！
+  </Tab>
+  <Tab title="Third tab">
+    💪 こちらは3番目のタブ内にのみあるコンテンツです。
+  </Tab>
+</Tabs>
+````
+
+<div id="properties">
+  ## プロパティ
+</div>
+
+<ResponseField name="title" type="string" required>
+  タブのタイトル。短いタイトルのほうが操作しやすくなります。
+</ResponseField>
+
+<ResponseField name="icon" type="string">
+  [Font Awesome](https://fontawesome.com/icons) のアイコン、[Lucide](https://lucide.dev/icons) のアイコン、アイコンのURL、またはアイコンへの相対パス。
+</ResponseField>
+
+<ResponseField name="iconType" type="string">
+  Font Awesome のアイコンに限る：`regular`、`solid`、`light`、`thin`、`sharp-solid`、`duotone`、`brands` のいずれか。
+</ResponseField>

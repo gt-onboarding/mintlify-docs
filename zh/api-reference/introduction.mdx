@@ -1,0 +1,46 @@
+---
+title: "简介"
+description: "触发更新、嵌入 AI 助手等"
+icon: "book-open"
+---
+
+Mintlify 的 REST API 使你可以通过编程方式与文档交互、触发更新，并嵌入 AI 驱动的聊天体验。
+
+<div id="endpoints">
+  ## 端点
+</div>
+
+* [触发更新](/zh/api-reference/update/trigger): 按需触发你的网站更新。
+* [获取更新状态](/zh/api-reference/update/status): 获取更新状态及与你的文档相关的其他详情。
+* [生成助手消息](/zh/api-reference/assistant/create-assistant-message): 将基于你的文档训练的助手嵌入到任意应用中。
+* [搜索文档](/zh/api-reference/assistant/search): 在你的文档中搜索。
+
+<div id="authentication">
+  ## 身份验证
+</div>
+
+你可以通过[仪表盘](https://dashboard.mintlify.com/settings/organization/api-keys)生成 API 密钥。API 密钥与整个组织关联，可用于多个部署。
+
+<div id="admin-api-key">
+  ### 管理员 API 密钥
+</div>
+
+管理员 API 密钥用于 [触发更新](/zh/api-reference/update/trigger) 和 [获取更新状态](/zh/api-reference/update/status) 这两个端点。
+
+管理员 API 密钥以 `mint_` 作为前缀。请妥善保管你的管理员 API 密钥。
+
+<div id="assistant-api-key">
+  ### 助手 API 密钥
+</div>
+
+助手 API 密钥用于 [Generate assistant message](/zh/api-reference/assistant/create-assistant-message) 和 [Search documentation](/zh/api-reference/assistant/search) 端点。
+
+助手 API 密钥以 `mint_dsc_` 作为前缀。
+
+助手 API 的**密钥（key）**是应保密的服务端令牌。
+
+助手 API 的**令牌（token）**是可在前端代码中引用的公开令牌。
+
+<Note>
+  使用助手 API 令牌进行的调用可能会产生费用：要么消耗你的 AI 助手额度，要么产生超额费用。
+</Note>

@@ -1,0 +1,62 @@
+---
+title: "Risoluzione dei problemi dell'editor web"
+sidebarTitle: "Risoluzione dei problemi"
+description: "Soluzioni ai problemi più comuni"
+---
+
+Trova soluzioni ai problemi più comuni che potresti incontrare durante l&#39;uso dell&#39;editor web.
+
+<AccordionGroup>
+  <Accordion title="Le modifiche non compaiono dopo la pubblicazione">
+    **Possibili cause:**
+
+    * Il deployment è ancora in corso
+    * Problemi di caching del browser
+    * Errori di build o di deployment
+
+    **Soluzioni:**
+
+    1. Controlla lo stato del deployment nella dashboard.
+    2. Esegui un hard refresh del browser (<kbd>Ctrl</kbd> + <kbd>F5</kbd> oppure <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>R</kbd>)
+    3. Svuota la cache del browser.
+  </Accordion>
+
+  <Accordion title="Errori di autorizzazione durante la pubblicazione">
+    **Possibili cause:**
+
+    * Autorizzazioni insufficienti sul repository Git
+    * Problemi di autenticazione con il provider Git
+
+    **Soluzioni:**
+
+    1. Verifica di avere le autorizzazioni corrette sul repository.
+    2. Controlla che l&#39;integrazione con Git sia configurata correttamente.
+    3. Consulta la documentazione [Editor Permissions](/it/advanced/dashboard/permissions).
+  </Accordion>
+
+  <Accordion title="Problemi di caricamento dell'editor">
+    **Possibili cause:**
+
+    * Problemi di connettività di rete
+    * Repository di documentazione molto grandi
+
+    **Soluzioni:**
+
+    1. Verifica la connessione a Internet.
+    2. Aggiorna la pagina.
+    3. Contatta il supporto se il problema persiste.
+  </Accordion>
+
+  <Accordion title="File che non si caricano o mostrano errori">
+    **Possibili cause:**
+
+    * Sintassi MDX non valida nei file
+    * File mancanti o corrotti
+    * File molto grandi che causano timeout
+
+    **Soluzioni:**
+
+    1. Controlla la sintassi del file per eventuali errori di formattazione MDX.
+    2. Verifica che il file esista nel repository.
+  </Accordion>
+</AccordionGroup>

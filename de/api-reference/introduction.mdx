@@ -1,0 +1,46 @@
+---
+title: "Einführung"
+description: "Updates auslösen, KI-Assistent einbetten und mehr"
+icon: "book-open"
+---
+
+Die Mintlify-REST-API ermöglicht es Ihnen, programmgesteuert mit Ihrer Dokumentation zu interagieren, Updates anzustoßen und KI-gestützte Chat-Erfahrungen einzubetten.
+
+<div id="endpoints">
+  ## Endpunkte
+</div>
+
+* [Update auslösen](/de/api-reference/update/trigger): Lösen Sie ein Update Ihrer Site aus, wann immer Sie möchten.
+* [Update-Status abrufen](/de/api-reference/update/status): Rufen Sie den Status eines Updates und weitere Details zu Ihren Docs ab.
+* [Assistentennachricht generieren](/de/api-reference/assistant/create-assistant-message): Betten Sie den Assistenten, der auf Ihren Docs trainiert wurde, in eine beliebige Anwendung ein.
+* [Dokumentation durchsuchen](/de/api-reference/assistant/search): Durchsuchen Sie Ihre Dokumentation.
+
+<div id="authentication">
+  ## Authentifizierung
+</div>
+
+Sie können einen API-Schlüssel über [das Dashboard](https://dashboard.mintlify.com/settings/organization/api-keys) erstellen. API-Schlüssel sind einer gesamten Organisation zugeordnet und können in mehreren Bereitstellungen verwendet werden.
+
+<div id="admin-api-key">
+  ### Admin-API-Schlüssel
+</div>
+
+Der Admin-API-Schlüssel wird für die Endpunkte [Update auslösen](/de/api-reference/update/trigger) und [Update-Status abrufen](/de/api-reference/update/status) verwendet.
+
+Admin-API-Schlüssel beginnen mit dem Präfix `mint_`. Bewahren Sie Ihre Admin-API-Schlüssel geheim auf.
+
+<div id="assistant-api-key">
+  ### Assistent-API-Schlüssel
+</div>
+
+Der Assistent-API-Schlüssel wird für die Endpunkte [Assistentennachricht erstellen](/de/api-reference/assistant/create-assistant-message) und [Dokumentation durchsuchen](/de/api-reference/assistant/search) verwendet.
+
+Assistent-API-Schlüssel beginnen mit dem Präfix `mint_dsc_`.
+
+Der Assistent-API-**Schlüssel** ist ein serverseitiges Token, das geheim gehalten werden sollte.
+
+Das Assistent-API-**Token** ist ein öffentliches Token, das in Ihrem Frontend-Code verwendet werden kann.
+
+<Note>
+  Aufrufe mit dem Assistent-API-Token können Kosten verursachen – entweder durch Nutzung Ihrer Assistent-Guthaben oder durch Mehrnutzung.
+</Note>

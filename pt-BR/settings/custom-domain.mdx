@@ -1,0 +1,55 @@
+---
+title: "Domínio personalizado"
+description: "Hospede sua documentação no domínio personalizado do seu site"
+icon: "globe"
+---
+
+Para configurar sua documentação em um domínio personalizado, você precisará definir o domínio desejado nas configurações da Mintlify e ajustar as configurações de DNS no seu provedor de domínio.
+
+<Info>
+  Quer configurar um subdiretório personalizado como `mintlify.com/docs`? Consulte a documentação sobre [subdiretório personalizado](/pt-BR/advanced/subpath/cloudflare).
+</Info>
+
+<div id="dashboard-settings">
+  ## Configurações do dashboard
+</div>
+
+1. Acesse seu [dashboard](https://dashboard.mintlify.com)
+2. Selecione **Settings**
+3. Selecione **Domain Setup**
+4. Insira o domínio personalizado desejado. Por exemplo, `docs.mintlify.com`
+
+<Frame>
+  <img alt="Domínio personalizado" className="block dark:hidden" src="/images/add-custom-domain-light.png" />
+
+  <img alt="Domínio personalizado" className="hidden dark:block" src="/images/add-custom-domain-dark.png" />
+</Frame>
+
+<div id="configuring-your-dns">
+  ## Configurando o DNS
+</div>
+
+1. Acesse as configurações de DNS do seu domínio no site do seu provedor.
+2. Crie uma nova entrada de DNS e insira os seguintes valores:
+
+```bash
+CNAME | docs | cname.vercel-dns.com.
+```
+
+<Frame>
+  <img alt="DNS" src="https://mintlify-assets.b-cdn.net/mintlify-dns.png" />
+</Frame>
+
+<div id="provider-specific-settings">
+  ## Configurações específicas do provedor
+</div>
+
+<AccordionGroup>
+  <Accordion title="Verificação da Vercel">
+    Se a Vercel for seu provedor de domínio, você deve adicionar um registro `TXT` de verificação. Essas informações serão exibidas no seu painel após enviar seu domínio personalizado e também serão enviadas por e-mail.
+  </Accordion>
+
+  <Accordion title="Configurações de segurança do Cloudflare">
+    Se o Cloudflare for seu provedor de DNS, você deve ativar a opção de segurança &quot;full strict&quot; para a configuração de HTTPS.
+  </Accordion>
+</AccordionGroup>

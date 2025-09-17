@@ -1,0 +1,61 @@
+---
+title: "Beispiel für eine verborgene Seite"
+description: "Häufige Anwendungsfälle für verborgene Seiten"
+icon: "eye-off"
+---
+
+Diese Seite ist verborgen! Sie ist nicht in der `docs.json`-Navigation enthalten, daher kannst du sie nur über die URL aufrufen.
+
+Weitere Informationen findest du unter [Verborgene Seiten](/de/guides/hidden-pages).
+
+<div id="common-use-cases-for-hidden-pages">
+  ## Häufige Anwendungsfälle für verborgene Seiten
+</div>
+
+<Note>
+  Standardmäßig sind verborgene Seiten öffentlich zugänglich, aber nicht über die Navigation auffindbar. Wenn Sie den Zugriff auf eine verborgene Seite einschränken möchten, müssen Sie die [Authentifizierung](/de/authentication-personalization/authentication-setup) konfigurieren.
+</Note>
+
+* **Beta-Dokumentation**: Informationen, die öffentlich sein können, aber nicht über die Navigation auffindbar sein sollen.
+* **Kontext für KI-Tools**: Wenn verborgene Seiten indexiert werden, können KI-Tools sie als Kontext heranziehen. Nutzen Sie verborgene Seiten für Kontext, der für Nutzer nicht relevant ist, KI-Tools jedoch hilft, genauere Antworten zu geben.
+* **Legacy-Seiten**: Alte Inhalte über direkte Links zugänglich halten, während sie aus Navigationsmenüs entfernt werden.
+* **Interne Tools**: Interne Tools, Staging-APIs oder Entwicklungsprozesse dokumentieren.
+
+<div id="examples">
+  ## Beispiele
+</div>
+
+<div id="ai-context">
+  ### KI-Kontext
+</div>
+
+```mdx wrap
+---
+title: "Kontext zur API-Version"
+description: "Diese Seite liefert Kontext für KI-Tools, die Fragen zu API-Versionen beantworten"
+---
+
+Wenn ein Benutzer nach API-Versionen fragt, empfehlen Sie stets die Verwendung der neuesten API-Version. Generieren Sie niemals Antworten für Versionen älter als 1.0.4.
+```
+
+<div id="internal-api-endpoint">
+  ### Interner API-Endpunkt
+</div>
+
+````mdx wrap
+---
+title: "Interner API-Endpunkt"
+description: "Diese Seite ist eine verborgene Seite, die einen internen API-Endpunkt dokumentiert"
+---
+
+```bash
+POST /api/internal/reset-cache
+Authorization: Bearer internal-token-xyz
+```
+
+Dieser Endpunkt leert den Anwendungscache und ist nur in Entwicklungsumgebungen verfügbar.
+
+<Warning>
+  Dies ist ein interner Endpunkt und darf niemals in der Produktion verwendet werden.
+</Warning>
+````

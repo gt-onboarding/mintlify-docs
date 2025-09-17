@@ -1,0 +1,322 @@
+---
+title: "認証の設定"
+description: "ユーザー認証でドキュメントの公開範囲を制御する"
+icon: "file-lock"
+keywords: ['auth']
+---
+
+<Info>
+  [Pro プラン](https://mintlify.com/pricing?ref=authentication)にはパスワード認証が含まれます。
+
+  [Enterprise プラン](https://mintlify.com/pricing?ref=authentication)にはすべての認証方法が含まれます。
+</Info>
+
+認証を設定すると、ユーザーはドキュメントにアクセスする前にログインする必要があります。
+
+<div id="authentication-modes">
+  ## 認証モード
+</div>
+
+アクセス制御の要件に応じて、完全認証モードか部分的認証モードを選択します。
+
+**完全認証**：すべてのページが保護対象です。ユーザーはコンテンツにアクセスする前にログインする必要があります。
+
+**部分的認証**：一部のページは公開で閲覧でき、その他は認証が必要です。ユーザーは公開コンテンツを自由に閲覧でき、保護されたページにアクセスする場合にのみ認証します。
+
+以下のいずれかのハンドシェイク方式を設定する際、ダッシュボードの設定で**完全認証**または**部分的認証**を選択します。
+
+<div id="configuring-authentication">
+  ## 認証の設定
+</div>
+
+設定したいハンドシェイク方式を選択します。
+
+<Tabs>
+  <Tab title="Password">
+    <Info>
+      パスワード認証はアクセス制御のみを提供し、コンテンツのパーソナライゼーションには対応しません。
+    </Info>
+
+    ### 前提条件
+
+    * セキュリティ要件として、ユーザー間でパスワードを共有できること。
+
+    ### 実装
+
+    <Steps>
+      <Step title="パスワードを作成する">
+        1. ダッシュボードで [Authentication](https://dashboard.mintlify.com/settings/deployment/authentication) に移動します。
+        2. **Full Authentication** または **Partial Authentication** を選択します。
+        3. **Password** を選択します。
+        4. 安全なパスワードを入力します。
+        5. **Save changes** を選択します。
+      </Step>
+
+      <Step title="アクセスを配布する">
+        承認済みユーザーに、パスワードとドキュメントのURLを安全に共有します。
+      </Step>
+    </Steps>
+
+    ## 例
+
+    ドキュメントが `docs.foo.com` でホストされており、個々のユーザーを追跡せずに基本的なアクセス制御が必要です。セットアップは簡単に保ちながら、一般公開は避けたい状況です。
+
+    ダッシュボードで**強力なパスワードを作成**し、承認済みユーザーに**認証情報を共有**します。以上です！
+  </Tab>
+
+  <Tab title="Mintlify Dashboard">
+    ### 前提条件
+
+    * ドキュメントの閲覧者は、同時にドキュメントの編集者でもあります。
+
+    ### 実装
+
+    <Steps>
+      <Step title="Mintlify ダッシュボードの認証を有効化する">
+        1. ダッシュボードで [Authentication](https://dashboard.mintlify.com/settings/deployment/authentication) に移動します。
+        2. **Full Authentication** または **Partial Authentication** を選択します。
+        3. **Mintlify Auth** を選択します。
+        4. **Enable Mintlify Auth** を選択します。
+      </Step>
+
+      <Step title="許可ユーザーを追加する">
+        1. ダッシュボードで [Members](https://dashboard.mintlify.com/settings/organization/members) に移動します。
+        2. ドキュメントへアクセスさせる各メンバーを追加します。
+        3. 編集権限に応じて適切なロールを割り当てます。
+      </Step>
+    </Steps>
+
+    ### 例
+
+    あなたのドキュメントは `docs.foo.com` でホストされ、チームはダッシュボードでドキュメントを編集しています。アクセスをチームメンバーのみに制限したい場合:
+
+    ダッシュボードの設定で**Mintlify 認証を有効化**します。
+
+    すべてのチームメンバーが組織に追加されていることを確認し、**チームのアクセスを確認**します。
+  </Tab>
+
+  <Tab title="OAuth 2.0">
+    ### 前提条件
+
+    * Authorization Code Flow をサポートする OAuth または OIDC サーバー。
+    * OAuth アクセストークンでアクセス可能な API エンドポイントを作成できること（任意。パーソナライゼーション機能を有効にするため）。
+
+    ### 実装
+
+    <Steps>
+      <Step title="OAuth 設定を構成します。">
+        1. ダッシュボードで、[Authentication](https://dashboard.mintlify.com/settings/deployment/authentication) に移動します。
+        2. **Full Authentication** または **Partial Authentication** を選択します。
+        3. **OAuth** を選択し、次のフィールドを設定します:
+
+        * **Authorization URL**: OAuth の認可エンドポイント。
+        * **Client ID**: OAuth 2.0 のクライアント ID。
+        * **Client Secret**: OAuth 2.0 のクライアントシークレット。
+        * **Scopes**: リクエストする権限。スコープ文字列は**丸ごと**コピーしてください（例: スコープが `provider.users.docs` の場合、`provider.users.docs` を完全にコピー）。アクセスレベルが複数必要な場合は、複数のスコープを指定します。
+        * **Token URL**: OAuth のトークン交換エンドポイント。
+        * **Info API URL**（任意）: パーソナライゼーション用にユーザー情報を取得するエンドポイント。省略した場合、OAuth フローは本人確認のみに使用され、ユーザー情報は空になります。
+        * **Logout URL**: OAuth プロバイダーのネイティブなログアウト URL。プロバイダーに `returnTo` などのパラメータがある場合は、ドキュメントの URL を指定してください。
+
+        4. **Save changes** を選択します。
+      </Step>
+
+      <Step title="OAuth サーバーを構成します。">
+        1. [Authentication 設定](https://dashboard.mintlify.com/settings/deployment/authentication)から **Redirect URL** をコピーします。
+        2. そのリダイレクト URL を、OAuth サーバーの許可済みリダイレクト URL として追加します。
+      </Step>
+
+      <Step title="ユーザー情報エンドポイントを作成します（任意）。">
+        パーソナライゼーション機能を有効にするには、次の要件を満たす API エンドポイントを作成します:
+
+        * 認証に OAuth アクセストークンを受け付ける。
+        * ユーザーデータを `User` 形式で返す。詳細は [User data format](/ja/authentication-personalization/personalization-setup#user-data-format) を参照してください。
+
+        このエンドポイントの URL を、[Authentication 設定](https://dashboard.mintlify.com/settings/deployment/authentication)の **Info API URL** フィールドに追加します。
+      </Step>
+    </Steps>
+
+    ### 例
+
+    ドキュメントが `foo.com/docs` でホストされており、Authorization Code Flow をサポートする既存の OAuth サーバーが `auth.foo.com` にあるとします。
+
+    ダッシュボードで、**OAuth サーバーの詳細を構成**します:
+
+    * **Authorization URL**: `https://auth.foo.com/authorization`
+    * **Client ID**: `ydybo4SD8PR73vzWWd6S0ObH`
+    * **Scopes**: `['provider.users.docs']`
+    * **Token URL**: `https://auth.foo.com/exchange`
+    * **Info API URL**: `https://api.foo.com/docs/user-info`
+    * **Logout URL**: `https://auth.foo.com/logout?returnTo=https%3A%2F%2Ffoo.com%2Fdocs`
+
+    `api.foo.com/docs/user-info` に**ユーザー情報エンドポイントを作成**します。これは `provider.users.docs` スコープを持つ OAuth アクセストークンを要求し、次を返します:
+
+    ```json
+    {
+      "content": {
+        "firstName": "Jane",
+        "lastName": "Doe"
+      },
+      "groups": ["engineering", "admin"]
+    }
+    ```
+
+    **OAuth サーバーを構成して**、コールバック URL へのリダイレクトを許可します。
+  </Tab>
+
+  <Tab title="JWT">
+    ### 前提条件
+
+    * JWT を生成し署名できる認証システム
+    * リダイレクト URL を作成できるバックエンドサービス
+
+    ### 実装
+
+    <Steps>
+      <Step title="秘密鍵を生成する">
+        1. ダッシュボードで [Authentication](https://dashboard.mintlify.com/settings/deployment/authentication) に移動します。
+        2. **Full Authentication** または **Partial Authentication** を選択します。
+        3. **JWT** を選択します。
+        4. 既存のログインフローの URL を入力し、**Save changes** をクリックします。
+        5. **Generate new key** をクリックします。
+        6. 生成した鍵をバックエンドから参照可能な安全な場所に保管します。
+      </Step>
+
+      <Step title="Mintlify の認証をログインフローに統合する">
+        既存のログインフローを変更し、ユーザー認証後に以下を実行します:
+
+        * 認証済みユーザーの情報を `User` 形式で含む JWT を作成します。詳細は [User data format](/ja/authentication-personalization/personalization-setup#user-data-format) を参照してください。
+        * EdDSA アルゴリズムを使用し、秘密鍵で JWT に署名します。
+        * JWT をハッシュとして含め、ドキュメントの `/login/jwt-callback` パスに戻すリダイレクト URL を作成します。
+      </Step>
+    </Steps>
+
+    ### 例
+
+    ドキュメントは `docs.foo.com` にホストされ、既存の認証システムは `foo.com` にあります。ダッシュボードとは分離したまま（またはダッシュボードがない場合）ドキュメントへのアクセスを付与できるよう、ログインフローを拡張します。
+
+    既存の認証を拡張するログインエンドポイント `https://foo.com/docs-login` を作成します。
+
+    ユーザーの認証情報を検証した後:
+
+    * Mintlify の形式でユーザーデータを含む JWT を生成します。
+    * JWT に署名し、`https://docs.foo.com/login/jwt-callback#{SIGNED_JWT}` にリダイレクトします。
+
+    <CodeGroup>
+      ```ts TypeScript
+      import * as jose from 'jose';
+      import { Request, Response } from 'express';
+
+      const TWO_WEEKS_IN_MS = 1000 * 60 * 60 * 24 * 7 * 2;
+
+      const signingKey = await jose.importPKCS8(process.env.MINTLIFY_PRIVATE_KEY, 'EdDSA');
+
+      export async function handleRequest(req: Request, res: Response) {
+        const user = {
+          expiresAt: Math.floor((Date.now() + TWO_WEEKS_IN_MS) / 1000), // 2 week session expiration
+          groups: res.locals.user.groups,
+          content: {
+            firstName: res.locals.user.firstName,
+            lastName: res.locals.user.lastName,
+          },
+        };
+
+        const jwt = await new jose.SignJWT(user)
+          .setProtectedHeader({ alg: 'EdDSA' })
+          .setExpirationTime('10 s') // 10 second JWT expiration
+          .sign(signingKey);
+
+        return res.redirect(`https://docs.foo.com/login/jwt-callback#${jwt}`);
+      }
+      ```
+
+      ```python Python
+      import jwt # pyjwt
+      import os
+
+      from datetime import datetime, timedelta
+      from fastapi.responses import RedirectResponse
+
+      private_key = os.getenv(MINTLIFY_JWT_PEM_SECRET_NAME, '')
+
+      @router.get('/auth')
+      async def return_mintlify_auth_status(current_user):
+        jwt_token = jwt.encode(
+          payload={
+            'exp': int((datetime.now() + timedelta(seconds=10)).timestamp()),    # 10 second JWT expiration
+            'expiresAt': int((datetime.now() + timedelta(weeks=2)).timestamp()), # 1 week session expiration
+            'groups': ['admin'] if current_user.is_admin else [],
+            'content': {
+              'firstName': current_user.first_name,
+              'lastName': current_user.last_name,
+            },
+          },
+          key=private_key,
+          algorithm='EdDSA'
+        )
+
+        return RedirectResponse(url=f'https://docs.foo.com/login/jwt-callback#{jwt_token}', status_code=302)
+      ```
+    </CodeGroup>
+
+    ### 未認証ユーザーのリダイレクト
+
+    未認証ユーザーが保護されたページにアクセスしようとした場合、意図した遷移先はログイン URL へのリダイレクト時に保持されます:
+
+    1. ユーザーが保護されたページへアクセスを試みる: `https://docs.foo.com/quickstart`
+    2. redirect クエリパラメータ付きでログイン URL にリダイレクト: `https://foo.com/docs-login?redirect=%2Fquickstart`
+    3. 認証後、`https://docs.foo.com/login/jwt-callback?redirect=%2Fquickstart#{SIGNED_JWT}` にリダイレクト
+    4. ユーザーは元の遷移先に到達する
+  </Tab>
+</Tabs>
+
+<div id="making-pages-public">
+  ## ページを公開する
+</div>
+
+部分的認証を使用している場合、すべてのページはデフォルトで保護されています。`public` プロパティを設定することで、ページ単位またはグループ単位で、特定のページを認証なしで閲覧可能にできます。
+
+<div id="page-level">
+  ### ページレベル
+</div>
+
+ページを公開するには、そのページのフロントマターに `public: true` を追加します。
+
+```mdx Public page example
+---
+title: "Public page"
+public: true
+---
+```
+
+<div id="group-level">
+  ### グループレベル
+</div>
+
+グループ内のすべてのページを公開するには、`docs.json` の `navigation` オブジェクトで、グループ名の直下に `"public": true` を追加します。
+
+```json Public group example
+{
+  "navigation": {
+    "groups": [
+      {
+        "group": "Public group",
+        "public": true,
+        "icon": "play",
+        "pages": [
+          "quickstart",
+          "installation",
+          "settings"
+        ]
+      },
+      {
+        "group": "Private group",
+        "icon": "pause",
+        "pages": [
+          "private-information",
+          "secret-settings"
+        ]
+      }
+    ]
+  }
+}
+```

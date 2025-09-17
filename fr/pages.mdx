@@ -1,0 +1,176 @@
+---
+title: "Pages"
+description: "Les pages sont les éléments constitutifs de votre documentation"
+icon: "letter-text"
+keywords: ["tags", "tag"]
+---
+
+import IconsOptional from "/snippets/fr/icons-optional.mdx";
+
+Chaque page est un fichier MDX, qui combine du contenu Markdown avec des composants React pour vous permettre de créer une documentation riche et interactive.
+
+<div id="page-metadata">
+  ## Métadonnées de page
+</div>
+
+Chaque page commence par un front matter, les métadonnées YAML délimitées par `---` au début d’un fichier. Ces métadonnées définissent l’apparence et le comportement de votre page.
+
+Utilisez les métadonnées pour contrôler :
+
+* Les titres et descriptions de page
+* Les titres, icônes et tags de la barre latérale
+
+<ResponseField name="title" type="string" required>
+  Le titre de votre page qui apparaît dans la navigation et les onglets du navigateur.
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  Une brève description du contenu de cette page. Apparaît sous le titre et améliore le référencement (SEO).
+</ResponseField>
+
+<ResponseField name="sidebarTitle" type="string">
+  Un titre court qui s’affiche dans la navigation de la barre latérale.
+</ResponseField>
+
+<IconsOptional />
+
+<ResponseField name="tag" type="string">
+  Un tag qui apparaît à côté du titre de votre page dans la barre latérale.
+</ResponseField>
+
+```yaml Example YAML frontmatter wrap
+---
+title: "About frontmatter"
+description: "Frontmatter is the metadata that controls how your page appears and behaves"
+sidebarTitle: "Frontmatter"
+icon: "book"
+tag: "NEW"
+---
+```
+
+<div id="page-mode">
+  ## Mode de page
+</div>
+
+Contrôlez l’affichage de votre page à l’aide du paramètre `mode`.
+
+<div id="default">
+  ### Par défaut
+</div>
+
+Si aucun mode n’est défini, une mise en page standard avec une navigation dans la barre latérale et une table des matières est utilisée par défaut.
+
+```yaml
+---
+title: "Titre de page par défaut"
+---
+```
+
+<div id="wide">
+  ### Large
+</div>
+
+Le mode large masque la table des matières. Il est utile pour les pages sans titres de section ou si vous préférez profiter de l’espace horizontal supplémentaire. Le mode large est disponible pour tous les thèmes.
+
+```yaml
+---
+title: "Titre de page en mode large"
+mode: "wide"
+---
+```
+
+<div id="custom">
+  ### Personnalisé
+</div>
+
+Le mode personnalisé offre une mise en page minimaliste qui supprime tous les éléments, à l’exception de la barre de navigation supérieure. C’est une toile vierge pour créer des pages d’accueil ou toute autre mise en page spécifique nécessitant une navigation réduite au minimum. Le mode personnalisé est disponible pour tous les thèmes.
+
+```yaml
+---
+title: "Custom page title"
+mode: "custom"
+---
+```
+
+<div id="frame">
+  ### Frame
+</div>
+
+Le mode Frame propose une mise en page similaire au mode personnalisé, tout en préservant la navigation de la barre latérale. Ce mode de page permet d’utiliser du HTML et des composants personnalisés tout en conservant l’expérience de navigation par défaut. Le mode Frame est uniquement disponible pour les thèmes Aspen et Almond.
+
+```yaml
+---
+title: "Frame page title"
+mode: "frame"
+---
+```
+
+<div id="center">
+  ### Centré
+</div>
+
+Le mode Centré supprime la barre latérale et la table des matières et centre le contenu. Il est utile pour les journaux de modifications (changelogs) ou d’autres pages où vous souhaitez mettre l’accent sur le contenu. Le mode Centré est disponible avec les thèmes Mint et Linden.
+
+```yaml
+---
+title: "Titre de page centré"
+mode: "center"
+---
+```
+
+<div id="api-pages">
+  ## Pages API
+</div>
+
+Créez des terrains de jeu API interactifs en ajoutant une spécification d’API dans le frontmatter, via `api` ou `openapi`.
+
+```yaml
+---
+openapi: "GET /endpoint"
+---
+```
+
+En savoir plus sur la création de [documentation API](/fr/api-playground/overview).
+
+<div id="external-links">
+  ## Liens externes
+</div>
+
+Créez des liens vers des sites externes directement depuis votre navigation à l’aide de la métadonnée `url`.
+
+```yaml
+---
+title: "npm Package"
+url: "https://www.npmjs.com/package/mint"
+---
+```
+
+<div id="search-engine-optimization">
+  ## Optimisation pour les moteurs de recherche
+</div>
+
+La plupart des balises meta SEO sont générées automatiquement. Vous pouvez définir manuellement des balises meta SEO pour améliorer le référencement de votre site, le partage sur les réseaux sociaux et la compatibilité des navigateurs.
+
+<Note>
+  Les balises meta contenant des deux-points doivent être entourées de guillemets.
+</Note>
+
+```yaml
+---
+"twitter:image": "/images/social-preview.jpg"
+---
+```
+
+Consultez [SEO](/fr/settings/seo) pour la liste complète des options de métadonnées SEO.
+
+<div id="internal-search-keywords">
+  ## Mots-clés de recherche internes
+</div>
+
+Améliorez la découvrabilité d’une page spécifique dans la recherche intégrée en ajoutant des `keywords` à vos métadonnées. Ces mots-clés n’apparaîtront ni dans le contenu de la page ni dans les résultats de recherche, mais les utilisateurs qui les chercheront verront la page dans les résultats.
+
+```yaml
+---
+keywords: ['configuration', 'configuration initiale', 'prise en main']
+---
+```

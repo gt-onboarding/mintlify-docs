@@ -1,0 +1,156 @@
+---
+title: "助手"
+description: "帮助用户更好地使用产品，并更快找到答案"
+icon: "bot"
+---
+
+<Info>
+  助手会在 [Pro 与 Custom 方案](https://mintlify.com/pricing?ref=assistant) 中自动启用。
+</Info>
+
+<div id="about-the-assistant">
+  ## 关于助手
+</div>
+
+助手通过自然语言查询回答与你的文档相关的问题。它直接嵌入在你的文档站点中，为用户提供即时的上下文帮助。
+
+助手采用由 Claude Sonnet 4 驱动、支持工具调用的 agentic RAG（检索增强生成）。当用户提问时，助手会：
+
+* **搜索并检索** 文档中的相关内容，提供准确答案。
+* **引用来源** 并提供可跳转的链接，将用户直接带到被引用页面。
+* **生成可复制的代码示例**，帮助用户基于文档实现解决方案。
+
+发送给助手的每条消息都会计入你的套餐消息额度。若超出额度，额外消息将产生超额费用。你可以设置支出上限，或在达到消息额度时禁用助手。
+
+你可以在仪表盘中查看助手的使用情况，以了解用户行为和文档成效。导出并分析查询数据，以帮助识别：
+
+* 需要更充分覆盖的常见问题。
+* 用户难以找到答案的内容缺口。
+* 值得通过新增内容加以强化的热门主题。
+
+<div id="configuring-the-assistant">
+  ## 配置助手
+</div>
+
+在 Pro 和 Custom 方案中，助手默认启用。你可以在[控制台](https://dashboard.mintlify.com/products/assistant/settings)管理助手，包括启用或禁用、配置响应处理方式，并设置支出上限。
+
+<div id="assistant-status">
+  ### 助手状态
+</div>
+
+切换助手状态，在你的文档站点中启用或禁用助手。
+
+<div id="assistant-deflection">
+  ### 助手分流
+</div>
+
+启用助手在无法解答时将问题转交给你的支持团队。提供一个电子邮箱地址，助手在无法回答的问题场景下会把该地址提供给用户。
+
+<div id="search-sites">
+  ### 搜索站点
+</div>
+
+<Note>
+  站点搜索目前为测试版。要在你的文档站点启用它，请[联系销售团队](mailto:gtm@mintlify.com)。
+</Note>
+
+配置助手在回答问题时可搜索的站点，以获取更多上下文。
+
+* 站点必须对公众开放访问。
+* 不支持依赖 JavaScript 才能加载内容的站点。
+
+在配置外部站点时，你可以使用以下过滤语法：
+
+* **域级过滤**
+  * `example.com`：仅搜索 `example.com` 域
+  * `docs.example.com`：仅搜索 `docs.example.com` 子域
+  * `*.example.com`：搜索 `example.com` 的所有子域
+* **路径级过滤**
+  * `docs.example.com/api`：搜索 `/api` 子路径下的所有页面
+* **多重模式**
+  * 可添加多个条目以覆盖站点的不同部分
+
+<div id="spend-limit">
+  ### 支出上限
+</div>
+
+设置支出上限，以控制在用完消息额度时的处理方式。默认情况下，即使你已用完消息额度，助手仍会继续回答用户问题，这将产生超额费用。
+
+在 [Assistant Configurations](https://dashboard.mintlify.com/products/assistant/settings) 页面的 **Billing** 选项卡中，你可以为超出额度的助手消息设置支出上限。当达到该上限时，助手会被禁用，直到你的消息额度重置。
+
+你也可以设置用量提醒，在支出上限达到某个百分比时接收电子邮件通知。
+
+<div id="using-the-assistant">
+  ## 使用助手
+</div>
+
+用户可以通过三种方式使用助手：
+
+* 键盘快捷键：<kbd>?</kbd> 或 <kbd>Command</kbd> + <kbd>I</kbd>（Windows 上为 <kbd>Ctrl</kbd> + <kbd>I</kbd>）
+* 搜索栏旁的助手按钮
+  <img
+    src="/images/assistant/assistant-button-light.png"
+    className="block dark:hidden rounded-2xl border border-gray-100 shadow-lg"
+    style={{
+    width: '268px',
+    height: 'auto',
+  }}
+    alt="浅色模式下的搜索栏和助手按钮。"
+  />
+  <img
+    src="/images/assistant/assistant-button-dark.png"
+    className="hidden dark:block rounded-2xl border border-white/10 shadow-lg"
+    style={{
+    width: '268px',
+    height: 'auto',
+  }}
+    alt="深色模式下的搜索栏和助手按钮。"
+  />
+* 在 URL 末尾追加 `?assistant=open`，页面加载时将自动打开助手。例如，[https://mintlify.com/docs?assistant=open](https://mintlify.com/docs?assistant=open)。
+
+上述方式都会在文档右侧打开聊天面板。用户可以提出任何问题，助手会在你的文档中搜索答案；如果未找到相关信息，助手会提示无法回答该问题。
+
+<div id="making-content-ai-ingestible">
+  ## 让内容便于 AI 理解与索引
+</div>
+
+组织你的文档，以帮助助手提供准确且相关的答案。清晰的结构与充分的上下文既有利于人类读者，也有助于 AI 理解。
+
+<Card title="结构与组织">
+  * 使用语义化标记。
+  * 为各部分撰写具描述性的标题。
+  * 建立合乎逻辑的信息层级。
+  * 在整个文档中保持一致的格式。
+  * 在页面 frontmatter 中包含完整的元数据。
+  * 将长文本拆分为更短的段落。
+</Card>
+
+<Card title="上下文">
+  * 首次出现时定义专有术语和首字母缩略词。
+  * 提供关于功能与流程的充分概念性内容。
+  * 包含示例和使用场景。
+  * 交叉引用相关主题。
+  * 添加用户不必阅读、但助手可引用的[隐藏页面](/zh/guides/hidden-pages)，以补充上下文。
+</Card>
+
+<div id="exporting-and-analyzing-queries">
+  ## 导出并分析查询
+</div>
+
+在仪表盘中审阅并导出查询，以了解用户如何与文档交互并识别改进机会。分析查询可帮助改进文档的方式包括：
+
+* 识别内容空白，即高频查询却缺乏充分解答的部分。
+* 从查询的主题与模式中洞察用户行为与常见信息需求。
+* 优先优化高流量页面的准确性与质量。
+
+你可以在[仪表盘](https://dashboard.mintlify.com/products/assistant)中查看查询，但若要获得更深入的洞察，建议导出包含查询、回复和来源的 `CSV` 文件，使用你常用的 AI 工具进行分析。
+
+1. 在仪表盘中前往[助手页面](https://dashboard.mintlify.com/products/assistant)。
+2. 选择 **Export to CSV**。
+3. 使用你常用的工具分析导出的数据。
+
+<Card title="示例分析提示">
+  * 概括查询中最常见的主题。
+  * 列出未引用来源的查询。
+  * 发现不成功交互中的模式。
+</Card>

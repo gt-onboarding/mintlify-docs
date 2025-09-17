@@ -1,0 +1,31 @@
+---
+title: "Despliegues"
+description: "Soluciona problemas de tus despliegues"
+icon: "boxes"
+---
+
+Tu sitio de documentación se despliega automáticamente cuando haces push de cambios a tu repositorio conectado. Para ello, la aplicación de GitHub de Mintlify debe estar correctamente instalada y conectada.
+
+Si tus cambios más recientes no aparecen en tu sitio en producción, primero verifica que la aplicación de GitHub esté instalada en la cuenta u organización propietaria de tu repositorio de documentación. Consulta [Solución de problemas de GitHub](/es/settings/github#troubleshooting) para obtener más información.
+
+Si la aplicación de GitHub está conectada pero los cambios aún no se están desplegando, puedes activar manualmente una reconstrucción desde tu panel.
+
+<div id="manually-triggering-a-deployment">
+  ## Activar un despliegue manualmente
+</div>
+
+<Steps>
+  <Step title="Verifica que tu último commit se realizó correctamente.">
+    Comprueba que tu último commit aparezca en tu repositorio de documentación y que no haya errores.
+  </Step>
+
+  <Step title="Activa un despliegue manualmente.">
+    Ve a tu [panel](https://dashboard.mintlify.com) y selecciona el botón Desplegar.
+
+    <Frame>
+      <img src="/images/deployments/manual-update-light.png" alt="El botón de actualización manual resaltado con un rectángulo naranja." className="block dark:hidden" />
+
+      <img src="/images/deployments/manual-update-dark.png" alt="El botón de actualización manual resaltado con un rectángulo naranja." className="hidden dark:block" />
+    </Frame>
+  </Step>
+</Steps>

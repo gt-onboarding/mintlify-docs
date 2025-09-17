@@ -1,0 +1,174 @@
+---
+title: "Claude Code"
+description: "Claude Code を構成して、ドキュメントの作成・レビュー・更新を支援します"
+icon: "asterisk"
+---
+
+Claude Code は、ドキュメントの保守に役立つエージェント型のコマンドラインツールです。新規コンテンツの作成、既存ページのレビュー、ドキュメントの最新化が行えます。
+
+プロジェクトに `CLAUDE.md` ファイルを追加し、継続的に磨き込むことで、Claude Code にドキュメントの標準やワークフローを学習させられます。
+
+<div id="getting-started">
+  ## はじめに
+</div>
+
+**前提条件:**
+
+- Claude の有効なサブスクリプション（Pro、Max、または API アクセス）
+
+**セットアップ:**
+
+1. Claude Code をインストールします:
+
+```bash
+  npm install -g @anthropic-ai/claude-code
+  ```
+
+2. ドキュメントのディレクトリに移動します。
+3. （任意）以下の `CLAUDE.md` をプロジェクトに追加します。
+4. `claude` を実行して開始します。
+
+<div id="claudemd-template">
+  ## CLAUDE.md テンプレート
+</div>
+
+`CLAUDE.md` ファイルをドキュメントディレクトリのルートに保存して、Claude Code がプロジェクトを理解できるようにします。このファイルは、ドキュメントの標準、好み、ワークフローについて Claude Code を学習させるためのものです。詳しくは Anthropic のドキュメントの [Manage Claude's memory](https://docs.anthropic.com/en/docs/claude-code/memory) を参照してください。
+
+以下のサンプルテンプレートをコピーするか、ドキュメントの要件に合わせて調整してください:
+
+```mdx
+# Mintlify documentation
+
+## Working relationship
+- アイデアに異議を唱えてもかまいません—そのほうがより良いドキュメントにつながることがあります。その際は必ず情報源を引用し、理由を説明してください
+- 推測せず、必ず不明点は確認を取ること
+- 嘘をつかない・当てずっぽうで答えない・情報をでっち上げないこと
+
+## Project context
+- 形式: YAML フロントマター付きの MDX ファイル
+- 設定: ナビゲーション、テーマ、設定は docs.json で管理
+- コンポーネント: Mintlify コンポーネント
+
+## Content strategy
+- ユーザーが成功するために必要十分な範囲だけを文書化する（多すぎず、少なすぎず）
+- 情報の正確性と使いやすさを最優先する
+- 可能な限り、長期的に有効な内容にする
+- 新しい内容を追加する前に既存情報を検索する。戦略的な理由がない限り重複は避ける
+- 既存のパターンに整合するか確認する
+- まずは最小限の合理的な変更から始める
+
+## docs.json
+
+- docs.json ファイルとサイトナビゲーションを作成する際は [docs.json スキーマ](https://mintlify.com/docs.json) を参照すること
+
+## Frontmatter requirements for pages
+- title: 明確で説明的なページタイトル
+- description: SEO/ナビゲーション向けの簡潔な要約
+
+## Writing standards
+- 二人称（"you"）で記述する
+- 手順書の冒頭に前提条件を記載する
+- 公開前にすべてのコード例を検証する
+- 既存ページのスタイルと書式に合わせる
+- 基本および高度なユースケースの両方を含める
+- すべてのコードブロックに言語タグを付ける
+- すべての画像に代替テキスト（alt）を付ける
+- 内部リンクには相対パスを使用する
+
+## Git workflow
+- コミット時に --no-verify を絶対に使用しない
+- 作業開始前に未コミットの変更の扱いを確認する
+- 変更用の明確なブランチがない場合は新しいブランチを作成する
+- 開発中はこまめにコミットする
+- pre-commit フックを無効化・スキップしないこと
+
+## Do not
+- いかなる MDX ファイルでもフロントマターを省略しない
+- 内部リンクに絶対 URL を使用しない
+- 未検証のコード例を掲載しない
+- 推測で書かない—必ず不明点は確認すること
+```
+
+<div id="sample-prompts">
+  ## サンプルプロンプト
+</div>
+
+Claude Code のセットアップが完了したら、以下のプロンプトを試して、一般的なドキュメント作業にどう役立つかを確認してください。これらの例はそのままコピーして貼り付けるか、用途に合わせて調整して使えます。
+
+<div id="convert-notes-to-polished-docs">
+  ### メモを完成度の高いドキュメントに変換
+</div>
+
+ラフな下書きを、フロントマターとコンポーネントを備えた適切なMarkdownページに仕上げます。
+
+**プロンプト例:**
+
+```text wrap
+このテキストを適切にフォーマットされたMDXページに変換してください：[ここにテキストを貼り付けてください]
+```
+
+<div id="review-docs-for-consistency">
+  ### ドキュメントの一貫性をレビュー
+</div>
+
+スタイル、フォーマット、コンポーネントの使い方に関する改善提案を受け取ります。
+
+**プロンプト例:**
+
+```text wrap
+Review the files in docs/ and suggest improvements for consistency and clarity
+```
+
+<div id="update-docs-when-features-change">
+  ### 機能が変わったらドキュメントを更新する
+</div>
+
+プロダクトの変更に合わせてドキュメントを常に最新に保ちましょう。
+
+**プロンプト例:**
+
+```text wrap
+Our API now requires a version parameter. Update our docs to include version=2024-01 in all examples
+```
+
+<div id="generate-comprehensive-code-examples">
+  ### 網羅的なコード例を生成する
+</div>
+
+エラーハンドリング付きの多言語コード例を作成します。
+
+**プロンプト例:**
+
+```text wrap
+Create code examples for [your API endpoint] in JavaScript, Python, and cURL with error handling
+```
+
+<div id="extending-claude-code">
+  ## Claude Code の拡張
+</div>
+
+手動で Claude Code にプロンプトするだけでなく、既存のワークフローにも統合できます。
+
+<div id="automation-with-github-actions">
+  ### GitHub Actions による自動化
+</div>
+
+コードの変更に合わせて Claude Code を自動実行し、ドキュメントを最新の状態に保ちます。プルリクエストでドキュメントのレビューを自動で開始したり、API の変更を検知した際にサンプルを更新したりできます。
+
+<div id="multi-instance-workflows">
+  ### 複数インスタンスのワークフロー
+</div>
+
+タスクごとに Claude Code のセッションを分けて使いましょう。たとえば、新規コンテンツ作成用とレビュー・品質保証用でそれぞれ別のセッションにします。こうすることで一貫性を保ち、単一セッションでは見落としかねない問題を検知できます。
+
+<div id="team-collaboration">
+  ### チームでのコラボレーション
+</div>
+
+洗練した `CLAUDE.md` ファイルをチームと共有し、全ての貢献者でドキュメントの基準を一貫させましょう。チームでは、プロジェクトに特化したプロンプトやワークフローを整備し、ドキュメント作成プロセスに組み込むことがよくあります。
+
+<div id="custom-commands">
+  ### カスタムコマンド
+</div>
+
+プロジェクトやチーム固有の、よく使うドキュメント作業向けに再利用可能なスラッシュコマンドを、`.claude/commands/` に作成します。

@@ -1,0 +1,196 @@
+---
+title: "画像と埋め込み"
+description: "画像、動画、iframe を追加する"
+icon: "image"
+---
+
+画像を追加し、動画を埋め込み、iframe でインタラクティブなコンテンツをドキュメントに組み込みます。
+
+ドキュメントのリポジトリ内にあるすべての静的アセットは、ドメイン上の適切なパスで自動的に配信されます。たとえば、リポジトリに `/images/my-logo.png` がある場合、画像は `https://docs.yoursite.com/images/my-logo.png` で利用できます。
+
+<Frame>
+  <img className="rounded-xl" src="https://mintlify-assets.b-cdn.net/bigbend.jpg" alt="手前に紫の花、奥に山々、雲が点在する青空が広がる風景写真。" />
+</Frame>
+
+<div id="images">
+  ## 画像
+</div>
+
+ドキュメントに視覚的な文脈や例、装飾を加えるために画像を追加します。
+
+<div id="basic-image-syntax">
+  ### 基本的な画像の記法
+</div>
+
+ドキュメントに画像を追加するには、[Markdownの記法](https://www.markdownguide.org/basic-syntax/#images)を使用します：
+
+```mdx
+![Alt text describing the image](/path/to/image.png)
+```
+
+<Tip>
+  アクセシビリティとSEOを向上させるため、必ずわかりやすい代替テキスト（altテキスト）を設定してください。altテキストは、画像が何を示しているかを明確に記述する必要があります。
+</Tip>
+
+画像ファイルは20MB未満である必要があります。より大きなファイルは、[Amazon S3](https://aws.amazon.com/s3) や [Cloudinary](https://cloudinary.com) などのCDNサービスでホスティングしてください。
+
+<div id="html-image-embeds">
+  ### HTML画像の埋め込み
+</div>
+
+画像の表示をより細かく制御するには、HTML の `<img>` タグを使用します:
+
+```html
+<img 
+  src="/images/dashboard.png" 
+  alt="Main dashboard interface"
+  height="300"
+  className="rounded-lg"
+/>
+```
+
+<div id="disable-zoom-functionality">
+  #### ズーム機能を無効にする
+</div>
+
+画像をクリックしたときのデフォルトのズームを無効にするには、`noZoom` プロパティを追加します。
+
+```html highlight="4"
+<img 
+  src="/images/screenshot.png" 
+  alt="Descriptive alt text"
+  noZoom 
+  height="200"
+/>
+```
+
+<div id="link-images">
+  #### 画像にリンクを設定する
+</div>
+
+画像をクリック可能なリンクにするには、画像をアンカータグで囲み、`noZoom` プロパティを追加します:
+
+```html
+<a href="https://mintlify.com" target="_blank">
+  <img 
+    src="/images/logo.png" 
+    alt="Mintlify logo"
+    noZoom 
+    height="100"
+  />
+</a>
+```
+
+<Note>
+  アンカータグ内の画像には、自動的にポインターカーソルが表示され、クリック可能であることが示されます。
+</Note>
+
+<div id="light-and-dark-mode-images">
+  #### ライトモードとダークモードの画像
+</div>
+
+ライトテーマとダークテーマで異なる画像を表示するには、Tailwind CSSのクラスを使用します：
+
+```html
+<!-- ライトモードの画像 -->
+<img 
+  className="block dark:hidden" 
+  src="/images/light-mode.png" 
+  alt="ライトモードのインターフェース"
+/>
+
+<!-- ダークモードの画像 -->
+<img 
+  className="hidden dark:block" 
+  src="/images/dark-mode.png" 
+  alt="ダークモードのインターフェース"
+/>
+```
+
+<div id="videos">
+  ## 動画
+</div>
+
+Mintlify は [Markdown での HTML タグ](https://www.markdownguide.org/basic-syntax/#html)をサポートしており、柔軟にリッチコンテンツを作成できます。
+
+<Tip>
+  動画再生に対応していないブラウザに備えて、必ず video 要素内にフォールバック用のテキストコンテンツを含めてください。
+</Tip>
+
+<div id="youtube-embeds">
+  ### YouTube の埋め込み
+</div>
+
+iframe 要素を使って YouTube 動画を埋め込みます：
+
+```html
+<iframe
+  className="w-full aspect-video rounded-xl"
+  src="https://www.youtube.com/embed/4KzFe50RQkQ"
+  title="YouTube video player"
+  frameBorder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+></iframe>
+```
+
+<Frame>
+  <iframe className="w-full aspect-video rounded-xl" src="https://www.youtube.com/embed/4KzFe50RQkQ" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
+</Frame>
+
+<div id="self-hosted-videos">
+  ### 自前ホスティング動画
+</div>
+
+自前でホスティングする動画コンテンツには、HTML の `<video>` 要素を使用します:
+
+```html
+<video
+  controls
+  className="w-full aspect-video rounded-xl"
+  src="link-to-your-video.com"
+></video>
+```
+
+<div id="autoplay-videos">
+  ### 動画の自動再生
+</div>
+
+動画を自動再生するには、次を使用します:
+
+```html
+<video
+  autoPlay
+  muted
+  loop
+  playsInline
+  className="w-full aspect-video rounded-xl"
+  src="/videos/demo.mp4"
+></video>
+```
+
+<Note>
+  JSX 構文を使用する場合、複合語の属性は camelCase で記述します（例: `autoPlay`、`playsInline`、`allowFullScreen`）。
+</Note>
+
+<div id="iframes">
+  ## iframes
+</div>
+
+iframe 要素を使って外部コンテンツを埋め込みます:
+
+```html
+<iframe 
+  src="https://example.com/embed" 
+  title="Embedded content"
+  className="w-full h-96 rounded-xl"
+></iframe>
+```
+
+<div id="related-resources">
+  ## 関連リソース
+</div>
+
+<Card title="Frame コンポーネント リファレンス" icon="frame" horizontal href="/ja/components/frames">
+  画像を表示するための Frame コンポーネントの使い方を学びましょう。
+</Card>

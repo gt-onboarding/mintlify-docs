@@ -1,0 +1,56 @@
+---
+title: "llms.txt"
+description: "让你的内容更易于被 LLM 阅读和索引"
+icon: "file-code"
+---
+
+import { PreviewButton } from "/snippets/previewbutton.jsx"
+
+[llms.txt 文件](https://llmstxt.org) 是一项行业标准，帮助 LLM 更高效地索引内容，类似于站点地图之于搜索引擎。AI 工具可以使用该文件了解你的文档结构，并找到与用户查询相关的内容。
+
+Mintlify 会在你项目的根目录自动托管一个 `llms.txt` 文件，列出文档中的所有可用页面。该文件始终保持最新，无需维护。你也可以选择在项目根目录添加自定义的 `llms.txt` 文件。
+
+在你的文档站点 URL 末尾添加 `/llms.txt` 以查看你的 `llms.txt`。
+
+<PreviewButton href="https://mintlify.com/docs/llms.txt">打开本网站的 llms.txt。</PreviewButton>
+
+
+<div id="llmstxt-structure">
+  ## llms.txt 结构
+</div>
+
+`llms.txt` 是一个纯 Markdown 文件，包含：
+
+- 以 H1 作为标题的**站点名称**。
+- **结构化内容分区**，为文档中每个页面提供链接和描述。
+
+```mdx Example llms.txt
+# Example product docs
+
+## Guides
+- [Getting started](https://example.com/docs/start): Intro guide
+- [Install](https://example.com/docs/install): Setup steps
+
+## Reference
+- [API](https://example.com/docs/api): Endpoint list and usage
+```
+
+这种结构化方式使 LLM 能够在更高层级高效处理你的文档，并为用户查询定位相关内容，从而提升 AI 辅助文档搜索的准确性和速度。
+
+<div id="llms-fulltxt">
+  ## llms-full.txt
+</div>
+
+`llms-full.txt` 文件会将整个文档站点整合为一个文件，供 AI 工具作为上下文使用，并由 LLM 流量进行索引。
+
+Mintlify 会在你的项目根目录自动托管一个 `llms-full.txt` 文件。你可以在文档站点的 URL 末尾追加 `/llms-full.txt` 来查看它。
+
+<PreviewButton href="https://mintlify.com/docs/llms-full.txt">打开此站点的 llms-full.txt。</PreviewButton>
+
+<div id="custom-files">
+  ## 自定义文件
+</div>
+
+要添加自定义的 `llms.txt` 或 `llms-full.txt` 文件，请在项目根目录创建一个同名文件。添加自定义文件会覆盖同名的自动生成文件。若删除该自定义文件，将恢复使用默认文件。
+
+你的自定义 `llms.txt` 或 `llms-full.txt` 文件必须包含以 H1 级标题标注的站点标题。其他内容为可选。有关可选部分与最佳实践的更多信息，请参见 `llms.txt` 规范中的[格式](https://llmstxt.org/#format)。

@@ -1,0 +1,36 @@
+---
+title: 'Colunas'
+description: 'Exiba cards lado a lado em um layout de grade'
+icon: 'columns-2'
+keywords: ['grupos de cards']
+---
+
+O componente `Columns` permite agrupar vários componentes `Card`. Ele é mais frequentemente usado para organizar cards em uma grade, especificando o número de colunas.
+
+<Columns cols={2}>
+  <Card title="Comece agora" icon="rocket">
+    Configure seu projeto com nosso guia de início rápido.
+  </Card>
+  <Card title="Referência da API" icon="code">
+    Explore endpoints, parâmetros e exemplos da sua API.
+  </Card>
+</Columns>
+
+```mdx Columns example
+<Columns cols={2}>
+  <Card title="Get started">
+    Set up your project with our quickstart guide.
+  </Card>
+  <Card title="API reference">
+    Explore endpoints, parameters, and examples for your API.
+  </Card>
+</Columns>
+```
+
+<div id="properties">
+  ## Propriedades
+</div>
+
+<ResponseField name="cols" default={2}>
+  A quantidade de colunas por linha.
+</ResponseField>

@@ -1,0 +1,47 @@
+---
+title: "重定向与断链"
+description: "防止无效链接的工具"
+icon: "link-2"
+---
+
+当你在 docs 文件夹中更改文件路径时，该页面的 URL 也会随之变化。这常见于重构文档或修改侧边栏标题时。
+
+<div id="broken-links">
+  ## 失效链接
+</div>
+
+使用我们的 CLI 查找失效链接。[安装 CLI](/zh/installation) 并运行以下命令：
+
+```bash
+mint broken-links
+```
+
+CLI 会检测你文档中不存在的相对链接。
+
+<div id="redirects">
+  ## 重定向
+</div>
+
+在 `docs.json` 文件中添加 `redirects` 字段以设置 301 重定向。
+
+```json
+"redirects": [
+  {
+    "source": "/source/path",
+    "destination": "/destination/path"
+  }
+]
+```
+
+这会将 `/source/path` 永久重定向到 `/destination/path`，以避免丢失原页面既有的 SEO 权重。
+
+要匹配通配符路径，请在参数后添加 `*`。在此示例中，`/beta/:slug*` 会匹配 `/beta/introduction`，并将其重定向到 `/v2/introduction`。
+
+```json
+"redirects": [
+  {
+    "source": "/beta/:slug*",
+    "destination": "/v2/:slug*"
+  }
+]
+```

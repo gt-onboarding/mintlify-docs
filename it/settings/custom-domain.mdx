@@ -1,0 +1,55 @@
+---
+title: "Dominio personalizzato"
+description: "Ospita la documentazione sul dominio personalizzato del tuo sito web"
+icon: "globe"
+---
+
+Per pubblicare la documentazione su un dominio personalizzato, imposta il dominio desiderato nelle impostazioni di Mintlify e configura i record DNS presso il tuo provider di dominio.
+
+<Info>
+  Vuoi configurare una sottodirectory personalizzata come `mintlify.com/docs`? Consulta la documentazione sulla [sottodirectory personalizzata](/it/advanced/subpath/cloudflare).
+</Info>
+
+<div id="dashboard-settings">
+  ## Impostazioni della dashboard
+</div>
+
+1. Vai alla tua [dashboard](https://dashboard.mintlify.com)
+2. Seleziona **Settings**
+3. Seleziona **Domain Setup**
+4. Inserisci il dominio personalizzato che desideri. Ad esempio, `docs.mintlify.com`
+
+<Frame>
+  <img alt="Dominio personalizzato" className="block dark:hidden" src="/images/add-custom-domain-light.png" />
+
+  <img alt="Dominio personalizzato" className="hidden dark:block" src="/images/add-custom-domain-dark.png" />
+</Frame>
+
+<div id="configuring-your-dns">
+  ## Configurazione del DNS
+</div>
+
+1. Accedi alle impostazioni DNS del tuo dominio sul sito del provider.
+2. Crea un nuovo record DNS e inserisci i seguenti valori:
+
+```bash
+CNAME | docs | cname.vercel-dns.com.
+```
+
+<Frame>
+  <img alt="DNS" src="https://mintlify-assets.b-cdn.net/mintlify-dns.png" />
+</Frame>
+
+<div id="provider-specific-settings">
+  ## Impostazioni specifiche del provider
+</div>
+
+<AccordionGroup>
+  <Accordion title="Verifica Vercel">
+    Se Vercel è il tuo provider di domini, devi aggiungere un record `TXT` di verifica. Queste informazioni verranno visualizzate nella tua dashboard dopo aver inviato il tuo dominio personalizzato e ti saranno anche inviate via email.
+  </Accordion>
+
+  <Accordion title="Impostazioni di sicurezza Cloudflare">
+    Se Cloudflare è il tuo provider DNS, devi abilitare l’opzione di sicurezza “full strict” per l’impostazione HTTPS.
+  </Accordion>
+</AccordionGroup>

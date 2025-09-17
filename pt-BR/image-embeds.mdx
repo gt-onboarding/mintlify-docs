@@ -1,0 +1,196 @@
+---
+title: "Imagens e incorporações"
+description: "Adicione imagens, vídeos e iframes"
+icon: "image"
+---
+
+Adicione imagens, incorpore vídeos e inclua conteúdo interativo com iframes na sua documentação.
+
+Todos os recursos estáticos no seu repositório de docs são disponibilizados automaticamente no caminho apropriado do seu domínio. Por exemplo, se você tiver `/images/my-logo.png` no seu repositório, a imagem estará disponível em `https://docs.yoursite.com/images/my-logo.png`.
+
+<Frame>
+  <img className="rounded-xl" src="https://mintlify-assets.b-cdn.net/bigbend.jpg" alt="Fotografia de uma paisagem com flores roxas em primeiro plano, montanhas ao fundo e um céu azul com nuvens esparsas." />
+</Frame>
+
+<div id="images">
+  ## Imagens
+</div>
+
+Adicione imagens para oferecer contexto visual, ilustrar exemplos ou enriquecer sua documentação.
+
+<div id="basic-image-syntax">
+  ### Sintaxe básica de imagens
+</div>
+
+Use a [sintaxe do Markdown](https://www.markdownguide.org/basic-syntax/#images) para adicionar imagens à sua documentação:
+
+```mdx
+![Texto alternativo descrevendo a imagem](/path/to/image.png)
+```
+
+<Tip>
+  Sempre inclua um texto alternativo descritivo para melhorar a acessibilidade e o SEO. O texto alternativo deve descrever claramente o que a imagem mostra.
+</Tip>
+
+Os arquivos de imagem devem ter menos de 20 MB. Para arquivos maiores, hospede-os em um serviço de CDN como o [Amazon S3](https://aws.amazon.com/s3) ou o [Cloudinary](https://cloudinary.com).
+
+<div id="html-image-embeds">
+  ### Incorporação de imagens em HTML
+</div>
+
+Para ter mais controle sobre a exibição de imagens, use a tag HTML `<img>`:
+
+```html
+<img 
+  src="/images/dashboard.png" 
+  alt="Main dashboard interface"
+  height="300"
+  className="rounded-lg"
+/>
+```
+
+<div id="disable-zoom-functionality">
+  #### Desativar o zoom
+</div>
+
+Para desativar o zoom padrão ao clicar em imagens, adicione a propriedade `noZoom`:
+
+```html highlight="4"
+<img 
+  src="/images/screenshot.png" 
+  alt="Texto alternativo descritivo"
+  noZoom 
+  height="200"
+/>
+```
+
+<div id="link-images">
+  #### Vincular imagens
+</div>
+
+Para tornar uma imagem um link clicável, envolva-a em uma tag de âncora e adicione a propriedade `noZoom`:
+
+```html
+<a href="https://mintlify.com" target="_blank">
+  <img 
+    src="/images/logo.png" 
+    alt="Mintlify logo"
+    noZoom 
+    height="100"
+  />
+</a>
+```
+
+<Note>
+  Imagens dentro de tags de âncora exibem automaticamente o cursor de ponteiro para indicar que são clicáveis.
+</Note>
+
+<div id="light-and-dark-mode-images">
+  #### Imagens para modos claro e escuro
+</div>
+
+Para exibir imagens diferentes nos temas claro e escuro, use classes do Tailwind CSS:
+
+```html
+<!-- Imagem no modo claro -->
+<img 
+  className="block dark:hidden" 
+  src="/images/light-mode.png" 
+  alt="Interface no modo claro"
+/>
+
+<!-- Imagem no modo escuro -->
+<img 
+  className="hidden dark:block" 
+  src="/images/dark-mode.png" 
+  alt="Interface no modo escuro"
+/>
+```
+
+<div id="videos">
+  ## Vídeos
+</div>
+
+A Mintlify oferece suporte a [tags HTML em Markdown](https://www.markdownguide.org/basic-syntax/#html), dando a você flexibilidade para criar conteúdo rico.
+
+<Tip>
+  Sempre inclua texto alternativo dentro dos elementos de vídeo para navegadores que não oferecem suporte à reprodução de vídeos.
+</Tip>
+
+<div id="youtube-embeds">
+  ### Incorporações do YouTube
+</div>
+
+Incorpore vídeos do YouTube usando elementos iframe:
+
+```html
+<iframe
+  className="w-full aspect-video rounded-xl"
+  src="https://www.youtube.com/embed/4KzFe50RQkQ"
+  title="YouTube video player"
+  frameBorder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+></iframe>
+```
+
+<Frame>
+  <iframe className="w-full aspect-video rounded-xl" src="https://www.youtube.com/embed/4KzFe50RQkQ" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
+</Frame>
+
+<div id="self-hosted-videos">
+  ### Vídeos auto-hospedados
+</div>
+
+Use o elemento HTML `<video>` para conteúdo de vídeo hospedado por você:
+
+```html
+<video
+  controls
+  className="w-full aspect-video rounded-xl"
+  src="link-to-your-video.com"
+></video>
+```
+
+<div id="autoplay-videos">
+  ### Reprodução automática de vídeos
+</div>
+
+Para habilitar a reprodução automática de um vídeo, use:
+
+```html
+<video
+  autoPlay
+  muted
+  loop
+  playsInline
+  className="w-full aspect-video rounded-xl"
+  src="/videos/demo.mp4"
+></video>
+```
+
+<Note>
+  Ao usar a sintaxe JSX, escreva atributos compostos em camelCase: `autoPlay`, `playsInline`, `allowFullScreen`.
+</Note>
+
+<div id="iframes">
+  ## iframes
+</div>
+
+Incorpore conteúdo externo usando elementos de iframe:
+
+```html
+<iframe 
+  src="https://example.com/embed" 
+  title="Embedded content"
+  className="w-full h-96 rounded-xl"
+></iframe>
+```
+
+<div id="related-resources">
+  ## Recursos relacionados
+</div>
+
+<Card title="Referência do componente Frame" icon="frame" horizontal href="/pt-BR/components/frames">
+  Saiba como usar o componente Frame para exibir imagens.
+</Card>

@@ -1,0 +1,176 @@
+---
+title: "页面"
+description: "页面是文档的基本构成单元"
+icon: "letter-text"
+keywords: ["标签", "标签"]
+---
+
+import IconsOptional from "/snippets/zh/icons-optional.mdx";
+
+每个页面都是一个 MDX 文件，它将 Markdown 内容与 React 组件结合，让你创建丰富、交互的文档。
+
+<div id="page-metadata">
+  ## 页面元数据
+</div>
+
+每个页面都以 frontmatter 开始，即文件开头由 `---` 包裹的 YAML 元数据。该元数据决定页面的呈现和行为。
+
+使用元数据可以控制：
+
+* 页面标题和描述
+* 侧边栏标题、图标和标签
+
+<ResponseField name="title" type="string" required>
+  出现在导航和浏览器标签页中的页面标题。
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  对本页面内容的简要说明。显示在标题下方，有助于提升 SEO。
+</ResponseField>
+
+<ResponseField name="sidebarTitle" type="string">
+  显示在侧边栏导航中的简短标题。
+</ResponseField>
+
+<IconsOptional />
+
+<ResponseField name="tag" type="string">
+  显示在侧边栏页面标题旁的标签。
+</ResponseField>
+
+```yaml Example YAML frontmatter wrap
+---
+title: "About frontmatter"
+description: "Frontmatter is the metadata that controls how your page appears and behaves"
+sidebarTitle: "Frontmatter"
+icon: "book"
+tag: "NEW"
+---
+```
+
+<div id="page-mode">
+  ## 页面模式
+</div>
+
+通过 `mode` 设置控制页面的展示方式。
+
+<div id="default">
+  ### 默认
+</div>
+
+如果未指定模式，将采用带侧边栏导航和目录的标准布局。
+
+```yaml
+---
+title: "默认页面标题"
+---
+```
+
+<div id="wide">
+  ### 宽屏
+</div>
+
+宽屏模式会隐藏目录。它适用于没有任何标题的页面，或当你希望利用更多水平空间时。所有主题均支持宽屏模式。
+
+```yaml
+---
+title: "Wide page title"
+mode: "wide"
+---
+```
+
+<div id="custom">
+  ### 自定义
+</div>
+
+自定义模式提供极简布局，除顶部导航栏外移除所有元素。它是一块空白画布，可用于创建着陆页或任何其他希望尽量减少导航元素的独特布局。自定义模式适用于所有主题。
+
+```yaml
+---
+title: "Custom page title"
+mode: "custom"
+---
+```
+
+<div id="frame">
+  ### Frame
+</div>
+
+Frame 模式提供与 custom 模式相似的布局，但会保留侧边栏导航。此页面模式在保留默认导航体验的同时，支持使用自定义 HTML 和组件。Frame 模式仅适用于 Aspen 和 Almond 主题。
+
+```yaml
+---
+title: "Frame page title"
+mode: "frame"
+---
+```
+
+<div id="center">
+  ### 居中
+</div>
+
+居中模式会移除侧边栏和目录，并将内容居中显示。适用于变更日志或其他需要突出内容的页面。Mint 和 Linden 主题均提供居中模式。
+
+```yaml
+---
+title: "Center page title"
+mode: "center"
+---
+```
+
+<div id="api-pages">
+  ## API 页面
+</div>
+
+在 frontmatter 中添加 API 规范（`api` 或 `openapi`）即可创建交互式 API 试玩台。
+
+```yaml
+---
+openapi: "GET /endpoint"
+---
+```
+
+了解更多关于构建[API 文档](/zh/api-playground/overview)的内容。
+
+<div id="external-links">
+  ## 外部链接
+</div>
+
+在导航中使用 `url` 元数据直接链接到外部站点。
+
+```yaml
+---
+title: "npm Package"
+url: "https://www.npmjs.com/package/mint"
+---
+```
+
+<div id="search-engine-optimization">
+  ## 搜索引擎优化
+</div>
+
+大多数 SEO 元标签会自动生成。你可以手动设置 SEO 元标签，以提升站点的 SEO、社交分享效果和浏览器兼容性。
+
+<Note>
+  含有冒号的元标签必须用引号括起来。
+</Note>
+
+```yaml
+---
+"twitter:image": "/images/social-preview.jpg"
+---
+```
+
+参见 [SEO](/zh/settings/seo) 以了解完整的 SEO 元数据选项。
+
+<div id="internal-search-keywords">
+  ## 内部搜索关键词
+</div>
+
+在元数据中提供 `keywords` 可提升特定页面在内置搜索中的可发现性。这些关键词不会作为页面内容显示，也不会直接出现在搜索结果列表中，但当用户检索这些关键词时，相关页面将作为搜索结果呈现。
+
+```yaml
+---
+keywords: ['configuration', 'setup', 'getting started']
+---
+```

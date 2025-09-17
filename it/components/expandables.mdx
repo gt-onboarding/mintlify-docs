@@ -1,0 +1,47 @@
+---
+title: "Sezioni espandibili"
+description: "Attiva/disattiva per visualizzare le proprietà nidificate"
+icon: "list-tree"
+---
+
+Usa le sezioni espandibili per mostrare e nascondere contenuti nidificati all'interno dei campi di risposta. Sono particolarmente utili per visualizzare le proprietà di oggetti complessi nella documentazione API.
+
+<ResponseField name="user" type="User Object">
+  <Expandable title="properties">
+
+<ResponseField name="full_name" type="string">
+  Il nome completo dell’utente
+</ResponseField>
+
+<ResponseField name="is_over_21" type="boolean">
+  Se l’utente ha più di 21 anni
+</ResponseField>
+
+  </Expandable>
+</ResponseField>
+
+```mdx Expandable example
+<ResponseField name="user" type="User Object">
+  <Expandable title="properties">
+    <ResponseField name="full_name" type="string">
+      Il nome completo dell’utente
+    </ResponseField>
+
+    <ResponseField name="is_over_21" type="boolean">
+      Se l’utente ha più di 21 anni
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+```
+
+<div id="properties">
+  ## Proprietà
+</div>
+
+<ResponseField name="title" type="string">
+  Il nome dell'oggetto che viene mostrato.
+</ResponseField>
+
+<ResponseField name="defaultOpen" type="boolean" default="false">
+  Imposta su `true` per aprire l’elemento espandibile al caricamento della pagina
+</ResponseField>

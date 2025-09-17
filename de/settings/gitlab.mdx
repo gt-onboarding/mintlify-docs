@@ -1,0 +1,94 @@
+---
+title: "GitLab"
+description: "Synchronisieren Sie Ihre Doks mit einem GitLab-Repository"
+icon: "gitlab"
+---
+
+Wir verwenden Zugriffstoken und Webhooks, um die Authentifizierung und Synchronisierung von Änderungen zwischen GitLab und Mintlify sicherzustellen.
+
+- Mintlify verwendet Zugriffstoken, um Informationen aus GitLab abzurufen.
+- GitLab nutzt Webhooks, um Mintlify über Änderungen zu informieren und Vorschau-Bereitstellungen für Merge-Requests zu ermöglichen.
+
+<div id="set-up-the-connection">
+  ## Verbindung einrichten
+</div>
+
+<Steps>
+  <Step title="Projekt-ID finden">
+    Navigiere in deinem GitLab-Projekt zu **Settings** > **General** und suche deine **Project ID**.
+    <Frame>
+      <img src="/images/gitlab/gitlab-project-id.png" alt="Die Seite General Settings im GitLab-Dashboard. Die Project ID ist hervorgehoben." />
+    </Frame>
+  </Step>
+  <Step title="Access Token erstellen">
+    Navigiere zu **Settings** > **Access Tokens** und wähle **Add new token**.
+    
+    Konfiguriere den Token mit folgenden Einstellungen:
+    - **Name**: Mintlify
+    - **Role**: Maintainer (erforderlich für private Repositories)
+    - **Scopes**: `api` und `read_api`
+    
+    Klicke auf **Create project access token** und kopiere den Token.
+
+    <Note>
+      Wenn Project Access Tokens nicht verfügbar sind, kannst du stattdessen einen Personal Access Token verwenden. Beachte, dass Personal Access Tokens ablaufen und regelmäßig aktualisiert werden müssen.
+    </Note>
+
+    <Frame>
+      <img src="/images/gitlab/gitlab-project-access-token.png" alt="Die Seite Access tokens im GitLab-Dashboard. Die für Mintlify zu konfigurierenden Einstellungen sind hervorgehoben." />
+    </Frame>
+
+  </Step>
+  <Step title="Verbindung konfigurieren">
+    Im [Mintlify-Dashboard](https://dashboard.mintlify.com/settings/deployment/git-settings):
+    1. Gib deine Projekt-ID und deinen Access Token ein.
+    2. Nimm alle weiteren erforderlichen Konfigurationen vor.
+    3. Klicke auf **Save Changes**.
+    <Frame>
+      <img src="/images/gitlab/gitlab-config.png" alt="Die Seite Git Settings im Mintlify-Dashboard. Die GitLab-Konfigurationseinstellungen sind hervorgehoben." />
+    </Frame>
+  </Step>
+</Steps>
+
+<div id="create-the-webhook">
+  ## Webhook erstellen
+</div>
+
+Webhooks ermöglichen es, Ereignisse bei Änderungen zu empfangen, sodass Bereitstellungen automatisch ausgelöst werden können.
+
+<Steps>
+  <Step title="Navigiere zu Settings > Webhooks und klicke auf 'Add new Webhook'">
+    <Frame>
+      <img src="/images/gitlab/gitlab-webhook.png" />
+    </Frame>
+  </Step>
+  <Step title="URL und Webhook einrichten">
+    Gib im Feld „URL“ den Endpunkt `https://leaves.mintlify.com/gitlab-webhook` ein und benenne den Webhook „Mintlify“.
+
+  </Step>
+  <Step title="Token einfügen">
+    Füge das Webhook-Token ein, das nach dem Einrichten der Verbindung generiert wurde.
+    <Frame>
+      <img src="/images/gitlab/gitlab-show-webtoken.png" />
+    </Frame>
+  </Step>
+  <Step title="Ereignisse auswählen">
+    Wähle diese Ereignisse aus, um den Webhook auszulösen:
+    - **Push events** (alle Branches)
+    - **Merge requests events**
+      
+    Wenn du fertig bist, sollte es so aussehen:
+    <Frame>
+      <img src="/images/gitlab/gitlab-project-webtoken.png" alt="Die Webhook-Seite im GitLab-Dashboard. Die für Mintlify zu konfigurierenden Einstellungen sind hervorgehoben." />
+    </Frame>
+  </Step>
+  <Step title="Webhook testen">
+    Klicke nach dem Erstellen des Webhooks auf das Dropdown „Test“ und wähle „Push events“, um eine Beispiel-Payload zu senden und sicherzustellen, dass alles korrekt konfiguriert ist. Bei korrekter Einrichtung wird „Hook executed successfully: HTTP 200“ angezeigt.
+
+    So kannst du verifizieren, dass alles funktioniert und deine Dokumentation ordnungsgemäß mit deinem GitLab-Repository synchronisiert wird.
+    <Frame>
+      <img src="/images/gitlab/gitlab-project-webtoken-test.png" />
+    </Frame>
+
+  </Step>
+</Steps>
