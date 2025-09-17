@@ -1,0 +1,140 @@
+---
+title: "Content Security Policy (CSP) の設定"
+sidebarTitle: "CSP の設定"
+description: "厳格なセキュリティポリシーを適用するリバースプロキシ、ファイアウォール、ネットワーク向けのドメイン許可リストとヘッダー設定"
+---
+
+Content Security Policy（CSP）は、ウェブページが読み込めるリソースを制御することで、クロスサイトスクリプティング（XSS）攻撃を防ぐためのセキュリティ標準です。Mintlify では、ほとんどのサイトを保護するデフォルトの CSP を提供しています。ドキュメントをリバースプロキシやファイアウォールの背後でホストしていて、それらがデフォルトの CSP を上書きしている場合、各機能を正しく動作させるために CSP ヘッダーを設定する必要があります。
+
+<div id="csp-directives">
+  ## CSP ディレクティブ
+</div>
+
+次の CSP ディレクティブは、どのリソースを読み込めるかを制御します：
+
+- `script-src`: 実行可能なスクリプトを制御します
+- `style-src`: 読み込めるスタイルシートを制御します
+- `font-src`: 読み込めるフォントを制御します
+- `img-src`: 読み込める画像、アイコン、ロゴを制御します
+- `connect-src`: API 呼び出しや WebSocket 接続で接続可能な URL を制御します
+- `frame-src`: フレームや iframe に埋め込み可能な URL を制御します
+- `default-src`: 明示的に設定されていない場合に他のディレクティブへ適用されるフォールバック
+
+<div id="domain-whitelist">
+  ## ドメイン許可リスト
+</div>
+
+| ドメイン | 用途 | CSP ディレクティブ | 必須 |
+|:-------|:--------|:--------------|:-------|
+| `d4tuoctqmanu0.cloudfront.net` | KaTeX の CSS とフォント | `style-src`, `font-src` | 必須 |
+| `*.mintlify.dev` | ドキュメント内容 | `connect-src` | 必須 |
+| `d3gk2c5xim1je2.cloudfront.net` | アイコン・画像・ロゴ | `img-src` | 必須 |
+| `www.googletagmanager.com` | Google Analytics / GTM | `script-src`, `connect-src` | 任意 |
+| `cdn.segment.com` | Segment アナリティクス | `script-src`, `connect-src` | 任意 |
+| `plausible.io` | Plausible アナリティクス | `script-src`, `connect-src` | 任意 |
+| `tag.clearbitscripts.com` | Clearbit トラッキング | `script-src` | 任意 |
+| `cdn.heapanalytics.com` | Heap アナリティクス | `script-src` | 任意 |
+| `chat.cdn-plain.com` | Plain チャットウィジェット | `script-src` | 任意 |
+| `chat-assets.frontapp.com` | Front チャットウィジェット | `script-src` | 任意 |
+
+<div id="example-csp-configuration">
+  ## CSP の設定例
+</div>
+
+<Note>
+  利用しているサービスのドメインだけを含めてください。ドキュメントで設定していない分析用ドメインは削除してください。
+</Note>
+
+```text wrap
+Content-Security-Policy:
+default-src 'self';
+script-src 'self' 'unsafe-inline' 'unsafe-eval' www.googletagmanager.com cdn.segment.com plausible.io tag.clearbitscripts.com cdn.heapanalytics.com
+chat.cdn-plain.com chat-assets.frontapp.com;
+style-src 'self' 'unsafe-inline' d4tuoctqmanu0.cloudfront.net;
+font-src 'self' d4tuoctqmanu0.cloudfront.net;
+img-src 'self' data: blob: d3gk2c5xim1je2.cloudfront.net;
+connect-src 'self' *.mintlify.dev www.googletagmanager.com cdn.segment.com plausible.io;
+frame-src 'self' *.mintlify.dev;
+```
+
+<div id="common-configurations-by-proxy-type">
+  ## プロキシ種別ごとの一般的な設定
+</div>
+
+ほとんどのリバースプロキシは、カスタムヘッダーの追加をサポートしています。
+
+<div id="cloudflare-configuration">
+  ### Cloudflare の設定
+</div>
+
+Response Header Transform Rule を作成します:
+
+1. Cloudflare のダッシュボードで **Rules > Overview** に移動します。
+2. **Create rule > Response Header Transform Rule** を選択します。
+3. ルールを設定します:
+
+- **Modify response header**: Set static
+  - **Header name**: `Content-Security-Policy`
+  - **Header value**:
+    ```text wrap
+    default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' d4tuoctqmanu0.cloudfront.net; font-src 'self' d4tuoctqmanu0.cloudfront.net; img-src 'self' data: blob: d3gk2c5xim1je2.cloudfront.net; connect-src 'self' *.mintlify.dev; frame-src 'self' *.mintlify.dev;
+    ```
+
+4. ルールをデプロイします。
+
+<div id="aws-cloudfront-configuration">
+  ### AWS CloudFront の設定
+</div>
+
+CloudFront にレスポンスヘッダーのポリシーを追加します:
+
+```json
+{
+"ResponseHeadersPolicy": {
+    "Name": "MintlifyCSP",
+    "Config": {
+    "SecurityHeadersConfig": {
+        "ContentSecurityPolicy": {
+        "ContentSecurityPolicy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' d4tuoctqmanu0.cloudfront.net; font-src 'self' d4tuoctqmanu0.cloudfront.net; img-src 'self' data: blob: d3gk2c5xim1je2.cloudfront.net; connect-src 'self' *.mintlify.dev; frame-src 'self' *.mintlify.dev;",
+        "Override": true
+        }
+      }
+    }
+  }
+}
+```
+
+<div id="vercel-configuration">
+  ### Vercel の構成
+</div>
+
+`vercel.json` に次を追加します:
+
+```json
+{
+"headers": [
+    {
+    "source": "/(.*)",
+    "headers": [
+        {
+        "key": "Content-Security-Policy",
+        "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' d4tuoctqmanu0.cloudfront.net; font-src 'self' d4tuoctqmanu0.cloudfront.net; img-src 'self' data: blob: d3gk2c5xim1je2.cloudfront.net; connect-src 'self' *.mintlify.dev; frame-src 'self' *.mintlify.dev;"
+        }
+      ]
+    }
+  ]
+}
+```
+
+<div id="troubleshooting">
+  ## トラブルシューティング
+</div>
+
+ブラウザのコンソールで CSP 違反を特定するには:
+
+1. ブラウザの開発者ツールを開きます。
+2. **Console** タブを開きます。
+3. 次のようなエラーを探します:
+    - `Content Security Policy: The page's settings blocked the loading of a resource`
+    - `Refused to load the script/stylesheet because it violates the following Content Security Policy directive`
+    - `Refused to connect to because it violates the following Content Security Policy directive`

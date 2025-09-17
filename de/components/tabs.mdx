@@ -1,0 +1,71 @@
+---
+title: "Tabs"
+description: "Inhalte mit der Tabs-Komponente umschalten"
+icon: "panel-top"
+---
+
+Verwenden Sie Tabs, um Inhalte in mehrere Bereiche zu gliedern, zwischen denen Nutzer wechseln können. Sie können beliebig viele Tabs hinzufügen und in jedem Tab weitere Komponenten einfügen.
+
+<Tabs>
+  <Tab title="Erster Tab">
+    ☝️ Willkommen bei den Inhalten, die nur im ersten Tab sichtbar sind.
+
+    In Tabs können Sie beliebig viele Komponenten hinzufügen. Zum Beispiel ein Codeblock:
+    ```java HelloWorld.java
+      class HelloWorld {
+          public static void main(String[] args) {
+              System.out.println("Hello, World!");
+          }
+      }
+    ```
+  </Tab>
+  <Tab title="Zweiter Tab" icon="leaf">
+    ✌️ Hier sind Inhalte, die nur im zweiten Tab zu finden sind.
+
+    Dieser hat ein <Icon icon="leaf" />-Symbol!
+  </Tab>
+  <Tab title="Dritter Tab">
+    💪 Hier sind Inhalte, die nur im dritten Tab zu finden sind.
+  </Tab>
+</Tabs>
+
+````mdx Tabs example
+<Tabs>
+  <Tab title="First tab">
+    ☝️ Welcome to the content that you can only see inside the first tab.
+
+    You can add any number of components inside of tabs. For example, a code block:
+    ```java HelloWorld.java
+      class HelloWorld {
+          public static void main(String[] args) {
+              System.out.println("Hello, World!");
+          }
+      }
+    ```
+  </Tab>
+  <Tab title="Second tab" icon="leaf">
+    ✌️ Here's content that's only inside the second tab.
+
+    This one has a <Icon icon="leaf" /> icon!
+  </Tab>
+  <Tab title="Third tab">
+    💪 Here's content that's only inside the third tab.
+  </Tab>
+</Tabs>
+````
+
+<div id="properties">
+  ## Eigenschaften
+</div>
+
+<ResponseField name="title" type="string" required>
+  Der Titel des Tabs. Kurze Titel erleichtern die Navigation.
+</ResponseField>
+
+<ResponseField name="icon" type="string">
+  Ein [Font Awesome](https://fontawesome.com/icons)-Icon, [Lucide](https://lucide.dev/icons)-Icon, eine URL zu einem Icon oder ein relativer Pfad zu einem Icon.
+</ResponseField>
+
+<ResponseField name="iconType" type="string">
+  Nur für Font-Awesome-Icons: Eines von `regular`, `solid`, `light`, `thin`, `sharp-solid`, `duotone`, `brands`.
+</ResponseField>

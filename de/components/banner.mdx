@@ -1,0 +1,44 @@
+---
+title: "Banner"
+description: "Fügen Sie ein Banner hinzu, um wichtige siteweite Ankündigungen und Benachrichtigungen anzuzeigen"
+icon: "layout-panel-top"
+---
+
+Verwenden Sie Banner, um wichtige Ankündigungen, Updates oder Benachrichtigungen auf Ihrer gesamten Dokumentations-Website anzuzeigen. Banner erscheinen oben auf jeder Seite, unterstützen Markdown-Formatierung und können ausblendbar sein.
+
+Um ein Banner hinzuzufügen, verwenden Sie die Eigenschaft `banner` in Ihrer `docs.json`:
+
+<CodeGroup>
+  ```json Product announcements wrap
+  "banner": {
+    "content": "🚀 Version 2.0 ist jetzt live! Details finden Sie in unserem [Changelog](/changelog).",
+    "dismissible": true 
+  }
+  ```
+
+  ```json Maintenance notices wrap
+  "banner": {
+    "content": "⚠️ Geplante Wartung: Die API ist am 15. Dezember von 2–4 Uhr UTC nicht verfügbar",
+    "dismissible": false
+  }
+  ```
+
+  ```json Required actions wrap
+  "banner": {
+    "content": "**Aktion erforderlich:** Migrieren Sie bis zum 1. Januar auf unsere neue Version. [Migrationsleitfaden](/migration)",
+    "dismissible": true
+  }
+  ```
+</CodeGroup>
+
+<div id="properties">
+  ## Eigenschaften
+</div>
+
+<ResponseField name="content" type="string" required>
+  Die Banner-Nachricht. Unterstützt Nur-Text und Markdown-Formatierung.
+</ResponseField>
+
+<ResponseField name="dismissible" type="boolean">
+  Ob Nutzende das Banner ausblenden können. Wenn `true`, können sie das Banner schließen und es erscheint während ihrer Sitzung nicht erneut. Standardwert: `false`.
+</ResponseField>

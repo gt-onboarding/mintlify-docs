@@ -1,0 +1,237 @@
+---
+title: "AWS Route 53 と CloudFront"
+sidebarTitle: "AWS"
+description: "AWS サービスを使ってカスタムサブパスでドキュメントをホスティングする"
+---
+
+import Propagating from "/snippets/ja/custom-subpath-propagating.mdx";
+
+AWS Route 53 と CloudFront を使用して `yoursite.com/docs` のようなカスタムサブパスでドキュメントをホストするには、DNS プロバイダーの設定で CloudFront ディストリビューションを参照するように構成する必要があります。
+
+
+<div id="repository-structure">
+  ## リポジトリ構成
+</div>
+
+ドキュメントファイルは、選択したサブパス構成に合わせてリポジトリ内で整理する必要があります。たとえば、ドキュメントを `yoursite.com/docs` で提供したい場合は、すべてのドキュメントファイルを収めた `docs/` ディレクトリを作成します。
+
+<div id="high-level-overview">
+  ## ハイレベルな概要
+</div>
+
+次のパスには、キャッシュポリシーを**CachingDisabled**に設定してトラフィックをルーティングします：
+
+- `/.well-known/acme-challenge/*` - Let's Encrypt の証明書検証に必要
+- `/.well-known/vercel/*` - ドメイン検証に必要
+- `/docs/*` - サブパスルーティングに必要
+- `/docs/` - サブパスルーティングに必要
+
+次のパスには、キャッシュポリシーを**CachingEnabled**に設定してトラフィックをルーティングします：
+
+- `/mintlify-assets/_next/static/*`
+- `Default (*)` - ウェブサイトのランディングページ
+
+すべての Behavior は、**origin request policy** を `AllViewerExceptHostHeader` に設定する必要があります。
+
+![CloudFront "Behaviors" ページ。4つのビヘイビア：`/docs/*`、`/docs`、`Default`、`/.well-known/*`。](/images/cloudfront/all-behaviors.png)
+
+<div id="create-cloudfront-distribution">
+  ## CloudFront ディストリビューションを作成する
+</div>
+
+1. AWS コンソールで [CloudFront](https://aws.amazon.com/cloudfront) に移動します。
+2. **Create distribution** を選択します。
+
+<Frame>
+    ![「Create distribution」ボタンが強調表示された CloudFront Distributions ページ。](/images/cloudfront/create-distribution.png)
+  </Frame>
+
+3. Origin domain に `[SUBDOMAIN].mintlify.dev` を入力します。`[SUBDOMAIN]` はプロジェクト固有のサブドメインです。
+
+<Frame>
+    ![Origin domain として「acme.mintlify.dev」が表示された CloudFront の「Create distribution」ページ。](/images/cloudfront/origin-name.png)
+  </Frame>
+
+4. "Web Application Firewall (WAF)" では、セキュリティ保護を有効にします。
+
+<Frame>
+    ![「Enable security protections」が選択された Web Application Firewall (WAF) のオプション。](/images/cloudfront/enable-security-protections.png)
+  </Frame>
+
+5. それ以外の設定はデフォルトのままで問題ありません。
+6. **Create distribution** を選択します。
+
+<div id="add-default-origin">
+  ## デフォルトのオリジンを追加する
+</div>
+
+1. ディストリビューションを作成したら、「Origins」タブに移動します。
+
+<Frame>
+    ![「Origins」タブが強調表示された CloudFront ディストリビューション。](/images/cloudfront/origins.png)
+  </Frame>
+
+2. メインドメインをミラーするステージングURLを特定します。これはランディングページのホスティング方法によって大きく異なります。たとえば、Mintlify のステージングURLは [mintlify-landing-page.vercel.app](https://mintlify-landing-page.vercel.app) です。
+
+<Info>
+  ランディングページを Webflow でホストしている場合は、Webflow のステージングURL（`.webflow.io`）を使用します。
+
+  Vercel を使用している場合は、各プロジェクトに用意されている `.vercel.app` ドメインを使用します。
+</Info>
+
+3. 新しいオリジンを作成し、ステージングURLを「Origin domain」として追加します。
+
+<Frame>
+    ![CloudFront の「Create origin」ページで「Origin domain」入力フィールドが強調表示されている。](/images/cloudfront/default-origin.png)
+  </Frame>
+
+この時点で、オリジンが2つあるはずです。1つは `[SUBDOMAIN].mintlify.app`、もう1つはステージングURLです。
+
+<Frame>
+  ![CloudFront の「Origins」ページに 2 つのオリジンが表示されている: `mintlify` 用と `mintlify-landing-page` 用。](/images/cloudfront/final-origins.png)
+</Frame>
+
+<div id="set-behaviors">
+  ## ビヘイビアの設定
+</div>
+
+CloudFront のビヘイビアはサブパスのロジックを制御します。全体として、次のロジックを構成します。
+
+- **ユーザーがカスタムサブパスにアクセスした場合**は `[SUBDOMAIN].mintlify.dev` に遷移します。
+- **ユーザーがその他のページにアクセスした場合**は現在のランディングページに遷移します。
+
+1. CloudFront ディストリビューションの「Behaviors」タブに移動します。
+
+<Frame>
+	![CloudFront の「Behaviors」タブが強調表示されています。](/images/cloudfront/behaviors.png)
+</Frame>
+
+2. **Create behavior** ボタンをクリックし、次のビヘイビアを作成します。
+
+<div id="well-known">
+  ### `/.well-known/*`
+</div>
+
+Vercel のドメイン検証用パス向けにビヘイビアを作成し、**Path pattern** を `/.well-known/*`、**Origin and origin groups** をドキュメントの URL に設定します。
+
+「Cache policy」では、検証リクエストがキャッシュされずに通過するように **CachingDisabled** を選択します。
+
+<Frame>
+  ![CloudFront「Create behavior」ページ。Path pattern は「/.well-known/*」、Origin and origin groups はステージング URL を指しています。](/images/cloudfront/well-known-policy.png)
+</Frame>
+
+<Info>
+`.well-known/*` が汎用的すぎる場合、Vercel 向けには最低限次の 2 つのビヘイビアに絞り込めます：
+  - `/.well-known/vercel/*` - Vercel のドメイン検証に必須
+  - `/.well-known/acme-challenge/*` - Let's Encrypt の証明書検証に必須
+</Info>
+
+<div id="your-custom-subpath">
+  ### カスタムサブパス
+</div>
+
+選択したサブパス（例：`/docs`）を **Path pattern** に設定し、**Origin and origin groups** を `.mintlify.dev` の URL（この例では `acme.mintlify.dev`）に向けて behavior を作成します。
+
+- 「Cache policy」を **CachingOptimized** に設定します。
+- 「Origin request policy」を **AllViewerExceptHostHeader** に設定します。
+- 「Viewer Protocol Policy」を **Redirect HTTP to HTTPS** に設定します。
+
+<Frame>
+  ![CloudFront の「Create behavior」ページで、"Path pattern" が "/docs/*"、"Origin and origin groups" が `acme.mintlify.dev` の URL を指している状態。](/images/cloudfront/behavior-1.png)
+</Frame>
+
+<div id="your-custom-subpath-with-wildcard">
+  ### ワイルドカード付きのカスタムサブパス
+</div>
+
+選択したサブパスの後ろに `/*` を付けた **Path pattern**（例：`/docs/*`）と、同じ `.mintlify.dev` のURLを指す **Origin and origin groups** を指定して、1つのビヘイビアを作成します。
+
+これらの設定は、**Path pattern** を除き、ベースのサブパスのビヘイビアと完全に一致させてください。
+
+- 「Cache policy」を **CachingOptimized** に設定します。
+- 「Origin request policy」を **AllViewerExceptHostHeader** に設定します。
+- 「Viewer protocol policy」を **Redirect HTTP to HTTPS** に設定します。
+
+<div id="mintlify-assets_nextstatic">
+  ### `/mintlify-assets/_next/static/*`
+</div>
+
+- 「Cache policy」を**CachingOptimized**に設定する
+ - 「Origin request policy」を**AllViewerExceptHostHeader**に設定する
+ - 「Viewer protocol policy」を**Redirect HTTP to HTTPS**に設定する
+
+<div id="default">
+  ### `Default (*)`
+</div>
+
+最後に、`Default (*)` のビヘイビアを編集します。
+
+<Frame>
+  ![「Default (*)」のビヘイビアが選択され、Edit ボタンが強調表示された CloudFront ディストリビューション。](/images/cloudfront/default-behavior-1.png)
+</Frame>
+
+1. 既定のビヘイビアの **Origin and origin groups** をステージング環境の URL（この例では `mintlify-landing-page.vercel.app`）に変更します。
+
+<Frame>
+  ![CloudFront の「Edit behavior」ページで「Origin and origin groups」の入力欄がハイライトされている。](/images/cloudfront/default-behavior-2.png)
+</Frame>
+
+2. **Save changes** を選択します。
+
+<div id="check-behaviors-are-set-up-correctly">
+  ### ビヘイビアの設定が正しく行われているか確認する
+</div>
+
+上記の手順に従っていれば、ビヘイビアは次のようになっているはずです:
+
+<Frame>
+  ![CloudFront の「Behaviors」ページに、`/docs/*`、`/docs`、`Default`、`/.well-known/*` の4つのビヘイビアが表示されている様子。](/images/cloudfront/all-behaviors.png)
+</Frame>
+
+<div id="preview-distribution">
+  ## プレビュー配信
+</div>
+
+「General」タブに移動し、**Distribution domain name** のURLにアクセスして、配信が正しく設定されているかをテストできます。
+
+<Frame>
+  ![CloudFront「General」タブで「Distribution domain name」URLがハイライトされている様子。](/images/cloudfront/preview-distribution.png)
+</Frame>
+
+すべてのページはメインのランディングページにリダイレクトされるはずですが、選択したサブパス（例：`/docs`）をURLに付与すると、Mintlifyのドキュメントインスタンスに移動することを確認できます。
+
+<div id="connect-with-route53">
+  ## Route53 と接続する
+</div>
+
+ここでは、CloudFront ディストリビューションの機能をプライマリドメインで利用できるようにします。
+
+<Note>
+  このセクションについては、AWS の公式ガイド「[Configuring
+  Amazon Route 53 to route traffic to a CloudFront
+  distribution](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-to-cloudfront-distribution.html#routing-to-cloudfront-distribution-config)」も参照できます。
+</Note>
+
+1. AWS コンソールで [Route53](https://aws.amazon.com/route53) に移動します。
+2. プライマリドメインの「Hosted zone」に移動します。
+3. **Create record** を選択します。
+
+<Frame>
+  ![Route 53「Records」ページで「Create record」ボタンが強調表示されている](/images/cloudfront/route53-create-record.png)
+</Frame>
+
+4. `Alias` をオンにし、**Route traffic to** で `Alias to CloudFront distribution` を選択します。
+
+<Frame>
+  ![Route 53「Create record」ページで「Alias」トグルと「Route traffic to」メニューがハイライトされている](/images/cloudfront/create-record-alias.png)
+</Frame>
+
+5. **Create records** を選択します。
+
+<Note>
+  既存の A レコードがある場合は、削除が必要なことがあります。
+</Note>
+
+これで、プライマリドメインの指定したサブパスでドキュメントが公開されました。
+
+<Propagating />

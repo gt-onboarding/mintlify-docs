@@ -1,0 +1,284 @@
+---
+title: "Intestazioni e testo"
+description: "Scopri come formattare il testo, creare intestazioni e stilizzare i contenuti"
+icon: "heading"
+---
+
+<div id="headers">
+  ## Intestazioni
+</div>
+
+Le intestazioni organizzano i contenuti e creano ancore di navigazione. Compaiono nel sommario e aiutano gli utenti a scorrere rapidamente la documentazione.
+
+<div id="creating-headers">
+  ### Creazione di intestazioni
+</div>
+
+Usa i simboli `#` per creare intestazioni di livelli diversi:
+
+```mdx
+## Intestazione della sezione principale
+### Intestazione della sottosezione
+#### Intestazione della sotto-sottosezione
+```
+
+<Tip>
+  Usa intestazioni descrittive e ricche di parole chiave che indichino chiaramente il contenuto che segue. Questo migliora sia la navigazione degli utenti sia il posizionamento sui motori di ricerca.
+</Tip>
+
+<div id="disabling-anchor-links">
+  ### Disabilitare i link ancora
+</div>
+
+Per impostazione predefinita, le intestazioni includono link ancora cliccabili che consentono agli utenti di collegarsi direttamente a sezioni specifiche. Puoi disattivare questi link ancora usando la prop `noAnchor` nelle intestazioni HTML o React.
+
+<CodeGroup>
+  ```mdx HTML header example
+  <h2 noAnchor>
+  Intestazione senza link ancora
+  </h2>
+  ```
+
+  ```mdx React header example
+  <Heading level={2} noAnchor>
+  Intestazione senza link ancora
+  </Heading>
+  ```
+</CodeGroup>
+
+Quando si usa `noAnchor`, l’intestazione non mostrerà il chip dell’ancora e facendo clic sul testo dell’intestazione non copierà il link ancora negli appunti.
+
+<div id="text-formatting">
+  ## Formattazione del testo
+</div>
+
+Supportiamo la maggior parte della formattazione Markdown per evidenziare e stilizzare il testo.
+
+<div id="basic-formatting">
+  ### Formattazione di base
+</div>
+
+Applica questi stili di formattazione al tuo testo:
+
+| Stile | Sintassi | Esempio | Risultato |
+|-------|--------|---------|--------|
+| **Grassetto** | `**text**` | `**nota importante**` | **nota importante** |
+| *Corsivo* | `_text_` | `_enfasi_` | *enfasi* |
+| ~~Barrato~~ | `~text~` | `~funzionalità deprecata~` | ~~funzionalità deprecata~~ |
+
+<div id="combining-formats">
+  ### Combinare i formati
+</div>
+
+Puoi combinare gli stili di formattazione:
+
+```mdx
+**_bold and italic_**
+**~~bold and strikethrough~~**
+*~~italic and strikethrough~~**
+```
+
+***grassetto e corsivo***<br />
+**~~grassetto e barrato~~**<br />
+*~~corsivo e barrato~~*
+
+<div id="superscript-and-subscript">
+  ### Apice e pedice
+</div>
+
+Per espressioni matematiche o note a piè di pagina, utilizza i tag HTML:
+
+| Tipo | Sintassi | Esempio | Risultato |
+|------|--------|---------|--------|
+| Apice | `<sup>text</sup>` | `example<sup>2</sup>` | example<sup>2</sup> |
+| Pedice | `<sub>text</sub>` | `example<sub>n</sub>` | example<sub>n</sub> |
+
+<div id="links">
+  ## Link
+</div>
+
+I link aiutano gli utenti a navigare tra le pagine e ad accedere a risorse esterne. Usa un testo di link descrittivo per migliorare l’accessibilità e l’esperienza utente.
+
+<div id="internal-links">
+  ### Link interni
+</div>
+
+Collega ad altre pagine della tua documentazione usando percorsi relativi alla root:
+
+```mdx
+[Quickstart](/quickstart)
+[Steps](/components/steps)
+```
+
+[Quickstart](/it/quickstart)<br />
+[Steps](/it/components/steps)
+
+<Note>
+  Evita link relativi come `[page](../page)` perché si caricano più lentamente e non possono essere ottimizzati con la stessa efficacia dei link relativi alla root.
+</Note>
+
+<div id="external-links">
+  ### Link esterni
+</div>
+
+Per le risorse esterne, includi l’URL completo:
+
+```mdx
+[Markdown Guide](https://www.markdownguide.org/)
+```
+
+[Markdown Guide](https://www.markdownguide.org/)
+
+<div id="broken-links">
+  ### Link non funzionanti
+</div>
+
+Puoi verificare la presenza di link non funzionanti nella tua documentazione usando la [CLI](/it/installation):
+
+```bash
+mint broken-links
+```
+
+<div id="blockquotes">
+  ## Citazioni
+</div>
+
+Le citazioni mettono in risalto informazioni importanti, citazioni o esempi all’interno dei tuoi contenuti.
+
+<div id="single-line-blockquotes">
+  ### Citazioni su una riga
+</div>
+
+Aggiungi `>` prima del testo per creare una citazione:
+
+```mdx
+> Questa è una citazione che si distingue dal contenuto principale.
+```
+
+> Questa è una citazione che si distingue dal contenuto principale.
+
+<div id="multi-line-blockquotes">
+  ### Citazioni su più righe
+</div>
+
+Per citazioni più lunghe o composte da più paragrafi:
+
+```mdx
+> This is the first paragraph of a multi-line blockquote.
+>
+> This is the second paragraph, separated by an empty line with `>`.
+```
+
+> Questo è il primo paragrafo di una citazione su più righe.
+>
+> Questo è il secondo paragrafo, separato da una riga vuota con `>`.
+
+<Tip>
+  Usa le citazioni con parsimonia per conservarne l’impatto visivo e il significato. Valuta l’uso dei [callouts](/it/components/callouts) per note, avvertenze e altre informazioni.
+</Tip>
+
+<div id="mathematical-expressions">
+  ## Espressioni matematiche
+</div>
+
+Supportiamo LaTeX per visualizzare espressioni ed equazioni matematiche.
+
+<div id="inline-math">
+  ### Matematica in linea
+</div>
+
+Usa il simbolo del dollaro, `$`, per le espressioni matematiche in linea:
+
+```mdx
+The Pythagorean theorem states that $(a^2 + b^2 = c^2)$ in a right triangle.
+```
+
+Il teorema di Pitagora afferma che $(a^2 + b^2 = c^2)$ in un triangolo rettangolo.
+
+<div id="block-equations">
+  ### Equazioni in blocco
+</div>
+
+Usa i doppi simboli del dollaro, `$$`, per le equazioni indipendenti:
+
+```mdx
+$$
+E = mc^2
+$$
+```
+
+$$
+E = mc^2
+$$
+
+<Info>
+  Il supporto LaTeX richiede una sintassi matematica corretta. Consulta la [documentazione di LaTeX](https://www.latex-project.org/help/documentation/) per linee guida complete sulla sintassi.
+</Info>
+
+<div id="line-breaks-and-spacing">
+  ## Interruzioni di riga e spaziatura
+</div>
+
+Gestisci spaziatura e interruzioni di riga per migliorare la leggibilità dei contenuti.
+
+<div id="paragraph-breaks">
+  ### Interruzioni di paragrafo
+</div>
+
+Separa i paragrafi con una riga vuota:
+
+```mdx
+This is the first paragraph.
+
+This is the second paragraph, separated by a blank line.
+```
+
+Questo è il primo paragrafo.
+
+Questo è il secondo paragrafo, separato da una riga vuota.
+
+<div id="manual-line-breaks">
+  ### Interruzioni di riga manuali
+</div>
+
+Usa i tag HTML `<br />` per inserire interruzioni di riga forzate all&#39;interno dei paragrafi:
+
+```mdx
+This line ends here.<br />
+This line starts on a new line.
+```
+
+Questa riga termina qui.<br />
+Questa riga inizia su una nuova riga.
+
+<Tip>
+  Nella maggior parte dei casi, separare i paragrafi con una riga vuota garantisce una migliore leggibilità rispetto alle interruzioni di riga manuali.
+</Tip>
+
+<div id="best-practices">
+  ## Best practice
+</div>
+
+<div id="content-organization">
+  ### Organizzazione dei contenuti
+</div>
+
+* Usa le intestazioni per creare una gerarchia dei contenuti chiara
+* Segui una gerarchia corretta delle intestazioni (non passare da H2 a H4)
+* Scrivi intestazioni descrittive e ricche di parole chiave
+
+<div id="text-formatting">
+  ### Formattazione del testo
+</div>
+
+* Usa il grassetto per evidenziare, non per interi paragrafi
+* Riserva il corsivo a termini, titoli o per un’enfasi leggera
+* Evita una formattazione eccessiva che distolga dall’effettivo contenuto
+
+<div id="links">
+  ### Link
+</div>
+
+* Usa testi dei link descrittivi invece di &quot;clicca qui&quot; o &quot;leggi di più&quot;
+* Usa percorsi relativi alla root per i link interni
+* Controlla regolarmente i link per evitare collegamenti interrotti

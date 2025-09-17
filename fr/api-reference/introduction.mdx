@@ -1,0 +1,46 @@
+---
+title: "Introduction"
+description: "Déclenchez des mises à jour, intégrez l’Assistant IA, et plus encore"
+icon: "book-open"
+---
+
+L’API REST de Mintlify vous permet d’interagir par programmation avec votre documentation, de déclencher des mises à jour et d’intégrer des expériences de chat propulsées par l’IA.
+
+<div id="endpoints">
+  ## Endpoints
+</div>
+
+* [Déclencher une mise à jour](/fr/api-reference/update/trigger): Déclenchez une mise à jour de votre site quand vous le souhaitez.
+* [Obtenir l’état de la mise à jour](/fr/api-reference/update/status): Obtenez l’état d’une mise à jour et d’autres détails sur votre documentation.
+* [Générer un message de l’Assistant](/fr/api-reference/assistant/create-assistant-message): Intégrez l’Assistant, entraîné sur votre documentation, dans l’application de votre choix.
+* [Rechercher dans la documentation](/fr/api-reference/assistant/search): Recherchez dans votre documentation.
+
+<div id="authentication">
+  ## Authentification
+</div>
+
+Vous pouvez générer une clé API depuis [le tableau de bord](https://dashboard.mintlify.com/settings/organization/api-keys). Les clés API sont associées à l’ensemble d’une organisation et peuvent être utilisées sur plusieurs déploiements.
+
+<div id="admin-api-key">
+  ### Clé API d’administration
+</div>
+
+La clé API d’administration est utilisée pour les endpoints [Déclencher une mise à jour](/fr/api-reference/update/trigger) et [Obtenir le statut de mise à jour](/fr/api-reference/update/status).
+
+Les clés API d’administration commencent par le préfixe `mint_`. Gardez vos clés API d’administration secrètes.
+
+<div id="assistant-api-key">
+  ### Clé d’API Assistant
+</div>
+
+La clé d’API de l’Assistant est utilisée pour les endpoints [Generate assistant message](/fr/api-reference/assistant/create-assistant-message) et [Search documentation](/fr/api-reference/assistant/search).
+
+Les clés d’API de l’Assistant commencent par le préfixe `mint_dsc_`.
+
+La **clé** d’API de l’Assistant est un jeton côté serveur qui doit rester secret.
+
+Le **jeton** d’API de l’Assistant est un jeton public qui peut être utilisé dans votre code frontend.
+
+<Note>
+  Les appels utilisant le jeton d’API de l’Assistant peuvent entraîner des coûts : soit en consommant vos crédits d’Assistant IA, soit en générant des dépassements.
+</Note>

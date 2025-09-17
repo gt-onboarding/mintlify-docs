@@ -1,0 +1,46 @@
+---
+title: "Introducción"
+description: "Desencadenar actualizaciones, integrar el Asistente de IA y más"
+icon: "book-open"
+---
+
+La REST API de Mintlify te permite interactuar con tu documentación de forma programática, desencadenar actualizaciones e integrar experiencias de chat con IA.
+
+<div id="endpoints">
+  ## Endpoints
+</div>
+
+* [Trigger update](/es/api-reference/update/trigger): Activa una actualización de tu sitio cuando quieras.
+* [Get update status](/es/api-reference/update/status): Consulta el estado de una actualización y otros detalles de tu documentación.
+* [Generate assistant message](/es/api-reference/assistant/create-assistant-message): Inserta el Asistente, entrenado con tu documentación, en cualquier aplicación que elijas.
+* [Search documentation](/es/api-reference/assistant/search): Busca en tu documentación.
+
+<div id="authentication">
+  ## Autenticación
+</div>
+
+Puedes generar una clave de API desde el [panel de control](https://dashboard.mintlify.com/settings/organization/api-keys). Las claves de API están asociadas a toda la organización y se pueden usar en múltiples despliegues.
+
+<div id="admin-api-key">
+  ### Clave de API de administrador
+</div>
+
+La clave de API de administrador se utiliza en los endpoints [Trigger update](/es/api-reference/update/trigger) y [Get update status](/es/api-reference/update/status).
+
+Las claves de API de administrador comienzan con el prefijo `mint_`. Mantén en secreto tus claves de API de administrador.
+
+<div id="assistant-api-key">
+  ### Clave de la API del Asistente
+</div>
+
+La clave de la API del Asistente se utiliza en los endpoints [Generar mensaje del asistente](/es/api-reference/assistant/create-assistant-message) y [Buscar en la documentación](/es/api-reference/assistant/search).
+
+Las claves de la API del Asistente comienzan con el prefijo `mint_dsc_`.
+
+La **clave** de la API del Asistente es un token del lado del servidor que debe mantenerse en secreto.
+
+El **token** de la API del Asistente es un token público que puede usarse en tu código del frontend.
+
+<Note>
+  Las llamadas que usan el token de la API del Asistente pueden generar costos: ya sea consumiendo tus créditos del Asistente de IA o incurriendo en excedentes.
+</Note>

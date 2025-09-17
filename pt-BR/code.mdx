@@ -1,0 +1,365 @@
+---
+title: "Código"
+description: "Exibir código embutido e blocos de código"
+icon: "code"
+---
+
+<div id="adding-code-samples">
+  ## Adicionando exemplos de código
+</div>
+
+Você pode adicionar trechos de código inline ou blocos de código. Blocos de código oferecem opções de metadados para realce de sintaxe, títulos, destaque de linhas, ícones e muito mais.
+
+<div id="inline-code">
+  ### Código inline
+</div>
+
+Para indicar uma `palavra` ou `frase` como código, envolva-a entre crases (`).
+
+```mdx
+Para indicar uma `palavra` ou `frase` como código, envolva-a entre crases (`).
+```
+
+<div id="code-blocks">
+  ### Blocos de código
+</div>
+
+Use [blocos de código delimitados](https://www.markdownguide.org/extended-syntax/#fenced-code-blocks), envolvendo o código com três crases. Os blocos de código podem ser copiados e, se o Assistente estiver ativado, os usuários podem pedir para a IA explicar o código.
+
+Especifique a linguagem de programação para destaque de sintaxe e para habilitar opções de meta. Adicione quaisquer opções de meta, como um título ou ícone, após a linguagem.
+
+```java HelloWorld.java lines icon="java"
+class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+```
+
+````mdx
+```java HelloWorld.java lines icon="java"
+class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+```
+````
+
+<div id="code-block-options">
+  ## Opções de bloco de código
+</div>
+
+Você pode adicionar opções de metadados aos seus blocos de código para personalizar sua aparência.
+
+<Note>
+  Você deve especificar uma linguagem de programação para um bloco de código antes de adicionar qualquer outra opção de metadados.
+</Note>
+
+<div id="option-syntax">
+  ### Sintaxe das opções
+</div>
+
+* **Opções de string e booleanas**: Envolva com `""`, `''` ou sem aspas.
+* **Opções de expressão**: Envolva com `{}`, `""` ou `''`.
+
+<div id="syntax-highlighting">
+  ### Realce de sintaxe
+</div>
+
+Habilite o realce de sintaxe especificando a linguagem de programação após as crases de abertura de um bloco de código.
+
+Usamos o [Shiki](https://shiki.style/) para realce de sintaxe e oferecemos suporte a todas as linguagens disponíveis. Veja a lista completa de [linguagens](https://shiki.style/languages) na documentação do Shiki.
+
+```java
+class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+```
+
+````mdx
+```java
+class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+```
+````
+
+<div id="title">
+  ### Título
+</div>
+
+Adicione um título para identificar seu exemplo de código. Use `title="Seu título"` ou uma string em uma única linha.
+
+```javascript Code Block Example
+const hello = "world";
+```
+
+````mdx
+```javascript Code Block Example
+const hello = "world";
+```
+````
+
+<div id="icon">
+  ### Ícone
+</div>
+
+Adicione um ícone ao seu bloco de código usando a propriedade `icon`. Veja [Ícones](/pt-BR/components/icons) para todas as opções disponíveis.
+
+```javascript icon="square-js"
+const hello = "world";
+```
+
+````mdx
+```javascript icon="square-js"
+const hello = "world";
+```
+````
+
+<div id="line-highlighting">
+  ### Realce de linhas
+</div>
+
+Realce linhas específicas em seus blocos de código usando `highlight` com os números ou intervalos de linhas que você quer realçar.
+
+```javascript Line Highlighting Example highlight= {1-2,5}
+const greeting = "Hello, World!";
+function sayHello() {
+  console.log(greeting);
+}
+sayHello();
+```
+
+````mdx
+```javascript Line Highlighting Example highlight={1-2,5}
+const greeting = "Hello, World!";
+function sayHello() {
+  console.log(greeting);
+}
+sayHello();
+```
+````
+
+<div id="line-focusing">
+  ### Foco em linhas
+</div>
+
+Destaque linhas específicas nos seus blocos de código usando `focus` com números de linha ou intervalos.
+
+```javascript Line Focus Example focus= {2,4-5}
+const greeting = "Hello, World!";
+function sayHello() {
+  console.log(greeting);
+}
+sayHello();
+```
+
+````mdx
+```javascript Line Focus Example focus={2,4-5}
+const greeting = "Hello, World!";
+function sayHello() {
+  console.log(greeting);
+}
+sayHello();
+```
+````
+
+<div id="show-line-numbers">
+  ### Mostrar números de linha
+</div>
+
+Mostre os números de linha no lado esquerdo do seu bloco de código usando `lines`.
+
+```javascript Exemplo com números de linha lines
+const greeting = "Hello, World!";
+function sayHello() {
+  console.log(greeting);
+}
+sayHello();
+```
+
+````mdx
+```javascript Exemplo com números de linha lines
+const greeting = "Hello, World!";
+function sayHello() {
+  console.log(greeting);
+}
+sayHello();
+```
+````
+
+<div id="expandable">
+  ### Expansível
+</div>
+
+Permita que os usuários expandam e recolham blocos de código longos usando `expandable`.
+
+```python Expandable Example expandable
+from datetime import datetime, timedelta
+from typing import Dict, List, Optional
+from dataclasses import dataclass
+
+@dataclass
+class Book:
+    title: str
+    author: str
+    isbn: str
+    checked_out: bool = False
+    due_date: Optional[datetime] = None
+
+class Library:
+    def __init__(self):
+        self.books: Dict[str, Book] = {}
+        self.checkouts: Dict[str, List[str]] = {}  # leitor -> lista de ISBNs
+
+    def add_book(self, book: Book) -> None:
+        if book.isbn in self.books:
+            raise ValueError(f"Livro com ISBN {book.isbn} já existe")
+        self.books[book.isbn] = book
+
+    def checkout_book(self, isbn: str, patron: str, days: int = 14) -> None:
+        if patron not in self.checkouts:
+            self.checkouts[patron] = []
+
+        book = self.books.get(isbn)
+        if not book:
+            raise ValueError("Livro não encontrado")
+
+        if book.checked_out:
+            raise ValueError("O livro já está emprestado")
+
+        if len(self.checkouts[patron]) >= 3:
+            raise ValueError("O leitor atingiu o limite de empréstimos")
+
+        book.checked_out = True
+        book.due_date = datetime.now() + timedelta(days=days)
+        self.checkouts[patron].append(isbn)
+
+    def return_book(self, isbn: str) -> float:
+        book = self.books.get(isbn)
+        if not book or not book.checked_out:
+            raise ValueError("Livro não encontrado ou não está emprestado")
+
+        late_fee = 0.0
+        if datetime.now() > book.due_date:
+            days_late = (datetime.now() - book.due_date).days
+            late_fee = days_late * 0.50
+
+        book.checked_out = False
+        book.due_date = None
+
+        # Remover dos empréstimos do leitor
+        for patron, books in self.checkouts.items():
+            if isbn in books:
+                books.remove(isbn)
+                break
+
+        return late_fee
+
+    def search(self, query: str) -> List[Book]:
+        query = query.lower()
+        return [
+            book for book in self.books.values()
+            if query in book.title.lower() or query in book.author.lower()
+        ]
+
+def main():
+    library = Library()
+
+    # Adicionar alguns livros
+    books = [
+        Book("The Hobbit", "J.R.R. Tolkien", "978-0-261-10295-4"),
+        Book("1984", "George Orwell", "978-0-452-28423-4"),
+    ]
+
+    for book in books:
+        library.add_book(book)
+
+    # Exemplo de empréstimo e devolução
+    library.checkout_book("978-0-261-10295-4", "patron123")
+    late_fee = library.return_book("978-0-261-10295-4")
+    print(f"Multa por atraso: US${late_fee:.2f}")
+
+if __name__ == "__main__":
+    main()
+```
+
+````mdx
+```python Expandable Example expandable
+from datetime import datetime, timedelta
+from typing import Dict, List, Optional
+from dataclasses import dataclass
+
+# ...
+
+if __name__ == "__main__":
+    main()
+```
+````
+
+<div id="wrap">
+  ### Quebra de texto
+</div>
+
+Ative a quebra de texto para linhas longas usando `wrap`. Isso evita a rolagem horizontal e torna as linhas longas mais fáceis de ler.
+
+```javascript Wrap Example wrap
+const greeting = "Hello, World! I am a long line of text that will wrap to the next line.";
+function sayHello() {
+  console.log(greeting);
+}
+sayHello();
+```
+
+````mdx
+```javascript Wrap Example wrap
+const greeting = "Hello, World! I am a long line of text that will wrap to the next line.";
+function sayHello() {
+  console.log(greeting);
+}
+sayHello();
+```
+````
+
+<div id="diff">
+  ### Diff
+</div>
+
+Mostre um diff visual de linhas adicionadas ou removidas em seus blocos de código. Linhas adicionadas são destacadas em verde e linhas removidas são destacadas em vermelho.
+
+Para criar diffs, adicione estes comentários especiais ao final das linhas no seu bloco de código:
+
+* `// [!code ++]`: Marca uma linha como adicionada (destaque em verde).
+* `// [!code --]`: Marca uma linha como removida (destaque em vermelho).
+
+Para várias linhas consecutivas, especifique o número de linhas após dois pontos:
+
+* `// [!code ++:3]`: Marca a linha atual mais as duas próximas como adicionadas.
+* `// [!code --:5]`: Marca a linha atual mais as quatro próximas como removidas.
+
+A sintaxe do comentário deve corresponder à sua linguagem de programação (por exemplo, `//` para JavaScript ou `#` para Python).
+
+```js Diff Example icon="code" lines
+const greeting = "Hello, World!"; // [!code ++]
+function sayHello() {
+  console.log("Hello, World!"); // [!code --]
+  console.log(greeting); // [!code ++]
+}
+sayHello();
+```
+
+````text
+```js Diff Example icon="code" lines
+const greeting = "Hello, World!"; // [!code ++]
+function sayHello() {
+  console.log("Hello, World!"); // [!code --]
+  console.log(greeting); // [!code ++]
+}
+sayHello();
+```
+````

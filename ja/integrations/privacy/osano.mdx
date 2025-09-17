@@ -1,0 +1,55 @@
+---
+title: "Osano"
+---
+
+[Osano](https://www.osano.com/) のクッキー同意マネージャーを追加するには、`docs.json` に次を追加します。
+
+<CodeGroup>
+
+```json Integration options in docs.json
+"integrations": {
+    "osano": "SOURCE"
+}
+```
+
+```json Example
+"integrations": {
+    "osano": "https://cmp.osano.com/2sUB2dqwqdkks/8dqwd-dwd86£-4a9b/osano.js"
+}
+```
+
+</CodeGroup>
+
+`SOURCE` は、Osano が生成するコードスニペット内の `src` の値です。必ず `https://cmp.osano.com/` で始まります。
+
+```html Code snippet from Osano
+<script src="https://cmp.osano.com/placeholder/placeholder/osano.js"/>
+```
+
+<div id="troubleshooting">
+  ## トラブルシューティング
+</div>
+
+<Accordion
+  title="Strict コンプライアンスモードでページが読み込まれない"
+>
+  Osano の **Strict** コンプライアンスモード使用時にドキュメントページが正しく表示されない場合は、画像やその他のアセットを読み込めるように、Mintlify のドメインを許可対象に追加してください。
+
+  <Steps>
+    <Step title="Managed Rules に移動">
+      Osano のダッシュボードで、**Scripts** → **Managed Rules** に進みます。
+    </Step>
+
+    <Step title="Mintlify ドメインを追加">
+      管理ルールとして `.mintlify.app/` を追加します。
+
+      <Frame>
+        <img src="/images/integrations/osano-managed-rule.png" alt="Osano の Managed Rule 設定" />
+      </Frame>
+
+      <Info>
+      これにより、Mintlify が提供するすべてのアセット（画像、スタイルシート、その他のドキュメントリソース）が必須扱いとなり、Osano が未分類のサードパーティコンテンツをブロックしている場合でも読み込まれるようになります。
+      </Info>
+    </Step>
+  </Steps>
+</Accordion>

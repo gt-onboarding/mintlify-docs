@@ -1,0 +1,66 @@
+---
+title: "Conceitos de Git"
+description: "Aprenda os fundamentos do Git para o fluxo de trabalho de docs-as-code"
+---
+
+Git é um sistema de controle de versão que permite acompanhar mudanças na sua documentação e colaborar com membros da equipe. Com o Git, para cada arquivo do seu projeto, você pode ver o que mudou, quando e por quê. O Git também facilita voltar a versões anteriores de arquivos, caso seja necessário.
+
+O Editor web executa algumas operações do Git em segundo plano. Entender esses conceitos ajudará você a trabalhar de forma mais eficaz com o Editor web e a colaborar com membros da equipe que estão trabalhando em seus ambientes de desenvolvimento locais.
+
+<div id="core-git-concepts">
+  ## Conceitos fundamentais do Git
+</div>
+
+<AccordionGroup>
+  <Accordion title="Repository">
+    A origem da sua documentação, onde todos os arquivos e seu histórico são armazenados. O Editor web se conecta ao seu repositório para acessar e modificar o conteúdo.
+  </Accordion>
+
+  <Accordion title="Commit">
+    Um snapshot salvo das suas alterações em um momento específico. Cada commit inclui uma mensagem descrevendo o que mudou e cria um registro permanente no histórico do seu projeto.
+  </Accordion>
+
+  <Accordion title="Branch">
+    Uma branch aponta para um commit específico no seu repositório. Sua documentação em produção é gerada a partir de uma branch de implantação. Você pode ter qualquer número de outras branches com alterações que ainda não foram publicadas na sua documentação em produção. Se quiser incorporar as alterações de uma branch na sua documentação em produção, você pode fazer merge dessa branch na branch de implantação por meio de um pull request.
+
+    Use branches para trabalhar em mudanças sem afetar a documentação em produção, experimentar novos recursos com segurança e obter revisões antes de publicar.
+  </Accordion>
+
+  <Accordion title="Deployment branch">
+    A branch principal do seu projeto a partir da qual o conteúdo da documentação em produção é gerado. Alterações nessa branch são publicadas automaticamente no seu site de documentação. Geralmente chamada de `main`, mas você pode definir qualquer branch como sua branch de implantação.
+  </Accordion>
+
+  <Accordion title="Pull request">
+    Uma forma de propor o merge das suas alterações em uma branch para a documentação em produção. Permite revisão e discussão antes de as mudanças entrarem no ar. Comumente chamada de PR e também conhecida como merge request no GitLab.
+  </Accordion>
+
+  <Accordion title="Diff">
+    Um diff (ou diferença) mostra as mudanças entre duas versões de um arquivo. Ao revisar pull requests, os diffs destacam o que foi adicionado, removido ou modificado, facilitando identificar o que mudou.
+  </Accordion>
+</AccordionGroup>
+
+<div id="how-the-web-editor-uses-git">
+  ## Como o editor web usa o Git
+</div>
+
+O editor web se conecta ao seu repositório Git por meio do [GitHub App](/pt-BR/settings/github) ou da [integração com o GitLab](/pt-BR/settings/gitlab) e automatiza operações comuns do Git.
+
+Quando você:
+
+* **Abre um arquivo**: O editor busca a versão mais recente do seu repositório, garantindo que você esteja sempre trabalhando com conteúdo atualizado.
+* **Faz alterações**: O editor acompanha suas alterações como um rascunho que pode se tornar um commit quando você estiver pronto para salvar seu trabalho.
+* **Salva alterações**: O editor cria um commit com suas alterações, preservando seu trabalho no histórico do projeto.
+* **Cria um branch**: O editor cria um novo branch no seu repositório que pode ser usado por qualquer pessoa com acesso ao repositório para colaborar e revisar alterações.
+* **Publica no seu branch de implantação**: O editor realiza commit e push diretamente no seu branch de implantação, publicando suas alterações imediatamente.
+* **Publica em outros branches**: O editor cria um pull request, permitindo receber feedback de outras pessoas antes de mesclar suas alterações no seu branch de implantação.
+
+<div id="git-best-practices">
+  ## Boas práticas de Git
+</div>
+
+Cada equipe terá seus próprios fluxos de trabalho e preferências, mas estas são algumas práticas gerais para começar.
+
+* **Escreva mensagens de commit descritivas**: Seja específico sobre o que foi alterado, usando linguagem ativa.
+* **Use nomes de branch descritivos**: Os nomes das branches devem deixar claro o trabalho que está sendo feito e fazer sentido para quem estiver visualizando as branches no repositório.
+* **Mantenha as branches focadas**: Concentre as alterações de uma branch em uma tarefa ou projeto específico.
+* **Exclua branches após o merge**: Exclua branches quando não forem mais necessárias para manter o repositório organizado.

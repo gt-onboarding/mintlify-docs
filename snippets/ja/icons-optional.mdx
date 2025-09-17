@@ -1,0 +1,23 @@
+<ResponseField name="icon" type="string">
+  表示するアイコン。
+  
+  オプション:
+  - [Font Awesome icon](https://fontawesome.com/icons) の名前
+  - [Lucide icon](https://lucide.dev/icons) の名前
+  - 中括弧で囲んだ JSX 互換の SVG コード
+  - 外部でホストされているアイコンへの URL
+  - プロジェクト内のアイコンファイルへのパス
+  
+  カスタム SVG アイコンの場合:
+  1. [SVGR converter](https://react-svgr.com/playground/) を使って SVG を変換します。
+  1. SVG コードを SVG の入力フィールドに貼り付けます。
+  2. JSX の出力フィールドから完全な `<svg>...</svg>` 要素をコピーします。
+  3. JSX 互換の SVG コードを中括弧で囲みます: `icon={<svg ...> ... </svg>}`。
+  4. 必要に応じて `height` と `width` を調整します。
+</ResponseField>
+
+<ResponseField name="iconType" type="string">
+  [Font Awesome](https://fontawesome.com/icons) のアイコンスタイル。Font Awesome のアイコンでのみ使用されます。 
+  
+  オプション: `regular`, `solid`, `light`, `thin`, `sharp-solid`, `duotone`, `brands`。
+</ResponseField>

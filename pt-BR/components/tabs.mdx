@@ -1,0 +1,71 @@
+---
+title: "Tabs"
+description: "Alterne conteúdo usando o componente Tabs"
+icon: "panel-top"
+---
+
+Use abas para organizar o conteúdo em vários painéis entre os quais os usuários podem alternar. Você pode adicionar quantas abas quiser e incluir outros componentes dentro de cada uma.
+
+<Tabs>
+  <Tab title="First tab">
+    ☝️ Bem-vindo ao conteúdo que você só pode ver dentro da primeira aba.
+
+    Você pode adicionar quantos componentes quiser dentro das abas. Por exemplo, um bloco de código:
+    ```java HelloWorld.java
+      class HelloWorld {
+          public static void main(String[] args) {
+              System.out.println("Hello, World!");
+          }
+      }
+    ```
+  </Tab>
+  <Tab title="Second tab" icon="leaf">
+    ✌️ Aqui está o conteúdo que fica apenas dentro da segunda aba.
+
+    Esta aqui tem um ícone <Icon icon="leaf" />!
+  </Tab>
+  <Tab title="Third tab">
+    💪 Aqui está o conteúdo que fica apenas dentro da terceira aba.
+  </Tab>
+</Tabs>
+
+````mdx Tabs example
+<Tabs>
+  <Tab title="First tab">
+    ☝️ Bem-vindo ao conteúdo que você só pode ver dentro da primeira aba.
+
+    Você pode adicionar quantos componentes quiser dentro das abas. Por exemplo, um bloco de código:
+    ```java HelloWorld.java
+      class HelloWorld {
+          public static void main(String[] args) {
+              System.out.println("Hello, World!");
+          }
+      }
+    ```
+  </Tab>
+  <Tab title="Second tab" icon="leaf">
+    ✌️ Aqui está o conteúdo que fica apenas dentro da segunda aba.
+
+    Esta aqui tem um ícone <Icon icon="leaf" />!
+  </Tab>
+  <Tab title="Third tab">
+    💪 Aqui está o conteúdo que fica apenas dentro da terceira aba.
+  </Tab>
+</Tabs>
+````
+
+<div id="properties">
+  ## Propriedades
+</div>
+
+<ResponseField name="title" type="string" required>
+  O título da aba. Títulos curtos facilitam a navegação.
+</ResponseField>
+
+<ResponseField name="icon" type="string">
+  Um ícone do [Font Awesome](https://fontawesome.com/icons), do [Lucide](https://lucide.dev/icons), uma URL para um ícone ou um caminho relativo para um ícone.
+</ResponseField>
+
+<ResponseField name="iconType" type="string">
+  Apenas para ícones do Font Awesome: um dentre `regular`, `solid`, `light`, `thin`, `sharp-solid`, `duotone`, `brands`.
+</ResponseField>

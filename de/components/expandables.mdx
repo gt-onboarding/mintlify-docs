@@ -1,0 +1,47 @@
+---
+title: "Aufklapper"
+description: "Zum Anzeigen verschachtelter Eigenschaften umschalten"
+icon: "list-tree"
+---
+
+Verwenden Sie Aufklapper, um verschachtelte Inhalte in Response-Feldern ein- und auszublenden. Aufklapper sind besonders hilfreich, um komplexe Objekteigenschaften in API-Dokumentationen darzustellen.
+
+<ResponseField name="user" type="User Object">
+  <Expandable title="Eigenschaften">
+
+<ResponseField name="full_name" type="string">
+  Vollständiger Name des Benutzers
+</ResponseField>
+
+<ResponseField name="is_over_21" type="boolean">
+  Gibt an, ob der Benutzer älter als 21 Jahre ist
+</ResponseField>
+
+  </Expandable>
+</ResponseField>
+
+```mdx Expandable example
+<ResponseField name="user" type="User Object">
+  <Expandable title="properties">
+    <ResponseField name="full_name" type="string">
+      The full name of the user
+    </ResponseField>
+
+    <ResponseField name="is_over_21" type="boolean">
+      Whether the user is over 21 years old
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+```
+
+<div id="properties">
+  ## Eigenschaften
+</div>
+
+<ResponseField name="title" type="string">
+  Der Name des Objekts, das angezeigt wird.
+</ResponseField>
+
+<ResponseField name="defaultOpen" type="boolean" default="false">
+  Auf `true` setzen, damit das ausklappbare Element beim Laden der Seite geöffnet wird
+</ResponseField>

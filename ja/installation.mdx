@@ -1,0 +1,216 @@
+---
+title: "CLI のインストール"
+sidebarTitle: "インストール"
+description: "CLI をインストールして、ローカルでドキュメントをプレビュー・開発する"
+icon: "terminal"
+---
+
+<img className="block dark:hidden my-0 pointer-events-none" src="/images/installation/local-development-light.png" />
+
+<img className="hidden dark:block my-0 pointer-events-none" src="/images/installation/local-development-dark.png" />
+
+<div id="installing-the-cli">
+  ## CLI のインストール
+</div>
+
+<Info>
+  **前提条件**: 事前に [Node.js](https://nodejs.org/en) をインストールしてください。
+</Info>
+
+<Steps>
+  <Step title="CLI をインストールする">
+    [CLI](https://www.npmjs.com/package/mint) をインストールするには、次のコマンドを実行します:
+
+    <CodeGroup>
+      ```bash npm
+      npm i -g mint
+      ```
+
+      ```bash pnpm
+      pnpm add -g mint
+      ```
+    </CodeGroup>
+  </Step>
+
+  <Step title="ローカルでプレビューする">
+    ドキュメントのディレクトリ（`docs.json` がある場所）に移動し、次のコマンドを実行します:
+
+    ```bash
+    mint dev
+    ```
+
+    ドキュメントのローカルプレビューは `http://localhost:3000` で確認できます。
+  </Step>
+</Steps>
+
+また、CLI をグローバルにインストールしたくない場合は、ワンタイムのスクリプトとして次を実行できます:
+
+```bash
+npx mint dev
+```
+
+<div id="updates">
+  ## 更新
+</div>
+
+ローカルのプレビューが本番環境のウェブ上の表示内容と同期していない場合は、ローカルのCLIを更新してください：
+
+```bash
+mint update
+```
+
+ローカルのバージョンで `mint update` コマンドが利用できない場合は、最新バージョンのCLIを再インストールしてください：
+
+<CodeGroup>
+  ```bash npm
+  npm i -g mint@latest
+  ```
+
+  ```bash pnpm
+  pnpm add -g mint@latest
+  ```
+</CodeGroup>
+
+<div id="custom-ports">
+  ## カスタムポート
+</div>
+
+デフォルトでは CLI はポート 3000 を使用します。`--port` フラグでポートを指定できます。たとえば、CLI をポート 3333 で実行するには次のコマンドを使用します:
+
+```bash
+mint dev --port 3333
+```
+
+すでに使用中のポートを指定した場合は、次に利用可能なポートが使用されます:
+
+```mdx
+Port 3000 is already in use. Trying 3001 instead.
+```
+
+<div id="previewing-as-a-specific-group">
+  ## 特定のグループとしてプレビューする
+</div>
+
+ドキュメントへのアクセスを部分認証で制限している場合は、`--group [groupname]` フラグを使って特定の認証グループとしてプレビューできます。
+
+たとえば、`admin` という名前のグループがある場合は、次のコマンドでそのグループのメンバーとしてプレビューできます。
+
+```bash
+mint dev --group admin
+```
+
+<div id="additional-commands">
+  ## 追加のコマンド
+</div>
+
+`mint dev` が最もよく使われるコマンドですが、ドキュメント管理には他にも使えるコマンドがあります。
+
+<div id="finding-broken-links">
+  ### リンク切れの検出
+</div>
+
+CLI はドキュメント内の参照リンクの検証を支援します。リンク切れを特定するには、次のコマンドを実行します:
+
+```bash
+mint broken-links
+```
+
+<div id="checking-openapi-spec">
+  ### OpenAPI仕様のチェック
+</div>
+
+次のコマンドで、CLIを使ってOpenAPIファイルのエラーを確認できます。
+
+```bash
+mint openapi-check <openapiFilenameOrUrl>
+```
+
+ファイル名（例：`./openapi.yaml`）またはURL（例：`https://petstore3.swagger.io/api/v3/openapi.json`）を指定できます。
+
+<div id="renaming-files">
+  ### ファイル名の変更
+</div>
+
+次のコマンドで、ファイル名の変更と、ファイルへのすべての参照の更新を行えます。
+
+```bash
+mint rename <oldFilename> <newFilename>
+```
+
+<div id="migrating-mdx-endpoint-pages">
+  ### MDX エンドポイントページの移行
+</div>
+
+次のコマンドで、OpenAPI 仕様から自動生成されるページへ MDX エンドポイントページを移行できます。
+
+```bash
+mint migrate-mdx
+```
+
+このコマンドは、各 MDX エンドポイントページを `docs.json` で定義された自動生成ページに変換し、MDX コンテンツを OpenAPI 仕様の `x-mint` 拡張に移動し、ナビゲーションを更新します。詳しくは [Migrating from MDX](/ja/api-playground/migrating-from-mdx) を参照してください。
+
+<div id="formatting">
+  ## フォーマット
+</div>
+
+ローカル開発時は、IDE の拡張機能を使って `MDX` ファイルを認識・整形することをおすすめします。
+
+Cursor、Windsurf、または VS Code をお使いの場合は、シンタックスハイライトに [MDX VS Code extension](https://marketplace.visualstudio.com/items?itemName=unifiedjs.vscode-mdx)、コード整形に [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) をおすすめします。
+
+JetBrains をお使いの場合は、シンタックスハイライトに [MDX IntelliJ IDEA plugin](https://plugins.jetbrains.com/plugin/14944-mdx)、コード整形用に [Prettier](https://prettier.io/docs/webstorm) の設定を行うことをおすすめします。
+
+<div id="troubleshooting">
+  ## トラブルシューティング
+</div>
+
+<AccordionGroup>
+  <Accordion title="エラー: darwin-arm64 ランタイムで「sharp」モジュールを読み込めませんでした">
+    古いバージョンの Node が原因の可能性があります。次をお試しください:
+
+    1. 現在インストールされている mint CLI を削除します: `npm uninstall -g mint`
+    2. Node.js をアップグレードします。
+    3. mint CLI を再インストールします: `npm install -g mint`
+  </Accordion>
+
+  <Accordion title="問題: 不明なエラーが発生する">
+    **解決策**: ホームディレクトリの `~/.mintlify` フォルダを削除してください。削除後に `mint dev` を再度実行します。
+  </Accordion>
+
+  <Accordion title="エラー: permission denied">
+    Node パッケージをグローバルにインストールするための必要な権限がないことが原因です。
+
+    **解決策**: `sudo npm i -g mint` を実行してみてください。コンピュータのロック解除に使用しているパスワードの入力が求められます。
+  </Accordion>
+
+  <Accordion title="ローカルプレビューがウェブ上のドキュメントと同じに見えない">
+    CLI のバージョンが古いことが原因の可能性が高いです。
+
+    **解決策:** 最新版に更新するため `mint update` を実行してください。
+  </Accordion>
+
+  <Accordion title="mintlify と mint パッケージの違い">
+    CLI パッケージに問題がある場合は、まず `npm ls -g` を実行してください。このコマンドは、マシンにグローバルインストールされているパッケージを表示します。
+
+    npm を使っていない場合、または -g の一覧に見当たらない場合は、インストール場所を特定するために `which mint` を試してください。
+
+    `mint` という名前のパッケージと `mintlify` という名前のパッケージが両方インストールされている場合は、`mintlify` をアンインストールしてください。
+
+    1. 旧パッケージをアンインストールします:
+
+    ```bash
+      npm uninstall -g mintlify
+    ```
+
+    2. npm のキャッシュをクリアします:
+
+    ```bash
+      npm cache clean --force
+    ```
+
+    3. 新しいパッケージを再インストールします:
+
+    ```bash
+    npm i -g mint
+    ```
+  </Accordion>
+</AccordionGroup>

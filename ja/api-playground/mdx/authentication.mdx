@@ -1,0 +1,103 @@
+---
+title: "認証"
+description: "ユーザーが実際のAPIキーを使用できるように、認証パラメータを設定できます。"
+---
+
+<div id="enabling-authentication">
+  ## 認証を有効にする
+</div>
+
+`docs.json` に認証方式を追加して、全ページでグローバルに有効化することも、ページ単位で設定することもできます。
+
+ページの認証方式は、両方が設定されている場合、グローバル設定より優先されます。
+
+<div id="bearer-token">
+  ### ベアラートークン
+</div>
+
+<CodeGroup>
+
+```json docs.json
+"api": {
+    "mdx": {
+      "auth": {
+        "method": "bearer"
+      }
+    }
+}
+```
+
+```mdx Page Metadata
+---
+title: "ページのタイトル"
+authMethod: "bearer"
+---
+```
+
+</CodeGroup>
+
+<div id="basic-authentication">
+  ### Basic認証
+</div>
+
+<CodeGroup>
+
+```json docs.json
+"api": {
+    "mdx": {
+      "auth": {
+        "method": "basic"
+      }
+    }
+}
+```
+
+```mdx Page Metadata
+---
+title: "ページのタイトル"
+authMethod: "basic"
+---
+```
+
+</CodeGroup>
+
+<div id="api-key">
+  ### APIキー
+</div>
+
+<CodeGroup>
+
+```json docs.json
+"api": {
+    "mdx": {
+      "auth": {
+        "method": "key",
+        "name": "x-api-key"
+      }
+    }
+}
+```
+
+```mdx Page Metadata
+---
+title: "ページタイトル"
+authMethod: "key"
+---
+```
+
+</CodeGroup>
+
+<div id="none">
+  ### None
+</div>
+
+docs.json でデフォルトを設定した後、特定のエンドポイントで認証を無効化するのに「none」認証方式が便利です。
+
+<CodeGroup>
+```mdx Page Metadata
+---
+title: "Your page title"
+authMethod: "none"
+---
+```
+</CodeGroup>

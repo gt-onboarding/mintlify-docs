@@ -1,0 +1,58 @@
+---
+title: 'レスポンスフィールド'
+description: 'API のレスポンス値を表示する'
+---
+
+`<ResponseField>` コンポーネントは、API の戻り値を定義するために設計されています。多くのドキュメントでは、ある項目の型を一覧表示する必要があるページでも `<ResponseField>` が使われます。
+
+<ResponseField name="response" type="string" required>
+  レスポンスフィールドの例
+</ResponseField>
+
+```mdx
+<ResponseField name="response" type="string" required>
+  レスポンスフィールドの例
+</ResponseField>
+```
+
+<div id="props">
+  ## プロパティ
+</div>
+
+<ResponseField name="name" type="string" required>
+  レスポンス値の名前。
+</ResponseField>
+
+<ResponseField name="type" type="string" required>
+  レスポンス値の想定型 — 任意の文字列を指定できます。
+</ResponseField>
+
+<ResponseField name="default" type="string">
+  既定値。
+</ResponseField>
+
+<ResponseField name="required" type="boolean">
+  フィールド名の横に「required」を表示します。
+</ResponseField>
+
+<ResponseField name="deprecated" type="boolean">
+  フィールドが非推奨かどうか。
+</ResponseField>
+
+<ResponseField name="pre" type="string[]">
+  フィールド名の前に表示されるラベル。
+</ResponseField>
+
+<ResponseField name="post" type="string[]">
+  フィールド名の後に表示されるラベル。
+</ResponseField>
+
+<RequestExample>
+
+```mdx Response Field Example
+<ResponseField name="response" type="string" required>
+  レスポンスフィールドの例
+</ResponseField>
+```
+
+</RequestExample>

@@ -1,0 +1,224 @@
+---
+title: "SEO"
+description: "検索での可視性を高めるための SEO のベストプラクティスとメタタグ設定"
+icon: "search"
+---
+
+Mintlify は多くの SEO ベストプラクティスを自動で処理します。例としては次のとおりです。
+
+* メタタグの生成
+* サイトマップと `robots.txt` の生成
+* セマンティックな HTML 構造
+* モバイル最適化
+
+`docs.json` や各ページのフロントマターに `metatags` フィールドを追加すると、サイトのメタタグを自由にカスタマイズできます。
+
+<div id="global-meta-tags">
+  ## グローバルメタタグ
+</div>
+
+`docs.json` に `metatags` フィールドを追加することで、デフォルトのメタタグを設定できます。
+
+```json
+"seo": {
+    "metatags": {
+        "og:image": "link to your default meta tag image"
+    }
+}
+```
+
+<div id="page-specific-meta-tags">
+  ## ページ単位のメタタグ
+</div>
+
+ページのメタデータには、次のようにメタタグを追加します:
+
+```mdx
+---
+title: 'Your Example Page Title'
+'og:image': 'link to your meta tag image'
+---
+```
+
+<Warning>
+  コロンを含むメタタグは、ページのメタデータに記述する際に必ず引用符で囲んでください。
+</Warning>
+
+<div id="common-meta-tags-reference">
+  ## 一般的なメタタグのリファレンス
+</div>
+
+以下は、`docs.json` に追加できるメタタグの網羅的な一覧です。これらのメタタグは、サイトの SEO、ソーシャルでの共有、ブラウザ互換性の向上に役立ちます。
+
+[metatags.io](https://metatags.io/) を使って、各プラットフォームでメタタグがどのように表示されるかをプレビューできます。
+
+```json expandable
+"seo": {
+    "metatags": {
+      "robots": "noindex",
+      "charset": "UTF-8",
+      "viewport": "width=device-width, initial-scale=1.0",
+      "description": "ページの説明",
+      "keywords": "キーワード1, キーワード2, キーワード3",
+      "author": "著者名",
+      "robots": "index, follow",
+      "googlebot": "index, follow",
+      "google": "notranslate",
+      "google-site-verification": "verification_token",
+      "generator": "Mintlify",
+      "theme-color": "#000000",
+      "color-scheme": "light dark",
+      "canonical": "https://your-custom-domain-here.com",
+      "format-detection": "telephone=no",
+      "referrer": "origin",
+      "refresh": "30",
+      "rating": "general",
+      "revisit-after": "7 days",
+      "language": "en",
+      "copyright": "Copyright 2024",
+      "reply-to": "email@example.com",
+      "distribution": "global",
+      "coverage": "Worldwide",
+      "category": "Technology",
+      "target": "all",
+      "HandheldFriendly": "True",
+      "MobileOptimized": "320",
+      "apple-mobile-web-app-capable": "yes",
+      "apple-mobile-web-app-status-bar-style": "black",
+      "apple-mobile-web-app-title": "アプリ名",
+      "application-name": "アプリ名",
+      "msapplication-TileColor": "#000000",
+      "msapplication-TileImage": "path/to/tile.png",
+      "msapplication-config": "path/to/browserconfig.xml",
+      "og:title": "Open Graph タイトル",
+      "og:type": "website",
+      "og:url": "https://example.com",
+      "og:image": "https://example.com/image.jpg",
+      "og:description": "Open Graph 説明",
+      "og:site_name": "サイト名",
+      "og:locale": "en_US",
+      "og:video": "https://example.com/video.mp4",
+      "og:audio": "https://example.com/audio.mp3",
+      "twitter:card": "summary",
+      "twitter:site": "@username",
+      "twitter:creator": "@username",
+      "twitter:title": "Twitter タイトル",
+      "twitter:description": "Twitter 説明",
+      "twitter:image": "https://example.com/image.jpg",
+      "twitter:image:alt": "画像の説明",
+      "twitter:player": "https://example.com/player",
+      "twitter:player:width": "480",
+      "twitter:player:height": "480",
+      "twitter:app:name:iphone": "アプリ名",
+      "twitter:app:id:iphone": "12345",
+      "twitter:app:url:iphone": "app://",
+      "article:published_time": "2024-01-01T00:00:00+00:00",
+      "article:modified_time": "2024-01-02T00:00:00+00:00",
+      "article:expiration_time": "2024-12-31T00:00:00+00:00",
+      "article:author": "著者名",
+      "article:section": "テクノロジー",
+      "article:tag": "タグ1, タグ2, タグ3",
+      "book:author": "著者名",
+      "book:isbn": "1234567890",
+      "book:release_date": "2024-01-01",
+      "book:tag": "タグ1, タグ2, タグ3",
+      "profile:first_name": "John",
+      "profile:last_name": "Doe",
+      "profile:username": "johndoe",
+      "profile:gender": "male",
+      "music:duration": "205",
+      "music:album": "アルバム名",
+      "music:album:disc": "1",
+      "music:album:track": "1",
+      "music:musician": "アーティスト名",
+      "music:song": "楽曲名",
+      "music:song:disc": "1",
+      "music:song:track": "1",
+      "video:actor": "出演者名",
+      "video:actor:role": "役名",
+      "video:director": "監督名",
+      "video:writer": "脚本家名",
+      "video:duration": "120",
+      "video:release_date": "2024-01-01",
+      "video:tag": "タグ1, タグ2, タグ3",
+      "video:series": "シリーズ名"
+  }
+}
+```
+
+<div id="sitemaps-and-robotstxt-files">
+  ## サイトマップと robots.txt ファイル
+</div>
+
+Mintlify は自動的に `sitemap.xml` と `robots.txt` を生成します。ドキュメンテーションサイトの URL の末尾に `/sitemap.xml` を付けると、サイトマップを確認できます。
+
+既定では `docs.json` に含まれるページのみが対象です。非表示のリンクも含めるには、`docs.json` に `seo.indexing` を追加します:
+
+```json
+"seo": {
+    "indexing": all
+}
+```
+
+<div id="custom-sitemaps-and-robotstxt-files">
+  ### カスタムのサイトマップと robots.txt ファイル
+</div>
+
+カスタムの `sitemap.xml` または `robots.txt` を追加するには、プロジェクトのルートに `sitemap.xml` または `robots.txt` を作成します。カスタムファイルを追加すると、同名の自動生成ファイルが上書きされます。カスタムファイルを削除すると、デフォルトのファイルが再び使用されます。
+
+<div id="disabling-indexing">
+  ## インデックスの無効化
+</div>
+
+検索エンジンによるページのインデックス化を防ぎたい場合は、ページの[frontmatter](ja/pages)に次を追加します:
+
+```
+---
+noindex: true
+---
+```
+
+`docs.json`で`metadata.robots`フィールドを`"noindex"`に設定すると、ドキュメント内のすべてのページに対して`noindex`を指定できます:
+
+```json
+"seo": {
+    "metatags": {
+      "robots": "noindex"
+    }
+  }
+```
+
+<div id="seo-best-practices">
+  ## SEOのベストプラクティス
+</div>
+
+<AccordionGroup>
+  <Accordion title="わかりやすいタイトルとディスクリプションを書く">
+    * 明確でわかりやすいページタイトルを使う（50〜60文字）
+    * 魅力的なディスクリプションを書く（150〜160文字）
+    * 関連するキーワードを含める
+    * 各ページでタイトルとディスクリプションを重複させない
+  </Accordion>
+
+  <Accordion title="コンテンツ構造を最適化する">
+    * 適切な見出し階層を使う（H1 → H2 → H3）
+    * まずは人間の読者のために、次に検索エンジンのために書く
+    * 見出しや本文に関連キーワードを含める
+    * URLは短く、わかりやすく、階層的に整理する
+    * 長文は小見出しやリストで区切る
+  </Accordion>
+
+  <Accordion title="内部リンク戦略">
+    * ドキュメント内の関連ページへリンクする
+    * 「click here」ではなく、内容がわかるアンカーテキストを使う
+    * 関連概念同士をリンクしてトピッククラスターを形成する
+    * 自動クロスリファレンス機能を活用する
+  </Accordion>
+
+  <Accordion title="画像SEO">
+    * 画像には内容がわかるファイル名を付ける
+    * アクセシビリティとSEOのために必ずaltテキストを含める
+    * 高速表示のために画像ファイルサイズを最適化する
+    * コンテンツを補強する関連性の高い画像を使う
+  </Accordion>
+</AccordionGroup>

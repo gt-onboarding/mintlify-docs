@@ -1,0 +1,66 @@
+---
+title: "プレビューデプロイ"
+description: "ライブ環境でドキュメントの変更をプレビュー"
+icon: "scan-eye"
+---
+
+<Info>
+  プレビューデプロイは[Pro と Enterprise のプラン](https://mintlify.com/pricing?ref=preview-deployments)で利用できます。
+</Info>
+
+プレビューデプロイを使うと、本番にマージする前にドキュメントの変更がどのように表示されるかを確認できます。各プレビューでは共有可能なURLが発行され、新しい変更をプッシュすると自動的に更新されます。
+
+<div id="creating-preview-deployments">
+  ## プレビューデプロイの作成
+</div>
+
+プレビューデプロイは、プルリクエストで自動的に作成されるほか、ダッシュボードから手動で作成することもできます。
+
+<div id="automatic-previews">
+  ### 自動プレビュー
+</div>
+
+プルリクエストを作成すると、Mintlify ボットがそのプルリクエストにプレビューデプロイへのリンクを自動で追加します。プレビューは、ブランチに新しいコミットをプッシュするたびに更新されます。
+
+<Frame>
+  <img src="/images/previews/preview-deployment-light.png" alt="プルリクエストのタイムラインでデプロイを表示するリンク" className="block dark:hidden" />
+
+  <img src="/images/previews/preview-deployment-dark.png" alt="プルリクエストのタイムラインでデプロイを表示するリンク" className="hidden dark:block" />
+</Frame>
+
+<div id="manual-previews">
+  ### 手動プレビュー
+</div>
+
+任意のブランチのプレビューを手動で作成できます。
+
+1. [ダッシュボード](https://dashboard.mintlify.com/)にアクセスします。
+2. **Previews** を選択します。
+3. **Create preview** を選択します。
+4. ブランチ名を入力します。
+5. **Create deployment** を選択します。
+
+<div id="redeploying-a-preview">
+  ## プレビューの再デプロイ
+</div>
+
+コンテンツを更新する、またはデプロイ失敗後に再試行するために、プレビューを再デプロイします。
+
+1. [ダッシュボード](https://dashboard.mintlify.com/)でプレビューを選択します。
+2. **Redeploy** を選択します。
+
+<Frame>
+  <img src="/images/previews/redeploy-preview-light.png" alt="オレンジ色の枠で Deploy ボタンが強調表示された Previews メニュー。" className="block dark:hidden" />
+
+  <img src="/images/previews/redeploy-preview-dark.png" alt="オレンジ色の枠で Deploy ボタンが強調表示された Previews メニュー。" className="hidden dark:block" />
+</Frame>
+
+<div id="sharing-preview-deployments">
+  ## プレビューデプロイの共有
+</div>
+
+プレビューデプロイは、公開するか、認証済みユーザーのみに制限するかを選択できます。
+
+**公開アクセス**: プレビューURLは既定で公開されています。変更内容を確認してほしい相手にプレビューリンクを共有してください。
+
+**制限付きアクセス**: プレビューデプロイの認証を有効化すると、Mintlify の認証済みユーザーのみにアクセスを制限できます。詳細は[Authentication Setup](/ja/authentication-personalization/authentication-setup)をご覧ください。

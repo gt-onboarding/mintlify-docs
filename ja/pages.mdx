@@ -1,0 +1,176 @@
+---
+title: "ページ"
+description: "ページはドキュメントを構成する基本要素です"
+icon: "letter-text"
+keywords: ["タグ", "タグ"]
+---
+
+import IconsOptional from "/snippets/ja/icons-optional.mdx";
+
+各ページはMDXファイルで、MarkdownコンテンツとReactコンポーネントを組み合わせることで、リッチでインタラクティブなドキュメントを作成できます。
+
+<div id="page-metadata">
+  ## ページメタデータ
+</div>
+
+すべてのページは、ファイルの先頭で `---` に囲まれた frontmatter（YAML メタデータ）から始まります。このメタデータはページの表示と動作を定義します。
+
+メタデータで制御できる項目:
+
+* ページのタイトルと説明
+* サイドバーのタイトル、アイコン、タグ
+
+<ResponseField name="title" type="string" required>
+  ナビゲーションやブラウザのタブに表示されるページタイトル。
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  このページの内容を簡潔に説明します。タイトルの下に表示され、SEO に寄与します。
+</ResponseField>
+
+<ResponseField name="sidebarTitle" type="string">
+  サイドバーのナビゲーションに表示される短いタイトル。
+</ResponseField>
+
+<IconsOptional />
+
+<ResponseField name="tag" type="string">
+  サイドバーのページタイトル横に表示されるタグ。
+</ResponseField>
+
+```yaml Example YAML frontmatter wrap
+---
+title: "About frontmatter"
+description: "Frontmatter is the metadata that controls how your page appears and behaves"
+sidebarTitle: "Frontmatter"
+icon: "book"
+tag: "NEW"
+---
+```
+
+<div id="page-mode">
+  ## ページモード
+</div>
+
+`mode` 設定でページの表示方法を管理します。
+
+<div id="default">
+  ### デフォルト
+</div>
+
+モードが定義されていない場合、サイドバーのナビゲーションと目次を備えた標準レイアウトが使用されます。
+
+```yaml
+---
+title: "Default page title"
+---
+```
+
+<div id="wide">
+  ### ワイド
+</div>
+
+ワイドモードでは目次が非表示になります。見出しのないページや、横幅を広く使いたい場合に便利です。ワイドモードはすべてのテーマで利用できます。
+
+```yaml
+---
+title: "Wide page title"
+mode: "wide"
+---
+```
+
+<div id="custom">
+  ### カスタム
+</div>
+
+カスタムモードは、トップナビバー以外の要素をすべて取り除いたミニマルなレイアウトを提供します。ランディングページや、ナビゲーション要素を最小限に抑えたい独自レイアウトを作成するためのキャンバスとして利用できます。カスタムモードはすべてのテーマで利用可能です。
+
+```yaml
+---
+title: "Custom page title"
+mode: "custom"
+---
+```
+
+<div id="frame">
+  ### フレーム
+</div>
+
+フレームモードはカスタムモードに近いレイアウトを提供しますが、サイドバーのナビゲーションは保持されます。このページモードでは、デフォルトのナビゲーション体験を維持しつつ、カスタムHTMLやコンポーネントを使用できます。フレームモードはAspenおよびAlmondテーマでのみ利用できます。
+
+```yaml
+---
+title: "Frame page title"
+mode: "frame"
+---
+```
+
+<div id="center">
+  ### 中央寄せ
+</div>
+
+中央寄せモードはサイドバーと目次を非表示にし、コンテンツを中央に配置します。変更履歴や、コンテンツを強調したいページに適しています。中央寄せモードは Mint と Linden のテーマで利用できます。
+
+```yaml
+---
+title: "Center page title"
+mode: "center"
+---
+```
+
+<div id="api-pages">
+  ## APIページ
+</div>
+
+フロントマターに `api` または `openapi` の API 仕様を追加して、インタラクティブな APIプレイグラウンド を作成します。
+
+```yaml
+---
+openapi: "GET /endpoint"
+---
+```
+
+[API ドキュメント](/ja/api-playground/overview)の作成方法について詳しくはこちらをご覧ください。
+
+<div id="external-links">
+  ## 外部リンク
+</div>
+
+ナビゲーションから `url` メタデータを使って外部サイトへ直接リンクできます。
+
+```yaml
+---
+title: "npm Package"
+url: "https://www.npmjs.com/package/mint"
+---
+```
+
+<div id="search-engine-optimization">
+  ## 検索エンジン最適化
+</div>
+
+ほとんどの SEO メタタグは自動生成されます。サイトの SEO、ソーシャルでの共有、ブラウザー互換性を高めるために、SEO メタタグを手動で設定することもできます。
+
+<Note>
+  コロンを含むメタタグは、引用符で囲む必要があります。
+</Note>
+
+```yaml
+---
+"twitter:image": "/images/social-preview.jpg"
+---
+```
+
+利用可能な SEO メタデータの全オプションについては、[SEO](/ja/settings/seo) を参照してください。
+
+<div id="internal-search-keywords">
+  ## 内部検索キーワード
+</div>
+
+メタデータで `keywords` を指定することで、内蔵検索における特定ページの発見性を高められます。これらのキーワードはページ本文や検索結果の表示には含まれませんが、該当キーワードで検索したユーザーにはそのページが結果として表示されます。
+
+```yaml
+---
+keywords: ['configuration', 'setup', 'getting started']
+---
+```

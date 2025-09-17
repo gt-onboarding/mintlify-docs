@@ -1,0 +1,29 @@
+---
+title: "ツールチップ"
+description: "テキストにホバーしたときに定義を表示する"
+icon: "message-square"
+---
+
+ユーザーがテキストにホバーした際、追加のコンテキストや定義を示すにはツールチップを使用します。ツールチップには、任意でコールトゥアクションのリンクを含めることができます。
+
+**例**: <Tooltip tip="Application Programming Interface: a set of protocols for software applications to communicate." cta="Read our API guide" href="/ja/api-reference">API</Tooltip> のドキュメントは、開発者がサービスとの統合方法を理解するのに役立ちます。
+
+```mdx Tooltip example wrap
+<Tooltip tip="Application Programming Interface: a set of protocols for software applications to communicate." cta="Read our API guide" href="/api-reference">API</Tooltip> documentation helps developers understand how to integrate with your service.
+```
+
+<div id="properties">
+  ## プロパティ
+</div>
+
+<ResponseField name="tip" type="string" required>
+  ツールチップに表示されるテキスト。
+</ResponseField>
+
+<ResponseField name="cta" type="string">
+  ツールチップ内のリンクに表示するCTA（行動喚起）テキスト。
+</ResponseField>
+
+<ResponseField name="href" type="string">
+  CTAリンクのURL。`cta` を使用する場合は必須です。
+</ResponseField>

@@ -1,0 +1,42 @@
+---
+title: "Lavorare con i branch"
+description: "Usa i branch per apportare e rivedere modifiche senza influire sulla documentazione in produzione"
+---
+
+I branch sono una funzionalità del controllo di versione che puntano a commit specifici nel tuo repository. Il branch di deployment, di solito chiamato `main`, rappresenta il contenuto utilizzato per generare la documentazione in produzione. Tutti gli altri branch sono indipendenti dalla documentazione in produzione, a meno che tu non decida di unirli al branch di deployment.
+
+I branch ti consentono di creare istanze separate della documentazione per apportare modifiche, ottenere revisioni e provare nuovi approcci prima della pubblicazione. Il tuo team può lavorare su branch per aggiornare parti diverse della documentazione contemporaneamente, senza influire su ciò che gli utenti vedono sul sito in produzione finché non pubblichi le modifiche.
+
+Raccomandiamo di lavorare sempre tramite branch quando aggiorni la documentazione, per mantenere stabile il sito in produzione e abilitare flussi di revisione.
+
+<Tip>
+  - Dai nomi chiari ai branch in modo che i colleghi capiscano su cosa stai lavorando.
+  - Elimina i branch dopo l’unione per mantenere il repository ordinato.
+  - Avvisa il team quando stai lavorando a modifiche importanti che potrebbero influire sul loro lavoro.
+</Tip>
+
+<div id="creating-a-branch">
+  ## Creare un branch
+</div>
+
+1. Seleziona il nome del branch nella barra degli strumenti dell’editor (in genere `main`).
+2. Seleziona **New Branch**.
+3. Inserisci un nome descrittivo per il branch, ad esempio `update-getting-started` o `fix-api-examples`.
+4. Seleziona **Create Branch**.
+
+<div id="saving-changes-on-a-branch">
+  ## Salvare le modifiche su un branch
+</div>
+
+Per salvare le modifiche su un branch, fai clic sul pulsante **Save Changes** nell’angolo in alto a destra dell’editor. Verrà creato un commit e il lavoro verrà pushato sul tuo branch.
+
+<div id="switching-branches">
+  ## Passare a un branch diverso
+</div>
+
+1. Seleziona il nome del branch nella barra degli strumenti dell'Editor web.
+2. Dal menu a discesa, scegli il branch a cui vuoi passare.
+
+<Tip>
+  Le modifiche non salvate andranno perse quando cambi branch. Assicurati di salvare o pubblicare il tuo lavoro prima di cambiare branch.
+</Tip>

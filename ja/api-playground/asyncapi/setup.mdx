@@ -1,0 +1,90 @@
+---
+title: "AsyncAPI のセットアップ"
+description: "AsyncAPI で WebSocket のリファレンスページを作成する"
+---
+
+<div id="add-an-asyncapi-specification-file">
+  ## AsyncAPI仕様ファイルを追加する
+</div>
+
+WebSocketのページ作成を始めるには、[AsyncAPI仕様](https://www.asyncapi.com/docs/reference/specification/v3.0.0)に準拠した有効なAsyncAPIスキーマ文書を、JSONまたはYAML形式で用意してください。スキーマはAsyncAPI 3.0以降の仕様に従っている必要があります。
+
+<Tip>
+  AsyncAPIスキーマが有効かどうかは、
+  [AsyncAPI Studio](https://studio.asyncapi.com/)
+  に貼り付けて検証できます
+</Tip>
+
+<div id="auto-populate-websockets-pages">
+  ## WebSocket ページを自動生成する
+</div>
+
+`docs.json` のナビゲーション内の任意のタブまたはグループに `asyncapi` フィールドを追加できます。このフィールドには、ドキュメントリポジトリ内の AsyncAPI スキーマドキュメントへのパス、ホストされた AsyncAPI スキーマドキュメントの URL、または複数の AsyncAPI スキーマドキュメントへのリンク配列を指定できます。Mintlify は、各 AsyncAPI の WebSocket チャンネルごとにページを自動生成します。
+
+**Tabs の例:**
+
+<CodeGroup>
+
+```json Local File {5}
+"navigation": {
+  "tabs": [
+    {
+        "tab": "API Reference",
+        "asyncapi": "/path/to/asyncapi.json"
+    }
+  ]
+}
+
+```
+
+```json Remote URL {5}
+"navigation": {
+  "tabs": [
+    {
+        "tab": "API Reference",
+        "asyncapi": "https://github.com/asyncapi/spec/blob/master/examples/simple-asyncapi.yml"
+    }
+  ]
+}
+```
+
+</CodeGroup>
+
+**Groups の例:**
+
+```json {8-11}
+"navigation": {
+  "tabs": [
+    {
+      "tab": "AsyncAPI",
+      "groups": [
+        {
+          "group": "Websockets",
+          "asyncapi": {
+            "source": "/path/to/asyncapi.json",
+            "directory": "api-reference"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+<Note>
+  directory フィールドは任意です。指定しない場合、ファイルはドキュメントリポジトリの
+  **api-reference** フォルダーに配置されます。
+</Note>
+
+<div id="channel-page">
+  ## チャンネルページ
+</div>
+
+チャンネルの並び順をより柔軟に制御したい場合や、特定のチャンネルだけを参照したい場合は、フロントマターに `asyncapi` フィールドを含む MDX ファイルを作成できます。
+
+```mdx
+---
+title: "Websocket Channel"
+asyncapi: "/path/to/asyncapi.json channelName"
+---
+```

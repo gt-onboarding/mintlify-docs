@@ -1,0 +1,74 @@
+---
+title: "GitHub"
+description: "将文档与 GitHub 仓库同步"
+icon: "github"
+---
+
+Mintlify 使用 GitHub 应用自动将你的文档与 GitHub 仓库保持同步。
+
+<div id="installing-the-github-app">
+  ## 安装 GitHub 应用
+</div>
+
+在拥有你文档仓库的 GitHub 账号或组织上安装 Mintlify GitHub 应用。你必须在该仓库中拥有组织所有者或管理员权限才能安装该应用。如果你没有所需权限，则需要由仓库所有者批准安装请求。
+
+通过你的[仪表盘](https://dashboard.mintlify.com/settings/organization/github-app)安装 Mintlify GitHub 应用。
+
+<Tip>
+我们建议只为托管你文档的仓库授予访问权限。
+</Tip>
+
+<Frame>
+  <img className="h-80" alt="Mintlify GitHub 应用安装页面，已选择“仅选择仓库（Only select repositories）”选项。" src="/images/github/select-repos.png" />
+</Frame>
+
+<div id="permissions">
+  ## 权限
+</div>
+
+安装 GitHub 应用时，你会被提示授予以下权限：
+
+读取权限：
+
+* `metadata`: 基本仓库信息
+
+读写权限：
+
+* `checks`: 在拉取请求上创建状态检查
+* `code`: 在你向文档分支提交时读取文件变更
+* `deployments`: 为拉取请求生成预览部署
+* `pull requests`: 通过网页编辑器创建分支和拉取请求
+* `workflows`: 管理用于文档部署的 GitHub Actions
+
+<Info>
+该应用只会访问你明确授予权限的仓库。若启用了分支保护规则，该应用无法直接推送到受保护的分支。
+</Info>
+
+<div id="managing-repository-access">
+  ## 管理仓库访问权限
+</div>
+
+安装我们的 GitHub 应用时，你可以授予其访问你所有的仓库，或仅限特定仓库。我们建议只为存放文档的仓库授予访问权限。你可以随时在 [GitHub 应用设置](https://github.com/apps/mintlify/installations/new) 中修改此选择。
+
+<div id="configuring-docs-source">
+  ## 配置文档来源
+</div>
+
+在控制台的 [Git 设置](https://dashboard.mintlify.com/settings/deployment/git-settings) 中，您可以更改用于构建文档的组织、代码库或分支。
+
+<div id="troubleshooting">
+  ## 疑难排查
+</div>
+
+如果你在使用 GitHub 应用时遇到问题，重置连接通常可以解决大部分问题。
+
+<Steps>
+  <Step title="通过 GitHub 卸载 Mintlify 应用">
+    1. 在 GitHub 中，前往 [installations](https://github.com/settings/installations)，在 Mintlify 应用旁点击 **Configure**。向下滚动并点击 **Uninstall**。
+    2. 前往 [Authorized GitHub Apps](https://github.com/settings/apps/authorizations)，在 Mintlify 应用旁点击 **Revoke**。
+  </Step>
+  <Step title="重新安装 Mintlify 应用">
+    1. 在 Mintlify 仪表盘中，进入 [Git Settings](https://dashboard.mintlify.com/settings/deployment/git-settings) 并安装 GitHub 应用。
+    2. 在仪表盘的 [My Profile](https://dashboard.mintlify.com/settings/account) 中授权你的账号。
+  </Step>
+</Steps>

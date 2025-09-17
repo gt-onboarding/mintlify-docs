@@ -1,0 +1,36 @@
+---
+title: "Spalten"
+description: "Karten nebeneinander in einem Raster anzeigen"
+icon: "columns-2"
+keywords: ["Kartengruppen"]
+---
+
+Die `Columns`-Komponente gruppiert mehrere `Card`-Komponenten. Sie wird meist verwendet, um Karten in einem Raster anzuordnen, indem die Anzahl der Spalten festgelegt wird.
+
+<Columns cols={2}>
+  <Card title="Erste Schritte" icon="rocket">
+    Richten Sie Ihr Projekt mit unserer Schnellstartanleitung ein.
+  </Card>
+  <Card title="API-Referenz" icon="code">
+    Entdecken Sie Endpunkte, Parameter und Beispiele für Ihre API.
+  </Card>
+</Columns>
+
+```mdx Columns example
+<Columns cols={2}>
+  <Card title="Get started">
+    Set up your project with our quickstart guide.
+  </Card>
+  <Card title="API reference">
+    Explore endpoints, parameters, and examples for your API.
+  </Card>
+</Columns>
+```
+
+<div id="properties">
+  ## Eigenschaften
+</div>
+
+<ResponseField name="cols" default={2}>
+  Die Anzahl der Spalten pro Zeile.
+</ResponseField>

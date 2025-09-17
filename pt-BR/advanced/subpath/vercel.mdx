@@ -1,0 +1,98 @@
+---
+title: "Vercel"
+description: "Hospede a documentação em um subcaminho personalizado usando a Vercel"
+---
+
+import { VercelJsonGenerator } from "/snippets/pt-BR/vercel-json-generator.mdx";
+
+
+<div id="verceljson-file">
+  ## arquivo vercel.json
+</div>
+
+O arquivo `vercel.json` configura como seu projeto é criado e implantado. Ele fica no diretório raiz do seu projeto e controla vários aspectos da implantação, incluindo roteamento, redirecionamentos, cabeçalhos e configurações de build.
+
+Usamos a configuração `rewrites` para fazer proxy das solicitações do seu domínio principal para a sua documentação.
+
+Rewrites mapeiam solicitações recebidas para destinos diferentes sem alterar a URL no navegador. Quando alguém visita `yoursite.com/docs`, a Vercel buscará internamente o conteúdo de `your-subdomain.mintlify.dev/docs`, mas o usuário ainda verá `yoursite.com/docs` no navegador. Isso é diferente de redirecionamentos, que enviariam os usuários para uma URL totalmente diferente.
+
+Você pode personalizar o subcaminho para qualquer valor que preferir, como `/docs`, `/help` ou `/guides`. Além disso, é possível usar subcaminhos profundamente aninhados, como `/product/docs`.
+
+<div id="repository-structure">
+  ## Estrutura do repositório
+</div>
+
+Seus arquivos de documentação devem ser organizados no repositório para corresponder à estrutura de subcaminho escolhida. Por exemplo, se você quiser sua documentação em `yoursite.com/docs`, crie um diretório `docs/` com todos os arquivos de documentação.
+
+<div id="configuration">
+  ## Configuração
+</div>
+
+Para hospedar sua documentação em um subcaminho personalizado usando a Vercel, adicione a seguinte configuração ao arquivo `vercel.json`. Este exemplo usa `/docs`, mas você pode substituí-lo por qualquer subcaminho:
+
+```json
+{
+  "rewrites": [
+    {
+      "source": "/docs",
+      "destination": "https://[subdomain].mintlify.dev/docs"
+    },
+    {
+      "source": "/docs/:match*",
+      "destination": "https://[subdomain].mintlify.dev/docs/:match*"
+    }
+  ]
+}
+```
+
+- **`source`**: O padrão de rota no seu domínio que aciona o rewrite.
+- **`destination`**: Para onde a solicitação deve ser encaminhada (proxy).
+- **`:match*`**: Um curinga que captura quaisquer segmentos de caminho após o subcaminho.
+
+Para mais informações, consulte [Configuring projects with vercel.json: Rewrites](https://vercel.com/docs/projects/project-configuration#rewrites) na documentação da Vercel.
+
+<div id="generate-rewrites">
+  ### Gerar rewrites
+</div>
+
+Insira seu subdomínio e subdiretório personalizado para gerar os rewrites do seu arquivo `vercel.json`.
+
+<VercelJsonGenerator />
+
+<div id="using-external-proxies-with-vercel">
+  ## Usando proxies externos com a Vercel
+</div>
+
+Se você estiver usando um proxy externo (como o Cloudflare ou o AWS CloudFront) à frente da sua implantação na Vercel, deverá configurá-lo corretamente para evitar conflitos com a verificação de domínio da Vercel e o provisionamento de certificados SSL.
+
+Uma configuração incorreta do proxy pode impedir a Vercel de provisionar certificados SSL do Let's Encrypt e causar falhas na verificação de domínio.
+
+Consulte os [provedores compatíveis](https://vercel.com/guides/how-to-setup-verified-proxy#supported-providers-verified-proxy-lite) na documentação da Vercel.
+
+<div id="required-path-allowlist">
+  ### Lista de permissões de paths obrigatória
+</div>
+
+Seu proxy externo deve permitir o tráfego para estes paths específicos sem bloquear, redirecionar ou aplicar cache agressivo:
+
+- `/.well-known/acme-challenge/*` - Necessário para a verificação do certificado do Let's Encrypt
+- `/.well-known/vercel/*` - Necessário para a verificação de domínio da Vercel
+- `/mintlify-assets/_next/static/*` - Necessário para servir assets estáticos
+
+Esses paths devem ser encaminhados diretamente para sua implantação na Vercel, sem modificações.
+
+<div id="header-forwarding-requirements">
+  ### Requisitos para encaminhamento de cabeçalhos
+</div>
+
+Garanta que seu proxy encaminhe corretamente o cabeçalho `HOST`. Sem o encaminhamento adequado desse cabeçalho, as solicitações de verificação falharão.
+
+<div id="testing-your-proxy-setup">
+  ### Testando a configuração do seu proxy
+</div>
+
+Para verificar se o seu proxy está configurado corretamente:
+
+1. Confira se `https://[yourdomain].com/.well-known/vercel/` retorna uma resposta.
+2. Certifique-se de que os certificados SSL estão sendo provisionados corretamente no painel da Vercel.
+3. Verifique se a verificação de domínio é concluída com sucesso.

@@ -1,0 +1,174 @@
+---
+title: "Claude Code"
+description: "Configura Claude Code para ayudar a redactar, revisar y actualizar tu documentación"
+icon: "asterisk"
+---
+
+Claude Code es una herramienta de línea de comandos con capacidades de agente que puede ayudarte a mantener tu documentación. Puede redactar contenido nuevo, revisar páginas existentes y mantener la documentación al día.
+
+Puedes entrenar Claude Code para que entienda tus estándares y flujos de trabajo de documentación agregando un archivo `CLAUDE.md` a tu proyecto y puliéndolo con el tiempo.
+
+<div id="getting-started">
+  ## Primeros pasos
+</div>
+
+**Requisitos:**
+
+- Suscripción activa a Claude (Pro, Max o acceso mediante API)
+
+**Configuración:**
+
+1. Instala Claude Code:
+
+```bash
+  npm install -g @anthropic-ai/claude-code
+  ```
+
+2. Ve al directorio de tu documentación.
+3. (Opcional) Añade el archivo `CLAUDE.md` a tu proyecto.
+4. Ejecuta `claude` para comenzar.
+
+<div id="claudemd-template">
+  ## Plantilla de CLAUDE.md
+</div>
+
+Guarda un archivo `CLAUDE.md` en la raíz de tu directorio de documentación para ayudar a Claude Code a comprender tu proyecto. Este archivo entrena a Claude Code en tus estándares de documentación, preferencias y flujos de trabajo. Consulta [Manage Claude's memory](https://docs.anthropic.com/en/docs/claude-code/memory) en la documentación de Anthropic para obtener más información.
+
+Copia esta plantilla de ejemplo o ajústala según las especificaciones de tu documentación:
+
+```mdx
+# Mintlify documentation
+
+## Working relationship
+- You can push back on ideas—this can lead to better documentation. Cite sources and explain your reasoning when you do so
+- ALWAYS ask for clarification rather than making assumptions
+- NEVER lie, guess, or make up information
+
+## Project context
+- Format: MDX files with YAML frontmatter
+- Config: docs.json for navigation, theme, settings
+- Components: Mintlify components
+
+## Content strategy
+- Document just enough for user success - not too much, not too little
+- Prioritize accuracy and usability of information
+- Make content evergreen when possible
+- Search for existing information before adding new content. Avoid duplication unless it is done for a strategic reason
+- Check existing patterns for consistency
+- Start by making the smallest reasonable changes
+
+## docs.json
+
+- Refer to the [docs.json schema](https://mintlify.com/docs.json) when building the docs.json file and site navigation
+
+## Frontmatter requirements for pages
+- title: Clear, descriptive page title
+- description: Concise summary for SEO/navigation
+
+## Writing standards
+- Second-person voice ("you")
+- Prerequisites at start of procedural content
+- Test all code examples before publishing
+- Match style and formatting of existing pages
+- Include both basic and advanced use cases
+- Language tags on all code blocks
+- Alt text on all images
+- Relative paths for internal links
+
+## Git workflow
+- NEVER use --no-verify when committing
+- Ask how to handle uncommitted changes before starting
+- Create a new branch when no clear branch exists for changes
+- Commit frequently throughout development
+- NEVER skip or disable pre-commit hooks
+
+## Do not
+- Skip frontmatter on any MDX file
+- Use absolute URLs for internal links
+- Include untested code examples
+- Make assumptions - always ask for clarification
+```
+
+<div id="sample-prompts">
+  ## Ejemplos de prompts
+</div>
+
+Una vez que tengas configurado Claude Code, prueba estos prompts para ver cómo puede ayudar con tareas comunes de documentación. Puedes copiar y pegar estos ejemplos tal cual o adaptarlos a tus necesidades específicas.
+
+<div id="convert-notes-to-polished-docs">
+  ### Convierte notas en documentación pulida
+</div>
+
+Convierte borradores en páginas MDX bien formateadas con componentes y frontmatter.
+
+**Ejemplo de prompt:**
+
+```text wrap
+Convierte este texto en una página MDX correctamente formateada: [pega tu texto aquí]
+```
+
+<div id="review-docs-for-consistency">
+  ### Revisar la documentación para mantener la coherencia
+</div>
+
+Obtén sugerencias para mejorar el estilo, el formato y el uso de Componentes (Mintlify).
+
+**Ejemplo de prompt:**
+
+```text wrap
+Review the files in docs/ and suggest improvements for consistency and clarity
+```
+
+<div id="update-docs-when-features-change">
+  ### Actualiza la documentación cuando cambien las funcionalidades
+</div>
+
+Mantén la documentación al día a medida que tu producto evoluciona.
+
+**Ejemplo de prompt:**
+
+```text wrap
+Nuestra API ahora requiere un parámetro de versión. Actualiza la documentación para incluir version=2024-01 en todos los ejemplos
+```
+
+<div id="generate-comprehensive-code-examples">
+  ### Genera ejemplos de código completos
+</div>
+
+Crea ejemplos en varios lenguajes con manejo de errores.
+
+**Ejemplo de indicación:**
+
+```text wrap
+Create code examples for [your API endpoint] in JavaScript, Python, and cURL with error handling
+```
+
+<div id="extending-claude-code">
+  ## Ampliación de Claude Code
+</div>
+
+Además de indicarle manualmente a Claude Code, puedes integrarlo en tus flujos de trabajo existentes.
+
+<div id="automation-with-github-actions">
+  ### Automatización con GitHub Actions
+</div>
+
+Ejecuta Claude Code automáticamente cuando haya cambios en el código para mantener la documentación al día. Puedes activar revisiones de la documentación en pull requests o actualizar los ejemplos cuando se detecten cambios en la API.
+
+<div id="multi-instance-workflows">
+  ### Flujos de trabajo multiinstancia
+</div>
+
+Usa sesiones separadas de Claude Code para distintas tareas: una para redactar contenido nuevo y otra para revisión y control de calidad. Esto ayuda a mantener la coherencia y a detectar problemas que una sola sesión podría pasar por alto.
+
+<div id="team-collaboration">
+  ### Colaboración en equipo
+</div>
+
+Comparte tu archivo `CLAUDE.md` perfeccionado con tu equipo para garantizar estándares de documentación uniformes entre todas las personas que contribuyen. Los equipos suelen desarrollar prompts e incluso flujos de trabajo específicos del proyecto que se integran en su proceso de documentación.
+
+<div id="custom-commands">
+  ### Comandos personalizados
+</div>
+
+Crea comandos de barra inclinada reutilizables en `.claude/commands/` para tareas de documentación frecuentes específicas de tu proyecto o equipo.

@@ -1,0 +1,40 @@
+---
+title: "PostHog"
+---
+
+Adicione o seguinte ao seu arquivo `docs.json` para enviar dados de analytics ao PostHog.
+
+Você só precisa incluir `apiHost` se estiver hospedando o PostHog por conta própria (self-hosted). Por padrão, enviamos eventos para `https://app.posthog.com`.
+
+<CodeGroup>
+
+```json Analytics options in docs.json
+"integrations": {
+    "posthog": {
+        "apiKey": "YOUR_POSTHOG_PROJECT_API_KEY",
+        "apiHost": "optional"
+    }
+}
+```
+
+```json Example
+"integrations": {
+    "posthog": {
+        "apiKey": "phc_TXdpocbYTeZVm5VJmMzHTMrCofBQu3e0kN7HGMNGTVW"
+    }
+}
+```
+
+</CodeGroup>
+
+<br />
+
+<Warning>
+    Ativar o PostHog desativará o analytics no painel do Mintlify.
+</Warning>
+
+<div id="session-recordings">
+  ## Gravações de sessão
+</div>
+
+Antes de receber gravações de sessão, você precisa adicionar a URL do seu site de documentação em “Authorized domains for recordings” no PostHog. A opção para adicionar sua URL está nas configurações do projeto do PostHog.

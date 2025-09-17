@@ -1,0 +1,44 @@
+---
+title: "Introduzione"
+description: "Avvia aggiornamenti, integra l'Assistente AI e altro ancora"
+icon: "book-open"
+---
+
+La REST API di Mintlify ti consente di interagire in modo programmatico con la tua documentazione, avviare aggiornamenti e integrare esperienze di chat basate sull&#39;AI.
+
+<div id="endpoints">
+  ## Endpoint
+</div>
+
+* [Trigger update](/it/api-reference/update/trigger): Attiva un aggiornamento del tuo sito quando vuoi.
+* [Get update status](/it/api-reference/update/status): Recupera lo stato di un aggiornamento e altri dettagli sulla tua documentazione.
+* [Generate assistant message](/it/api-reference/assistant/create-assistant-message): Integra l&#39;Assistente, addestrato sulla tua documentazione, in qualsiasi applicazione.
+* [Search documentation](/it/api-reference/assistant/search): Esegui ricerche nella tua documentazione.
+
+<div id="authentication">
+  ## Autenticazione
+</div>
+
+Puoi generare una chiave API dalla [dashboard](https://dashboard.mintlify.com/settings/organization/api-keys). Le chiavi API sono associate all’intera organizzazione e possono essere utilizzate in più deployment.
+
+<div id="admin-api-key">
+  ### Chiave API di amministrazione
+</div>
+
+La chiave API di amministrazione viene utilizzata per gli endpoint [Trigger update](/it/api-reference/update/trigger) e [Get update status](/it/api-reference/update/status).
+
+Le chiavi API di amministrazione iniziano con il prefisso `mint_`. Mantieni segrete le tue chiavi API di amministrazione.
+
+### Chiave API dell&#39;Assistente
+
+La chiave API dell&#39;Assistente viene utilizzata per gli endpoint [Generate assistant message](/it/api-reference/assistant/create-assistant-message) e [Search documentation](/it/api-reference/assistant/search).
+
+Le chiavi API dell&#39;Assistente iniziano con il prefisso `mint_dsc_`.
+
+La **chiave** API dell&#39;Assistente è un token lato server che deve rimanere segreto.
+
+Il **token** API dell&#39;Assistente è un token pubblico che può essere utilizzato nel codice del tuo frontend.
+
+<Note>
+  Le chiamate che utilizzano il token API dell&#39;Assistente possono comportare costi: potrebbero consumare i tuoi crediti dell&#39;Assistente AI oppure generare eccedenze.
+</Note>

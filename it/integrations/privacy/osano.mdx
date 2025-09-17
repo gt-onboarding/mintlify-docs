@@ -1,0 +1,55 @@
+---
+title: "Osano"
+---
+
+Aggiungi quanto segue al file `docs.json` per integrare il gestore del consenso dei cookie [Osano](https://www.osano.com/).
+
+<CodeGroup>
+
+```json Integration options in docs.json
+"integrations": {
+    "osano": "SOURCE"
+}
+```
+
+```json Example
+"integrations": {
+    "osano": "https://cmp.osano.com/2sUB2dqwqdkks/8dqwd-dwd86£-4a9b/osano.js"
+}
+```
+
+</CodeGroup>
+
+Il valore `SOURCE` corrisponde all’attributo `src` nello snippet di codice generato da Osano. Inizia sempre con `https://cmp.osano.com/`.
+
+```html Code snippet from Osano
+<script src="https://cmp.osano.com/placeholder/placeholder/osano.js"/>
+```
+
+<div id="troubleshooting">
+  ## Risoluzione dei problemi
+</div>
+
+<Accordion
+  title="Le pagine non si caricano con la modalità di conformità Strict"
+>
+  Se le pagine della documentazione non si caricano correttamente quando usi la modalità di conformità **Strict** di Osano, devi aggiungere il dominio di Mintlify alla allowlist per consentire il caricamento di immagini e altre risorse.
+
+  <Steps>
+    <Step title="Vai a Managed Rules">
+      Nel dashboard di Osano, vai su **Scripts** → **Managed Rules**.
+    </Step>
+
+    <Step title="Aggiungi il dominio di Mintlify">
+      Aggiungi `.mintlify.app/` come regola gestita.
+
+      <Frame>
+        <img src="/images/integrations/osano-managed-rule.png" alt="Regola gestita di Osano" />
+      </Frame>
+
+      <Info>
+      In questo modo tutte le risorse erogate da Mintlify (incluse immagini, fogli di stile e altre risorse della documentazione) vengono trattate come essenziali e verranno caricate anche quando Osano blocca contenuti di terze parti non categorizzati.
+      </Info>
+    </Step>
+  </Steps>
+</Accordion>

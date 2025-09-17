@@ -1,0 +1,66 @@
+---
+title: "Vorschau-Bereitstellungen"
+description: "Änderungen an Ihrer Dokumentation in einer Live-Umgebung vorab ansehen"
+icon: "scan-eye"
+---
+
+<Info>
+  Vorschau-Bereitstellungen sind in den [Pro- und Enterprise-Plänen](https://mintlify.com/pricing?ref=preview-deployments) verfügbar.
+</Info>
+
+Vorschau-Bereitstellungen zeigen Ihnen, wie sich Änderungen an Ihrer Dokumentation auswirken, bevor sie in die Produktion übernommen werden. Jede Vorschau erzeugt eine teilbare URL, die sich automatisch aktualisiert, sobald Sie neue Änderungen pushen.
+
+<div id="creating-preview-deployments">
+  ## Vorschau-Bereitstellungen erstellen
+</div>
+
+Vorschau-Bereitstellungen werden automatisch über Pull Requests oder manuell über dein Dashboard erstellt.
+
+<div id="automatic-previews">
+  ### Automatische Vorschauen
+</div>
+
+Wenn du einen Pull Request erstellst, fügt der Mintlify-Bot automatisch einen Link hinzu, über den du die Vorschau-Bereitstellung in deinem Pull Request ansehen kannst. Die Vorschau wird jedes Mal aktualisiert, wenn du neue Commits in den Branch pushst.
+
+<Frame>
+  <img src="/images/previews/preview-deployment-light.png" alt="Link zum Anzeigen der Bereitstellung in der Pull-Request-Zeitleiste" className="block dark:hidden" />
+
+  <img src="/images/previews/preview-deployment-dark.png" alt="Link zum Anzeigen der Bereitstellung in der Pull-Request-Zeitleiste" className="hidden dark:block" />
+</Frame>
+
+<div id="manual-previews">
+  ### Manuelle Vorschauen
+</div>
+
+Sie können für jeden Branch manuell eine Vorschau erstellen.
+
+1. Gehen Sie zu Ihrem [Dashboard](https://dashboard.mintlify.com/).
+2. Wählen Sie **Previews**.
+3. Wählen Sie **Create preview**.
+4. Geben Sie den Namen Ihres Branches ein.
+5. Wählen Sie **Create deployment**.
+
+<div id="redeploying-a-preview">
+  ## Eine Vorschau neu bereitstellen
+</div>
+
+Stellen Sie eine Vorschau neu bereit, um Inhalte zu aktualisieren oder eine fehlgeschlagene Bereitstellung erneut zu versuchen.
+
+1. Wählen Sie die Vorschau in Ihrem [Dashboard](https://dashboard.mintlify.com/) aus.
+2. Wählen Sie **Neu bereitstellen**.
+
+<Frame>
+  <img src="/images/previews/redeploy-preview-light.png" alt="Das Menü „Previews“ mit der durch ein orangefarbenes Rechteck hervorgehobenen Bereitstellungsschaltfläche." className="block dark:hidden" />
+
+  <img src="/images/previews/redeploy-preview-dark.png" alt="Das Menü „Previews“ mit der durch ein orangefarbenes Rechteck hervorgehobenen Bereitstellungsschaltfläche." className="hidden dark:block" />
+</Frame>
+
+<div id="sharing-preview-deployments">
+  ## Vorschau-Bereitstellungen teilen
+</div>
+
+Vorschau-Bereitstellungen können öffentlich zugänglich sein oder auf authentifizierte Nutzer beschränkt werden.
+
+**Öffentlicher Zugriff**: Vorschau-URLs sind standardmäßig öffentlich zugänglich. Teilen Sie einen Vorschau-Link mit allen, die Ihre Änderungen prüfen sollen.
+
+**Eingeschränkter Zugriff**: Aktivieren Sie die Authentifizierung für Vorschau-Bereitstellungen, um den Zugriff auf authentifizierte Mintlify-Nutzer zu beschränken. Weitere Informationen finden Sie unter [Authentication Setup](/de/authentication-personalization/authentication-setup).

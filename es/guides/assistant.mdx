@@ -1,0 +1,156 @@
+---
+title: "Asistente"
+description: "Ayuda a los usuarios a lograr el éxito con tu producto y a encontrar respuestas más rápido"
+icon: "bot"
+---
+
+<Info>
+  El Asistente se habilita automáticamente en los [planes Pro y Custom](https://mintlify.com/pricing?ref=assistant).
+</Info>
+
+<div id="about-the-assistant">
+  ## Acerca del asistente
+</div>
+
+El asistente responde preguntas sobre tu documentación mediante consultas en lenguaje natural. Está integrado directamente en tu sitio de documentación, lo que brinda a los usuarios acceso inmediato a ayuda contextual.
+
+El asistente utiliza RAG agentivo (generación aumentada por recuperación) con llamadas a herramientas, impulsado por Claude Sonnet 4. Cuando los usuarios hacen preguntas, el asistente:
+
+* **Busca y recupera** contenido relevante de tu documentación para ofrecer respuestas precisas.
+* **Cita las fuentes** y proporciona enlaces navegables que llevan a los usuarios directamente a las páginas referenciadas.
+* **Genera ejemplos de código para copiar** que ayudan a los usuarios a implementar soluciones basadas en tu documentación.
+
+Cada mensaje enviado al asistente cuenta para la cuota de mensajes de tu plan. Si superas tu cuota, los mensajes adicionales generarán cargos por excedente. Puedes establecer límites de gasto o desactivar el asistente si alcanzas tu cuota.
+
+Puedes ver el uso del asistente desde tu panel para entender el comportamiento de los usuarios y la eficacia de la documentación. Exporta y analiza los datos de las consultas para ayudar a identificar:
+
+* Preguntas frecuentes que podrían requerir una mejor cobertura.
+* Brechas de contenido en las que los usuarios tienen dificultades para encontrar respuestas.
+* Temas populares que podrían beneficiarse de contenido adicional.
+
+<div id="configuring-the-assistant">
+  ## Configuración del Asistente
+</div>
+
+El Asistente está habilitado de forma predeterminada para los planes Pro y Custom. Puedes gestionar el Asistente desde tu [panel](https://dashboard.mintlify.com/products/assistant/settings), incluido activarlo o desactivarlo, configurar el manejo de respuestas y establecer un límite de gasto.
+
+<div id="assistant-status">
+  ### Estado del Asistente
+</div>
+
+Activa o desactiva el Asistente para habilitarlo o deshabilitarlo en tu sitio de documentación.
+
+<div id="assistant-deflection">
+  ### Desvío del Asistente
+</div>
+
+Permite que el Asistente redirija las preguntas sin respuesta a tu equipo de soporte. Proporciona una dirección de correo electrónico que el Asistente compartirá con los usuarios cuando le hagan preguntas que no pueda responder.
+
+<div id="search-sites">
+  ### Buscar sitios
+</div>
+
+<Note>
+  La búsqueda del sitio está en beta. Para habilitarla en tu sitio de documentación, [contacta a nuestro equipo de ventas](mailto:gtm@mintlify.com).
+</Note>
+
+Configura los sitios que el Asistente puede consultar para obtener contexto adicional al responder preguntas.
+
+* Los sitios deben ser de acceso público.
+* Los sitios que requieren JavaScript para cargarse no son compatibles.
+
+Puedes usar la siguiente sintaxis de filtrado al configurar sitios externos:
+
+* **Filtrado a nivel de dominio**
+  * `example.com`: Busca solo en el dominio `example.com`
+  * `docs.example.com`: Busca solo en el subdominio `docs.example.com`
+  * `*.example.com`: Busca en todos los subdominios de `example.com`
+* **Filtrado a nivel de ruta**
+  * `docs.example.com/api`: Busca todas las páginas dentro de la subruta `/api`
+* **Múltiples patrones**
+  * Agrega varias entradas para dirigirte a diferentes secciones de los sitios
+
+<div id="spend-limit">
+  ### Límite de gasto
+</div>
+
+Configura un límite de gasto para controlar qué sucede si alcanzas tu cupo de mensajes. De forma predeterminada, el Asistente seguirá respondiendo preguntas de los usuarios después de que alcances tu cupo de mensajes, lo que generará cargos adicionales.
+
+En la pestaña **Billing** de la página [Assistant Configurations](https://dashboard.mintlify.com/products/assistant/settings), puedes establecer un límite de gasto para los mensajes del Asistente que superen tu cupo. Cuando alcanzas tu límite de gasto, el Asistente se desactiva hasta que se restablezca tu cupo de mensajes.
+
+También puedes configurar alertas de uso para recibir un correo electrónico cuando alcances un porcentaje determinado de tu límite de gasto.
+
+<div id="using-the-assistant">
+  ## Uso del Asistente
+</div>
+
+Los usuarios pueden acceder al Asistente de tres maneras:
+
+* **Atajos de teclado**: <kbd>?</kbd> o <kbd>Command</kbd> + <kbd>I</kbd> (<kbd>Ctrl</kbd> + <kbd>I</kbd> en Windows)
+* **Botón del Asistente** junto a la barra de búsqueda
+  <img
+    src="/images/assistant/assistant-button-light.png"
+    className="block dark:hidden rounded-2xl border border-gray-100 shadow-lg"
+    style={{
+    width: '268px',
+    height: 'auto',
+  }}
+    alt="Barra de búsqueda y botón del Asistente en modo claro."
+  />
+  <img
+    src="/images/assistant/assistant-button-dark.png"
+    className="hidden dark:block rounded-2xl border border-white/10 shadow-lg"
+    style={{
+    width: '268px',
+    height: 'auto',
+  }}
+    alt="Barra de búsqueda y botón del Asistente en modo oscuro."
+  />
+* **URLs** con `?assistant=open` al final abrirán el Asistente al cargarse la página. Por ejemplo, [https://mintlify.com/docs?assistant=open](https://mintlify.com/docs?assistant=open).
+
+Todas estas opciones abren un panel de chat en el lado derecho de tu documentación. Los usuarios pueden hacer cualquier pregunta y el Asistente buscará en tu documentación una respuesta. Si no se encuentra información relevante, el Asistente indicará que no puede responder la pregunta.
+
+<div id="making-content-ai-ingestible">
+  ## Hacer que el contenido sea apto para la IA
+</div>
+
+Estructura tu documentación para ayudar al Asistente a ofrecer respuestas precisas y relevantes. Una organización clara y un contexto completo benefician tanto a las personas lectoras como a la comprensión de la IA.
+
+<Card title="Estructura y organización">
+  * Usa marcado semántico.
+  * Escribe encabezados descriptivos para las secciones.
+  * Crea una jerarquía lógica de la información.
+  * Mantén un formato consistente en toda tu documentación.
+  * Incluye metadatos completos en el frontmatter de la página.
+  * Divide los bloques largos de texto en párrafos más cortos.
+</Card>
+
+<Card title="Contexto">
+  * Define términos específicos y siglas la primera vez que se mencionen.
+  * Proporciona contenido conceptual suficiente sobre funcionalidades y procedimientos.
+  * Incluye ejemplos y casos de uso.
+  * Haz referencias cruzadas a temas relacionados.
+  * Agrega [páginas ocultas](/es/guides/hidden-pages) con contexto adicional que las personas usuarias no necesitan, pero a las que el Asistente puede recurrir.
+</Card>
+
+<div id="exporting-and-analyzing-queries">
+  ## Exportar y analizar consultas
+</div>
+
+Revisa y exporta consultas desde tu panel para comprender cómo las personas interactúan con tu documentación e identificar oportunidades de mejora. Algunas formas en que el análisis de consultas puede ayudarte a mejorar tu documentación:
+
+* Identifica brechas de contenido donde las consultas frecuentes reciben respuestas insuficientes.
+* Detecta patrones de comportamiento y necesidades de información comunes a partir de los temas y tendencias en las consultas.
+* Prioriza las páginas de mayor tráfico para mejoras de precisión y calidad.
+
+Puedes explorar las consultas desde tu [panel](https://dashboard.mintlify.com/products/assistant), pero para obtener información más potente recomendamos exportar un archivo `CSV` con tus consultas, respuestas y fuentes para analizarlo con tu herramienta de IA preferida.
+
+1. Ve a la [página del Asistente](https://dashboard.mintlify.com/products/assistant) en tu panel.
+2. Selecciona **Export to CSV**.
+3. Analiza los datos exportados con tu herramienta preferida.
+
+<Card title="Ejemplos de prompts de análisis">
+  * Resume los temas más comunes de las consultas.
+  * Enumera las consultas que no tuvieron fuentes citadas.
+  * Identifica patrones en las interacciones fallidas.
+</Card>

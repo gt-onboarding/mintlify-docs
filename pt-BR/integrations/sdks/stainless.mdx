@@ -1,0 +1,34 @@
+---
+title: Stainless
+description: Automatize trechos de exemplo do SDK no seu playground de API
+---
+
+<div id="prerequisites">
+  ## Pré-requisitos
+</div>
+
+* Ter uma conta no [Stainless](https://app.stainless.com).
+
+<div id="integrate-with-stainless">
+  ## Integrar ao Stainless
+</div>
+
+<Steps>
+  <Step title="Configurar a decoração do OpenAPI no Stainless.">
+    No arquivo de configuração `stainless.yml`, adicione `openapi.code_samples: 'mintlify'`. Consulte a [documentação do Stainless](https://app.stainless.com/docs/guides/integrate-docs) para mais informações.
+  </Step>
+
+  <Step title="Publicar a URL da sua especificação OpenAPI.">
+    No seu projeto Stainless:
+
+    1. Selecione a guia **Release**.
+    2. Selecione **Setup OpenAPI publishing**.
+    3. Copie a URL da sua especificação OpenAPI acessível publicamente.
+
+    <img src="/images/stainless-public-OpenAPI-spec.png" alt="Página de Release do Stainless com a URL da especificação OpenAPI destacada em uma caixa verde." />
+  </Step>
+
+  <Step title={<>Adicione a URL da sua especificação OpenAPI ao <code>docs.json</code>.</>}>
+    No arquivo `docs.json`, adicione a URL do Stainless ao campo `openapi`. Consulte [Configuração do OpenAPI](/pt-BR/api-playground/openapi-setup) para mais informações.
+  </Step>
+</Steps>

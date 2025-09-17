@@ -1,0 +1,146 @@
+---
+title: "Changelogs"
+description: "Veröffentlichen Sie Produktupdates in Ihren Docs mit einem abonnierbaren RSS-Feed"
+icon: "newspaper"
+---
+
+Erstellen Sie ein Changelog für Ihre Docs, indem Sie einer Seite [Update-Komponenten](/de/components/update) hinzufügen.
+
+Sehen Sie sich das [Mintlify-Changelog](/de/changelog) als Beispiel an: In jedem Update können Sie Links, Bilder, Text und Demos Ihrer neuen Funktionen einbinden.
+
+<div id="setting-up-your-changelog">
+  ## Einrichten Ihres Changelogs
+</div>
+
+<Steps>
+  <Step title="Erstellen Sie eine Seite für Ihr Changelog">
+    1. Erstellen Sie eine neue Seite in Ihren Docs, z. B. `changelog.mdx` oder `updates.mdx`.
+    2. Fügen Sie die Changelog-Seite Ihrem Navigationsschema in der `docs.json` hinzu.
+  </Step>
+
+  <Step title="Fügen Sie Ihrem Changelog Update-Komponenten hinzu">
+    Fügen Sie für jeden Changelog-Eintrag ein `Update` hinzu.
+
+    Geben Sie relevante Informationen wie Feature-Releases, Bugfixes oder andere Ankündigungen an.
+  </Step>
+</Steps>
+
+```mdx Beispiel changelog.mdx
+---
+title: "Changelog"
+description: "Produktupdates und Ankündigungen"
+---
+<Update label="März 2025" description="v0.0.10">
+  Eine neue Wintergreen-Geschmacksrichtung hinzugefügt.
+
+  Eine neue Version der Spearmint-Geschmacksrichtung veröffentlicht, jetzt mit 10 % mehr Minze.
+</Update>
+
+<Update label="Februar 2025" description="v0.0.09">
+  Eine neue Version der Spearmint-Geschmacksrichtung veröffentlicht.
+</Update>
+```
+
+<div id="customizing-your-changelog">
+  ## Anpassen Ihres Changelogs
+</div>
+
+Steuern Sie, wie Nutzer durch Ihr Changelog navigieren und bei Ihren Produktinformationen auf dem Laufenden bleiben.
+
+<div id="table-of-contents">
+  ### Inhaltsverzeichnis
+</div>
+
+Jede `label`-Eigenschaft eines `Update` erzeugt automatisch einen Eintrag im Inhaltsverzeichnis der rechten Seitenleiste. Dies ist die Standardnavigation für dein Changelog.
+
+<Frame>
+  <img src="/images/changelog-toc-light.png" alt="Changelog mit eingeblendetem Inhaltsverzeichnis im hellen Modus." className="block dark:hidden" />
+
+  <img src="/images/changelog-toc-dark.png" alt="Changelog mit eingeblendetem Inhaltsverzeichnis im dunklen Modus." className="hidden dark:block" />
+</Frame>
+
+<div id="tag-filters">
+  ### Tag-Filter
+</div>
+
+Fügen Sie `tags` zu Ihren `Update`-Komponenten hinzu, um das Inhaltsverzeichnis durch Tag-Filter zu ersetzen. Nutzer können das Changelog filtern, indem sie ein oder mehrere Tags auswählen:
+
+```mdx Tag filters example wrap
+<Update label="März 2025" description="v0.0.10" tags={["Wintergreen", "Spearmint"]}>
+  Eine neue Wintergreen-Sorte hinzugefügt.
+
+  Eine neue Version der Spearmint-Sorte veröffentlicht, jetzt mit 10 % mehr Minze.
+</Update>
+
+<Update label="Februar 2025" description="v0.0.09" tags={["Spearmint"]}>
+  Eine neue Version der Spearmint-Sorte veröffentlicht.
+</Update>
+
+<Update label="Januar 2025" description="v0.0.08" tags={["Peppermint", "Spearmint"]}>
+  Die Peppermint-Sorte als veraltet markiert.
+
+  Eine neue Version der Spearmint-Sorte veröffentlicht.
+</Update>
+```
+
+<Frame>
+  <img src="/images/changelog-filters-light.png" alt="Changelog im Light-Mode mit ausgewähltem Peppermint-Tagfilter." className="block dark:hidden" />
+
+  <img src="/images/changelog-filters-dark.png" alt="Changelog im Dark-Mode mit ausgewähltem Peppermint-Tagfilter." className="hidden dark:block" />
+</Frame>
+
+<Tip>
+  Das Inhaltsverzeichnis und die Changelog-Filter werden ausgeblendet, wenn die Seitenmodi `custom`, `center` oder `wide` verwendet werden. Erfahren Sie mehr über [Seitenmodi](/de/pages#page-mode).
+</Tip>
+
+<div id="subscribable-changelogs">
+  ### Abonnierbare Changelogs
+</div>
+
+Die Verwendung von `Update`-Komponenten erzeugt einen abonnierbaren RSS-Feed an der Seiten-URL mit angehängtem `/rss.xml`. Zum Beispiel: `mintlify.com/docs/changelog/rss.xml`.
+
+Einträge werden dem RSS-Feed hinzugefügt, wenn neue `Update`-Komponenten veröffentlicht werden und wenn neue Überschriften innerhalb bestehender `<Update>`-Tags hinzugefügt werden.
+
+Die Überschriften der obersten Ebene von `Update`-Komponenten werden als Titel der RSS-Feed-Einträge verwendet, und die Einträge verlinken auf ihre Überschriftsanker in Ihren Docs.
+
+```xml Example RSS feed
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+  <channel>
+    <title><![CDATA[Product updates]]></title>
+    <description><![CDATA[New updates and improvements]]></description>
+    <link>https://mintlify.com/docs</link>
+    <generator>RSS for Node</generator>
+    <lastBuildDate>Mon, 21 Jul 2025 21:21:47 GMT</lastBuildDate>
+    <atom:link href="https://mintlify.com/docs/changelog/rss.xml" rel="self" type="application/rss+xml"/>
+    <copyright><![CDATA[Mintlify]]></copyright>
+    <docs>https://mintlify.com/docs</docs>
+    <item>
+      <title><![CDATA[June 2025]]></title>
+      <link>https://mintlify.com/docs/changelog#june-2025</link>
+      <guid isPermaLink="true">https://mintlify.com/docs/changelog#june-2025</guid>
+      <pubDate>Mon, 23 Jun 2025 16:54:22 GMT</pubDate>
+    </item>
+  </channel>
+</rss>
+```
+
+RSS-Feeds lassen sich mit Slack, E-Mail oder anderen Abo-Tools integrieren, um Nutzer über Produktänderungen zu informieren. Einige Optionen sind:
+
+* [Slack](https://slack.com/help/articles/218688467-Add-RSS-feeds-to-Slack)
+* [E-Mail](https://zapier.com/apps/email/integrations/rss/1441/send-new-rss-feed-entries-via-email) via Zapier
+* Discord-Bots wie [Readybot](https://readybot.io) oder [RSS Feeds to Discord Bot](https://rss.app/en/bots/rssfeeds-discord-bot)
+
+Damit der RSS-Feed auffindbar ist, können Sie oben auf der Seite ein RSS-Symbol anzeigen, das zum Feed verlinkt. Fügen Sie `rss: true` zum Frontmatter der Seite hinzu:
+
+```mdx
+---
+rss: true
+---
+```
+
+<Frame>
+  <img src="/images/changelog-rss-button-light.png" alt="Changelog-Seite im Light-Modus mit aktiviertem RSS-Feed-Button." className="block dark:hidden" />
+
+  <img src="/images/changelog-rss-button-dark.png" alt="Changelog-Seite im Dark-Modus mit aktiviertem RSS-Feed-Button." className="hidden dark:block" />
+</Frame>

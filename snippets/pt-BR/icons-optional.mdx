@@ -1,0 +1,23 @@
+<ResponseField name="icon" type="string">
+  O ícone a ser exibido.
+  
+  Opções:
+  - nome do [ícone do Font Awesome](https://fontawesome.com/icons)
+  - nome do [ícone do Lucide](https://lucide.dev/icons)
+  - código SVG compatível com JSX, entre chaves
+  - URL para um ícone hospedado externamente
+  - caminho para um arquivo de ícone no seu projeto
+  
+  Para ícones SVG personalizados:
+  1. Converta seu SVG usando o [conversor SVGR](https://react-svgr.com/playground/).
+  1. Cole seu código SVG no campo de entrada de SVG.
+  2. Copie o elemento completo `<svg>...</svg>` do campo de saída JSX.
+  3. Coloque o código SVG compatível com JSX entre chaves: `icon={<svg ...> ... </svg>}`.
+  4. Ajuste `height` e `width` conforme necessário.
+</ResponseField>
+
+<ResponseField name="iconType" type="string">
+  O estilo do ícone do [Font Awesome](https://fontawesome.com/icons). Usado apenas com ícones do Font Awesome. 
+  
+  Opções: `regular`, `solid`, `light`, `thin`, `sharp-solid`, `duotone`, `brands`.
+</ResponseField>

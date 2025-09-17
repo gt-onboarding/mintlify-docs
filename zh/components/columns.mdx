@@ -1,0 +1,36 @@
+---
+title: "Columns"
+description: "以网格形式并排显示卡片"
+icon: "columns-2"
+keywords: ["card groups"]
+---
+
+`Columns` 组件用于将多个 `Card` 组件分组展示。它通常用于通过指定列数，将卡片排布为网格。
+
+<Columns cols={2}>
+  <Card title="Get started" icon="rocket">
+    使用我们的快速入门指南开始设置你的项目。
+  </Card>
+  <Card title="API reference" icon="code">
+    浏览你的 API 的端点、参数和示例。
+  </Card>
+</Columns>
+
+```mdx Columns example
+<Columns cols={2}>
+  <Card title="Get started">
+    Set up your project with our quickstart guide.
+  </Card>
+  <Card title="API reference">
+    Explore endpoints, parameters, and examples for your API.
+  </Card>
+</Columns>
+```
+
+<div id="properties">
+  ## 属性
+</div>
+
+<ResponseField name="cols" default={2}>
+  每行的列数。
+</ResponseField>

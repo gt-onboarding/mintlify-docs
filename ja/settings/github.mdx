@@ -1,0 +1,74 @@
+---
+title: "GitHub"
+description: "ドキュメントを GitHub リポジトリと同期する"
+icon: "github"
+---
+
+Mintlify は GitHub アプリを使用して、ドキュメントを GitHub リポジトリと自動同期します。
+
+<div id="installing-the-github-app">
+  ## GitHubアプリのインストール
+</div>
+
+ドキュメント用リポジトリを所有するGitHubアカウントまたは組織に、Mintlify GitHub App をインストールします。アプリをインストールするには、組織の所有者権限、またはリポジトリの管理者権限が必要です。必要な権限がない場合は、リポジトリの所有者にインストールリクエストを承認してもらってください。
+
+[ダッシュボード](https://dashboard.mintlify.com/settings/organization/github-app)から Mintlify GitHub App をインストールします。
+
+<Tip>
+ドキュメントをホストしているリポジトリにのみアクセス権を付与することを推奨します。
+</Tip>
+
+<Frame>
+  <img className="h-80" alt="Mintlify GitHub App のインストールページ。「Only select repositories」オプションが選択されています。" src="/images/github/select-repos.png" />
+</Frame>
+
+<div id="permissions">
+  ## 権限
+</div>
+
+GitHub アプリをインストールすると、次の権限の付与を求められます。
+
+読み取り権限:
+
+* `metadata`: リポジトリの基本情報
+
+読み取りおよび書き込み権限:
+
+* `checks`: プルリクエストにステータスチェックを作成
+* `code`: docs ブランチへのコミット時のファイル変更を読み取り
+* `deployments`: プルリクエストのプレビューデプロイを生成
+* `pull requests`: ウェブエディタからブランチとプルリクエストを作成
+* `workflows`: ドキュメントのデプロイ用 GitHub Actions を管理
+
+<Info>
+このアプリは、あなたが明示的にアクセスを許可したリポジトリにのみアクセスします。ブランチ保護ルールが有効な場合、アプリは保護対象のブランチへ直接プッシュできません。
+</Info>
+
+<div id="managing-repository-access">
+  ## リポジトリへのアクセス管理
+</div>
+
+GitHub App をインストールする際、すべてのリポジトリか特定のリポジトリのみにアクセス権を付与できます。ドキュメントがあるリポジトリに限定して付与することを推奨します。この設定はいつでも [GitHub App の設定](https://github.com/apps/mintlify/installations/new)で変更できます。
+
+<div id="configuring-docs-source">
+  ## ドキュメントのソース設定
+</div>
+
+ドキュメントのビルド元となる組織・リポジトリ・ブランチは、ダッシュボードの [Git Settings](https://dashboard.mintlify.com/settings/deployment/git-settings) セクションで変更できます。
+
+<div id="troubleshooting">
+  ## トラブルシューティング
+</div>
+
+GitHub アプリで問題が発生した場合は、接続をリセットすると解決することがほとんどです。
+
+<Steps>
+  <Step title="GitHub から Mintlify アプリをアンインストールする">
+    1. GitHub の [installations](https://github.com/settings/installations) にアクセスし、Mintlify アプリの横にある **Configure** を選択します。ページ下部までスクロールして **Uninstall** を選択します。
+    2. [Authorized GitHub Apps](https://github.com/settings/apps/authorizations) にアクセスし、Mintlify アプリの横にある **Revoke** を選択します。
+  </Step>
+  <Step title="Mintlify アプリを再インストールする">
+    1. Mintlify ダッシュボードの [Git Settings](https://dashboard.mintlify.com/settings/deployment/git-settings) に移動し、GitHub アプリをインストールします。
+    2. ダッシュボードの [My Profile](https://dashboard.mintlify.com/settings/account) でアカウントの承認を行います。
+  </Step>
+</Steps>

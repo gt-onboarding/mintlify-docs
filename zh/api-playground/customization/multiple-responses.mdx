@@ -1,0 +1,31 @@
+---
+title: "Multiple responses"
+description: "Show response variations for the same endpoint"
+---
+
+如果你的 API 会根据输入参数、用户上下文或请求的其他条件返回不同的响应，你可以使用 `examples` 属性为同一端点记录多个响应示例。
+
+该属性可添加到任何响应中，且其结构如下所示。
+
+```yaml
+responses:
+  "200":
+    description: Successful response
+    content:
+      application/json:
+        schema:
+          $ref: "#/components/schemas/YourResponseSchema"
+        examples:
+          us:
+            summary: Response for United States
+            value:
+              countryCode: "US"
+              currencyCode: "USD"
+              taxRate: 0.0825
+          gb:
+            summary: Response for United Kingdom
+            value:
+              countryCode: "GB"
+              currencyCode: "GBP"
+              taxRate: 0.20
+```

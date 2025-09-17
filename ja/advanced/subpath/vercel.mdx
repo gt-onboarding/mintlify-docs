@@ -1,0 +1,98 @@
+---
+title: "Vercel"
+description: "Vercel を使ってカスタムサブパスにドキュメントをホスティングする"
+---
+
+import { VercelJsonGenerator } from "/snippets/ja/vercel-json-generator.mdx";
+
+
+<div id="verceljson-file">
+  ## vercel.json ファイル
+</div>
+
+`vercel.json` ファイルは、プロジェクトのビルドとデプロイ方法を設定します。プロジェクトのルートディレクトリに配置し、ルーティング、リダイレクト、ヘッダー、ビルド設定などデプロイの各種挙動を制御します。
+
+メインドメインからドキュメントへのリクエストをプロキシするために、`rewrites` 設定を使用します。
+
+Rewrites は、ブラウザの URL を変更せずに受信リクエストを別の宛先へ割り当てます。誰かが `yoursite.com/docs` にアクセスすると、Vercel は内部的に `your-subdomain.mintlify.dev/docs` からコンテンツを取得しますが、ブラウザ上の表示は引き続き `yoursite.com/docs` のままです。これは、ユーザーを完全に別の URL へ遷移させるリダイレクトとは異なります。
+
+サブパスは `/docs`、`/help`、`/guides` など任意の値にカスタマイズできます。さらに、`/product/docs` のような深くネストしたサブパスも使用できます。
+
+<div id="repository-structure">
+  ## リポジトリ構成
+</div>
+
+ドキュメントファイルは、選択したサブパス構成に合わせてリポジトリ内で整理する必要があります。たとえば、ドキュメントを `yoursite.com/docs` に配置したい場合は、すべてのドキュメントファイルをまとめた `docs/` ディレクトリを作成します。
+
+<div id="configuration">
+  ## 設定
+</div>
+
+Vercel でドキュメントを任意のサブパス配下にホストするには、`vercel.json` に次の設定を追加します。以下の例では `/docs` を使用していますが、任意のサブパスに置き換えられます。
+
+```json
+{
+  "rewrites": [
+    {
+      "source": "/docs",
+      "destination": "https://[subdomain].mintlify.dev/docs"
+    },
+    {
+      "source": "/docs/:match*",
+      "destination": "https://[subdomain].mintlify.dev/docs/:match*"
+    }
+  ]
+}
+```
+
+- **`source`**: リライトを発火させる、あなたのドメイン上のパスパターン。
+- **`destination`**: リクエストをプロキシする転送先。
+- **`:match*`**: 指定したサブパス以降の任意のパスセグメントを取得するワイルドカード。
+
+詳しくは、Vercel ドキュメントの [Configuring projects with vercel.json: Rewrites](https://vercel.com/docs/projects/project-configuration#rewrites) を参照してください。
+
+<div id="generate-rewrites">
+  ### リライトの生成
+</div>
+
+`vercel.json` ファイル向けのリライトを生成するために、サブドメインとカスタムサブディレクトリを入力してください。
+
+<VercelJsonGenerator />
+
+<div id="using-external-proxies-with-vercel">
+  ## Vercelで外部プロキシを使用する
+</div>
+
+Vercelのデプロイの前段に外部プロキシ（CloudflareやAWS CloudFrontなど）を置いている場合、Vercelのドメイン検証やSSL証明書のプロビジョニングと競合しないよう、適切に設定する必要があります。
+
+不適切なプロキシ設定は、VercelによるLet's EncryptのSSL証明書プロビジョニングを妨げ、ドメイン検証の失敗を招く可能性があります。
+
+Vercelのドキュメントにある[対応プロバイダー](https://vercel.com/guides/how-to-setup-verified-proxy#supported-providers-verified-proxy-lite)を参照してください。
+
+<div id="required-path-allowlist">
+  ### 必須のパス許可リスト
+</div>
+
+外部プロキシは、以下の特定パスへのトラフィックをブロック、リダイレクト、または過度にキャッシュすることなく許可する必要があります：
+
+- `/.well-known/acme-challenge/*` - Let's Encrypt の証明書検証に必須
+- `/.well-known/vercel/*` - Vercel のドメイン検証に必須
+- `/mintlify-assets/_next/static/*` - 静的アセットの配信に必須
+
+これらのパスは、変更を加えずに Vercel のデプロイへそのまま通過させる必要があります。
+
+<div id="header-forwarding-requirements">
+  ### ヘッダー転送の要件
+</div>
+
+プロキシが `HOST` ヘッダーを正しくフォワードしていることを確認してください。適切にヘッダーがフォワードされていない場合、検証リクエストは失敗します。
+
+<div id="testing-your-proxy-setup">
+  ### プロキシ設定のテスト
+</div>
+
+プロキシが正しく設定されていることを確認するには:
+
+1. `https://[yourdomain].com/.well-known/vercel/` にアクセスして応答が返ることを確認します。
+2. VercelダッシュボードでSSL証明書が正しくプロビジョニングされていることを確認します。
+3. ドメインの所有権の確認が正常に完了していることを確認します。
