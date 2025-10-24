@@ -1,0 +1,90 @@
+---
+title: "ページの表示設定を管理する"
+description: "OpenAPI 仕様のどのエンドポイントをドキュメントのナビゲーションに表示するかを制御する"
+---
+
+どの OpenAPI のオペレーションをドキュメントページとして公開し、ナビゲーションでの表示可否を制御できます。これは、社内限定のエンドポイント、非推奨のオペレーション、ベータ機能、または直接の URL ではアクセス可能だがサイトのナビゲーションからは見つからないようにしたいエンドポイントに役立ちます。
+
+ページが OpenAPI のドキュメントから自動生成される場合は、`x-hidden` と `x-excluded` 拡張でページの表示可否を管理できます。
+
+<div id="x-hidden">
+  ## `x-hidden`
+</div>
+
+`x-hidden` 拡張はエンドポイント用のページを作成しますが、ナビゲーションには表示しません。ページには、そのURLに直接アクセスした場合にのみ到達できます。
+
+`x-hidden` の一般的なユースケースは次のとおりです:
+
+- ドキュメント化はしたいが、露出は控えたいエンドポイント
+- 他のコンテンツからリンクするページ
+- 特定のユーザー向けのエンドポイント
+
+<div id="x-excluded">
+  ## `x-excluded`
+</div>
+
+`x-excluded` 拡張は、ドキュメントからエンドポイントを完全に除外します。
+
+`x-excluded` の一般的なユースケースは次のとおりです:
+
+- 内部向け専用のエンドポイント
+- ドキュメント化対象から外したい非推奨のエンドポイント
+- 公開ドキュメントの準備が整っていないベータ機能
+
+<div id="implementation">
+  ## 実装
+</div>
+
+OpenAPI 仕様の各 HTTP メソッド配下に `x-hidden` または `x-excluded` 拡張を追加します。
+
+エンドポイントと Webhook のパスに対する OpenAPI スキーマドキュメントで、各プロパティの使用例を以下に示します。
+
+```json {11, 19}
+"paths": {
+  "/plants": {
+    "get": {
+      "description": "ストアのすべての植物を返します",
+      "parameters": { /*...*/ },
+      "responses": { /*...*/ }
+    }
+  },
+  "/hidden_plants": {
+    "get": {
+      "x-hidden": true,
+      "description": "ストアの非公開植物をすべて返します",
+      "parameters": { /*...*/ },
+      "responses": { /*...*/ }
+    }
+  },
+  "/secret_plants": {
+    "get": {
+      "x-excluded": true,
+      "description": "ストアの機密植物をすべて返します(このエンドポイントは公開しないでください!)",
+      "parameters": { /*...*/ },
+      "responses": { /*...*/ }
+    }
+  }
+},
+```
+
+```json {9, 15}
+"webhooks": {
+  "/plants_hook": {
+    "post": {
+      "description": "ストアに追加された新しい植物の情報を受け取るWebhook",
+    }
+  },
+  "/hidden_plants_hook": {
+    "post": {
+      "x-hidden": true,
+      "description": "ストアに追加された新しい植物のやや機密性の高い情報を受け取るWebhook"
+    }
+  },
+  "/secret_plants_hook": {
+    "post": {
+      "x-excluded": true,
+      "description": "ストアに追加された新しい植物の極秘情報を受け取るWebhook(このエンドポイントは公開しないでください!)"
+    }
+  }
+}
+```

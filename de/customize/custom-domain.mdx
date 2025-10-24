@@ -1,0 +1,81 @@
+---
+title: "Eigene Domain"
+description: "Hosten Sie Ihre Dokumentation unter der benutzerdefinierten Domain Ihrer Website"
+og:description: "Hosten Sie Ihre Dokumentation unter der benutzerdefinierten Domain Ihrer Website"
+---
+
+Um Ihre Dokumentation unter einer benutzerdefinierten Domain zu hosten, legen Sie die gewünschte Domain in Ihren Mintlify-Einstellungen fest und konfigurieren Sie die DNS-Einstellungen bei Ihrem Domainanbieter.
+
+<Info>
+  Möchten Sie ein benutzerdefiniertes Unterverzeichnis wie `mintlify.com/docs` einrichten? Siehe die Dokumentation zum [benutzerdefinierten Unterverzeichnis](/de/deploy/cloudflare).
+</Info>
+
+<div id="dashboard-settings">
+  ## Dashboard-Einstellungen
+</div>
+
+1. Navigiere zu deinem [Dashboard](https://dashboard.mintlify.com).
+2. Wähle **Settings**.
+3. Wähle **Domain Setup**.
+4. Gib deine gewünschte benutzerdefinierte Domain ein, zum Beispiel `docs.mintlify.com`.
+
+<Frame>
+  <img alt="Die Seite zur Einrichtung der benutzerdefinierten Domain mit hervorgehobenem Eingabefeld „Enter your domain URL“." className="block dark:hidden" src="/images/add-custom-domain-light.png" />
+
+  <img alt="Die Seite zur Einrichtung der benutzerdefinierten Domain mit hervorgehobenem Eingabefeld „Enter your domain URL“." className="hidden dark:block" src="/images/add-custom-domain-dark.png" />
+</Frame>
+
+<div id="configure-your-dns">
+  ## DNS konfigurieren
+</div>
+
+1. Rufen Sie die DNS-Einstellungen Ihrer Domain auf der Website Ihres Domainanbieters auf.
+2. Erstellen Sie einen neuen DNS-Eintrag mit den folgenden Werten:
+
+```bash
+CNAME | docs | cname.vercel-dns.com.
+```
+
+<Frame>
+  <img alt="Beispiel-CNAME-Einstellungen für eine benutzerdefinierte Domain, die auf Vercel gehostet wird." src="https://mintlify-assets.b-cdn.net/mintlify-dns.png" />
+</Frame>
+
+<div id="provider-specific-settings">
+  ## Anbieterspezifische Einstellungen
+</div>
+
+<AccordionGroup>
+  <Accordion title="Vercel-Verifizierung">
+    Wenn Vercel Ihr Domainanbieter ist, müssen Sie einen Verifizierungs-„TXT“-Eintrag hinzufügen. Diese Informationen erscheinen auf Ihrem Dashboard, nachdem Sie Ihre benutzerdefinierte Domain eingereicht haben, und werden Ihnen auch per E-Mail zugeschickt.
+  </Accordion>
+
+  <Accordion title="Cloudflare-Sicherheitseinstellungen">
+    Wenn Cloudflare Ihr DNS-Anbieter ist, müssen Sie die Option „Full strict“ für die HTTPS-Einstellung aktivieren.
+  </Accordion>
+</AccordionGroup>
+
+<div id="set-a-canonical-url">
+  ## Lege eine kanonische URL fest
+</div>
+
+Nachdem du dein DNS konfiguriert hast, lege eine kanonische URL fest, damit Suchmaschinen deine bevorzugte Domain indexieren. Eine kanonische URL teilt Suchmaschinen mit, welche Version deiner Dokumentation die maßgebliche ist. Das verbessert die SEO, wenn deine Doku über mehrere URLs erreichbar ist, und verhindert Probleme mit doppelten Inhalten.
+
+Füge das `canonical`-Meta-Tag zu deiner `docs.json` hinzu:
+
+```json
+"seo": {
+    "metatags": {
+        "canonical": "https://www.your-custom-domain-here.com"
+    }
+}
+```
+
+Ersetzen Sie `https://www.your-custom-domain-here.com` durch Ihre tatsächliche eigene Domain. Wenn Ihre eigene Domain beispielsweise `docs.mintlify.com` ist, verwenden Sie:
+
+```json
+"seo": {
+    "metatags": {
+        "canonical": "https://docs.mintlify.com"
+    }
+}
+```

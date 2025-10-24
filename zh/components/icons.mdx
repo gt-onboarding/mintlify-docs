@@ -1,0 +1,41 @@
+---
+title: "图标"
+description: "使用主流图标库的图标"
+---
+
+import IconsRequired from "/snippets/zh/icons-required.mdx";
+
+使用来自 Font Awesome、Lucide、SVG、外部 URL 或项目内文件的图标来增强文档。
+
+<Icon icon="flag" size={32} />
+
+```mdx Icon example
+<Icon icon="flag" size={32} />
+```
+
+
+<div id="inline-icons">
+  ## 内联图标
+</div>
+
+当在段落中使用时，图标会以内联方式呈现。
+
+<Icon icon="flag" iconType="solid" /> 轻松获得你需要的文档。
+
+```markdown Inline icon example
+<Icon icon="flag" iconType="solid" /> 轻松获得你需要的文档。
+```
+
+<div id="properties">
+  ## 属性
+</div>
+
+<IconsRequired />
+
+<ResponseField name="color" type="string">
+  图标颜色（十六进制颜色码，例如 `#FF5733`）。
+</ResponseField>
+
+<ResponseField name="size" type="number">
+  图标尺寸（以像素为单位）。
+</ResponseField>

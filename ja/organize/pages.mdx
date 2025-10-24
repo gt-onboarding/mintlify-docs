@@ -1,0 +1,195 @@
+---
+title: "ページ"
+description: "ページはドキュメントの基本単位です"
+keywords: ["tags", "tag"]
+---
+
+各ページはMDXファイルで、MarkdownのコンテンツとReactコンポーネントを組み合わせることで、リッチでインタラクティブなドキュメントを作成できます。
+
+<div id="page-metadata">
+  ## ページのメタデータ
+</div>
+
+各ページは、ファイルの先頭にある `---` で囲まれた frontmatter（YAML メタデータ）から始まります。このメタデータで、ページの表示や動作が決まります。
+
+frontmatter で制御できる項目:
+
+* ページタイトルと説明文
+* サイドバーのタイトル、アイコン、タグ
+* ページレイアウト
+* SEO 用メタタグ
+* カスタムメタデータ
+
+<ResponseField name="title" type="string" required>
+  ナビゲーションやブラウザのタブに表示されるページのタイトル。
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  このページの内容を簡潔に説明します。タイトルの下に表示され、SEO の向上に役立ちます。
+</ResponseField>
+
+<ResponseField name="sidebarTitle" type="string">
+  サイドバーのナビゲーションに表示される短いタイトル。
+</ResponseField>
+
+<ResponseField name="icon" type="string">
+  表示するアイコン。
+
+  オプション:
+
+  * [Font Awesome icon](https://fontawesome.com/icons) の名前
+  * [Lucide icon](https://lucide.dev/icons) の名前
+  * 外部ホストのアイコンへの URL
+  * プロジェクト内のアイコンファイルへのパス
+</ResponseField>
+
+<ResponseField name="iconType" type="string">
+  [Font Awesome](https://fontawesome.com/icons) のアイコンスタイル。Font Awesome のアイコンにのみ使用します。
+
+  オプション: `regular`, `solid`, `light`, `thin`, `sharp-solid`, `duotone`, `brands`
+</ResponseField>
+
+<ResponseField name="tag" type="string">
+  サイドバーでページタイトルの横に表示されるタグ。
+</ResponseField>
+
+<ResponseField name="<custom>" type="string">
+  任意の有効な YAML frontmatter。例: `product: "API"` や `version: "1.0.0"`。
+</ResponseField>
+
+```yaml Example YAML frontmatter wrap
+---
+title: "フロントマターについて"
+description: "フロントマターは、ページの表示方法と動作を制御するメタデータです"
+sidebarTitle: "フロントマター"
+icon: "book"
+tag: "NEW"
+---
+```
+
+<div id="page-mode">
+  ## ページモード
+</div>
+
+`mode` 設定でページの表示形式を制御します。
+
+<div id="default">
+  ### デフォルト
+</div>
+
+モードが未指定の場合、サイドバーのナビゲーションと目次を備えた標準レイアウトが使用されます。
+
+```yaml
+---
+title: "デフォルトのページタイトル"
+---
+```
+
+<div id="wide">
+  ### ワイド
+</div>
+
+ワイドモードでは目次が非表示になります。見出しのないページや、横方向の余白を活用したい場合に便利です。ワイドモードはすべてのテーマで利用できます。
+
+```yaml
+---
+title: "ワイドページタイトル"
+mode: "wide"
+---
+```
+
+<div id="custom">
+  ### Custom
+</div>
+
+Custom モードは、上部のナビバー以外の要素をすべて取り除いたミニマルなレイアウトを提供します。ランディングページや、ナビゲーション要素を最小限に抑えたい独自レイアウトを作成するための白紙のキャンバスです。Custom モードはすべてのテーマで利用できます。
+
+```yaml
+---
+title: "カスタムページタイトル"
+mode: "custom"
+---
+```
+
+<div id="frame">
+  ### フレーム
+</div>
+
+フレームモードはカスタムモードに近いレイアウトを提供しつつ、サイドバーのナビゲーションを維持します。このページモードでは、デフォルトのナビゲーション体験を保ったまま、独自のHTMLやコンポーネントを使用できます。フレームモードは Aspen と Almond のテーマでのみ利用できます。
+
+```yaml
+---
+title: "フレームページのタイトル"
+mode: "frame"
+---
+```
+
+<div id="center">
+  ### 中央揃え
+</div>
+
+中央揃えモードはサイドバーと目次を非表示にし、コンテンツを中央に配置します。変更履歴や、コンテンツ自体を強調したいページに適しています。中央揃えモードは Mint と Linden のテーマで利用できます。
+
+```yaml
+---
+title: "ページタイトルを中央揃え"
+mode: "center"
+---
+```
+
+<div id="api-pages">
+  ## APIページ
+</div>
+
+フロントマターに API 仕様（`api` または `openapi`）を追加すると、インタラクティブな APIプレイグラウンドを作成できます。
+
+```yaml
+---
+openapi: "GET /endpoint"
+---
+```
+
+[API ドキュメント](/ja/api-playground/overview)の作成について詳しく学ぶ
+
+<div id="external-links">
+  ## 外部リンク
+</div>
+
+ナビゲーションから `url` メタデータで外部サイトに直接リンクできます。
+
+```yaml
+---
+title: "npmパッケージ"
+url: "https://www.npmjs.com/package/mint"
+---
+```
+
+<div id="search-engine-optimization">
+  ## 検索エンジン最適化
+</div>
+
+SEO メタタグの大半は自動生成されます。サイトの SEO、ソーシャルでの共有、ブラウザー互換性を高めるために、必要に応じてメタタグを手動で設定できます。
+
+<Note>
+  コロンを含むメタタグは、引用符で囲む必要があります。
+</Note>
+
+```yaml
+---
+"twitter:image": "/images/social-preview.jpg"
+---
+```
+
+完全な SEO メタデータのオプションについては、[SEO](/ja/optimize/seo) を参照してください。
+
+<div id="internal-search-keywords">
+  ## 内部検索キーワード
+</div>
+
+メタデータで `keywords` を指定すると、組み込み検索で特定のページの見つけやすさを高められます。これらのキーワードはページのコンテンツや検索結果には表示されませんが、それらを検索したユーザーには、そのページが結果として表示されます。
+
+```yaml
+---
+keywords: ['設定', 'セットアップ', '使い始める']
+---
+```

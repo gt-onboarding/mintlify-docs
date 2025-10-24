@@ -1,0 +1,45 @@
+---
+title: "カスタム 404 ページ"
+description: "404 エラーページのタイトルと説明をカスタマイズする"
+---
+
+ユーザーが壊れたリンクや存在しないリンクに移動したときに表示される 404 エラーページのタイトルと説明を設定できます。
+
+404 ページをカスタマイズする際は、説明文を使って、ユーザーが探している情報を見つけられるよう、ドキュメント内の役立つリソースやリンクへ誘導してください。
+
+<div id="configuration">
+  ## 設定
+</div>
+
+`docs.json` ファイルの `errors.404` セクションで、404 ページを設定します。
+
+```json
+"errors": {
+  "404": {
+    "redirect": false,
+    "title": "見つかりません",
+    "description": "このページに**何が**起こったのでしょう_か_?"
+  }
+}
+```
+
+
+<div id="parameters">
+  ## パラメーター
+</div>
+
+<ResponseField name="redirect" type="boolean">
+  ページが見つからない場合に自動でホームにリダイレクトするかどうか。
+  
+  `true` に設定するとホームにリダイレクトします。
+
+  `false` に設定するとカスタム 404 ページを表示します。
+</ResponseField>
+
+<ResponseField name="title" type="string">
+  404 エラーページのカスタムタイトル。既定の「Page not found」見出しを置き換えます。
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  404 エラーページのカスタム説明。Markdown 記法をサポートします。
+</ResponseField>

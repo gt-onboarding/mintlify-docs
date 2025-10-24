@@ -1,0 +1,165 @@
+---
+title: "交互沙盒"
+description: "让用户与你的 API 进行交互"
+---
+
+<div id="overview">
+  ## 概览
+</div>
+
+API 操作台是一个交互式环境，便于用户测试和探索你的 API 端点。开发者可以构造 API 请求、提交请求，并在不离开文档的情况下查看响应。
+
+<Frame>
+  <img src="/images/playground/API-playground-light.png" alt="用于触发更新端点的 API 操作台。" className="block dark:hidden" />
+
+  <img src="/images/playground/API-playground-dark.png" alt="用于触发更新端点的 API 操作台。" className="hidden dark:block" />
+</Frame>
+
+操作台会根据你的 OpenAPI 规范或 AsyncAPI 架构自动生成，因此对 API 的任何更新都会自动体现在操作台中。你也可以在 `docs.json` 中定义基础 URL 和身份验证方法后，手动创建 API 参考页面。
+
+我们建议基于 OpenAPI 规范生成 API 操作台。有关创建 OpenAPI 文档的更多信息，请参见 [OpenAPI 设置](/zh/api-playground/openapi-setup)。
+
+<div id="getting-started">
+  ## 快速开始
+</div>
+
+<Steps>
+  <Step title="添加你的 OpenAPI 规范文件。">
+    <Info>
+      使用 [Swagger Editor](https://editor.swagger.io/) 或 [Mint CLI](https://www.npmjs.com/package/mint) 验证你的 OpenAPI 规范文件是否有效。
+    </Info>
+
+    ```bash {3}
+    /your-project
+      |- docs.json
+      |- openapi.json
+    ```
+  </Step>
+
+  <Step title="配置 `docs.json`。">
+    更新 `docs.json`，引用你的 OpenAPI 规范。在任意导航元素中添加 `openapi` 属性，可根据 OpenAPI 文档中声明的每个端点自动生成对应页面。
+
+    下例会为 `openapi.json` 中的每个端点生成页面，并将它们归类到导航中的“API reference”分组下。
+
+    ```json
+    "navigation": {
+      "groups": [
+        {
+          "group": "API reference",
+          "openapi": "openapi.json"
+        }
+      ]
+    }
+    ```
+
+    若只需为特定端点生成页面，请在该导航元素的 `pages` 属性中列出这些端点。
+
+    下例仅为 `GET /users` 和 `POST /users` 端点生成页面。若要生成其他端点页面，请将相应端点添加到 `pages` 数组中。
+
+    ```json
+    "navigation": {
+      "groups": [
+          {
+            "group": "API reference",
+            "openapi": "openapi.json",
+            "pages": [
+              "GET /users",
+              "POST /users"
+            ]
+          }
+      ]
+    }
+    ```
+  </Step>
+</Steps>
+
+<div id="customizing-your-playground">
+  ## 自定义 API 操作台
+</div>
+
+你可以在 `docs.json` 中定义以下属性来自定义你的 API 操作台。
+
+<ResponseField name="playground" type="object">
+  API 操作台的配置。
+
+  <Expandable title="playground" defaultOpen="True">
+    <ResponseField name="display" type="&#x22;interactive&#x22; | &#x22;simple&#x22; | &#x22;none&#x22;">
+      API 操作台的显示模式。
+
+      * `"interactive"`：显示交互式操作台。
+      * `"simple"`：显示可复制的端点，不包含操作台。
+      * `"none"`：不显示任何内容。
+
+      默认为 `interactive`。
+    </ResponseField>
+
+    <ResponseField name="proxy" type="boolean" defaultOpen="True">
+      是否通过代理服务器转发 API 请求。默认为 `true`。
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="examples" type="object">
+  自动生成的 API 示例的配置。
+
+  <Expandable title="examples" defaultOpen="True">
+    <ResponseField name="languages" type="array of string">
+      自动生成的 API 代码片段的示例语言。
+
+      语言将按指定顺序显示。
+    </ResponseField>
+
+    <ResponseField name="defaults" type="&#x22;required&#x22; | &#x22;all&#x22;">
+      是否在 API 示例中显示可选参数。默认为 `all`。
+    </ResponseField>
+
+    <ResponseField name="prefill" type="boolean">
+      是否使用 schema 示例数据预填充 API 操作台。启用后，操作台会根据你的 OpenAPI 规范中的示例值自动填充请求字段。默认为 `false`。
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<div id="example-configuration">
+  ### 配置示例
+</div>
+
+```json
+{
+ "api": {
+   "playground": {
+     "display": "interactive"
+   },
+   "examples": {
+     "languages": ["curl", "python", "javascript"],
+     "defaults": "required",
+     "prefill": true
+   }
+ }
+}
+```
+
+此示例将 API 操作台配置为可交互，并提供 cURL、Python 和 JavaScript 的示例代码片段。代码片段仅显示必需参数，且操作台会为请求体预填示例值。
+
+<div id="custom-endpoint-pages">
+  ### 自定义端点页面
+</div>
+
+当你需要更细致地控制 API 文档时，可以在 OpenAPI 规范中使用 `x-mint` 扩展，或为各个端点创建独立的 `MDX` 页面。
+
+这两种方式都可以：
+
+* 自定义页面元数据
+* 添加示例等补充内容
+* 按页面控制操作台行为
+
+推荐使用 `x-mint` 扩展，这样所有 API 文档都能从 OpenAPI 规范自动生成，并统一维护在同一个文件中。
+
+对于体量较小的 API，或当你希望逐页试验更改时，建议使用独立的 `MDX` 页面。
+
+更多信息请参阅 [x-mint 扩展](/zh/api-playground/openapi-setup#x-mint-extension) 和 [MDX 配置](/zh/api-playground/mdx/configuration)。
+
+<div id="further-reading">
+  ## 延伸阅读
+</div>
+
+* [AsyncAPI 设置](/zh/api-playground/asyncapi/setup)，了解如何创建 AsyncAPI 架构以生成 WebSocket 参考页面的更多信息。

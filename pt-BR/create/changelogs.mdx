@@ -1,0 +1,145 @@
+---
+title: "Changelogs"
+description: "Publique atualizações de produto na sua documentação com um feed RSS ao qual os usuários podem se inscrever"
+---
+
+Crie um changelog para sua documentação adicionando o componente [Update](/pt-BR/components/update) a uma página.
+
+Confira o [changelog da Mintlify](/pt-BR/changelog) como exemplo: você pode incluir links, imagens, texto e demonstrações dos seus novos recursos em cada atualização.
+
+<div id="setting-up-your-changelog">
+  ## Configurando seu changelog
+</div>
+
+<Steps>
+  <Step title="Crie uma página para o seu changelog">
+    1. Crie uma nova página na sua documentação, como `changelog.mdx` ou `updates.mdx`.
+    2. Adicione a página do changelog ao esquema de navegação no seu `docs.json`.
+  </Step>
+
+  <Step title="Adicione componentes Update ao seu changelog">
+    Adicione um `Update` para cada entrada do changelog.
+
+    Inclua informações relevantes, como lançamentos de recursos, correções de bugs ou outros anúncios.
+  </Step>
+</Steps>
+
+```mdx Example changelog.mdx
+---
+title: "Changelog"
+description: "Atualizações e novidades do produto"
+---
+<Update label="Março de 2025" description="v0.0.10">
+  Adicionado novo sabor Wintergreen.
+
+  Lançada nova versão do sabor Spearmint, agora com 10% mais menta.
+</Update>
+
+<Update label="Fevereiro de 2025" description="v0.0.09">
+  Lançada nova versão do sabor Spearmint.
+</Update>
+```
+
+<div id="customizing-your-changelog">
+  ## Personalizando seu changelog
+</div>
+
+Defina como as pessoas navegam pelo seu changelog e se mantêm atualizadas sobre as informações do seu produto.
+
+<div id="table-of-contents">
+  ### Índice
+</div>
+
+Cada propriedade `label` de um `Update` cria automaticamente uma entrada no índice da barra lateral direita. Essa é a navegação padrão do seu changelog.
+
+<Frame>
+  <img src="/images/changelog-toc-light.png" alt="Changelog com índice exibido no modo claro." className="block dark:hidden" />
+
+  <img src="/images/changelog-toc-dark.png" alt="Changelog com índice exibido no modo escuro." className="hidden dark:block" />
+</Frame>
+
+<div id="tag-filters">
+  ### Filtros de tags
+</div>
+
+Adicione `tags` aos seus componentes `Update` para substituir o índice por filtros de tags. Os usuários podem filtrar o changelog selecionando uma ou mais tags:
+
+```mdx Tag filters example wrap
+<Update label="Março de 2025" description="v0.0.10" tags={["Wintergreen", "Spearmint"]}>
+  Adicionado novo sabor Wintergreen.
+
+  Lançada nova versão do sabor Spearmint, agora com 10% mais menta.
+</Update>
+
+<Update label="Fevereiro de 2025" description="v0.0.09" tags={["Spearmint"]}>
+  Lançada nova versão do sabor Spearmint.
+</Update>
+
+<Update label="Janeiro de 2025" description="v0.0.08" tags={["Peppermint", "Spearmint"]}>
+  Sabor Peppermint descontinuado.
+
+  Lançada nova versão do sabor Spearmint.
+</Update>
+```
+
+<Frame>
+  <img src="/images/changelog-filters-light.png" alt="Changelog no modo claro com o filtro de tag Peppermint selecionado." className="block dark:hidden" />
+
+  <img src="/images/changelog-filters-dark.png" alt="Changelog no modo escuro com o filtro de tag Peppermint selecionado." className="hidden dark:block" />
+</Frame>
+
+<Tip>
+  O índice e os filtros do changelog ficam ocultos ao usar os modos de página `custom`, `center` ou `wide`. Saiba mais sobre os [modos de página](/pt-BR/organize/pages#page-mode).
+</Tip>
+
+<div id="subscribable-changelogs">
+  ### Changelogs com assinatura
+</div>
+
+Usar componentes `Update` cria um feed RSS para assinatura no URL da sua página com `/rss.xml` anexado. Por exemplo, `mintlify.com/docs/changelog/rss.xml`.
+
+As entradas são adicionadas ao feed RSS quando novos componentes `Update` são publicados e quando novos títulos são adicionados dentro de tags `<Update>` existentes.
+
+Os títulos de nível superior dos componentes `Update` são usados como os títulos das entradas do feed RSS, e as entradas apontam para seus respectivos anchors de título na sua documentação.
+
+```xml Example RSS feed
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+  <channel>
+    <title><![CDATA[Atualizações de produto]]></title>
+    <description><![CDATA[Novidades e melhorias]]></description>
+    <link>https://mintlify.com/docs</link>
+    <generator>RSS for Node</generator>
+    <lastBuildDate>Mon, 21 Jul 2025 21:21:47 GMT</lastBuildDate>
+    <atom:link href="https://mintlify.com/docs/changelog/rss.xml" rel="self" type="application/rss+xml"/>
+    <copyright><![CDATA[Mintlify]]></copyright>
+    <docs>https://mintlify.com/docs</docs>
+    <item>
+      <title><![CDATA[Junho de 2025]]></title>
+      <link>https://mintlify.com/docs/changelog#june-2025</link>
+      <guid isPermaLink="true">https://mintlify.com/docs/changelog#june-2025</guid>
+      <pubDate>Mon, 23 Jun 2025 16:54:22 GMT</pubDate>
+    </item>
+  </channel>
+</rss>
+```
+
+Feeds RSS podem se integrar ao Slack, e-mail ou outras ferramentas de assinatura para notificar os usuários sobre mudanças no produto. Algumas opções incluem:
+
+* [Slack](https://slack.com/help/articles/218688467-Add-RSS-feeds-to-Slack)
+* [E-mail](https://zapier.com/apps/email/integrations/rss/1441/send-new-rss-feed-entries-via-email) via Zapier
+* Bots do Discord como [Readybot](https://readybot.io) ou [RSS Feeds to Discord Bot](https://rss.app/en/bots/rssfeeds-discord-bot)
+
+Para tornar o feed RSS detectável, você pode exibir um botão com o ícone de RSS que leve ao feed no topo da página. Adicione `rss: true` ao frontmatter da página:
+
+```mdx
+---
+rss: true
+---
+```
+
+<Frame>
+  <img src="/images/changelog-rss-button-light.png" alt="Página de changelog no modo claro com o botão do feed RSS ativado." className="block dark:hidden" />
+
+  <img src="/images/changelog-rss-button-dark.png" alt="Página de changelog no modo escuro com o botão do feed RSS ativado." className="hidden dark:block" />
+</Frame>

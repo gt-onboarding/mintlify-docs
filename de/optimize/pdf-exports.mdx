@@ -1,0 +1,36 @@
+---
+title: "PDF-Exporte"
+description: "Exportieren Sie Ihre Dokumentation als einzelne PDF-Datei"
+---
+
+export const DownloadPDFButton = () => {
+    return (
+        <a download="mintlify-example.pdf" href="/files/mint-full-docs.pdf" className="border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-700 transition-colors w-fit text-sm font-medium flex items-center gap-2 rounded-lg px-3.5 py-1.5 not-prose">
+            <Icon icon="download" size={16} />
+            Beispiel-PDF ansehen
+        </a>
+    )
+}
+
+<Info>
+  PDF-Exporte sind in [Custom-Plänen](https://mintlify.com/pricing) verfügbar.
+</Info>
+
+Sie können Ihre Dokumentation als einzelne PDF-Datei für die Offline-Nutzung exportieren. Die PDF enthält den gesamten Inhalt der Dokumentation, einschließlich Bildern und Links, sowie ein navigierbares Inhaltsverzeichnis.
+
+
+<div id="exporting-a-pdf">
+  ## Eine PDF exportieren
+</div>
+
+1. Navigieren Sie in den Projekteinstellungen Ihres Dashboards zur Seite [General](https://dashboard.mintlify.com/settings/deployment/general).
+2. Klicken Sie auf die Schaltfläche **Export all content**.
+3. Optional können Sie die Exportoptionen anpassen:
+    - **Page format**: Wählen Sie das Seitenformat der PDF.
+    - **Scale percentage**: Passen Sie den Skalierungsfaktor der PDF an.
+    - **Include footer**: Fußzeile mit Seitenzahl und Gesamtseiten einfügen.
+4. Klicken Sie auf **Export**, um den Export zu starten.
+5. Sobald der Export abgeschlossen ist, erhalten Sie eine E-Mail mit einem Download-Link.
+6. Klicken Sie auf den Download-Link, um die PDF-Datei herunterzuladen.
+
+<DownloadPDFButton />

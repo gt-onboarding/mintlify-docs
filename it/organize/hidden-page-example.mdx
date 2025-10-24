@@ -1,0 +1,58 @@
+---
+title: "Esempio di pagina nascosta"
+description: "Casi d'uso comuni per le pagine nascoste"
+---
+
+Questa pagina è nascosta! Non è inclusa nella navigazione di `docs.json`, quindi puoi accedervi solo tramite il suo URL.
+
+Consulta [Pagine nascoste](/it/organize/hidden-pages) per ulteriori informazioni.
+
+## Casi d&#39;uso comuni per le pagine nascoste
+
+<Note>
+  Per impostazione predefinita, le pagine nascoste sono accessibili pubblicamente, ma non sono individuabili tramite la navigazione. Se vuoi limitarne l’accesso, devi configurare l’[autenticazione](/it/deploy/authentication-setup).
+</Note>
+
+* **Documentazione beta**: Informazioni che possono essere pubbliche, ma che non dovrebbero essere individuabili tramite la navigazione.
+* **Contesto per strumenti di AI**: Se le pagine nascoste sono indicizzate, gli strumenti di AI possono utilizzarle come contesto. Usa le pagine nascoste per contenuti non rilevanti per gli utenti, ma che possono aiutare gli strumenti di AI a fornire risposte più accurate.
+* **Pagine legacy**: Mantieni i contenuti obsoleti accessibili tramite link diretti rimuovendoli dai menu di navigazione.
+* **Strumenti interni**: Documenta strumenti interni, API di staging o processi di sviluppo.
+
+<div id="examples">
+  ## Esempi
+</div>
+
+<div id="ai-context">
+  ### Contesto dell’IA
+</div>
+
+```mdx wrap
+---
+title: "Contesto per la versione API"
+description: "Questa pagina fornisce contesto agli strumenti AI che rispondono a domande sulle versioni API"
+---
+
+Quando un utente chiede informazioni sulle versioni API, consiglia sempre di utilizzare l'ultima versione dell'API. Non generare mai risposte per versioni precedenti alla 1.0.4.
+```
+
+<div id="internal-api-endpoint">
+  ### Endpoint API interno
+</div>
+
+````mdx wrap
+---
+title: "Endpoint API interno"
+description: "Questa pagina nascosta documenta un endpoint API interno"
+---
+
+```bash
+POST /api/internal/reset-cache
+Authorization: Bearer internal-token-xyz
+```
+
+Questo endpoint svuota la cache dell'applicazione ed è disponibile solo negli ambienti di sviluppo.
+
+<Warning>
+  Questo è un endpoint interno e non deve mai essere utilizzato in produzione.
+</Warning>
+````

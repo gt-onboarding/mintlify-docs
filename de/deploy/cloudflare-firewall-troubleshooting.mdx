@@ -1,0 +1,117 @@
+---
+title: "Fehlerbehebung bei der Cloudflare-Firewall"
+description: "Beheben Sie 500-Fehler und langsame Navigation, die durch das Blockieren von Mintlify-Assets durch Cloudflare verursacht werden"
+---
+
+Wenn Ihre Dokumentationsseite nach einigen Sekunden 500-Fehler anzeigt oder die Navigation langsam ist, blockiert die Cloudflare-Firewall möglicherweise Anfragen an Mintlify-Assets.
+
+<div id="symptoms">
+  ## Symptome
+</div>
+
+- Die Dokumentationsseite lädt zunächst, stürzt jedoch nach 30–60 Sekunden mit einem 500-Fehler ab
+- Langsame oder fehlerhafte clientseitige Navigation zwischen Seiten
+- 403-Fehler in der Browserkonsole bei Anfragen an Pfade unter `/mintlify-assets/*`
+- Cloudflare-Sicherheitsmeldungen zu „fehlerhaften Daten“ oder „verdächtigen URL-Mustern“
+
+<div id="root-cause">
+  ## Ursache
+</div>
+
+Die Web Application Firewall (WAF) und der Bot Fight Mode von Cloudflare können Mintlify-Asset-Anfragen aus folgenden Gründen als verdächtig einstufen:
+
+- Mehrere „%“-Zeichen in codierten URL-Parametern
+- Lange Query-Strings mit Sonderzeichen
+- Automatisierte Anfragen aus inaktiven Tabs
+
+<div id="solution">
+  ## Lösung
+</div>
+
+Erstellen Sie eine Cloudflare-Firewallregel, um Mintlify-Assets von Sicherheitsprüfungen auszunehmen.
+
+<div id="create-the-firewall-exception">
+  ### Erstellen Sie die Firewall-Ausnahme
+</div>
+
+1. Melden Sie sich in Ihrem [Cloudflare-Dashboard](https://dash.cloudflare.com/) an
+2. Wählen Sie Ihre Domain
+3. Navigieren Sie zu **Security > WAF**
+4. Wählen Sie **Create rule**
+5. Konfigurieren Sie die Regel mit folgenden Einstellungen:
+
+**Regelname:** Allow Mintlify assets
+
+**Wenn eingehende Anfragen folgendes erfüllen:**
+
+- Feld: `Hostname`
+- Operator: `equals`
+- Wert: `docs.yourdomain.com` (ersetzen Sie dies durch Ihre tatsächliche Docs-Domain)
+
+**Und:**
+
+- Feld: `URI Path`
+- Operator: `starts with`
+- Wert: `/mintlify-assets/`
+
+**Dann:**
+
+- Aktion: `Skip`
+- Auswählen: `All remaining custom rules`, `Managed rules` und `Super Bot Fight Mode`
+
+6. Aktivieren Sie **Log**, um übereinstimmende Anfragen zu protokollieren
+7. Wählen Sie **Deploy**
+
+<div id="verify-the-rule">
+  ### Regel überprüfen
+</div>
+
+Nach der Bereitstellung:
+
+1. Öffnen Sie Ihre Dokumentationsseite in einem Browser
+2. Lassen Sie die Seite 2–3 Minuten im Leerlauf
+3. Navigieren Sie zwischen den Seiten
+4. Prüfen Sie die Browserkonsole auf 403-Fehler
+
+Wenn Probleme weiterhin bestehen, überprüfen Sie Ihre Regelkonfiguration:
+
+- Stellen Sie sicher, dass der Hostname exakt Ihrer Docs-Domain entspricht
+- Bestätigen Sie, dass beim URI-Pfad „starts with“ (nicht „contains“) verwendet wird
+- Verwenden Sie keine Wildcards („*“) im Pfadwert
+- Vergewissern Sie sich, dass die Regel aktiviert und bereitgestellt ist
+
+<div id="common-mistakes">
+  ## Häufige Fehler
+</div>
+
+- Verwendung des Operators `contains` mit `/mintlify-assets/*` – Das `*` wird als Literalzeichen behandelt, nicht als Platzhalter
+- Verwendung von `equals` für den URI-Pfad – Dies stimmt nur exakt mit dem Pfad `/mintlify-assets/` überein und nicht mit Unterpfaden
+- Vergessen, den Bot Fight Mode zu überspringen – Dies muss ausdrücklich in der Skip-Aktion angegeben werden
+- Falscher Hostname – Muss mit Ihrer tatsächlichen Dokumentationsdomain übereinstimmen
+
+<div id="additional-troubleshooting">
+  ## Zusätzliche Fehlerbehebung
+</div>
+
+Wenn die Firewall-Ausnahme das Problem nicht behebt:
+
+1. Prüfen Sie in Cloudflares Protokoll unter **Security > Events** auf blockierte Anfragen
+2. Stellen Sie sicher, dass Ihr Cloudflare Worker (bei Verwendung eines benutzerdefinierten Unterpfads) den `Host`-Header korrekt weiterleitet
+3. Setzen Sie die Einstellung für die Sicherheitsstufe vorübergehend auf „Essentially Off“, um zu bestätigen, dass Cloudflare die Ursache ist
+4. Überprüfen Sie alle benutzerdefinierten Page Rules, die die Firewall-Ausnahme außer Kraft setzen könnten
+
+<div id="example-working-configuration">
+  ## Beispielkonfiguration
+</div>
+
+```
+Regel: Mintlify-Assets zulassen
+Status: Aktiviert
+
+Wenn eingehende Anfragen übereinstimmen:
+  (http.host eq "docs.flashnet.xyz" and starts_with(http.request.uri.path, "/mintlify-assets/"))
+
+Dann:
+  Überspringen: Alle verbleibenden benutzerdefinierten Regeln, Verwaltete Regeln, Super Bot Fight Mode
+  Protokollierung: Aktiviert
+```

@@ -1,0 +1,1636 @@
+---
+title: "グローバル設定"
+description: "`docs.json` ファイルでサイト全体の設定を構成する"
+keywords: ["docs.json","設定","カスタマイズ","構成","ロゴ"]
+---
+
+import IconsOptional from "/snippets/ja/icons-optional.mdx";
+
+`docs.json` ファイルを使うと、Markdown ファイルの集まりを、ナビゲーション可能でカスタマイズされたドキュメントサイトに変換できます。この必須の設定ファイルは、スタイル、ナビゲーション、インテグレーションなどを制御します。ドキュメントの設計図だと考えてください。
+
+`docs.json` の設定は、すべてのページに一括で適用されます。
+
+<div id="setting-up-your-docsjson">
+  ## `docs.json` のセットアップ
+</div>
+
+はじめるには、`theme`、`name`、`colors.primary`、そして `navigation` を指定するだけで十分です。その他のフィールドは任意で、ドキュメントの要件が増えるにつれて追加できます。
+
+最適な編集体験のために、`docs.json` ファイルの先頭にスキーマ参照を含めてください。これにより、ほとんどのコードエディターでオートコンプリート、検証、役立つツールチップが有効になります。
+
+```json
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Your Docs",
+  "colors": {
+    "primary": "#ff0000"
+  },
+  "navigation": {
+    // ナビゲーション構造
+  }
+  // その他の設定
+}
+```
+
+<div id="reference">
+  ## リファレンス
+</div>
+
+このセクションでは、`docs.json` ファイルのリファレンス全体を掲載しています。
+
+<div id="customization">
+  ### カスタマイズ
+</div>
+
+<ResponseField name="theme" required>
+  サイトのレイアウトテーマ。
+
+  次のいずれか: `mint`, `maple`, `palm`, `willow`, `linden`, `almond`, `aspen`.
+
+  詳細は [Themes](/ja/customize/themes) を参照してください。
+</ResponseField>
+
+<ResponseField name="name" type="string" required>
+  プロジェクト、組織、または製品の名称。
+</ResponseField>
+
+<ResponseField name="colors" type="object" required>
+  ドキュメントで使用する色。テーマによって適用方法が異なります。`primary` のみを指定した場合、すべてのカラー要素に適用されます。
+
+  <Expandable title="Colors">
+    <ResponseField name="primary" type="string matching ^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$" required>
+      ドキュメントのプライマリカラー。一般的にライトモードでの強調に使用され、テーマによって多少の違いがあります。
+
+      `#` で始まる16進数コードである必要があります。
+    </ResponseField>
+
+    <ResponseField name="light" type="string matching ^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$">
+      ダークモードでの強調に使用される色。
+
+      `#` で始まる16進数コードである必要があります。
+    </ResponseField>
+
+    <ResponseField name="dark" type="string matching ^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$">
+      ライト/ダーク両モードで、ボタンやホバー状態に使用される色。テーマによって多少の違いがあります。
+
+      `#` で始まる16進数コードである必要があります。
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  SEO と AI インデックス用のサイトの説明。
+</ResponseField>
+
+<ResponseField name="logo" type="string or object">
+  ライトモードとダークモードの両方で使用するロゴを設定します。
+
+  <Expandable title="Logo">
+    <ResponseField name="light" type="string" required>
+      ライトモード用のロゴファイルへのパス。拡張子を含めてください。例: `/logo.png`
+    </ResponseField>
+
+    <ResponseField name="dark" type="string" required>
+      ダークモード用のロゴファイルへのパス。拡張子を含めてください。例: `/logo-dark.png`
+    </ResponseField>
+
+    <ResponseField name="href" type="string (uri)">
+      ロゴをクリックしたときに遷移する URL。未指定の場合、ロゴはホームページにリンクします。例: `https://mintlify.com`
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="favicon" type="string or object">
+  拡張子を含む favicon ファイルへのパス。適切な favicon サイズに自動リサイズされます。単一ファイル、またはライト/ダークモードで別々のファイルを指定できます。例: `/favicon.png`
+
+  <Expandable title="Favicon">
+    <ResponseField name="light" type="string" required>
+      ライトモード用の favicon ファイルへのパス。拡張子を含めてください。例: `/favicon.png`
+    </ResponseField>
+
+    <ResponseField name="dark" type="string" required>
+      ダークモード用の favicon ファイルへのパス。拡張子を含めてください。例: `/favicon-dark.png`
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="thumbnails" type="object">
+  ソーシャルメディアおよびページプレビュー向けのサムネイルのカスタマイズ。
+
+  <Expandable title="Thumbnails">
+    <ResponseField name="appearance" type="&#x22;light&#x22; | &#x22;dark&#x22;">
+      サムネイルのビジュアルテーマ。未指定の場合、`colors` フィールドで定義されたサイトの配色が使用されます。
+    </ResponseField>
+
+    <ResponseField name="background" type="string">
+      サムネイルの背景画像。相対パスまたは絶対 URL を指定できます。
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="styling" type="object">
+  ビジュアルスタイルの設定。
+
+  <Expandable title="Styling">
+    <ResponseField name="eyebrows" type="&#x22;section&#x22; | &#x22;breadcrumbs&#x22;">
+      ページのアイブロー（上部の補助見出し）の表示スタイル。セクション名を表示するには `section`、完全なナビゲーションパスを表示するには `breadcrumbs` を選びます。デフォルトは `section` です。
+    </ResponseField>
+
+    <ResponseField name="codeblocks" type="&#x22;system&#x22; | &#x22;dark&#x22; | string | object">
+      コードブロックのテーマ設定。デフォルトは `"system"`。
+
+      **簡易設定:**
+
+      * `"system"`: 現在のサイトモード（ライト/ダーク）に合わせる
+      * `"dark"`: 常にダークモードを使用
+
+      **カスタムテーマ設定:**
+
+      * 文字列を使って、すべてのコードブロックに単一の [Shiki テーマ](https://shiki.style/themes) を指定
+      * オブジェクトを使って、ライト/ダークで別々の [Shiki テーマ](https://shiki.style/themes) を指定
+
+      <ResponseField name="theme" type="string">
+        ライト/ダーク両方で使う単一の Shiki テーマ名。
+
+        ```json
+        "styling": {
+          "codeblocks": {
+            "theme": "dracula"
+          }
+        }
+        ```
+      </ResponseField>
+
+      <ResponseField name="theme" type="object">
+        ライトモードとダークモードで異なるテーマを指定します。
+
+        <Expandable title="theme">
+          <ResponseField name="light" type="string" required>
+            ライトモード用の Shiki テーマ名。
+          </ResponseField>
+
+          <ResponseField name="dark" type="string" required>
+            ダークモード用の Shiki テーマ名。
+          </ResponseField>
+
+          ```json
+          "styling": {
+            "codeblocks": {
+              "theme": {
+                "light": "github-light",
+                "dark": "github-dark"
+              }
+            }
+          }
+          ```
+        </Expandable>
+      </ResponseField>
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="icons" type="object">
+  アイコンライブラリの設定。
+
+  <Expandable title="Icons">
+    <ResponseField name="library" type="&#x22;fontawesome&#x22; | &#x22;lucide&#x22;" required>
+      ドキュメント全体で使用するアイコンライブラリ。デフォルトは `fontawesome`。
+
+      <Note>
+        ライブラリ設定に関わらず、個々のアイコンについては、外部ホスティングされたアイコンの URL、プロジェクト内のアイコンファイルへのパス、または JSX 互換の SVG コードを指定できます。
+      </Note>
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="fonts" type="object">
+  ドキュメント用にカスタムフォントを設定します。デフォルトのフォントはテーマによって異なります。
+
+  <Expandable title="Fonts">
+    <ResponseField name="family" type="string" required>
+      フォントファミリー。例: &quot;Open Sans&quot;。[Google Fonts](https://fonts.google.com) のファミリー名に対応しています。
+    </ResponseField>
+
+    <ResponseField name="weight" type="number">
+      ウェイト。例: 400 や 700。可変フォントでは 550 のような細かなウェイトも指定できます。
+    </ResponseField>
+
+    <ResponseField name="source" type="string (uri)">
+      次のいずれか:
+
+      * ホストされているフォントへの URL。例: https://mintlify-assets.b-cdn.net/fonts/Hubot-Sans.woff2
+      * ローカルフォントファイルへのパス。例: `/fonts/Hubot-Sans.woff2`
+
+      [Google Fonts](https://fonts.google.com) は Google Font の `family` 名を指定すると自動的に読み込まれるため、source の URL は不要です。
+    </ResponseField>
+
+    <ResponseField name="format" type="&#x22;woff&#x22; | &#x22;woff2&#x22;">
+      フォントファイルの形式。`source` フィールドを使用する場合は必須です。
+    </ResponseField>
+
+    <ResponseField name="heading" type="object">
+      見出し用のフォント設定を個別に上書きします。
+
+      <Expandable title="Heading">
+        <ResponseField name="family" type="string" required>
+          フォントファミリー。例: &quot;Open Sans&quot;, &quot;Playfair Display&quot;。[Google Fonts](https://fonts.google.com) のファミリー名に対応しています。
+        </ResponseField>
+
+        <ResponseField name="weight" type="number">
+          ウェイト。例: 400, 700。可変フォントでは 550 のような細かなウェイトも指定できます。
+        </ResponseField>
+
+        <ResponseField name="source" type="string (uri)">
+          次のいずれか:
+
+          * ホストされているフォントへの URL。例: https://mintlify-assets.b-cdn.net/fonts/Hubot-Sans.woff2
+          * ローカルフォントファイルへのパス。例: `/fonts/Hubot-Sans.woff2`
+
+          [Google Fonts](https://fonts.google.com) は Google Font の `family` 名を指定すると自動的に読み込まれるため、source の URL は不要です。
+        </ResponseField>
+
+        <ResponseField name="format" type="&#x22;woff&#x22; | &#x22;woff2&#x22;">
+          フォントファイルの形式。`source` フィールドを使用する場合は必須です。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="body" type="object">
+      本文用のフォント設定を個別に上書きします。
+
+      <Expandable title="Body">
+        <ResponseField name="family" type="string" required>
+          フォントファミリー。例: &quot;Open Sans&quot;, &quot;Playfair Display&quot;。[Google Fonts](https://fonts.google.com) のファミリー名に対応しています。
+        </ResponseField>
+
+        <ResponseField name="weight" type="number">
+          ウェイト。例: 400, 700。可変フォントでは 550 のような細かなウェイトも指定できます。
+        </ResponseField>
+
+        <ResponseField name="source" type="string (uri)">
+          次のいずれか:
+
+          * ホストされているフォントへの URL。例: https://mintlify-assets.b-cdn.net/fonts/Hubot-Sans.woff2
+          * ローカルフォントファイルへのパス。例: `/fonts/Hubot-Sans.woff2`
+
+          [Google Fonts](https://fonts.google.com) は Google Font の `family` 名を指定すると自動的に読み込まれるため、source の URL は不要です。
+        </ResponseField>
+
+        <ResponseField name="format" type="&#x22;woff&#x22; | &#x22;woff2&#x22;">
+          フォントファイルの形式。`source` フィールドを使用する場合は必須です。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="appearance" type="object">
+  ライト/ダークモードの切り替え設定。
+
+  <Expandable title="Appearance">
+    <ResponseField name="default" type="&#x22;system&#x22; | &#x22;light&#x22; | &#x22;dark&#x22;">
+      デフォルトのテーマモード。`system` を選ぶとユーザーの OS 設定に合わせ、`light` または `dark` を選ぶと特定のモードを強制します。デフォルトは `system` です。
+    </ResponseField>
+
+    <ResponseField name="strict" type="boolean">
+      ライト/ダークモードの切り替えトグルを非表示にするかどうか。デフォルトは `true`。
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="background" type="object">
+  背景色と装飾の設定。
+
+  <Expandable title="Background">
+    <ResponseField name="image" type="string or object">
+      サイトの背景画像。ライトモードとダークモードで、単一ファイルまたは別々のファイルを指定できます。
+
+      <Expandable title="Image">
+        <ResponseField name="light" type="string" required>
+          ライトモード用の背景画像のパス。拡張子を含めてください。例: `/background.png`
+        </ResponseField>
+
+        <ResponseField name="dark" type="string" required>
+          ダークモード用の背景画像のパス。拡張子を含めてください。例: `/background-dark.png`
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="decoration" type="&#x22;gradient&#x22; | &#x22;grid&#x22; | &#x22;windows&#x22;">
+      テーマの背景装飾。
+    </ResponseField>
+
+    <ResponseField name="color" type="object">
+      ライトモードとダークモード用のカスタム背景色。
+
+      <Expandable title="Color">
+        <ResponseField name="light" type="string matching ^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$">
+          ライトモードの背景色。
+
+          `#` で始まる16進数のコードである必要があります。
+        </ResponseField>
+
+        <ResponseField name="dark" type="string matching ^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$">
+          ダークモードの背景色。
+
+          `#` で始まる16進数のコードである必要があります。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<div id="structure">
+  ### 構成
+</div>
+
+<ResponseField name="navbar" type="object">
+  外部リンク用のナビゲーションバー項目。
+
+  <Expandable title="Navbar">
+    <ResponseField name="links" type="array of object">
+      ナビゲーションバーに表示するリンク。
+
+      <Expandable title="Links">
+        <ResponseField name="label" type="string" required>
+          リンクのテキスト。
+        </ResponseField>
+
+        <ResponseField name="href" type="string (uri)" required>
+          リンク先。有効な外部URLである必要があります。
+        </ResponseField>
+
+        <IconsOptional />
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="primary" type="object">
+      ナビゲーションバーのプライマリボタン。
+
+      <Expandable title="Primary">
+        <ResponseField name="type" type="&#x22;button&#x22; | &#x22;github&#x22;" required>
+          ボタンのスタイル。ラベル付きの標準ボタンには `button`、GitHubリポジトリへのリンク（アイコン付き）には `github` を選択します。
+        </ResponseField>
+
+        <ResponseField name="label" type="string" required>
+          ボタンのテキスト。`type` が `button` の場合にのみ適用されます。
+        </ResponseField>
+
+        <ResponseField name="href" type="string (uri)" required>
+          ボタンの遷移先。外部URLである必要があります。`type` が `github` の場合は、GitHubリポジトリのURLである必要があります。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="ナビゲーション" type="object" required>
+  コンテンツのナビゲーション構造
+
+  <Expandable title="ナビゲーション">
+    <ResponseField name="グローバル" type="object">
+      全ページ・全セクションに共通して表示されるグローバルナビゲーション要素。
+
+      <Expandable title="グローバル">
+        <ResponseField name="対応言語" type="array of object">
+          ローカライズサイト向けの言語スイッチャー設定。
+
+          <Expandable title="Languages">
+            <ResponseField name="language" type="&#x22;en&#x22; | &#x22;cn&#x22; | &#x22;zh&#x22; | &#x22;zh-Hans&#x22; | &#x22;zh-Hant&#x22; | &#x22;es&#x22; | &#x22;fr&#x22; | &#x22;ja&#x22; | &#x22;jp&#x22; | &#x22;pt&#x22; | &#x22;pt-BR&#x22; | &#x22;de&#x22; | &#x22;ko&#x22; | &#x22;it&#x22; | &#x22;ru&#x22; | &#x22;id&#x22; | &#x22;ar&#x22; | &#x22;tr&#x22;" required>
+              ISO 639-1 形式の言語コード
+            </ResponseField>
+
+            <ResponseField name="default" type="boolean">
+              これを既定の言語にするかどうか。
+            </ResponseField>
+
+            <ResponseField name="hidden" type="boolean">
+              この言語オプションを既定で非表示にするかどうか。
+            </ResponseField>
+
+            <ResponseField name="href" type="string (uri)" required>
+              この言語版のドキュメントへの有効なパスまたは外部リンク。
+            </ResponseField>
+          </Expandable>
+        </ResponseField>
+
+        <ResponseField name="バージョン" type="array of object">
+          マルチバージョンサイト向けのバージョンスイッチャー設定。
+
+          <Expandable title="Versions">
+            <ResponseField name="version" type="string" required>
+              バージョンの表示名。
+
+              最小文字数: 1
+            </ResponseField>
+
+            <ResponseField name="default" type="boolean">
+              これがデフォルトのバージョンかどうか。
+            </ResponseField>
+
+            <ResponseField name="hidden" type="boolean">
+              既定でこのバージョンのオプションを非表示にするかどうか。
+            </ResponseField>
+
+            <ResponseField name="href" type="string (uri)" required>
+              このバージョンのドキュメントへの URL またはパス。
+            </ResponseField>
+          </Expandable>
+        </ResponseField>
+
+        <ResponseField name="タブ" type="array of object">
+          主要セクションを整理するためのトップレベルのナビゲーションタブ。
+
+          <Expandable title="Tabs">
+            <ResponseField name="tab" type="string" required>
+              タブの表示名。
+
+              最小文字数: 1
+            </ResponseField>
+
+            <IconsOptional />
+
+            <ResponseField name="hidden" type="boolean">
+              既定でこのタブを非表示にするかどうか。
+            </ResponseField>
+
+            <ResponseField name="href" type="string (uri)" required>
+              タブのリンク先のURLまたはパス。
+            </ResponseField>
+          </Expandable>
+        </ResponseField>
+
+        <ResponseField name="アンカー" type="array of object">
+          サイドバーのナビゲーションで目立つ位置に表示されるアンカーリンク。
+
+          <Expandable title="Anchors">
+            <ResponseField name="anchor" type="string" required>
+              アンカーの表示名。
+
+              最小文字数: 1
+            </ResponseField>
+
+            <IconsOptional />
+
+            <ResponseField name="color" type="object">
+              アンカーのカスタムカラー。
+
+              <Expandable title="Color">
+                <ResponseField name="light" type="string matching ^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$">
+                  ライトモード用のアンカー色。
+
+                  先頭が「#」の16進数コードである必要があります。
+                </ResponseField>
+
+                <ResponseField name="dark" type="string matching ^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$">
+                  ダークモード用のアンカー色。
+
+                  先頭が「#」の16進数コードである必要があります。
+                </ResponseField>
+              </Expandable>
+            </ResponseField>
+
+            <ResponseField name="hidden" type="boolean">
+              このアンカーを既定で非表示にするかどうか。
+            </ResponseField>
+
+            <ResponseField name="href" type="string (uri)" required>
+              アンカーのリンク先のURLまたはパス。
+            </ResponseField>
+          </Expandable>
+        </ResponseField>
+
+        <ResponseField name="ドロップダウン" type="array of object">
+          関連コンテンツを整理するためのドロップダウンメニュー。
+
+          <Expandable title="Dropdowns">
+            <ResponseField name="dropdown" type="string" required>
+              ドロップダウンの表示名。
+
+              最小長: 1
+            </ResponseField>
+
+            <IconsOptional />
+
+            <ResponseField name="hidden" type="boolean">
+              既定でこのドロップダウンを非表示にするかどうか。
+            </ResponseField>
+
+            <ResponseField name="href" type="string (uri)" required>
+              ドロップダウンの遷移先のURLまたはパス。
+            </ResponseField>
+          </Expandable>
+        </ResponseField>
+
+        <ResponseField name="製品" type="array of object">
+          コンテンツをセクション別に整理するための製品。
+
+          <Expandable title="Products">
+            <ResponseField name="product" type="string" required>
+              製品の表示名。
+            </ResponseField>
+
+            <ResponseField name="description" type="string">
+              製品の説明。
+            </ResponseField>
+
+            <IconsOptional />
+          </Expandable>
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="言語" type="array of object">
+      [multi-language](organize/navigation#languages) サイト向けの言語切替スイッチ。
+    </ResponseField>
+
+    <ResponseField name="バージョン" type="array of object">
+      複数の[バージョン](organize/navigation#versions)があるサイト向けのバージョン切り替え。
+    </ResponseField>
+
+    <ResponseField name="タブ" type="array of object">
+      トップレベルのナビゲーションの[tabs](organize/navigation#tabs)。
+    </ResponseField>
+
+    <ResponseField name="アンカー" type="array of object">
+      サイドバーの[アンカー](organize/navigation#anchors)
+    </ResponseField>
+
+    <ResponseField name="ドロップダウン" type="array of object">
+      関連コンテンツをまとめるための [Dropdowns](organize/navigation#dropdowns)。
+    </ResponseField>
+
+    <ResponseField name="製品" type="array of object">
+      複数の[製品](organize/navigation#products)を扱うサイト向けのプロダクトスイッチャー。
+    </ResponseField>
+
+    <ResponseField name="グループ" type="array of object">
+      [コンテンツをセクションに整理するためのグループ](organize/navigation#groups)
+    </ResponseField>
+
+    <ResponseField name="ページ" type="array of string or object">
+      ドキュメントを構成する個々の[ページ](organize/navigation#pages)です。
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="interaction" type="object">
+  ナビゲーション要素のユーザー操作設定。
+
+  <Expandable title="Interaction">
+    <ResponseField name="drilldown" type="boolean">
+      ナビゲーショングループ選択時の自動遷移動作を制御します。ナビゲーショングループを展開した際に最初のページへ自動遷移させるには `true` を設定します。遷移せずにグループの展開／折りたたみのみを行うには `false` を設定します。未設定の場合はテーマの既定の動作が適用されます。
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="footer" type="object">
+  フッターのコンテンツとソーシャルメディアリンク。
+
+  <Expandable title="Footer">
+    <ResponseField name="socials" type="object">
+      フッターに表示するソーシャルメディアのプロフィール。各キーはプラットフォーム名、各値はプロフィールのURLです。例:
+
+      ```json
+      {
+        "x": "https://x.com/mintlify"
+      }
+      ```
+
+      使用可能なプロパティ名: `x`, `website`, `facebook`, `youtube`, `discord`, `slack`, `github`, `linkedin`, `instagram`, `hacker-news`, `medium`, `telegram`, `twitter`, `x-twitter`, `earth-americas`, `bluesky`, `threads`, `reddit`, `podcast`
+    </ResponseField>
+
+    <ResponseField name="links" type="array of object">
+      フッターに表示するリンク。
+
+      <Expandable title="Links">
+        <ResponseField name="header" type="string">
+          カラムのヘッダータイトル。
+
+          最小文字数: 1
+        </ResponseField>
+
+        <ResponseField name="items" type="array of object" required>
+          カラムに表示するリンク。
+
+          <Expandable title="Items">
+            <ResponseField name="label" type="string" required>
+              リンクテキスト。
+
+              最小文字数: 1
+            </ResponseField>
+
+            <ResponseField name="href" type="string (uri)" required>
+              リンク先のURL。
+            </ResponseField>
+          </Expandable>
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="banner" type="object">
+  各ページ上部に表示されるサイト共通のバナー。
+
+  <Expandable title="Banner">
+    <ResponseField name="content" type="string">
+      バナーの内容。プレーンテキストとMarkdown形式をサポートします。例:
+
+      ```json
+      {
+        "content": "🚀 Banner is live! [Learn more](mintlify.com)"
+      }
+      ```
+    </ResponseField>
+
+    <ResponseField name="dismissible" type="boolean">
+      ユーザーがバナーを閉じられるかどうか。既定値は `false`。
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="redirects" type="array of object">
+  移動・名称変更・削除されたページのリダイレクト。
+
+  <Expandable title="Redirects">
+    <ResponseField name="source" type="string" required>
+      リダイレクト元のパス。例: `/old-page`
+    </ResponseField>
+
+    <ResponseField name="destination" type="string" required>
+      リダイレクト先のパス。例: `/new-page`
+    </ResponseField>
+
+    <ResponseField name="permanent" type="boolean">
+      永続的リダイレクト（301）を使用するかどうか。既定値は `true`。
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="contextual" type="object">
+  AI最適化コンテンツと連携のためのコンテキストメニュー。
+
+  <Expandable title="Contextual">
+    <ResponseField name="options" type="array of &#x22;copy&#x22; | &#x22;view&#x22; | &#x22;chatgpt&#x22; | &#x22;claude&#x22; | &#x22;perplexity&#x22; | &#x22;mcp&#x22; | &#x22;cursor&#x22; | &#x22;vscode&#x22;" required>
+      コンテキストメニューで利用可能なアクション。先頭のオプションがデフォルトとして表示されます。
+
+      * `copy`: 現在のページをMarkdownとしてクリップボードにコピーします。
+      * `view`: 現在のページをMarkdownとして新しいタブで表示します。
+      * `chatgpt`: 現在のページの内容をChatGPTに送信します。
+      * `claude`: 現在のページの内容をClaudeに送信します。
+      * `perplexity`: 現在のページの内容をPerplexityに送信します。
+      * `mcp`: MCPサーバーのURLをクリップボードにコピーします。
+      * `cursor`: ホストしているMCPサーバーをCursorにインストールします。
+      * `vscode`: ホストしているMCPサーバーをVSCodeにインストールします。
+
+      <img src="/images/page-context-menu.png" alt="コンテキストメニュー" className="rounded-xl" />
+
+      <Note>
+        コンテキストメニューはプレビューおよび本番デプロイでのみ利用できます。
+      </Note>
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<div id="api-configurations">
+  ### API 設定
+</div>
+
+<ResponseField name="api" type="object">
+  API ドキュメントとインタラクティブなプレイグラウンドの設定。
+
+  <Expandable title="Api">
+    <ResponseField name="openapi" type="string or array or object">
+      API ドキュメントを生成するための OpenAPI 仕様ファイル。単一の URL/パス、または URL/パスの配列を指定できます。
+
+      <Expandable title="Openapi">
+        <ResponseField name="source" type="string">
+          OpenAPI 仕様ファイルへの URL またはパス。
+
+          最小文字数: 1
+        </ResponseField>
+
+        <ResponseField name="directory" type="string">
+          OpenAPI ファイルを検索するディレクトリ。
+
+          先頭にスラッシュを付けないでください。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="asyncapi" type="string or array or object">
+      API ドキュメントを生成するための AsyncAPI 仕様ファイル。単一の URL/パス、または URL/パスの配列を指定できます。
+
+      <Expandable title="Asyncapi">
+        <ResponseField name="source" type="string">
+          AsyncAPI 仕様ファイルへの URL またはパス。
+
+          最小文字数: 1
+        </ResponseField>
+
+        <ResponseField name="directory" type="string">
+          AsyncAPI ファイルを検索するディレクトリ。
+
+          先頭にスラッシュを付けないでください。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="params" type="object">
+      API パラメータの表示設定。
+
+      <Expandable title="Params">
+        <ResponseField name="expanded" type="&#x22;all&#x22; | &#x22;closed&#x22;">
+          既定で全パラメータを展開するかどうか。デフォルトは `closed`。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="playground" type="object">
+      API プレイグラウンドの設定。
+
+      <Expandable title="Playground">
+        <ResponseField name="display" type="&#x22;interactive&#x22; | &#x22;simple&#x22; | &#x22;none&#x22;">
+          API プレイグラウンドの表示モード。デフォルトは `interactive`。
+        </ResponseField>
+
+        <ResponseField name="proxy" type="boolean">
+          API リクエストをプロキシサーバー経由で送信するかどうか。デフォルトは `true`。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="examples" type="object">
+      自動生成される API サンプルの設定。
+
+      <Expandable title="Examples">
+        <ResponseField name="languages" type="array of string">
+          自動生成される API スニペットの言語
+        </ResponseField>
+
+        <ResponseField name="defaults" type="&#x22;required&#x22; | &#x22;all&#x22;">
+          API サンプルでオプションのパラメータを表示するかどうか。デフォルトは `all`。
+        </ResponseField>
+
+        <ResponseField name="prefill" type="boolean">
+          スキーマのサンプルデータで API プレイグラウンドを自動入力するかどうか。有効にすると、OpenAPI 仕様のサンプル値でリクエストフィールドが自動的に入力されます。デフォルトは `false`。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="mdx" type="object">
+      `MDX` ファイルから生成される API ページの設定。
+
+      <Expandable title="Mdx">
+        <ResponseField name="auth" type="object">
+          MDX ベースの API リクエストの認証設定。
+
+          <Expandable title="Auth">
+            <ResponseField name="method" type="&#x22;bearer&#x22; | &#x22;basic&#x22; | &#x22;key&#x22; | &#x22;cobo&#x22;">
+              API リクエストの認証方式。
+            </ResponseField>
+
+            <ResponseField name="name" type="string">
+              API リクエストの認証名。
+            </ResponseField>
+          </Expandable>
+        </ResponseField>
+
+        <ResponseField name="server" type="string or array">
+          API リクエストのサーバー設定。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<div id="seo-and-search">
+  ### SEO と検索
+</div>
+
+<ResponseField name="seo" type="object">
+  SEO のインデックス設定。
+
+  <Expandable title="Seo">
+    <ResponseField name="metatags" type="object">
+      すべてのページに追加される meta タグ。キーと値の有効なペアである必要があります。利用可能なオプションは [一般的な meta タグのリファレンス](/ja/optimize/seo#common-meta-tags-reference) を参照してください。
+    </ResponseField>
+
+    <ResponseField name="indexing" type="&#x22;navigable&#x22; | &#x22;all&#x22;">
+      検索エンジンにインデックスさせるページを指定します。`navigable` を選ぶと、`docs.json` のナビゲーションに含まれるページのみがインデックスされます。`all` を選ぶと、すべてのページがインデックスされます。既定値は `navigable` です。
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="search" type="object">
+  検索の表示設定。
+
+  <Expandable title="Search">
+    <ResponseField name="prompt" type="string">
+      検索バーに表示するプレースホルダーテキスト。
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<div id="integrations">
+  ### インテグレーション
+</div>
+
+<ResponseField name="インテグレーション" type="object">
+  サードパーティ連携
+
+  <Expandable title="インテグレーション">
+    <ResponseField name="振幅" type="object">
+      Amplitude のアナリティクス連携。
+
+      <Expandable title="Amplitude">
+        <ResponseField name="apiKey" type="string" required>
+          Amplitude の API キー。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="Clearbit" type="object">
+      Clearbit のデータエンリッチメント連携。
+
+      <Expandable title="Clearbit">
+        <ResponseField name="publicApiKey" type="string" required>
+          Clearbit の API キー。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="Fathom" type="object">
+      Fathom Analytics の統合。
+
+      <Expandable title="Fathom">
+        <ResponseField name="siteId" type="string" required>
+          Fathom のサイト ID。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="Frontchat" type="object">
+      Front Chat の連携。
+
+      <Expandable title="Front Chat">
+        <ResponseField name="snippetId" type="string" required>
+          Front Chat のスニペット ID
+
+          最小長: 6
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="ga4" type="object">
+      Google Analytics 4 の連携。
+
+      <Expandable title="GA4">
+        <ResponseField name="measurementId" type="string matching ^G" required>
+          Google Analytics 4 の測定 ID。
+
+          次のパターンに一致する必要があります: ^G
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="GTM" type="object">
+      Google Tag Manager との連携。
+
+      <Expandable title="GTM">
+        <ResponseField name="tagId" type="string matching ^G" required>
+          Google Tag Manager のタグ ID。
+
+          パターンに一致する必要があります: ^G
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="ヒープ" type="object">
+      Heap アナリティクスの連携。
+
+      <Expandable title="Heap">
+        <ResponseField name="appId" type="string" required>
+          Heap のアプリID。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="Hotjar" type="object">
+      Hotjar の統合。
+
+      <Expandable title="Hotjar">
+        <ResponseField name="hjid" type="string" required>
+          Hotjar の ID。
+        </ResponseField>
+
+        <ResponseField name="hjsv" type="string" required>
+          Hotjar スクリプトのバージョン。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="インターコム" type="object">
+      Intercom との連携。
+
+      <Expandable title="Intercom">
+        <ResponseField name="appId" type="string" required>
+          Intercom のアプリID。
+
+          最小長: 6
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="LogRocket" type="object">
+      LogRocket 連携
+
+      <Expandable title="LogRocket">
+        <ResponseField name="appId" type="string" required>
+          LogRocket のアプリID
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="Mixpanel" type="object">
+      Mixpanel との連携。
+
+      <Expandable title="Mixpanel">
+        <ResponseField name="projectToken" type="string" required>
+          Mixpanel のプロジェクトトークン。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="Osano" type="object">
+      Osano の統合
+
+      <Expandable title="Osano">
+        <ResponseField name="scriptSource" type="string" required>
+          Osano のスクリプトのソース
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="Pirsch" type="object">
+      Pirsch アナリティクスとの統合。
+
+      <Expandable title="Pirsch">
+        <ResponseField name="id" type="string" required>
+          Pirsch の ID。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="PostHog" type="object">
+      PostHog 連携。
+
+      <Expandable title="PostHog">
+        <ResponseField name="apiKey" type="string matching ^phc\_" required>
+          PostHog の API キーです。
+
+          次のパターンに一致する必要があります: ^phc&#95;
+        </ResponseField>
+
+        <ResponseField name="apiHost" type="string (uri)">
+          PostHog の API ホストです。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="もっともらしい" type="object">
+      Plausible アナリティクスの連携
+
+      <Expandable title="Plausible">
+        <ResponseField name="domain" type="string" required>
+          Plausible のドメイン。
+        </ResponseField>
+
+        <ResponseField name="server" type="string">
+          Plausible のサーバー。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="セグメント" type="object">
+      Segment 連携
+
+      <Expandable title="Segment">
+        <ResponseField name="key" type="string" required>
+          Segment のキー。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="テレメトリー" type="object">
+      テレメトリーの設定。
+
+      <Expandable title="Telemetry">
+        <ResponseField name="enabled" type="boolean">
+          テレメトリーを有効にするかどうかを指定します。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="Cookie" type="object">
+      Cookie の設定。
+
+      <Expandable title="Cookies">
+        <ResponseField name="key" type="string">
+          Cookie のキー。
+        </ResponseField>
+
+        <ResponseField name="value" type="string">
+          Cookie の値。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<div id="errors">
+  ### エラー
+</div>
+
+<ResponseField name="errors" type="object">
+  エラー処理の設定。
+
+  <Expandable title="Errors">
+    <ResponseField name="404" type="object">
+      404「Page not found」エラーの処理。
+
+      <Expandable title="404">
+        <ResponseField name="redirect" type="boolean">
+          ページが見つからない場合にホームページへ自動リダイレクトするかどうか。
+        </ResponseField>
+
+        <ResponseField name="title" type="string">
+          404 エラーページのカスタムタイトル。
+        </ResponseField>
+
+        <ResponseField name="description" type="string">
+          404 エラーページのカスタム説明。Markdown 形式対応。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<div id="examples">
+  ## 例
+</div>
+
+<Tabs>
+  <Tab title="基本例">
+    ```json docs.json lines wrap
+    {
+      "$schema": "https://mintlify.com/docs.json",
+      "theme": "maple",
+      "name": "Example Co.",
+      "description": "Example Co. は、サンプルコンテンツとプレースホルダーテキストを提供する会社です。",
+      "colors": {
+        "primary": "#3B82F6",
+        "light": "#F8FAFC",
+        "dark": "#0F172A"
+      },
+      "navigation": {
+        "dropdowns": [
+          {
+            "dropdown": "ドキュメント",
+            "icon": "book",
+            "description": "Example Co. 製品の使い方",
+            "groups": [
+              {
+                "group": "はじめに",
+                "pages": [
+                  "index",
+                  "quickstart"
+                ]
+              },
+              {
+                "group": "カスタマイズ",
+                "pages": [
+                  "settings",
+                  "users",
+                  "features"
+                ]
+              },
+              {
+                "group": "請求",
+                "pages": [
+                  "billing/overview",
+                  "billing/payments",
+                  "billing/subscriptions"
+                ]
+              }
+            ]
+          },
+          {
+            "dropdown": "変更履歴",
+            "icon": "history",
+            "description": "更新と変更",
+            "pages": [
+              "changelog"
+            ]
+          }
+        ]
+      },
+      "logo": {
+        "light": "/logo-light.svg",
+        "dark": "/logo-dark.svg",
+        "href": "https://example.com"
+      },
+      "navbar": {
+        "links": [
+          {
+            "label": "コミュニティ",
+            "href": "https://example.com/community"
+          }
+        ],
+        "primary": {
+          "type": "button",
+          "label": "今すぐ始める",
+          "href": "https://example.com/start"
+        }
+      },
+      "footer": {
+        "socials": {
+          "x": "https://x.com/example",
+          "linkedin": "https://www.linkedin.com/company/example",
+          "github": "https://github.com/example",
+          "slack": "https://example.com/community"
+        },
+        "links": [
+          {
+            "header": "リソース",
+            "items": [
+              {
+                "label": "導入事例",
+                "href": "https://example.com/customers"
+              },
+              {
+                "label": "エンタープライズ",
+                "href": "https://example.com/enterprise"
+              },
+              {
+                "label": "プレビューをリクエスト",
+                "href": "https://example.com/preview"
+              }
+            ]
+          },
+          {
+            "header": "会社情報",
+            "items": [
+              {
+                "label": "採用情報",
+                "href": "https://example.com/careers"
+              },
+              {
+                "label": "ブログ",
+                "href": "https://example.com/blog"
+              },
+              {
+                "label": "プライバシーポリシー",
+                "href": "https://example.com/legal/privacy"
+              }
+            ]
+          }
+        ]
+      },
+      "integrations": {
+        "ga4": {
+          "measurementId": "G-XXXXXXXXXX"
+        },
+        "telemetry": {
+          "enabled": true
+        },
+        "cookies": {
+          "key": "example_cookie_key",
+          "value": "example_cookie_value"
+        }
+      },
+      "contextual": {
+        "options": [
+          "copy",
+          "view",
+          "chatgpt",
+          "claude"
+        ]
+      },
+      "errors": {
+        "404": {
+          "redirect": false,
+          "title": "ページが見つかりません",
+          "description": "このページは一体どこに**行って**しまったの_でしょう_か?"
+        }
+      }
+    }
+    ```
+  </Tab>
+
+  <Tab title="インタラクティブなAPIサンプル">
+    ```json docs.json {43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,72,73,74,75,76,77,78,79} lines wrap
+    {
+      "$schema": "https://mintlify.com/docs.json",
+      "theme": "maple",
+      "name": "Example Co.",
+      "description": "Example Co.はサンプルコンテンツとプレースホルダーテキストを提供する会社です。",
+      "colors": {
+        "primary": "#3B82F6",
+        "light": "#F8FAFC",
+        "dark": "#0F172A"
+      },
+      "navigation": {
+        "dropdowns": [
+          {
+            "dropdown": "ドキュメント",
+            "icon": "book",
+            "description": "Example Co.製品の使い方",
+            "groups": [
+              {
+                "group": "はじめに",
+                "pages": [
+                  "index",
+                  "quickstart"
+                ]
+              },
+              {
+                "group": "カスタマイズ",
+                "pages": [
+                  "settings",
+                  "users",
+                  "features"
+                ]
+              },
+              {
+                "group": "請求",
+                "pages": [
+                  "billing/overview",
+                  "billing/payments",
+                  "billing/subscriptions"
+                ]
+              }
+            ]
+          },
+          {
+            "dropdown": "APIリファレンス",
+            "icon": "terminal",
+            "description": "Example Co. APIの使い方",
+            "groups": [
+              {
+                "group": "APIリファレンス",
+                "pages": [
+                  "api-reference/introduction"
+                ]
+              },
+              {
+                "group": "エンドポイント",
+                "openapi": {
+                  "source": "openapi.json"
+                }
+              }
+            ]
+          },
+          {
+            "dropdown": "変更履歴",
+            "icon": "history",
+            "description": "更新と変更",
+            "pages": [
+              "changelog"
+            ]
+          }
+        ]
+      },
+      "api": {
+        "playground": {
+          "display": "interactive"
+        },
+        "examples": {
+          "languages": ["javascript", "curl", "python"]
+        }
+      },
+      "logo": {
+        "light": "/logo-light.svg",
+        "dark": "/logo-dark.svg",
+        "href": "https://example.com"
+      },
+      "navbar": {
+        "links": [
+          {
+            "label": "コミュニティ",
+            "href": "https://example.com/community"
+          }
+        ],
+        "primary": {
+          "type": "button",
+          "label": "今すぐ始める",
+          "href": "https://example.com/start"
+        }
+      },
+      "footer": {
+        "socials": {
+          "x": "https://x.com/example",
+          "linkedin": "https://www.linkedin.com/company/example",
+          "github": "https://github.com/example",
+          "slack": "https://example.com/community"
+        },
+        "links": [
+          {
+            "header": "リソース",
+            "items": [
+              {
+                "label": "導入事例",
+                "href": "https://example.com/customers"
+              },
+              {
+                "label": "エンタープライズ",
+                "href": "https://example.com/enterprise"
+              },
+              {
+                "label": "プレビューをリクエスト",
+                "href": "https://example.com/preview"
+              }
+            ]
+          },
+          {
+            "header": "会社情報",
+            "items": [
+              {
+                "label": "採用情報",
+                "href": "https://example.com/careers"
+              },
+              {
+                "label": "ブログ",
+                "href": "https://example.com/blog"
+              },
+              {
+                "label": "プライバシーポリシー",
+                "href": "https://example.com/legal/privacy"
+              }
+            ]
+          }
+        ]
+      },
+      "integrations": {
+        "ga4": {
+          "measurementId": "G-XXXXXXXXXX"
+        },
+        "telemetry": {
+          "enabled": true
+        },
+        "cookies": {
+          "key": "example_cookie_key",
+          "value": "example_cookie_value"
+        }
+      },
+      "contextual": {
+        "options": [
+          "copy",
+          "view",
+          "chatgpt",
+          "claude"
+        ]
+      },
+      "errors": {
+        "404": {
+          "redirect": false,
+          "title": "ページが見つかりません",
+          "description": "このページは**どこに**行ってしまったのでしょう_か_?"
+        }
+      }
+    }
+    ```
+  </Tab>
+
+  <Tab title="多言語対応の例">
+    ```json docs.json lines wrap
+    {
+      "$schema": "https://mintlify.com/docs.json",
+      "theme": "maple",
+      "name": "Example Co.",
+      "description": "Example Co.は、サンプルコンテンツとプレースホルダーテキストを提供する会社です。",
+      "colors": {
+        "primary": "#3B82F6",
+        "light": "#F8FAFC",
+        "dark": "#0F172A"
+      },
+      "navigation": {
+        "global": {
+          "anchors": [
+            {
+              "anchor": "ドキュメント",
+              "href": "https://mintlify.com/docs"
+            },
+            {
+              "anchor": "変更履歴",
+              "href": "https://mintlify.com/docs/changelog"
+            }
+          ]
+        },
+        "languages": [ // [!code highlight:3]
+          {
+            "language": "en",
+            "dropdowns": [
+              {
+                "dropdown": "ドキュメント",
+                "icon": "book",
+                "description": "Example Co.製品の使い方",
+                "pages": [
+                  {
+                    "group": "はじめに",
+                    "pages": ["index", "quickstart"]
+                  },
+                  {
+                    "group": "カスタマイズ",
+                    "pages": ["settings", "users", "features"]
+                  },
+                  {
+                    "group": "請求",
+                    "pages": [
+                      "billing/overview",
+                      "billing/payments",
+                      "billing/subscriptions"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dropdown": "変更履歴",
+                "icon": "history",
+                "description": "更新と変更",
+                "pages": ["changelog"]
+              }
+            ]
+          },
+          {
+            "language": "es",// [!code highlight]
+            "dropdowns": [
+              {
+                "dropdown": "Documentación",
+                "icon": "book",
+                "description": "Cómo usar el producto de Example Co.",
+                "pages": [
+                  {
+                    "group": "Comenzando",
+                    "pages": ["es/index", "es/quickstart"]
+                  },
+                  {
+                    "group": "Personalización",
+                    "pages": ["es/settings", "es/users", "es/features"]
+                  },
+                  {
+                    "group": "Billing",
+                    "pages": [
+                      "es/billing/overview",
+                      "es/billing/payments",
+                      "es/billing/subscriptions"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dropdown": "Changelog",
+                "icon": "history",
+                "description": "Actualizaciones y cambios",
+                "pages": ["es/changelog"]
+              }
+            ]
+          }
+        ]
+      },
+      "logo": {
+        "light": "/logo-light.svg",
+        "dark": "/logo-dark.svg",
+        "href": "https://example.com"
+      },
+      "navbar": {
+        "links": [
+          {
+            "label": "コミュニティ",
+            "href": "https://example.com/community"
+          }
+        ],
+        "primary": {
+          "type": "button",
+          "label": "今すぐ始める",
+          "href": "https://example.com/start"
+        }
+      },
+      "footer": {
+        "socials": {
+          "x": "https://x.com/example",
+          "linkedin": "https://www.linkedin.com/company/example",
+          "github": "https://github.com/example",
+          "slack": "https://example.com/community"
+        },
+        "links": [
+          {
+            "header": "リソース",
+            "items": [
+              {
+                "label": "導入事例",
+                "href": "https://example.com/customers"
+              },
+              {
+                "label": "エンタープライズ",
+                "href": "https://example.com/enterprise"
+              },
+              {
+                "label": "プレビューをリクエスト",
+                "href": "https://example.com/preview"
+              }
+            ]
+          },
+          {
+            "header": "会社情報",
+            "items": [
+              {
+                "label": "採用情報",
+                "href": "https://example.com/careers"
+              },
+              {
+                "label": "ブログ",
+                "href": "https://example.com/blog"
+              },
+              {
+                "label": "プライバシーポリシー",
+                "href": "https://example.com/legal/privacy"
+              }
+            ]
+          }
+        ]
+      },
+      "integrations": {
+        "ga4": {
+          "measurementId": "G-XXXXXXXXXX"
+        },
+        "telemetry": {
+          "enabled": true
+        },
+        "cookies": {
+          "key": "example_cookie_key",
+          "value": "example_cookie_value"
+        }
+      },
+      "contextual": {
+        "options": ["copy", "view", "chatgpt", "claude"]
+      },
+      "errors": {
+        "404": {
+          "redirect": false,
+          "title": "ページが見つかりません",
+          "description": "このページは**どこに**行ってしまったのでしょう_か_?"
+        }
+      }
+    }
+    ```
+  </Tab>
+</Tabs>
+
+<div id="upgrading-from-mintjson">
+  ## `mint.json` からのアップグレード
+</div>
+
+ドキュメントプロジェクトで非推奨の `mint.json` を使用している場合は、以下の手順に従って `docs.json` にアップグレードしてください。
+
+<Steps>
+  <Step title="CLI をインストールまたは更新する">
+    まだ [CLI](/ja/installation) をインストールしていない場合は、次を実行してインストールしてください:
+
+    <CodeGroup>
+      ```bash npm
+      npm i -g mint
+      ```
+
+      ```bash yarn
+      yarn global add mint
+      ```
+
+      ```bash pnpm
+      pnpm add -g mint
+      ```
+    </CodeGroup>
+
+    すでに CLI をインストールしている場合は、次を実行して最新状態であることを確認してください:
+
+    ```bash
+    mint update
+    ```
+  </Step>
+
+  <Step title="docs.json ファイルを作成する">
+    ドキュメントのリポジトリで次を実行します:
+
+    ```bash
+    mint upgrade
+    ```
+
+    このコマンドは既存の `mint.json` から `docs.json` を作成します。生成されたファイルを確認し、すべての設定が正しいことを確認してください。
+  </Step>
+
+  <Step title="mint.json ファイルを削除する">
+    `docs.json` の設定が正しいことを確認したら、古い `mint.json` は安全に削除できます。
+  </Step>
+</Steps>

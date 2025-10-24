@@ -1,0 +1,28 @@
+---
+title: "Tooltip"
+description: "Mostra una definizione quando passi il cursore sul testo"
+---
+
+Usa i tooltip per fornire contesto aggiuntivo o definizioni quando un utente passa il cursore su una stringa di testo. I tooltip possono includere link con call to action opzionali.
+
+**Esempio**: <Tooltip tip="Application Programming Interface: un insieme di protocolli che consentono alle applicazioni software di comunicare." cta="Leggi la nostra guida alle API" href="/it/api-reference">API</Tooltip> La documentazione aiuta gli sviluppatori a capire come integrare il tuo servizio.
+
+```mdx Tooltip example wrap
+<Tooltip tip="Application Programming Interface: un insieme di protocolli per consentire la comunicazione tra applicazioni software." cta="Leggi la nostra guida API" href="/api-reference">API</Tooltip> La documentazione API aiuta gli sviluppatori a comprendere come integrare il tuo servizio.
+```
+
+<div id="properties">
+  ## Proprietà
+</div>
+
+<ResponseField name="tip" type="string" required>
+  Il testo mostrato nel tooltip.
+</ResponseField>
+
+<ResponseField name="cta" type="string">
+  Il testo dell’invito all’azione per un link all’interno del tooltip.
+</ResponseField>
+
+<ResponseField name="href" type="string">
+  URL del link dell’invito all’azione. Obbligatorio quando si utilizza `cta`.
+</ResponseField>

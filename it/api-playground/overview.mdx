@@ -1,0 +1,165 @@
+---
+title: "Playground"
+description: "Consenti agli utenti di interagire con la tua API"
+---
+
+<div id="overview">
+  ## Panoramica
+</div>
+
+L&#39;API playground è un ambiente interattivo che consente agli utenti di testare ed esplorare gli endpoint della tua API. Gli sviluppatori possono comporre richieste, inviarle e visualizzare le risposte senza uscire dalla documentazione.
+
+<Frame>
+  <img src="/images/playground/API-playground-light.png" alt="API playground per l'endpoint che avvia un aggiornamento." className="block dark:hidden" />
+
+  <img src="/images/playground/API-playground-dark.png" alt="API playground per l'endpoint che avvia un aggiornamento." className="hidden dark:block" />
+</Frame>
+
+Il playground viene generato automaticamente dalla tua specifica OpenAPI o dallo schema AsyncAPI, quindi qualsiasi aggiornamento alla tua API si rifletterà automaticamente nel playground. Puoi anche creare manualmente pagine di riferimento dell&#39;API dopo aver definito un URL di base e un metodo di autenticazione nel file `docs.json`.
+
+Consigliamo di generare l&#39;API playground a partire da una specifica OpenAPI. Consulta [OpenAPI Setup](/it/api-playground/openapi-setup) per maggiori informazioni sulla creazione del tuo documento OpenAPI.
+
+<div id="getting-started">
+  ## Per iniziare
+</div>
+
+<Steps>
+  <Step title="Aggiungi il file di specifica OpenAPI.">
+    <Info>
+      Verifica che il file di specifica OpenAPI sia valido usando lo [Swagger Editor](https://editor.swagger.io/) o la [Mint CLI](https://www.npmjs.com/package/mint).
+    </Info>
+
+    ```bash {3}
+    /your-project
+      |- docs.json
+      |- openapi.json
+    ```
+  </Step>
+
+  <Step title="Configura `docs.json`.">
+    Aggiorna `docs.json` per fare riferimento alla tua specifica OpenAPI. Aggiungi una proprietà `openapi` a qualsiasi elemento di navigazione per popolare automaticamente la documentazione con una pagina per ogni endpoint definito nel documento OpenAPI.
+
+    Questo esempio genera una pagina per ogni endpoint definito in `openapi.json` e le organizza nel gruppo &quot;API reference&quot; della navigazione.
+
+    ```json
+    "navigation": {
+      "groups": [
+        {
+          "group": "API reference",
+          "openapi": "openapi.json"
+        }
+      ]
+    }
+    ```
+
+    Per generare pagine solo per determinati endpoint, elenca gli endpoint nella proprietà `pages` dell&#39;elemento di navigazione.
+
+    Questo esempio genera pagine solo per gli endpoint `GET /users` e `POST /users`. Per generare pagine per altri endpoint, aggiungi ulteriori endpoint all&#39;array `pages`.
+
+    ```json
+    "navigation": {
+      "groups": [
+          {
+            "group": "API reference",
+            "openapi": "openapi.json",
+            "pages": [
+              "GET /users",
+              "POST /users"
+            ]
+          }
+      ]
+    }
+    ```
+  </Step>
+</Steps>
+
+<div id="customizing-your-playground">
+  ## Personalizzazione del playground
+</div>
+
+Puoi personalizzare l’API playground definendo le seguenti proprietà nel file `docs.json`.
+
+<ResponseField name="playground" type="object">
+  Configurazioni per l’API playground.
+
+  <Expandable title="playground" defaultOpen="True">
+    <ResponseField name="display" type="&#x22;interactive&#x22; | &#x22;simple&#x22; | &#x22;none&#x22;">
+      La modalità di visualizzazione dell’API playground.
+
+      * `"interactive"`: Mostra il playground interattivo.
+      * `"simple"`: Mostra un endpoint copiabile senza playground.
+      * `"none"`: Non mostra nulla.
+
+      Valore predefinito: `interactive`.
+    </ResponseField>
+
+    <ResponseField name="proxy" type="boolean" defaultOpen="True">
+      Indica se instradare le richieste API tramite un server proxy. Valore predefinito: `true`.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="examples" type="object">
+  Configurazioni per gli esempi API generati automaticamente.
+
+  <Expandable title="examples" defaultOpen="True">
+    <ResponseField name="languages" type="array of string">
+      Lingue degli esempi per gli snippet API generati automaticamente.
+
+      Le lingue vengono visualizzate nell’ordine specificato.
+    </ResponseField>
+
+    <ResponseField name="defaults" type="&#x22;required&#x22; | &#x22;all&#x22;">
+      Indica se mostrare i parametri opzionali negli esempi API. Valore predefinito: `all`.
+    </ResponseField>
+
+    <ResponseField name="prefill" type="boolean">
+      Indica se precompilare l’API playground con i dati dagli esempi dello schema. Quando abilitato, il playground popola automaticamente i campi della richiesta con valori di esempio dalla specifica OpenAPI. Valore predefinito: `false`.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<div id="example-configuration">
+  ### Esempio di configurazione
+</div>
+
+```json
+{
+ "api": {
+   "playground": {
+     "display": "interactive"
+   },
+   "examples": {
+     "languages": ["curl", "python", "javascript"],
+     "defaults": "required",
+     "prefill": true
+   }
+ }
+}
+```
+
+Questo esempio configura l’API playground per renderlo interattivo, includendo snippet di codice per cURL, Python e JavaScript. Negli snippet sono mostrati solo i parametri obbligatori e il playground precompila il corpo della richiesta con valori di esempio.
+
+<div id="custom-endpoint-pages">
+  ### Pagine endpoint personalizzate
+</div>
+
+Quando ti serve un controllo più fine sulla documentazione della tua API, usa l’estensione `x-mint` nella specifica OpenAPI oppure crea pagine `MDX` dedicate per i singoli endpoint.
+
+Entrambe le opzioni ti permettono di:
+
+* Personalizzare i metadati della pagina
+* Aggiungere contenuti aggiuntivi come esempi
+* Controllare il comportamento dell’API playground per pagina
+
+L’estensione `x-mint` è consigliata per generare automaticamente tutta la documentazione della tua API dalla specifica OpenAPI e mantenerla in un unico file.
+
+Le pagine `MDX` individuali sono consigliate per API piccole o quando vuoi sperimentare modifiche a livello di singola pagina.
+
+Per maggiori informazioni, vedi [x-mint extension](/it/api-playground/openapi-setup#x-mint-extension) e [MDX Setup](/it/api-playground/mdx/configuration).
+
+<div id="further-reading">
+  ## Approfondimenti
+</div>
+
+* [Configurazione di AsyncAPI](/it/api-playground/asyncapi/setup) per ulteriori informazioni sulla creazione dello schema AsyncAPI e la generazione delle pagine di riferimento per WebSocket.

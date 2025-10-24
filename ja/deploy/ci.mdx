@@ -1,0 +1,422 @@
+---
+title: "CI チェック"
+description: "更新プロセスにリンク切れ、リント、文法チェックを追加する"
+---
+
+<Info>
+  [Pro と Enterprise プラン](https://mintlify.com/pricing?ref=docs-ci) には、GitHub リポジトリ向けの CI チェックが含まれます。
+</Info>
+
+CI チェックを使うと、デプロイ前にドキュメントのエラーを検出し、警告を出せます。CI チェックは、設定したデプロイブランチへのコミット時、またはそのブランチへのプルリクエスト時に実行されるよう構成されています。
+
+<div id="installation">
+  ## インストール
+</div>
+
+まずは [GitHub](/ja/deploy/github) ページの手順に従ってください。
+
+GitHub App の場合、権限を特定のリポジトリのみに付与できます。ドキュメントをホストしているリポジトリへのアクセスだけで十分なため、その設定を強く推奨します。
+
+## 設定
+
+デプロイで有効にする CI チェックは、ダッシュボードの [Add-ons](https://dashboard.mintlify.com/products/addons) ページから設定します。実行したいチェックを有効化してください。
+
+チェックを有効化する際は、`Warning` と `Blocking` のどちらのレベルで実行するかを選択できます。
+
+* `Warning` レベルのチェックは、エラーや提案があっても失敗ステータスにはなりません。
+* `Blocking` レベルのチェックは、不合格の場合や変更が提案された場合に失敗ステータスになります。
+
+<div id="available-ci-checks">
+  ## 利用可能な CI チェック
+</div>
+
+<div id="broken-links">
+  ### リンク切れ
+</div>
+
+ローカル環境での [CLI link checker](/ja/create/broken-links#broken-links) と同様に、ドキュメント内のリンク切れを自動でチェックします。
+
+結果を確認するには、対象のコミットの GitHub のチェック結果ページを開いてください。
+
+<div id="vale">
+  ### Vale
+</div>
+
+[Vale](https://vale.sh/) は、Markdown や MDX を含む幅広いドキュメント形式に対応した、オープンソースのルールベースな文章用リンターです。
+
+Mintlify では、CI チェックで Vale を自動実行し、結果をチェックステータスとして表示できます。
+
+<div id="configuration">
+  #### 設定
+</div>
+
+デプロイのルートコンテンツディレクトリに `.vale.ini` ファイルがある場合は、その設定ファイルを自動的に使用します。指定した `stylesPath` にある設定ファイルも自動的に使用します。
+
+Vale の設定ファイルがない場合は、既定の設定が自動的に読み込まれます。
+
+```mdx Default vale.ini configuration expandable
+# トップレベルのスタイル
+StylesPath = /app/styles
+MinAlertLevel = suggestion
+IgnoredScopes = code, tt, img, url, a
+SkippedScopes = script, style, pre, figure, code
+
+# 語彙
+Vocab = Mintlify
+
+# ValeはMDXを公式サポートしていないため、この設定が必要です
+[formats]
+mdx = md
+
+# MDXサポート
+[*.mdx]
+BasedOnStyles = Vale
+Vale.Terms = NO # 非常に厳格な大文字・小文字ルールを適用するため、オフにしておく
+
+# `import ...`, `export ...`
+# `<Component ... />`
+# `<Component>...</Component>`
+# `{ ... }`
+TokenIgnores = (?sm)((?:import|export) .+?$), \
+(?<!`)(<\w+ ?.+ ?\/>)(?!`), \
+(<[A-Z]\w+>.+?<\/[A-Z]\w+>)
+
+# 除外対象:
+# `<Component \n ... />`
+BlockIgnores = (?sm)^(<\w+\n .*\s\/>)$, \
+(?sm)^({.+.*})
+
+CommentDelimiters = {/*, */}
+```
+
+```text Default Vale vocabulary expandable
+Mintlify
+mintlify
+VSCode
+openapi
+OpenAPI
+Github
+APIs
+
+repo
+npm
+dev
+
+Lorem
+ipsum
+impsum
+amet
+
+const
+myName
+myObject
+bearerAuth
+favicon
+topbar
+url
+borderRadius
+args
+modeToggle
+ModeToggle
+isHidden
+autoplay
+
+_italic_
+Strikethrough
+Blockquotes
+Blockquote
+Singleline
+Multiline
+
+onboarding
+
+async
+await
+boolean
+enum
+func
+impl
+init
+instanceof
+typeof
+params
+stdin
+stdout
+stderr
+stdout
+stdin
+var
+const
+let
+null
+undefined
+struct
+bool
+
+cors
+csrf
+env
+xhr
+xhr2
+jwt
+oauth
+websocket
+localhost
+middleware
+runtime
+webhook
+stdin
+stdout
+
+json
+yaml
+yml
+md
+txt
+tsx
+jsx
+css
+scss
+html
+png
+jpg
+svg
+
+cdn
+cli
+css
+dom
+dto
+env
+git
+gui
+http
+https
+ide
+jvm
+mvc
+orm
+rpc
+sdk
+sql
+ssh
+ssl
+tcp
+tls
+uri
+url
+ux
+ui
+
+nodejs
+npm
+yarn
+pnpm
+eslint
+pytest
+golang
+rustc
+kubectl
+mongo
+postgres
+redis
+
+JavaScript
+TypeScript
+Python
+Ruby
+Rust
+Go
+Golang
+Java
+Kotlin
+Swift
+Node.js
+NodeJS
+Deno
+
+React
+Vue
+Angular
+Next.js
+Nuxt
+Express
+Django
+Flask
+Spring
+Laravel
+Redux
+Vuex
+TensorFlow
+PostgreSQL
+MongoDB
+Redis
+PNPM
+
+Docker
+Kubernetes
+AWS
+Azure
+GCP
+Terraform
+Jenkins
+CircleCI
+GitLab
+Heroku
+
+Git
+git
+GitHub
+GitLab
+Bitbucket
+VSCode
+Visual Studio Code
+IntelliJ
+WebStorm
+ESLint
+eslint
+Prettier
+prettier
+Webpack
+webpack
+Vite
+vite
+Babel
+babel
+Jest
+jest
+Mocha
+Cypress
+Postman
+
+HTTP
+HTTPS
+OAuth
+JWT
+GraphQL
+REST
+WebSocket
+TCP/IP
+
+NPM
+Yarn
+PNPM
+Pip
+PIP
+Cargo
+RubyGems
+
+Swagger
+OpenAPI
+Markdown
+MDX
+Storybook
+TypeDoc
+JSDoc
+
+MySQL
+PostgreSQL
+MongoDB
+Redis
+Elasticsearch
+DynamoDB
+
+Linux
+Unix
+macOS
+iOS
+
+Firefox
+Chromium
+WebKit
+
+config
+ctx
+desc
+dir
+elem
+err
+len
+msg
+num
+obj
+prev
+proc
+ptr
+req
+res
+str
+tmp
+val
+vars
+
+todo
+href
+lang
+nav
+prev
+next
+toc
+```
+
+<Warning>
+  セキュリティ上の理由により、絶対パスの `stylesPath` や `..` を含む `stylesPath` はサポートしていません。相対パスを使用し、`stylesPath` はリポジトリに含めてください。
+</Warning>
+
+<div id="packages">
+  #### パッケージ
+</div>
+
+Vale は、スペルやスタイルの誤りをチェックするために利用できる、さまざまな[パッケージ](https://vale.sh/docs/keys/packages)をサポートしています。
+リポジトリ内の正しい `stylesPath` 配下に含めたパッケージは、Vale の設定で自動的にインストールされ、使用されます。
+
+リポジトリに含まれていないパッケージについては、[Vale package registry](https://vale.sh/explorer) から任意のパッケージを指定でき、Vale の設定で自動的にダウンロードされて使用されます。
+
+<Warning>
+  セキュリティ上の理由により、[Vale package registry](https://vale.sh/explorer) 以外からのパッケージの自動ダウンロードには対応していない点にご注意ください。
+</Warning>
+
+<div id="vale-with-mdx">
+  #### `MDX` と Vale
+</div>
+
+Vale は `MDX` をネイティブにはサポートしていませんが、Vale の作者がそれをサポートするための[カスタム拡張](https://github.com/errata-ai/MDX)を提供しています。
+
+この拡張を使用したくない場合は、`.vale.ini` ファイルに次の行を記述することを推奨します。
+
+```ini
+[formats]
+mdx = md
+
+[*.mdx]
+CommentDelimiters = {/*, */}
+
+TokenIgnores = (?sm)((?:import|export) .+?$), \
+(?<!`)(<\w+ ?.+ ?\/>)(?!`), \
+(<[A-Z]\w+>.+?<\/[A-Z]\w+>)
+
+BlockIgnores = (?sm)^(<\w+\n .*\s\/>)$, \
+(?sm)^({.+.*})
+```
+
+Vale のドキュメント内コメントを使うには、MDX スタイルのコメント `{/* ... */}` を使用します。設定で `CommentDelimiters = {/*, */}` の[キー](https://vale.sh/docs/keys/commentdelimiters)を指定すると、Vale はリンティング中にこれらのコメントを自動的に解釈します。これにより、行やセクションのスキップなど、Vale の組み込み機能を手軽に利用できます。
+
+```mdx
+{/* vale off */}
+
+このテキストはValeによって無視されます
+
+{/* vale on */}
+```
+
+`CommentDelimiters`を使わずにValeのコメントを使う場合は、ValeのコメントをすべてMDXのコメント `{/* ... */}` で囲む必要があります。例えば:
+
+```mdx
+{/* <!-- vale off --> */}
+
+このテキストはValeによって無視されます
+
+{/* <!-- vale on --> */}
+```
+
+これらのコメントタグは Mintlify のコンポーネント内ではサポートされませんが、ドキュメントの最上位レベルであればどこでも使用できます。

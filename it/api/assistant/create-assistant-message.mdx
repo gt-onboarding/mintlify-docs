@@ -1,0 +1,21 @@
+---
+openapi: POST /assistant/{domain}/message
+---
+
+<div id="rate-limits">
+  ## Limiti di utilizzo
+</div>
+
+L'API dell'Assistente prevede i seguenti limiti:
+
+- 10.000 utilizzi per chiave al mese
+- 10.000 richieste per organizzazione Mintlify all'ora
+- 10.000 richieste per indirizzo IP al giorno
+
+<div id="suggested-usage">
+  ## Utilizzo consigliato
+</div>
+
+Per risultati ottimali, usa l’[hook useChat di ai-sdk](https://ai-sdk.dev/docs/reference/ai-sdk-ui/use-chat#usechat) per inviare le richieste e gestire le risposte.
+
+Puoi impostare `fp`, `threadId` e `filter` nel campo `body` del parametro delle opzioni passato all’hook.

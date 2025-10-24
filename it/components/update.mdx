@@ -1,0 +1,50 @@
+---
+title: "Aggiornamento"
+description: "Tieni traccia di modifiche e aggiornamenti"
+---
+
+Usa il componente `Update` per mostrare voci di changelog, aggiornamenti di versione e note di rilascio con una formattazione coerente.
+
+<Update label="Esempio" description="v0.1.1">
+  ## Aggiornamento di esempio
+
+  Qui puoi aggiungere qualsiasi cosa, come una schermata, uno snippet di codice o un elenco di modifiche.
+
+  <Frame>
+    <img className="block" src="https://mintlify-assets.b-cdn.net/hero-light.png" alt="Schermata della pagina Introduzione a PearsDB come esempio di immagine in un componente Update." />
+  </Frame>
+
+  ### Funzionalità
+
+  * Design reattivo
+  * Ancoraggio per ogni aggiornamento
+  * Voce del feed RSS generata per ogni aggiornamento
+</Update>
+
+<div id="how-to-use">
+  ## Come usarlo
+</div>
+
+```mdx Update example
+<Update label="2024-10-11" description="v0.1.0" tags={["Mintlify"]}>
+  Questo è un aggiornamento con etichetta, descrizione e tag.
+</Update>
+```
+
+Usa più componenti `Update` per creare i [changelog](/it/create/changelogs).
+
+<div id="props">
+  ## Props
+</div>
+
+<ResponseField name="label" type="string" required>
+  Etichetta dell’aggiornamento. Viene visualizzata a sinistra dell’aggiornamento e crea un collegamento di ancoraggio. Le etichette devono essere univoche.
+</ResponseField>
+
+<ResponseField name="tags" type="string[]">
+  Tag dell’aggiornamento. Visualizzati come filtri nel pannello laterale destro.
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  Descrizione dell’aggiornamento. Viene mostrata sotto l’etichetta e i tag.
+</ResponseField>

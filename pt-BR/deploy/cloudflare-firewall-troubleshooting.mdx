@@ -1,0 +1,117 @@
+---
+title: "Solução de problemas do firewall da Cloudflare"
+description: "Resolva erros 500 e lentidão na navegação causados pela Cloudflare ao bloquear recursos da Mintlify"
+---
+
+Se o seu site de documentação apresentar erros 500 após alguns segundos ou estiver com navegação lenta, o firewall da Cloudflare pode estar bloqueando solicitações para recursos da Mintlify.
+
+<div id="symptoms">
+  ## Sintomas
+</div>
+
+- A página de documentação carrega inicialmente, mas apresenta erro 500 após 30–60 segundos
+- Navegação no cliente entre páginas lenta ou com falhas
+- Erros 403 no console do navegador em solicitações para os caminhos `/mintlify-assets/*`
+- Mensagens de desafio de segurança do Cloudflare sobre “dados malformados” ou “padrões de URL suspeitos”
+
+<div id="root-cause">
+  ## Causa raiz
+</div>
+
+O Web Application Firewall (WAF) e o Bot Fight Mode da Cloudflare podem marcar solicitações de assets da Mintlify como suspeitas devido a:
+
+- Múltiplos símbolos `%` em parâmetros de URL codificados
+- Consultas (query strings) longas com caracteres especiais
+- Solicitações automatizadas de abas inativas
+
+<div id="solution">
+  ## Solução
+</div>
+
+Crie uma regra de firewall no Cloudflare para isentar os assets do Mintlify das verificações de segurança.
+
+<div id="create-the-firewall-exception">
+  ### Crie a exceção de firewall
+</div>
+
+1. Acesse seu [painel do Cloudflare](https://dash.cloudflare.com/)
+2. Selecione seu domínio
+3. Navegue até **Security > WAF**
+4. Selecione **Create rule**
+5. Configure a regra com estas configurações:
+
+**Rule name:** Allow Mintlify assets
+
+**When incoming requests match:**
+
+- Field: `Hostname`
+- Operator: `equals`
+- Value: `docs.yourdomain.com` (substitua pelo domínio real da sua documentação)
+
+**And:**
+
+- Field: `URI Path`
+- Operator: `starts with`
+- Value: `/mintlify-assets/`
+
+**Then:**
+
+- Action: `Skip`
+- Select: `All remaining custom rules`, `Managed rules`, and `Super Bot Fight Mode`
+
+6. Ative **Log** para rastrear as solicitações correspondentes
+7. Selecione **Deploy**
+
+<div id="verify-the-rule">
+  ### Verifique a regra
+</div>
+
+Após a implantação:
+
+1. Abra seu site de documentação em um navegador
+2. Deixe a página inativa por 2–3 minutos
+3. Navegue entre as páginas
+4. Verifique o console do navegador em busca de erros 403
+
+Se os problemas persistirem, revise a configuração da regra:
+
+- Certifique-se de que o hostname corresponda exatamente ao seu domínio de documentação
+- Confirme que o caminho do URI usa `starts with` (não `contains`)
+- Não inclua curingas (`*`) no valor do caminho
+- Verifique se a regra está ativada e implantada
+
+<div id="common-mistakes">
+  ## Erros comuns
+</div>
+
+- Usar o operador `contains` com `/mintlify-assets/*` - O `*` é tratado como um caractere literal, não como um curinga
+- Usar `equals` para o caminho do URI - Isso corresponde apenas ao caminho exato `/mintlify-assets/`, e não aos subcaminhos
+- Esquecer de excluir o Bot Fight Mode - Isso precisa ser incluído explicitamente na ação de exclusão
+- Hostname incorreto - Deve corresponder ao domínio real da sua documentação
+
+<div id="additional-troubleshooting">
+  ## Solução de problemas adicional
+</div>
+
+Se a exceção do firewall não resolver o problema:
+
+1. Consulte o log de **Security > Events** no Cloudflare para ver solicitações bloqueadas
+2. Verifique se seu Cloudflare Worker (se estiver usando um subcaminho personalizado) encaminha corretamente o cabeçalho `Host`
+3. Defina temporariamente o nível de segurança como "Essentially Off" para confirmar se o Cloudflare é a causa
+4. Revise quaisquer Page Rules personalizadas que possam substituir a exceção do firewall
+
+<div id="example-working-configuration">
+  ## Exemplo de configuração funcional
+</div>
+
+```
+Regra: Permitir recursos do Mintlify
+Status: Habilitado
+
+Quando as requisições recebidas corresponderem:
+  (http.host eq "docs.flashnet.xyz" and starts_with(http.request.uri.path, "/mintlify-assets/"))
+
+Então:
+  Pular: Todas as regras personalizadas restantes, Regras gerenciadas, Super Bot Fight Mode
+  Log: Habilitado
+```

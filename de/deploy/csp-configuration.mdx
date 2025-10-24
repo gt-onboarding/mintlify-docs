@@ -1,0 +1,156 @@
+---
+title: "Konfiguration der Content Security Policy (CSP)"
+sidebarTitle: "CSP-Konfiguration"
+description: "Domain-Allowlist und Header-Konfigurationen für Reverse-Proxys, Firewalls und Netzwerke, die strenge Sicherheitsrichtlinien durchsetzen"
+---
+
+Die Content Security Policy (CSP) ist ein Sicherheitsstandard, der hilft, Cross-Site-Scripting-(XSS)-Angriffe zu verhindern, indem er steuert, welche Ressourcen eine Webseite laden darf. Mintlify stellt eine standardmäßige CSP bereit, die die meisten Websites schützt. Wenn Sie Ihre Dokumentation hinter einem Reverse-Proxy oder einer Firewall hosten, die die standardmäßige CSP überschreibt, müssen Sie möglicherweise CSP-Header konfigurieren, damit Funktionen ordnungsgemäß funktionieren.
+
+<div id="csp-directives">
+  ## CSP-Direktiven
+</div>
+
+Die folgenden CSP-Direktiven steuern, welche Ressourcen geladen werden dürfen:
+
+- `script-src`: Legt fest, welche Skripte ausgeführt werden dürfen
+- `style-src`: Legt fest, welche Stylesheets geladen werden dürfen
+- `font-src`: Legt fest, welche Schriftarten geladen werden dürfen
+- `img-src`: Legt fest, welche Bilder, Icons und Logos geladen werden dürfen
+- `connect-src`: Legt fest, mit welchen URLs für API-Aufrufe und WebSocket-Verbindungen eine Verbindung hergestellt werden darf
+- `frame-src`: Legt fest, welche URLs in Frames oder Iframes eingebettet werden dürfen
+- `default-src`: Standardvorgabe für andere Direktiven, wenn nicht ausdrücklich gesetzt
+
+<div id="domain-whitelist">
+  ## Domain-Whitelist
+</div>
+
+| Domain | Zweck | CSP-Direktive | Erforderlich |
+|:-------|:--------|:--------------|:-------|
+| `d4tuoctqmanu0.cloudfront.net` | KaTeX-CSS, Schriftarten | `style-src`, `font-src` | Erforderlich |
+| `*.mintlify.dev` | Dokumentationsinhalte | `connect-src`, `frame-src` | Erforderlich |
+| `*.mintlify.com` | Dashboard, API, Insights-Proxy | `connect-src` | Erforderlich |
+| `leaves.mintlify.com` | Assistent-API | `connect-src` | Erforderlich |
+| `d3gk2c5xim1je2.cloudfront.net` | Icons, Bilder, Logos | `img-src` | Erforderlich |
+| `d1ctpt7j8wusba.cloudfront.net` | Mint-Versionen und Release-Dateien | `connect-src` | Erforderlich |
+| `mintcdn.com` | Bilder, Favicons | `img-src`, `connect-src` | Erforderlich |
+| `*.mintcdn.com` | Bilder, Favicons | `img-src`, `connect-src` | Erforderlich |
+| `api.mintlifytrieve.com` | Such-API | `connect-src` | Erforderlich |
+| `cdn.jsdelivr.net` | Emoji-Assets für OG-Bilder | `script-src`, `img-src` | Erforderlich |
+| `fonts.googleapis.com` | Google Fonts | `style-src`, `font-src` | Optional |
+| `www.googletagmanager.com` | Google Analytics/GTM | `script-src`, `connect-src` | Optional |
+| `cdn.segment.com` | Segment-Analytics | `script-src`, `connect-src` | Optional |
+| `plausible.io` | Plausible-Analytics | `script-src`, `connect-src` | Optional |
+| `us.posthog.com` | PostHog-Analytics | `connect-src` | Optional |
+| `tag.clearbitscripts.com` | Clearbit-Tracking | `script-src` | Optional |
+| `cdn.heapanalytics.com` | Heap-Analytics | `script-src` | Optional |
+| `chat.cdn-plain.com` | Plain-Chat-Widget | `script-src` | Optional |
+| `chat-assets.frontapp.com` | Front-Chat-Widget | `script-src` | Optional |
+| `browser.sentry-cdn.com` | Sentry-Fehlerverfolgung | `script-src`, `connect-src` | Optional |
+| `js.sentry-cdn.com` | Sentry JavaScript SDK | `script-src` | Optional |
+
+<div id="example-csp-configuration">
+  ## Beispiel-CSP-Konfiguration
+</div>
+
+<Note>
+  Fügen Sie nur Domains für Dienste hinzu, die Sie tatsächlich verwenden. Entfernen Sie alle Analytics-Domains, die Sie nicht für Ihre Dokumentation konfiguriert haben.
+</Note>
+
+```text wrap
+Content-Security-Policy:
+default-src 'self';
+script-src 'self' 'unsafe-inline' 'unsafe-eval' cdn.jsdelivr.net www.googletagmanager.com cdn.segment.com plausible.io
+us.posthog.com tag.clearbitscripts.com cdn.heapanalytics.com chat.cdn-plain.com chat-assets.frontapp.com
+browser.sentry-cdn.com js.sentry-cdn.com;
+style-src 'self' 'unsafe-inline' d4tuoctqmanu0.cloudfront.net fonts.googleapis.com;
+font-src 'self' d4tuoctqmanu0.cloudfront.net fonts.googleapis.com;
+img-src 'self' data: blob: d3gk2c5xim1je2.cloudfront.net mintcdn.com *.mintcdn.com cdn.jsdelivr.net;
+connect-src 'self' *.mintlify.dev *.mintlify.com d1ctpt7j8wusba.cloudfront.net mintcdn.com *.mintcdn.com
+api.mintlifytrieve.com www.googletagmanager.com cdn.segment.com plausible.io us.posthog.com browser.sentry-cdn.com;
+frame-src 'self' *.mintlify.dev;
+```
+
+
+<div id="common-configurations-by-proxy-type">
+  ## Häufige Konfigurationen nach Proxy-Typ
+</div>
+
+Die meisten Reverse-Proxys unterstützen das Hinzufügen von benutzerdefinierten Headern.
+
+<div id="cloudflare-configuration">
+  ### Cloudflare-Konfiguration
+</div>
+
+Erstellen Sie eine Regel zur Umwandlung von Antwort-Headern (Response Header Transform Rule):
+
+1. Gehen Sie in Ihrem Cloudflare-Dashboard zu **Rules > Overview**.
+2. Wählen Sie **Create rule > Response Header Transform Rule**.
+3. Konfigurieren Sie die Regel:
+
+- **Modify response header**: Set static
+  - **Header name**: `Content-Security-Policy`
+  - **Header value**:
+    ```text wrap
+    default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' d4tuoctqmanu0.cloudfront.net fonts.googleapis.com; font-src 'self' d4tuoctqmanu0.cloudfront.net fonts.googleapis.com; img-src 'self' data: blob: d3gk2c5xim1je2.cloudfront.net mintcdn.com *.mintcdn.com cdn.jsdelivr.net; connect-src 'self' *.mintlify.dev *.mintlify.com d1ctpt7j8wusba.cloudfront.net mintcdn.com *.mintcdn.com api.mintlifytrieve.com; frame-src 'self' *.mintlify.dev;
+    ```
+
+4. Setzen Sie die Regel live.
+
+<div id="aws-cloudfront-configuration">
+  ### AWS CloudFront-Konfiguration
+</div>
+
+Fügen Sie in CloudFront eine Richtlinie für Antwort-Header hinzu:
+
+```json
+{
+"ResponseHeadersPolicy": {
+    "Name": "MintlifyCSP",
+    "Config": {
+    "SecurityHeadersConfig": {
+        "ContentSecurityPolicy": {
+        "ContentSecurityPolicy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' d4tuoctqmanu0.cloudfront.net fonts.googleapis.com; font-src 'self' d4tuoctqmanu0.cloudfront.net fonts.googleapis.com; img-src 'self' data: blob: d3gk2c5xim1je2.cloudfront.net mintcdn.com *.mintcdn.com cdn.jsdelivr.net; connect-src 'self' *.mintlify.dev *.mintlify.com d1ctpt7j8wusba.cloudfront.net mintcdn.com *.mintcdn.com api.mintlifytrieve.com; frame-src 'self' *.mintlify.dev;",
+        "Override": true
+        }
+      }
+    }
+  }
+}
+```
+
+
+<div id="vercel-configuration">
+  ### Vercel-Konfiguration
+</div>
+
+Fügen Sie Ihrer `vercel.json` Folgendes hinzu:
+
+```json
+{
+"headers": [
+    {
+    "source": "/(.*)",
+    "headers": [
+        {
+        "key": "Content-Security-Policy",
+        "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' d4tuoctqmanu0.cloudfront.net fonts.googleapis.com; font-src 'self' d4tuoctqmanu0.cloudfront.net fonts.googleapis.com; img-src 'self' data: blob: d3gk2c5xim1je2.cloudfront.net mintcdn.com *.mintcdn.com cdn.jsdelivr.net; connect-src 'self' *.mintlify.dev *.mintlify.com d1ctpt7j8wusba.cloudfront.net mintcdn.com *.mintcdn.com api.mintlifytrieve.com; frame-src 'self' *.mintlify.dev;"
+        }
+      ]
+    }
+  ]
+}
+```
+
+
+<div id="troubleshooting">
+  ## Fehlerbehebung
+</div>
+
+Ermitteln Sie CSP-Verstöße in der Browserkonsole:
+
+1. Öffnen Sie die Entwicklertools Ihres Browsers.
+2. Wechseln Sie zum Tab **Console**.
+3. Suchen Sie nach Fehlermeldungen, die mit Folgendem beginnen:
+    - `Content Security Policy: The page's settings blocked the loading of a resource`
+    - `Refused to load the script/stylesheet because it violates the following Content Security Policy directive`
+    - `Refused to connect to because it violates the following Content Security Policy directive`

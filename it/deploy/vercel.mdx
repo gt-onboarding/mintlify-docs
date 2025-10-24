@@ -1,0 +1,110 @@
+---
+title: "Vercel"
+description: "Pubblica la documentazione in un sottopercorso personalizzato con Vercel"
+---
+
+import { VercelJsonGenerator } from "/snippets/it/vercel-json-generator.mdx";
+
+
+<div id="verceljson-file">
+  ## file vercel.json
+</div>
+
+Il file `vercel.json` definisce come il tuo progetto viene buildato e distribuito. Si trova nella directory radice del progetto e controlla vari aspetti del deployment, tra cui instradamento, reindirizzamenti, header e impostazioni di build.
+
+Usiamo la configurazione `rewrites` per fare da proxy alle richieste dal tuo dominio principale verso la documentazione.
+
+I rewrite instradano le richieste in arrivo verso destinazioni diverse senza modificare l’URL nel browser. Quando qualcuno visita `yoursite.com/docs`, Vercel recupera internamente il contenuto da `your-subdomain.mintlify.dev/docs`, ma l’utente continua a vedere `yoursite.com/docs` nel browser. Questo è diverso dai reindirizzamenti, che mandano gli utenti a un altro URL.
+
+Puoi personalizzare il sottopercorso con qualsiasi valore, ad esempio `/docs`, `/help` o `/guides`. Inoltre puoi usare sottopercorsi annidati, come `/product/docs`.
+
+<div id="configuration">
+  ## Configurazione
+</div>
+
+<div id="host-from-docs">
+  ### Hosting da `/docs`
+</div>
+
+1. Vai a [Configurazione dominio personalizzato](https://dashboard.mintlify.com/settings/deployment/custom-domain) nella tua dashboard.
+2. Attiva l’interruttore **Hosting su `/docs`**.
+
+<Frame>
+  <img alt="Screenshot della pagina Configurazione dominio personalizzato. L’interruttore Hosting su `/docs` è attivo ed evidenziato da un rettangolo arancione." src="/images/subpath/toggle-light.png" className="block dark:hidden" />
+
+  <img alt="Screenshot della pagina Configurazione dominio personalizzato. L’interruttore Hosting su `/docs` è attivo ed evidenziato da un rettangolo arancione." src="/images/subpath/toggle-dark.png" className="hidden dark:block" />
+</Frame>
+
+3. Inserisci il tuo dominio.
+4. Seleziona **Aggiungi dominio**.
+5. Aggiungi le seguenti regole di rewrite al file `vercel.json`. Sostituisci `[subdomain]` con il tuo sottodominio:
+
+```json
+  {
+    "rewrites": [
+      {
+        "source": "/docs",
+        "destination": "https://[subdomain].mintlify.dev/docs"
+      },
+      {
+        "source": "/docs/:match*",
+        "destination": "https://[subdomain].mintlify.dev/docs/:match*"
+      }
+    ]
+  }
+```
+
+* **`source`**: Il pattern di percorso sul tuo dominio che attiva la riscrittura.
+* **`destination`**: L’endpoint a cui la richiesta deve essere instradata tramite proxy.
+* **`:match*`**: Un carattere jolly che cattura qualsiasi segmento di percorso dopo il sottopercorso.
+
+Per ulteriori informazioni, consulta [Configurare i progetti con vercel.json: Rewrites](https://vercel.com/docs/projects/project-configuration#rewrites) nella documentazione di Vercel.
+
+
+<div id="host-from-custom-path">
+  ### Ospitare da un percorso personalizzato
+</div>
+
+Per utilizzare un sottopercorso personalizzato (qualunque percorso diverso da `/docs`), devi organizzare i file della documentazione nel repository in modo che rispecchino la struttura del sottopercorso. Ad esempio, se la documentazione è ospitata su `yoursite.com/help`, i file devono trovarsi in una directory `help/`.
+
+Usa il generatore qui sotto per creare la configurazione delle regole di rewrite. Aggiungi le regole di rewrite al file `vercel.json`.
+
+<VercelJsonGenerator />
+
+<div id="using-external-proxies-with-vercel">
+  ## Uso di proxy esterni con Vercel
+</div>
+
+Se utilizzi un proxy esterno (come Cloudflare o AWS CloudFront) davanti alla tua distribuzione su Vercel, devi configurarlo correttamente per evitare conflitti con la verifica del dominio di Vercel e l’emissione dei certificati SSL.
+
+Una configurazione del proxy non corretta può impedire a Vercel di emettere i certificati SSL di Let’s Encrypt e causare errori nella verifica del dominio.
+
+Consulta i [provider supportati](https://vercel.com/guides/how-to-setup-verified-proxy#supported-providers-verified-proxy-lite) nella documentazione di Vercel.
+
+<div id="required-path-allowlist">
+  ### Elenco di percorsi consentiti (allowlist) obbligatori
+</div>
+
+Il tuo proxy esterno deve consentire il traffico verso questi percorsi specifici senza bloccarlo, reindirizzarlo o applicare cache aggressive:
+
+- `/.well-known/acme-challenge/*` - Necessario per la verifica del certificato Let's Encrypt
+- `/.well-known/vercel/*` - Necessario per la verifica del dominio su Vercel
+- `/mintlify-assets/_next/static/*` - Necessario per i contenuti statici
+
+Questi percorsi devono essere inoltrati direttamente al tuo deployment su Vercel senza modifiche.
+
+<div id="header-forwarding-requirements">
+  ### Requisiti per l’inoltro delle intestazioni
+</div>
+
+Assicurati che il proxy inoltri correttamente l’intestazione `HOST`. Senza un corretto inoltro delle intestazioni, le richieste di verifica non andranno a buon fine.
+
+<div id="testing-your-proxy-setup">
+  ### Test della configurazione del proxy
+</div>
+
+Per verificare che il proxy sia configurato correttamente:
+
+1. Controlla che `https://[yourdomain].com/.well-known/vercel/` restituisca una risposta.
+2. Assicurati che i certificati SSL vengano provisioning correttamente nella dashboard di Vercel.
+3. Verifica che la convalida del dominio si completi correttamente.

@@ -1,0 +1,41 @@
+---
+title: "Icone"
+description: "Usa icone da librerie di icone popolari"
+---
+
+import IconsRequired from "/snippets/it/icons-required.mdx";
+
+Usa le icone di Font Awesome, Lucide, SVG, URL esterni o file nel tuo progetto per arricchire la documentazione.
+
+<Icon icon="flag" size={32} />
+
+```mdx Icon example
+<Icon icon="flag" size={32} />
+```
+
+
+<div id="inline-icons">
+  ## Icone inline
+</div>
+
+Le icone vengono inserite inline quando sono utilizzate all'interno di un paragrafo.
+
+<Icon icon="flag" iconType="solid" /> La documentazione che vuoi, senza sforzo.
+
+```markdown Inline icon example
+<Icon icon="flag" iconType="solid" /> La documentazione che vuoi, senza sforzo.
+```
+
+<div id="properties">
+  ## Proprietà
+</div>
+
+<IconsRequired />
+
+<ResponseField name="color" type="string">
+  Il colore dell'icona in formato esadecimale (per esempio, `#FF5733`).
+</ResponseField>
+
+<ResponseField name="size" type="number">
+  La dimensione dell'icona in pixel.
+</ResponseField>

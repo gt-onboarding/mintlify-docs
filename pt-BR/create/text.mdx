@@ -1,0 +1,279 @@
+---
+title: "Formatar texto"
+description: "Aprenda a formatar texto, criar títulos e estilizar o conteúdo"
+---
+
+<div id="headers">
+  ## Cabeçalhos
+</div>
+
+Os cabeçalhos organizam seu conteúdo e criam âncoras de navegação. Eles aparecem no sumário e ajudam os usuários a percorrer sua documentação rapidamente.
+
+<div id="creating-headers">
+  ### Criando títulos
+</div>
+
+Use os símbolos `#` para criar títulos de diferentes níveis:
+
+```mdx
+## Cabeçalho da seção principal
+### Cabeçalho da subseção
+#### Cabeçalho da sub-subseção
+```
+
+<Tip>
+  Use títulos descritivos e ricos em palavras-chave que indiquem claramente o conteúdo a seguir. Isso melhora a navegação do usuário e a otimização para mecanismos de busca.
+</Tip>
+
+<div id="disabling-anchor-links">
+  ### Desativando links de âncora
+</div>
+
+Por padrão, os cabeçalhos incluem links de âncora clicáveis que permitem aos usuários direcionar-se diretamente a seções específicas. Você pode desativar esses links de âncora usando a prop `noAnchor` em cabeçalhos HTML ou React.
+
+<CodeGroup>
+  ```mdx HTML header example
+  <h2 noAnchor>
+  Header without anchor link
+  </h2>
+  ```
+
+  ```mdx React header example
+  <Heading level={2} noAnchor>
+  Header without anchor link
+  </Heading>
+  ```
+</CodeGroup>
+
+Quando `noAnchor` é usado, o cabeçalho não exibirá o chip de âncora e clicar no texto do cabeçalho não copiará o link de âncora para a área de transferência.
+
+## Formatação de texto
+
+Suportamos a maior parte da formatação em Markdown para enfatizar e estilizar o texto.
+
+<div id="basic-formatting">
+  ### Formatação básica
+</div>
+
+Aplique estes estilos de formatação ao seu texto:
+
+| Estilo | Sintaxe | Exemplo | Resultado |
+|-------|--------|---------|--------|
+| **Negrito** | `**text**` | `**nota importante**` | **nota importante** |
+| *Itálico* | `_text_` | `_ênfase_` | *ênfase* |
+| ~~Tachado~~ | `~text~` | `~recurso obsoleto~` | ~~recurso obsoleto~~ |
+
+<div id="combining-formats">
+  ### Combinando formatos
+</div>
+
+Você pode combinar estilos de formatação:
+
+```mdx
+**_negrito e itálico_**
+**~~negrito e tachado~~**
+*~~itálico e tachado~~**
+```
+
+***negrito e itálico***<br />
+**~~negrito e tachado~~**<br />
+*~~itálico e tachado~~*
+
+<div id="superscript-and-subscript">
+  ### Sobrescrito e subscrito
+</div>
+
+Para expressões matemáticas ou notas de rodapé, use tags HTML:
+
+| Tipo | Sintaxe | Exemplo | Resultado |
+|------|--------|---------|--------|
+| Sobrescrito | `<sup>text</sup>` | `example<sup>2</sup>` | example<sup>2</sup> |
+| Subscrito | `<sub>text</sub>` | `example<sub>n</sub>` | example<sub>n</sub> |
+
+## Links
+
+Links ajudam usuários a navegar entre páginas e acessar recursos externos. Use textos de link descritivos para melhorar a acessibilidade e a experiência do usuário.
+
+<div id="internal-links">
+  ### Links internos
+</div>
+
+Crie links para outras páginas da sua documentação usando caminhos relativos à raiz:
+
+```mdx
+[Início Rápido](/quickstart)
+[Etapas](/components/steps)
+```
+
+[Guia rápido](/pt-BR/quickstart)<br />
+[Etapas](/pt-BR/components/steps)
+
+<Note>
+  Evite links relativos como `[page](../page)`, pois eles carregam mais lentamente e não podem ser otimizados tão bem quanto links relativos à raiz.
+</Note>
+
+<div id="external-links">
+  ### Links externos
+</div>
+
+Para recursos externos, inclua o URL completo:
+
+```mdx
+[Guia de Markdown](https://www.markdownguide.org/)
+```
+
+[Guia de Markdown](https://www.markdownguide.org/)
+
+<div id="broken-links">
+  ### Links quebrados
+</div>
+
+Você pode verificar se há links quebrados na sua documentação usando a [CLI](/pt-BR/installation):
+
+```bash
+mint broken-links
+```
+
+<div id="blockquotes">
+  ## Citações em bloco
+</div>
+
+As citações em bloco destacam informações importantes, trechos citados ou exemplos no seu conteúdo.
+
+<div id="single-line-blockquotes">
+  ### Citações em bloco de uma única linha
+</div>
+
+Adicione `>` antes do texto para criar uma citação em bloco:
+
+```mdx
+> Esta é uma citação que se destaca do conteúdo principal.
+```
+
+> Esta é uma citação que se destaca do conteúdo principal.
+
+<div id="multi-line-blockquotes">
+  ### Blocos de citação multilinha
+</div>
+
+Para citações mais longas ou com vários parágrafos:
+
+```mdx
+> Este é o primeiro parágrafo de uma citação em bloco de múltiplas linhas.
+>
+> Este é o segundo parágrafo, separado por uma linha vazia com `>`.
+```
+
+> Este é o primeiro parágrafo de uma citação em bloco de várias linhas.
+>
+> Este é o segundo parágrafo, separado por uma linha em branco com `>`.
+
+<Tip>
+  Use citações em bloco com moderação para preservar seu impacto visual e significado. Considere usar [callouts](/pt-BR/components/callouts) para notas, avisos e outras informações.
+</Tip>
+
+<div id="mathematical-expressions">
+  ## Expressões matemáticas
+</div>
+
+Compatível com LaTeX para renderizar expressões e equações matemáticas.
+
+<div id="inline-math">
+  ### Matemática embutida
+</div>
+
+Use um único cifrão, `$`, para expressões matemáticas em linha:
+
+```mdx
+O teorema de Pitágoras estabelece que $(a^2 + b^2 = c^2)$ em um triângulo retângulo.
+```
+
+O teorema de Pitágoras estabelece que $(a^2 + b^2 = c^2)$ em um triângulo retângulo.
+
+<div id="block-equations">
+  ### Equações em bloco
+</div>
+
+Use dois cifrões, `$$`, para equações em linha própria:
+
+```mdx
+$$
+E = mc^2
+$$
+```
+
+$$
+E = mc^2
+$$
+
+<Info>
+  O suporte a LaTeX requer sintaxe matemática correta. Consulte a [documentação do LaTeX](https://www.latex-project.org/help/documentation/) para obter diretrizes completas de sintaxe.
+</Info>
+
+<div id="line-breaks-and-spacing">
+  ## Quebras de linha e espaçamento
+</div>
+
+Controle o espaçamento e as quebras de linha para melhorar a leitura do conteúdo.
+
+<div id="paragraph-breaks">
+  ### Quebras de parágrafo
+</div>
+
+Separe os parágrafos com linhas em branco:
+
+```mdx
+Este é o primeiro parágrafo.
+
+Este é o segundo parágrafo, separado por uma linha em branco.
+```
+
+Este é o primeiro parágrafo.
+
+Este é o segundo parágrafo, separado por uma linha em branco.
+
+<div id="manual-line-breaks">
+  ### Quebras de linha manuais
+</div>
+
+Use as tags HTML `<br />` para forçar quebras de linha dentro de parágrafos:
+
+```mdx
+Esta linha termina aqui.<br />
+Esta linha começa em uma nova linha.
+```
+
+Esta linha termina aqui.<br />
+Esta linha começa numa nova linha.
+
+<Tip>
+  Na maioria dos casos, separar parágrafos com linhas em branco oferece melhor legibilidade do que inserir quebras de linha manualmente.
+</Tip>
+
+<div id="best-practices">
+  ## Boas práticas
+</div>
+
+<div id="content-organization">
+  ### Organização do conteúdo
+</div>
+
+* Use cabeçalhos para criar uma hierarquia de conteúdo clara
+* Siga a hierarquia correta de cabeçalhos (não pule de H2 para H4)
+* Escreva títulos descritivos e ricos em palavras-chave
+
+<div id="text-formatting">
+  ### Formatação de texto
+</div>
+
+* Use negrito para dar ênfase, não em parágrafos inteiros
+* Reserve o itálico para termos, títulos ou ênfases sutis
+* Evite formatação excessiva que distraia do conteúdo
+
+<div id="links">
+  ### Links
+</div>
+
+* Escreva textos de link descritivos em vez de “clique aqui” ou “saiba mais”
+* Use caminhos relativos à raiz para links internos
+* Teste os links regularmente para evitar links quebrados

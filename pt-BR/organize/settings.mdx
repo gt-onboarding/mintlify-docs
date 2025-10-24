@@ -1,0 +1,1636 @@
+---
+title: "Configurações globais"
+description: "Configure as configurações do site inteiro com o arquivo `docs.json`"
+keywords: ["docs.json","configurações","personalização","configuração","logo"]
+---
+
+import IconsOptional from "/snippets/pt-BR/icons-optional.mdx";
+
+O arquivo `docs.json` permite transformar uma coleção de arquivos Markdown em um site de documentação navegável e personalizado. Esse arquivo de configuração obrigatório controla o estilo, a navegação, as integrações e muito mais. Pense nele como o plano diretor da sua documentação.
+
+As configurações em `docs.json` se aplicam globalmente a todas as páginas.
+
+<div id="setting-up-your-docsjson">
+  ## Configurando seu `docs.json`
+</div>
+
+Para começar, você precisa apenas especificar `theme`, `name`, `colors.primary` e `navigation`. Os demais campos são opcionais e podem ser adicionados conforme as necessidades da sua documentação aumentarem.
+
+Para a melhor experiência de edição, inclua a referência do schema no início do seu arquivo `docs.json`. Isso habilita autocompletar, validação e dicas úteis na maioria dos editores de código:
+
+```json
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Sua Documentação",
+  "colors": {
+    "primary": "#ff0000"
+  },
+  "navigation": {
+    // Sua estrutura de navegação
+  }
+  // O restante de sua configuração
+}
+```
+
+<div id="reference">
+  ## Referência
+</div>
+
+Esta seção contém a referência completa do arquivo `docs.json`.
+
+<div id="customization">
+  ### Personalização
+</div>
+
+<ResponseField name="theme" required>
+  O tema de layout do seu site.
+
+  Um dos seguintes: `mint`, `maple`, `palm`, `willow`, `linden`, `almond`, `aspen`.
+
+  Veja [Temas](/pt-BR/customize/themes) para mais informações.
+</ResponseField>
+
+<ResponseField name="name" type="string" required>
+  O nome do seu projeto, organização ou produto.
+</ResponseField>
+
+<ResponseField name="colors" type="object" required>
+  As cores usadas na sua documentação. As cores são aplicadas de forma diferente em cada tema. Se você fornecer apenas uma cor primária, ela será usada para todos os elementos de cor.
+
+  <Expandable title="Colors">
+    <ResponseField name="primary" type="string matching ^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$" required>
+      A cor primária da sua documentação. Geralmente usada para ênfase no modo claro, com alguma variação por tema.
+
+      Deve ser um código hexadecimal começando com `#`.
+    </ResponseField>
+
+    <ResponseField name="light" type="string matching ^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$">
+      A cor usada para ênfase no modo escuro.
+
+      Deve ser um código hexadecimal começando com `#`.
+    </ResponseField>
+
+    <ResponseField name="dark" type="string matching ^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$">
+      A cor usada para botões e estados de hover nos modos claro e escuro, com alguma variação por tema.
+
+      Deve ser um código hexadecimal começando com `#`.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  Descrição do seu site para SEO e indexação por IA.
+</ResponseField>
+
+<ResponseField name="logo" type="string or object">
+  Defina o seu logotipo para os modos claro e escuro.
+
+  <Expandable title="Logo">
+    <ResponseField name="light" type="string" required>
+      Caminho para o arquivo do seu logotipo no modo claro. Inclua a extensão do arquivo. Exemplo: `/logo.png`
+    </ResponseField>
+
+    <ResponseField name="dark" type="string" required>
+      Caminho para o arquivo do seu logotipo no modo escuro. Inclua a extensão do arquivo. Exemplo: `/logo-dark.png`
+    </ResponseField>
+
+    <ResponseField name="href" type="string (uri)">
+      A URL para redirecionar ao clicar no logotipo. Se não for fornecida, o logotipo levará para a sua página inicial. Exemplo: `https://mintlify.com`
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="favicon" type="string or object">
+  Caminho para o arquivo do seu favicon, incluindo a extensão. Redimensionado automaticamente para tamanhos apropriados. Pode ser um único arquivo ou arquivos separados para os modos claro e escuro. Exemplo: `/favicon.png`
+
+  <Expandable title="Favicon">
+    <ResponseField name="light" type="string" required>
+      Caminho para o arquivo do seu favicon no modo claro. Inclua a extensão do arquivo. Exemplo: `/favicon.png`
+    </ResponseField>
+
+    <ResponseField name="dark" type="string" required>
+      Caminho para o arquivo do seu favicon no modo escuro. Inclua a extensão do arquivo. Exemplo: `/favicon-dark.png`
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="thumbnails" type="object">
+  Personalização de miniaturas para redes sociais e prévias de páginas.
+
+  <Expandable title="Thumbnails">
+    <ResponseField name="appearance" type="&#x22;light&#x22; | &#x22;dark&#x22;">
+      O tema visual das suas miniaturas. Se não especificado, as miniaturas usam o esquema de cores do seu site definido pelo campo `colors`.
+    </ResponseField>
+
+    <ResponseField name="background" type="string">
+      Imagem de fundo das suas miniaturas. Pode ser um caminho relativo ou uma URL absoluta.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="styling" type="object">
+  Configurações de estilo visual.
+
+  <Expandable title="Styling">
+    <ResponseField name="eyebrows" type="&#x22;section&#x22; | &#x22;breadcrumbs&#x22;">
+      O estilo do “eyebrow” da página. Escolha `section` para mostrar o nome da seção ou `breadcrumbs` para mostrar o caminho de navegação completo. O padrão é `section`.
+    </ResponseField>
+
+    <ResponseField name="codeblocks" type="&#x22;system&#x22; | &#x22;dark&#x22; | string | object">
+      Configuração de tema para blocos de código. O padrão é `"system"`.
+
+      **Configuração simples:**
+
+      * `"system"`: Acompanha o modo atual do site (claro ou escuro)
+      * `"dark"`: Sempre usar o modo escuro
+
+      **Configuração de tema personalizada:**
+
+      * Use uma string para especificar um único [tema Shiki](https://shiki.style/themes) para todos os blocos de código
+      * Use um objeto para especificar [temas Shiki](https://shiki.style/themes) distintos para os modos claro e escuro
+
+      <ResponseField name="theme" type="string">
+        Um único nome de tema Shiki para usar tanto no modo claro quanto no escuro.
+
+        ```json
+        "styling": {
+          "codeblocks": {
+            "theme": "dracula"
+          }
+        }
+        ```
+      </ResponseField>
+
+      <ResponseField name="theme" type="object">
+        Temas distintos para os modos claro e escuro.
+
+        <Expandable title="theme">
+          <ResponseField name="light" type="string" required>
+            Um nome de tema Shiki para o modo claro.
+          </ResponseField>
+
+          <ResponseField name="dark" type="string" required>
+            Um nome de tema Shiki para o modo escuro.
+          </ResponseField>
+
+          ```json
+          "styling": {
+            "codeblocks": {
+              "theme": {
+                "light": "github-light",
+                "dark": "github-dark"
+              }
+            }
+          }
+          ```
+        </Expandable>
+      </ResponseField>
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="icons" type="object">
+  Configurações da biblioteca de ícones.
+
+  <Expandable title="Icons">
+    <ResponseField name="library" type="&#x22;fontawesome&#x22; | &#x22;lucide&#x22;" required>
+      Biblioteca de ícones usada em toda a sua documentação. O padrão é `fontawesome`.
+
+      <Note>
+        Você pode especificar uma URL para um ícone hospedado externamente, o caminho para um arquivo de ícone no seu projeto ou código SVG compatível com JSX para qualquer ícone individual, independentemente da configuração da biblioteca.
+      </Note>
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="fonts" type="object">
+  Defina fontes personalizadas para sua documentação. A fonte padrão varia conforme o tema.
+
+  <Expandable title="Fonts">
+    <ResponseField name="family" type="string" required>
+      Família tipográfica, como &quot;Open Sans&quot;. Nomes de famílias do [Google Fonts](https://fonts.google.com) são compatíveis.
+    </ResponseField>
+
+    <ResponseField name="weight" type="number">
+      Espessura (peso) da fonte, como 400 ou 700. Fontes variáveis permitem pesos precisos, como 550.
+    </ResponseField>
+
+    <ResponseField name="source" type="string (uri)">
+      Um dos seguintes:
+
+      * URL para uma fonte hospedada, como https://mintlify-assets.b-cdn.net/fonts/Hubot-Sans.woff2.
+      * Caminho para um arquivo de fonte local, como `/fonts/Hubot-Sans.woff2`.
+
+      As fontes do [Google Fonts](https://fonts.google.com) são carregadas automaticamente quando você especifica um nome de `family` do Google Fonts, portanto não é necessário informar uma URL de origem.
+    </ResponseField>
+
+    <ResponseField name="format" type="&#x22;woff&#x22; | &#x22;woff2&#x22;">
+      Formato do arquivo de fonte. Obrigatório ao usar o campo `source`.
+    </ResponseField>
+
+    <ResponseField name="heading" type="object">
+      Substitua as configurações de fonte especificamente para títulos.
+
+      <Expandable title="Heading">
+        <ResponseField name="family" type="string" required>
+          Família tipográfica, como &quot;Open Sans&quot;, &quot;Playfair Display&quot;. Nomes de famílias do [Google Fonts](https://fonts.google.com) são compatíveis.
+        </ResponseField>
+
+        <ResponseField name="weight" type="number">
+          Espessura (peso) da fonte, como 400 ou 700. Fontes variáveis permitem pesos precisos, como 550.
+        </ResponseField>
+
+        <ResponseField name="source" type="string (uri)">
+          Um dos seguintes:
+
+          * URL para uma fonte hospedada, como https://mintlify-assets.b-cdn.net/fonts/Hubot-Sans.woff2.
+          * Caminho para um arquivo de fonte local, como `/fonts/Hubot-Sans.woff2`.
+
+          As fontes do [Google Fonts](https://fonts.google.com) são carregadas automaticamente quando você especifica um nome de `family` do Google Fonts, portanto não é necessário informar uma URL de origem.
+        </ResponseField>
+
+        <ResponseField name="format" type="&#x22;woff&#x22; | &#x22;woff2&#x22;">
+          Formato do arquivo de fonte. Obrigatório ao usar o campo `source`.
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="body" type="object">
+      Substitua as configurações de fonte especificamente para o corpo do texto.
+
+      <Expandable title="Body">
+        <ResponseField name="family" type="string" required>
+          Família tipográfica, como &quot;Open Sans&quot;, &quot;Playfair Display&quot;. Nomes de famílias do [Google Fonts](https://fonts.google.com) são compatíveis.
+        </ResponseField>
+
+        <ResponseField name="weight" type="number">
+          Espessura (peso) da fonte, como 400 ou 700. Fontes variáveis permitem pesos precisos, como 550.
+        </ResponseField>
+
+        <ResponseField name="source" type="string (uri)">
+          Um dos seguintes:
+
+          * URL para uma fonte hospedada, como https://mintlify-assets.b-cdn.net/fonts/Hubot-Sans.woff2.
+          * Caminho para um arquivo de fonte local, como `/fonts/Hubot-Sans.woff2`.
+
+          As fontes do [Google Fonts](https://fonts.google.com) são carregadas automaticamente quando você especifica um nome de `family` do Google Fonts, portanto não é necessário informar uma URL de origem.
+        </ResponseField>
+
+        <ResponseField name="format" type="&#x22;woff&#x22; | &#x22;woff2&#x22;">
+          Formato do arquivo de fonte. Obrigatório ao usar o campo `source`.
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="appearance" type="object">
+  Configurações do alternador de modo claro/escuro.
+
+  <Expandable title="Appearance">
+    <ResponseField name="default" type="&#x22;system&#x22; | &#x22;light&#x22; | &#x22;dark&#x22;">
+      Modo de tema padrão. Escolha `system` para corresponder às configurações do SO dos usuários ou `light`/`dark` para forçar um modo específico. O padrão é `system`.
+    </ResponseField>
+
+    <ResponseField name="strict" type="boolean">
+      Define se o alternador de modo claro/escuro deve ser ocultado. O padrão é `true`.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="background" type="object">
+  Configurações de cor e decoração de fundo.
+
+  <Expandable title="Background">
+    <ResponseField name="image" type="string or object">
+      Imagem de fundo do seu site. Pode ser um único arquivo ou arquivos separados para os modos claro e escuro.
+
+      <Expandable title="Image">
+        <ResponseField name="light" type="string" required>
+          Caminho da imagem de fundo para o modo claro. Inclua a extensão do arquivo. Exemplo: `/background.png`.
+        </ResponseField>
+
+        <ResponseField name="dark" type="string" required>
+          Caminho da imagem de fundo para o modo escuro. Inclua a extensão do arquivo. Exemplo: `/background-dark.png`.
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="decoration" type="&#x22;gradient&#x22; | &#x22;grid&#x22; | &#x22;windows&#x22;">
+      Decoração de fundo do seu tema.
+    </ResponseField>
+
+    <ResponseField name="color" type="object">
+      Cores de fundo personalizadas para os modos claro e escuro.
+
+      <Expandable title="Color">
+        <ResponseField name="light" type="string matching ^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$">
+          Cor de fundo para o modo claro.
+
+          Deve ser um código hexadecimal começando com `#`.
+        </ResponseField>
+
+        <ResponseField name="dark" type="string matching ^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$">
+          Cor de fundo para o modo escuro.
+
+          Deve ser um código hexadecimal começando com `#`.
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<div id="structure">
+  ### Estrutura
+</div>
+
+<ResponseField name="navbar" type="object">
+  Itens da barra de navegação para links externos.
+
+  <Expandable title="Navbar">
+    <ResponseField name="links" type="array of object">
+      Links exibidos na barra de navegação
+
+      <Expandable title="Links">
+        <ResponseField name="label" type="string" required>
+          Texto do link.
+        </ResponseField>
+
+        <ResponseField name="href" type="string (uri)" required>
+          Destino do link. Deve ser uma URL externa válida.
+        </ResponseField>
+
+        <IconsOptional />
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="primary" type="object">
+      Botão principal na barra de navegação.
+
+      <Expandable title="Primary">
+        <ResponseField name="type" type="&#x22;button&#x22; | &#x22;github&#x22;" required>
+          Estilo do botão. Use `button` para um botão padrão com texto ou `github` para um link para um repositório do GitHub com ícone.
+        </ResponseField>
+
+        <ResponseField name="label" type="string" required>
+          Texto do botão. Aplica-se apenas quando `type` é `button`.
+        </ResponseField>
+
+        <ResponseField name="href" type="string (uri)" required>
+          Destino do botão. Deve ser uma URL externa. Se `type` for `github`, deve ser a URL de um repositório do GitHub.
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="navegação" type="object" required>
+  A estrutura de navegação do seu conteúdo.
+
+  <Expandable title="Navegação">
+    <ResponseField name="global" type="object">
+      Elementos de navegação global que aparecem em todas as páginas e seções.
+
+      <Expandable title="Global">
+        <ResponseField name="Idiomas" type="array of object">
+          Configuração do seletor de idiomas para sites localizados.
+
+          <Expandable title="Idiomas">
+            <ResponseField name="language" type="&#x22;en&#x22; | &#x22;cn&#x22; | &#x22;zh&#x22; | &#x22;zh-Hans&#x22; | &#x22;zh-Hant&#x22; | &#x22;es&#x22; | &#x22;fr&#x22; | &#x22;ja&#x22; | &#x22;jp&#x22; | &#x22;pt&#x22; | &#x22;pt-BR&#x22; | &#x22;de&#x22; | &#x22;ko&#x22; | &#x22;it&#x22; | &#x22;ru&#x22; | &#x22;id&#x22; | &#x22;ar&#x22; | &#x22;tr&#x22;" required>
+              Código de idioma no formato ISO 639-1
+            </ResponseField>
+
+            <ResponseField name="default" type="boolean">
+              Indica se este é o idioma padrão.
+            </ResponseField>
+
+            <ResponseField name="hidden" type="boolean">
+              Indica se esta opção de idioma deve ser ocultada por padrão.
+            </ResponseField>
+
+            <ResponseField name="href" type="string (uri)" required>
+              Um caminho válido ou link externo para esta versão da sua documentação nesse idioma.
+            </ResponseField>
+          </Expandable>
+        </ResponseField>
+
+        <ResponseField name="versões" type="array of object">
+          Configuração do alternador de versão para sites com múltiplas versões.
+
+          <Expandable title="Versions">
+            <ResponseField name="version" type="string" required>
+              Nome exibido da versão.
+
+              Comprimento mínimo: 1
+            </ResponseField>
+
+            <ResponseField name="default" type="boolean">
+              Indica se esta é a versão padrão.
+            </ResponseField>
+
+            <ResponseField name="hidden" type="boolean">
+              Indica se esta opção de versão deve ser ocultada por padrão.
+            </ResponseField>
+
+            <ResponseField name="href" type="string (uri)" required>
+              URL ou caminho para esta versão da sua documentação.
+            </ResponseField>
+          </Expandable>
+        </ResponseField>
+
+        <ResponseField name="abas" type="array of object">
+          Abas de navegação de nível superior para organizar as seções principais.
+
+          <Expandable title="Tabs">
+            <ResponseField name="tab" type="string" required>
+              Nome exibido da aba.
+
+              Comprimento mínimo: 1
+            </ResponseField>
+
+            <IconsOptional />
+
+            <ResponseField name="hidden" type="boolean">
+              Define se a aba fica oculta por padrão.
+            </ResponseField>
+
+            <ResponseField name="href" type="string (uri)" required>
+              URL ou caminho para o destino da aba.
+            </ResponseField>
+          </Expandable>
+        </ResponseField>
+
+        <ResponseField name="âncoras" type="array of object">
+          Links âncora que aparecem com destaque na navegação da barra lateral.
+
+          <Expandable title="Âncoras">
+            <ResponseField name="anchor" type="string" required>
+              Nome de exibição da âncora.
+
+              Comprimento mínimo: 1
+            </ResponseField>
+
+            <IconsOptional />
+
+            <ResponseField name="color" type="object">
+              Cores personalizadas para a âncora.
+
+              <Expandable title="Cor">
+                <ResponseField name="light" type="string matching ^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$">
+                  Cor da âncora para o modo claro.
+
+                  Deve ser um código hexadecimal começando com `#`.
+                </ResponseField>
+
+                <ResponseField name="dark" type="string matching ^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$">
+                  Cor da âncora para o modo escuro.
+
+                  Deve ser um código hexadecimal começando com `#`.
+                </ResponseField>
+              </Expandable>
+            </ResponseField>
+
+            <ResponseField name="hidden" type="boolean">
+              Se esta âncora deve ser ocultada por padrão.
+            </ResponseField>
+
+            <ResponseField name="href" type="string (uri)" required>
+              URL ou caminho para o destino da âncora.
+            </ResponseField>
+          </Expandable>
+        </ResponseField>
+
+        <ResponseField name="menus suspensos" type="array of object">
+          Menus suspensos para organizar conteúdo relacionado.
+
+          <Expandable title="Dropdowns">
+            <ResponseField name="dropdown" type="string" required>
+              Nome exibido do menu suspenso.
+
+              Tamanho mínimo: 1
+            </ResponseField>
+
+            <IconsOptional />
+
+            <ResponseField name="hidden" type="boolean">
+              Define se este menu suspenso fica oculto por padrão.
+            </ResponseField>
+
+            <ResponseField name="href" type="string (uri)" required>
+              URL ou caminho de destino do menu suspenso.
+            </ResponseField>
+          </Expandable>
+        </ResponseField>
+
+        <ResponseField name="produtos" type="array of object">
+          Produtos para organizar o conteúdo em seções.
+
+          <Expandable title="Produtos">
+            <ResponseField name="product" type="string" required>
+              Nome de exibição do produto.
+            </ResponseField>
+
+            <ResponseField name="description" type="string">
+              Descrição do produto.
+            </ResponseField>
+
+            <IconsOptional />
+          </Expandable>
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="Idiomas" type="array of object">
+      Seletor de idioma para sites [multilíngues](organize/navigation#languages).
+    </ResponseField>
+
+    <ResponseField name="Versões" type="array of object">
+      Seletor de versões para sites com várias [versões](organize/navigation#versions).
+    </ResponseField>
+
+    <ResponseField name="abas" type="array of object">
+      Navegação de nível superior com [abas](organize/navigation#tabs).
+    </ResponseField>
+
+    <ResponseField name="âncoras" type="array of object">
+      Âncoras da barra lateral [anchors](organize/navigation#anchors).
+    </ResponseField>
+
+    <ResponseField name="menus dropdown" type="array of object">
+      [Dropdowns](organize/navigation#dropdowns) para agrupar conteúdos relacionados.
+    </ResponseField>
+
+    <ResponseField name="produtos" type="array of object">
+      Seletor de produto para sites com vários [produtos](organize/navigation#products).
+    </ResponseField>
+
+    <ResponseField name="grupos" type="array of object">
+      [Grupos](organize/navigation#groups) para organizar o conteúdo em seções.
+    </ResponseField>
+
+    <ResponseField name="páginas" type="array of string or object">
+      [Páginas](organize/navigation#pages) individuais que compõem a sua documentação.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="interaction" type="object">
+  Configurações de interação do usuário para elementos de navegação.
+
+  <Expandable title="Interaction">
+    <ResponseField name="drilldown" type="boolean">
+      Controla o comportamento de navegação automática ao selecionar grupos de navegação. Defina como `true` para forçar a navegação para a primeira página quando um grupo de navegação for expandido. Defina como `false` para impedir a navegação e apenas expandir ou recolher o grupo. Deixe sem definir para usar o comportamento padrão do tema.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="footer" type="object">
+  Conteúdo do rodapé e links de redes sociais.
+
+  <Expandable title="Footer">
+    <ResponseField name="socials" type="object">
+      Perfis de redes sociais para exibir no rodapé. Cada chave é o nome de uma plataforma e cada valor é a URL do seu perfil. Por exemplo:
+
+      ```json
+      {
+        "x": "https://x.com/mintlify"
+      }
+      ```
+
+      Nomes de propriedades válidos: `x`, `website`, `facebook`, `youtube`, `discord`, `slack`, `github`, `linkedin`, `instagram`, `hacker-news`, `medium`, `telegram`, `twitter`, `x-twitter`, `earth-americas`, `bluesky`, `threads`, `reddit`, `podcast`
+    </ResponseField>
+
+    <ResponseField name="links" type="array of object">
+      Links para exibir no rodapé.
+
+      <Expandable title="Links">
+        <ResponseField name="header" type="string">
+          Título do cabeçalho da coluna.
+
+          Comprimento mínimo: 1
+        </ResponseField>
+
+        <ResponseField name="items" type="array of object" required>
+          Links para exibir na coluna.
+
+          <Expandable title="Items">
+            <ResponseField name="label" type="string" required>
+              Texto do link.
+
+              Comprimento mínimo: 1
+            </ResponseField>
+
+            <ResponseField name="href" type="string (uri)" required>
+              URL de destino do link.
+            </ResponseField>
+          </Expandable>
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="banner" type="object">
+  Banner do site exibido no topo das páginas.
+
+  <Expandable title="Banner">
+    <ResponseField name="content" type="string">
+      O conteúdo do banner. Suporta texto simples e formatação em Markdown. Por exemplo:
+
+      ```json
+      {
+        "content": "🚀 O banner está no ar! [Saiba mais](mintlify.com)"
+      }
+      ```
+    </ResponseField>
+
+    <ResponseField name="dismissible" type="boolean">
+      Indica se os usuários podem dispensar o banner. O padrão é `false`.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="redirects" type="array of object">
+  Redirecionamentos para páginas movidas, renomeadas ou excluídas.
+
+  <Expandable title="Redirects">
+    <ResponseField name="source" type="string" required>
+      Caminho de origem do qual redirecionar. Exemplo: `/old-page`
+    </ResponseField>
+
+    <ResponseField name="destination" type="string" required>
+      Caminho de destino para o qual redirecionar. Exemplo: `/new-page`
+    </ResponseField>
+
+    <ResponseField name="permanent" type="boolean">
+      Indica se deve usar um redirecionamento permanente (301). O padrão é `true`.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="contextual" type="object">
+  Menu contextual para conteúdo com IA e integrações.
+
+  <Expandable title="Contextual">
+    <ResponseField name="options" type="array of &#x22;copy&#x22; | &#x22;view&#x22; | &#x22;chatgpt&#x22; | &#x22;claude&#x22; | &#x22;perplexity&#x22; | &#x22;mcp&#x22; | &#x22;cursor&#x22; | &#x22;vscode&#x22;" required>
+      Ações disponíveis no menu contextual. A primeira opção aparece como padrão.
+
+      * `copy`: Copia a página atual como Markdown para a área de transferência.
+      * `view`: Exibe a página atual como Markdown em uma nova aba.
+      * `chatgpt`: Envia o conteúdo da página atual para o ChatGPT.
+      * `claude`: Envia o conteúdo da página atual para o Claude.
+      * `perplexity`: Envia o conteúdo da página atual para o Perplexity.
+      * `mcp`: Copia a URL do seu servidor MCP para a área de transferência.
+      * `cursor`: Instala seu servidor MCP hospedado no Cursor.
+      * `vscode`: Instala seu servidor MCP hospedado no VSCode.
+
+      <img src="/images/page-context-menu.png" alt="Menu contextual" className="rounded-xl" />
+
+      <Note>
+        O menu contextual está disponível apenas em implantações de preview e produção.
+      </Note>
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<div id="api-configurations">
+  ### Configurações de API
+</div>
+
+<ResponseField name="api" type="object">
+  Configurações da documentação de API e do playground interativo.
+
+  <Expandable title="Api">
+    <ResponseField name="openapi" type="string or array or object">
+      Arquivos de especificação OpenAPI para gerar a documentação de API. Pode ser uma única URL/caminho ou uma lista de URLs/caminhos.
+
+      <Expandable title="Openapi">
+        <ResponseField name="source" type="string">
+          URL ou caminho para o arquivo de especificação OpenAPI.
+
+          Tamanho mínimo: 1
+        </ResponseField>
+
+        <ResponseField name="directory" type="string">
+          Diretório para buscar arquivos OpenAPI.
+
+          Não inclua barra inicial.
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="asyncapi" type="string or array or object">
+      Arquivos de especificação AsyncAPI para gerar a documentação de API. Pode ser uma única URL/caminho ou uma lista de URLs/caminhos.
+
+      <Expandable title="Asyncapi">
+        <ResponseField name="source" type="string">
+          URL ou caminho para o arquivo de especificação AsyncAPI.
+
+          Tamanho mínimo: 1
+        </ResponseField>
+
+        <ResponseField name="directory" type="string">
+          Diretório para buscar arquivos AsyncAPI.
+
+          Não inclua barra inicial.
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="params" type="object">
+      Configurações de exibição dos parâmetros da API.
+
+      <Expandable title="Params">
+        <ResponseField name="expanded" type="&#x22;all&#x22; | &#x22;closed&#x22;">
+          Define se todos os parâmetros devem ser exibidos expandidos por padrão. Padrão: `closed`.
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="playground" type="object">
+      Configurações do Playground de API.
+
+      <Expandable title="Playground">
+        <ResponseField name="display" type="&#x22;interactive&#x22; | &#x22;simple&#x22; | &#x22;none&#x22;">
+          Modo de exibição do Playground de API. Padrão: `interactive`.
+        </ResponseField>
+
+        <ResponseField name="proxy" type="boolean">
+          Define se as requisições de API devem passar por um servidor proxy. Padrão: `true`.
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="examples" type="object">
+      Configurações para os exemplos de API gerados automaticamente.
+
+      <Expandable title="Examples">
+        <ResponseField name="languages" type="array of string">
+          Linguagens para os trechos de código de API gerados automaticamente
+        </ResponseField>
+
+        <ResponseField name="defaults" type="&#x22;required&#x22; | &#x22;all&#x22;">
+          Define se os parâmetros opcionais serão exibidos nos exemplos de API. Padrão: `all`.
+        </ResponseField>
+
+        <ResponseField name="prefill" type="boolean">
+          Define se o Playground de API deve ser pré-preenchido com dados dos exemplos do esquema. Quando ativado, o playground preenche automaticamente os campos da requisição com valores de exemplo da sua especificação OpenAPI. Padrão: `false`.
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="mdx" type="object">
+      Configurações para páginas de API geradas a partir de arquivos `MDX`.
+
+      <Expandable title="Mdx">
+        <ResponseField name="auth" type="object">
+          Configuração de autenticação para requisições de API baseadas em MDX.
+
+          <Expandable title="Auth">
+            <ResponseField name="method" type="&#x22;bearer&#x22; | &#x22;basic&#x22; | &#x22;key&#x22; | &#x22;cobo&#x22;">
+              Método de autenticação para requisições de API.
+            </ResponseField>
+
+            <ResponseField name="name" type="string">
+              Nome da autenticação para requisições de API.
+            </ResponseField>
+          </Expandable>
+        </ResponseField>
+
+        <ResponseField name="server" type="string or array">
+          Configuração de servidor para requisições de API.
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<div id="seo-and-search">
+  ### SEO e busca
+</div>
+
+<ResponseField name="seo" type="object">
+  Configurações de indexação de SEO.
+
+  <Expandable title="Seo">
+    <ResponseField name="metatags" type="object">
+      Metatags adicionadas a todas as páginas. Devem ser um par chave-valor válido. Consulte as opções em [referência de metatags comuns](/pt-BR/optimize/seo#common-meta-tags-reference).
+    </ResponseField>
+
+    <ResponseField name="indexing" type="&#x22;navigable&#x22; | &#x22;all&#x22;">
+      Especifique quais páginas os mecanismos de pesquisa devem indexar. Selecione `navigable` para indexar apenas as páginas que estão na navegação do seu `docs.json` ou `all` para indexar todas as páginas. O padrão é `navigable`.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="search" type="object">
+  Configurações de exibição da busca.
+
+  <Expandable title="Search">
+    <ResponseField name="prompt" type="string">
+      Texto de placeholder exibido na barra de busca.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<div id="integrations">
+  ### Integrações
+</div>
+
+<ResponseField name="Integrações" type="object">
+  Integrações de terceiros.
+
+  <Expandable title="Integrações">
+    <ResponseField name="amplitude" type="object">
+      Integração com o Amplitude Analytics.
+
+      <Expandable title="Amplitude">
+        <ResponseField name="apiKey" type="string" required>
+          Sua chave de API do Amplitude.
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="Clearbit" type="object">
+      Integração de enriquecimento de dados do Clearbit.
+
+      <Expandable title="Clearbit">
+        <ResponseField name="publicApiKey" type="string" required>
+          Sua chave de API do Clearbit.
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="Fathom" type="object">
+      Integração com o Fathom Analytics.
+
+      <Expandable title="Fathom">
+        <ResponseField name="siteId" type="string" required>
+          ID do seu site no Fathom.
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="Front Chat" type="object">
+      Integração com o Front Chat.
+
+      <Expandable title="Frontchat">
+        <ResponseField name="snippetId" type="string" required>
+          Seu ID do snippet do Front Chat.
+
+          Comprimento mínimo: 6
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="GA4" type="object">
+      Integração com o Google Analytics 4.
+
+      <Expandable title="GA4">
+        <ResponseField name="measurementId" type="string matching ^G" required>
+          Seu ID de medição do Google Analytics 4.
+
+          Deve corresponder ao padrão: ^G
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="gtm" type="object">
+      Integração com o Google Tag Manager.
+
+      <Expandable title="Gtm">
+        <ResponseField name="tagId" type="string matching ^G" required>
+          Seu ID de tag do Google Tag Manager.
+
+          Deve corresponder ao padrão: ^G
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="heap" type="object">
+      Integração com o Heap Analytics.
+
+      <Expandable title="Heap">
+        <ResponseField name="appId" type="string" required>
+          Seu ID do aplicativo do Heap.
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="Hotjar" type="object">
+      Integração com o Hotjar.
+
+      <Expandable title="Hotjar">
+        <ResponseField name="hjid" type="string" required>
+          Seu ID do Hotjar.
+        </ResponseField>
+
+        <ResponseField name="hjsv" type="string" required>
+          Versão do script do Hotjar.
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="Interfone" type="object">
+      Integração com o Intercom.
+
+      <Expandable title="Intercom">
+        <ResponseField name="appId" type="string" required>
+          Seu ID do aplicativo do Intercom.
+
+          Comprimento mínimo: 6
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="LogRocket" type="object">
+      Integração com o LogRocket.
+
+      <Expandable title="LogRocket">
+        <ResponseField name="appId" type="string" required>
+          Seu ID do aplicativo do LogRocket.
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="mixpanel" type="object">
+      Integração com o Mixpanel.
+
+      <Expandable title="Mixpanel">
+        <ResponseField name="projectToken" type="string" required>
+          O token do seu projeto no Mixpanel.
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="osano" type="object">
+      Integração com a Osano.
+
+      <Expandable title="Osano">
+        <ResponseField name="scriptSource" type="string" required>
+          A fonte do seu script da Osano.
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="Pirsch" type="object">
+      Integração com o Pirsch Analytics.
+
+      <Expandable title="Pirsch">
+        <ResponseField name="id" type="string" required>
+          Seu ID do Pirsch.
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="PostHog" type="object">
+      Integração com o PostHog.
+
+      <Expandable title="Posthog">
+        <ResponseField name="apiKey" type="string matching ^phc\_" required>
+          Sua chave de API do PostHog.
+
+          Deve seguir o padrão: ^phc&#95;
+        </ResponseField>
+
+        <ResponseField name="apiHost" type="string (uri)">
+          Seu host de API do PostHog.
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="Plausível" type="object">
+      Integração com o Plausible Analytics.
+
+      <Expandable title="Plausible">
+        <ResponseField name="domain" type="string" required>
+          Seu domínio do Plausible.
+        </ResponseField>
+
+        <ResponseField name="server" type="string">
+          Seu servidor do Plausible.
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="segmento" type="object">
+      Integração com o Segment.
+
+      <Expandable title="Segment">
+        <ResponseField name="key" type="string" required>
+          Sua chave do Segment.
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="telemetria" type="object">
+      Configurações de telemetria.
+
+      <Expandable title="Telemetria">
+        <ResponseField name="enabled" type="boolean">
+          Indica se a telemetria deve ser ativada.
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="cookies" type="object">
+      Configurações de cookies.
+
+      <Expandable title="Cookies">
+        <ResponseField name="key" type="string">
+          Chave do cookie.
+        </ResponseField>
+
+        <ResponseField name="value" type="string">
+          Valor do cookie.
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<div id="errors">
+  ### Erros
+</div>
+
+<ResponseField name="errors" type="object">
+  Configurações de tratamento de erros.
+
+  <Expandable title="Erros">
+    <ResponseField name="404" type="object">
+      Tratamento do erro 404 &quot;Página não encontrada&quot;.
+
+      <Expandable title="404">
+        <ResponseField name="redirect" type="boolean">
+          Define se deve redirecionar automaticamente para a página inicial quando uma página não for encontrada.
+        </ResponseField>
+
+        <ResponseField name="title" type="string">
+          Título personalizado para a página de erro 404.
+        </ResponseField>
+
+        <ResponseField name="description" type="string">
+          Descrição personalizada para a página de erro 404. Suporta formatação Markdown.
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<div id="examples">
+  ## Exemplos
+</div>
+
+<Tabs>
+  <Tab title="Exemplo básico">
+    ```json docs.json lines wrap
+    {
+      "$schema": "https://mintlify.com/docs.json",
+      "theme": "maple",
+      "name": "Example Co.",
+      "description": "Example Co. é uma empresa que fornece conteúdo de exemplo e texto placeholder.",
+      "colors": {
+        "primary": "#3B82F6",
+        "light": "#F8FAFC",
+        "dark": "#0F172A"
+      },
+      "navigation": {
+        "dropdowns": [
+          {
+            "dropdown": "Documentação",
+            "icon": "book",
+            "description": "Como usar o produto da Example Co.",
+            "groups": [
+              {
+                "group": "Primeiros passos",
+                "pages": [
+                  "index",
+                  "quickstart"
+                ]
+              },
+              {
+                "group": "Personalização",
+                "pages": [
+                  "settings",
+                  "users",
+                  "features"
+                ]
+              },
+              {
+                "group": "Faturamento",
+                "pages": [
+                  "billing/overview",
+                  "billing/payments",
+                  "billing/subscriptions"
+                ]
+              }
+            ]
+          },
+          {
+            "dropdown": "Changelog",
+            "icon": "history",
+            "description": "Atualizações e alterações",
+            "pages": [
+              "changelog"
+            ]
+          }
+        ]
+      },
+      "logo": {
+        "light": "/logo-light.svg",
+        "dark": "/logo-dark.svg",
+        "href": "https://example.com"
+      },
+      "navbar": {
+        "links": [
+          {
+            "label": "Comunidade",
+            "href": "https://example.com/community"
+          }
+        ],
+        "primary": {
+          "type": "button",
+          "label": "Começar",
+          "href": "https://example.com/start"
+        }
+      },
+      "footer": {
+        "socials": {
+          "x": "https://x.com/example",
+          "linkedin": "https://www.linkedin.com/company/example",
+          "github": "https://github.com/example",
+          "slack": "https://example.com/community"
+        },
+        "links": [
+          {
+            "header": "Recursos",
+            "items": [
+              {
+                "label": "Clientes",
+                "href": "https://example.com/customers"
+              },
+              {
+                "label": "Enterprise",
+                "href": "https://example.com/enterprise"
+              },
+              {
+                "label": "Solicitar Preview",
+                "href": "https://example.com/preview"
+              }
+            ]
+          },
+          {
+            "header": "Empresa",
+            "items": [
+              {
+                "label": "Carreiras",
+                "href": "https://example.com/careers"
+              },
+              {
+                "label": "Blog",
+                "href": "https://example.com/blog"
+              },
+              {
+                "label": "Política de Privacidade",
+                "href": "https://example.com/legal/privacy"
+              }
+            ]
+          }
+        ]
+      },
+      "integrations": {
+        "ga4": {
+          "measurementId": "G-XXXXXXXXXX"
+        },
+        "telemetry": {
+          "enabled": true
+        },
+        "cookies": {
+          "key": "example_cookie_key",
+          "value": "example_cookie_value"
+        }
+      },
+      "contextual": {
+        "options": [
+          "copy",
+          "view",
+          "chatgpt",
+          "claude"
+        ]
+      },
+      "errors": {
+        "404": {
+          "redirect": false,
+          "title": "Não consigo ser encontrada",
+          "description": "O que **aconteceu** com esta _página_?"
+        }
+      }
+    }
+    ```
+  </Tab>
+
+  <Tab title="Exemplo de API interativo">
+    ```json docs.json {43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,72,73,74,75,76,77,78,79} lines wrap
+    {
+      "$schema": "https://mintlify.com/docs.json",
+      "theme": "maple",
+      "name": "Example Co.",
+      "description": "Example Co. é uma empresa que fornece conteúdo de exemplo e texto placeholder.",
+      "colors": {
+        "primary": "#3B82F6",
+        "light": "#F8FAFC",
+        "dark": "#0F172A"
+      },
+      "navigation": {
+        "dropdowns": [
+          {
+            "dropdown": "Documentação",
+            "icon": "book",
+            "description": "Como usar o produto da Example Co.",
+            "groups": [
+              {
+                "group": "Primeiros passos",
+                "pages": [
+                  "index",
+                  "quickstart"
+                ]
+              },
+              {
+                "group": "Personalização",
+                "pages": [
+                  "settings",
+                  "users",
+                  "features"
+                ]
+              },
+              {
+                "group": "Faturamento",
+                "pages": [
+                  "billing/overview",
+                  "billing/payments",
+                  "billing/subscriptions"
+                ]
+              }
+            ]
+          },
+          {
+            "dropdown": "Referência da API",
+            "icon": "terminal",
+            "description": "Como usar a API da Example Co.",
+            "groups": [
+              {
+                "group": "Referência da API",
+                "pages": [
+                  "api-reference/introduction"
+                ]
+              },
+              {
+                "group": "Endpoints",
+                "openapi": {
+                  "source": "openapi.json"
+                }
+              }
+            ]
+          },
+          {
+            "dropdown": "Changelog",
+            "icon": "history",
+            "description": "Atualizações e alterações",
+            "pages": [
+              "changelog"
+            ]
+          }
+        ]
+      },
+      "api": {
+        "playground": {
+          "display": "interactive"
+        },
+        "examples": {
+          "languages": ["javascript", "curl", "python"]
+        }
+      },
+      "logo": {
+        "light": "/logo-light.svg",
+        "dark": "/logo-dark.svg",
+        "href": "https://example.com"
+      },
+      "navbar": {
+        "links": [
+          {
+            "label": "Comunidade",
+            "href": "https://example.com/community"
+          }
+        ],
+        "primary": {
+          "type": "button",
+          "label": "Começar",
+          "href": "https://example.com/start"
+        }
+      },
+      "footer": {
+        "socials": {
+          "x": "https://x.com/example",
+          "linkedin": "https://www.linkedin.com/company/example",
+          "github": "https://github.com/example",
+          "slack": "https://example.com/community"
+        },
+        "links": [
+          {
+            "header": "Recursos",
+            "items": [
+              {
+                "label": "Clientes",
+                "href": "https://example.com/customers"
+              },
+              {
+                "label": "Enterprise",
+                "href": "https://example.com/enterprise"
+              },
+              {
+                "label": "Solicitar Preview",
+                "href": "https://example.com/preview"
+              }
+            ]
+          },
+          {
+            "header": "Empresa",
+            "items": [
+              {
+                "label": "Carreiras",
+                "href": "https://example.com/careers"
+              },
+              {
+                "label": "Blog",
+                "href": "https://example.com/blog"
+              },
+              {
+                "label": "Política de Privacidade",
+                "href": "https://example.com/legal/privacy"
+              }
+            ]
+          }
+        ]
+      },
+      "integrations": {
+        "ga4": {
+          "measurementId": "G-XXXXXXXXXX"
+        },
+        "telemetry": {
+          "enabled": true
+        },
+        "cookies": {
+          "key": "example_cookie_key",
+          "value": "example_cookie_value"
+        }
+      },
+      "contextual": {
+        "options": [
+          "copy",
+          "view",
+          "chatgpt",
+          "claude"
+        ]
+      },
+      "errors": {
+        "404": {
+          "redirect": false,
+          "title": "Página não encontrada",
+          "description": "O que **aconteceu** com esta _página_?"
+        }
+      }
+    }
+    ```
+  </Tab>
+
+  <Tab title="Exemplo multilingue">
+    ```json docs.json lines wrap
+    {
+      "$schema": "https://mintlify.com/docs.json",
+      "theme": "maple",
+      "name": "Example Co.",
+      "description": "Example Co. é uma empresa que fornece conteúdo de exemplo e texto placeholder.",
+      "colors": {
+        "primary": "#3B82F6",
+        "light": "#F8FAFC",
+        "dark": "#0F172A"
+      },
+      "navigation": {
+        "global": {
+          "anchors": [
+            {
+              "anchor": "Documentação",
+              "href": "https://mintlify.com/docs"
+            },
+            {
+              "anchor": "Changelog",
+              "href": "https://mintlify.com/docs/changelog"
+            }
+          ]
+        },
+        "languages": [ // [!code highlight:3]
+          {
+            "language": "en",
+            "dropdowns": [
+              {
+                "dropdown": "Documentação",
+                "icon": "book",
+                "description": "Como usar o produto da Example Co.",
+                "pages": [
+                  {
+                    "group": "Primeiros passos",
+                    "pages": ["index", "quickstart"]
+                  },
+                  {
+                    "group": "Personalização",
+                    "pages": ["settings", "users", "features"]
+                  },
+                  {
+                    "group": "Faturamento",
+                    "pages": [
+                      "billing/overview",
+                      "billing/payments",
+                      "billing/subscriptions"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dropdown": "Changelog",
+                "icon": "history",
+                "description": "Atualizações e mudanças",
+                "pages": ["changelog"]
+              }
+            ]
+          },
+          {
+            "language": "es",// [!code highlight]
+            "dropdowns": [
+              {
+                "dropdown": "Documentación",
+                "icon": "book",
+                "description": "Cómo usar el producto de Example Co.",
+                "pages": [
+                  {
+                    "group": "Comenzando",
+                    "pages": ["es/index", "es/quickstart"]
+                  },
+                  {
+                    "group": "Personalización",
+                    "pages": ["es/settings", "es/users", "es/features"]
+                  },
+                  {
+                    "group": "Billing",
+                    "pages": [
+                      "es/billing/overview",
+                      "es/billing/payments",
+                      "es/billing/subscriptions"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dropdown": "Changelog",
+                "icon": "history",
+                "description": "Actualizaciones y cambios",
+                "pages": ["es/changelog"]
+              }
+            ]
+          }
+        ]
+      },
+      "logo": {
+        "light": "/logo-light.svg",
+        "dark": "/logo-dark.svg",
+        "href": "https://example.com"
+      },
+      "navbar": {
+        "links": [
+          {
+            "label": "Comunidade",
+            "href": "https://example.com/community"
+          }
+        ],
+        "primary": {
+          "type": "button",
+          "label": "Começar",
+          "href": "https://example.com/start"
+        }
+      },
+      "footer": {
+        "socials": {
+          "x": "https://x.com/example",
+          "linkedin": "https://www.linkedin.com/company/example",
+          "github": "https://github.com/example",
+          "slack": "https://example.com/community"
+        },
+        "links": [
+          {
+            "header": "Recursos",
+            "items": [
+              {
+                "label": "Clientes",
+                "href": "https://example.com/customers"
+              },
+              {
+                "label": "Enterprise",
+                "href": "https://example.com/enterprise"
+              },
+              {
+                "label": "Solicitar Preview",
+                "href": "https://example.com/preview"
+              }
+            ]
+          },
+          {
+            "header": "Empresa",
+            "items": [
+              {
+                "label": "Carreiras",
+                "href": "https://example.com/careers"
+              },
+              {
+                "label": "Blog",
+                "href": "https://example.com/blog"
+              },
+              {
+                "label": "Política de Privacidade",
+                "href": "https://example.com/legal/privacy"
+              }
+            ]
+          }
+        ]
+      },
+      "integrations": {
+        "ga4": {
+          "measurementId": "G-XXXXXXXXXX"
+        },
+        "telemetry": {
+          "enabled": true
+        },
+        "cookies": {
+          "key": "example_cookie_key",
+          "value": "example_cookie_value"
+        }
+      },
+      "contextual": {
+        "options": ["copy", "view", "chatgpt", "claude"]
+      },
+      "errors": {
+        "404": {
+          "redirect": false,
+          "title": "Página não encontrada",
+          "description": "O que **aconteceu** com esta _página_?"
+        }
+      }
+    }
+    ```
+  </Tab>
+</Tabs>
+
+<div id="upgrading-from-mintjson">
+  ## Atualizando a partir de `mint.json`
+</div>
+
+Se o seu projeto de documentação usa o arquivo `mint.json` descontinuado, siga estas etapas para migrar para o `docs.json`.
+
+<Steps>
+  <Step title="Instalar ou atualizar a CLI">
+    Se você ainda não instalou a [CLI](/pt-BR/installation), instale agora:
+
+    <CodeGroup>
+      ```bash npm
+      npm i -g mint
+      ```
+
+      ```bash yarn
+      yarn global add mint
+      ```
+
+      ```bash pnpm
+      pnpm add -g mint
+      ```
+    </CodeGroup>
+
+    Se você já tem a CLI instalada, certifique-se de que ela esteja atualizada:
+
+    ```bash
+    mint update
+    ```
+  </Step>
+
+  <Step title="Criar o arquivo docs.json">
+    No seu repositório de documentação, execute:
+
+    ```bash
+    mint upgrade
+    ```
+
+    Esse comando criará um arquivo `docs.json` a partir do seu `mint.json` atual. Revise o arquivo gerado para garantir que todas as configurações estejam corretas.
+  </Step>
+
+  <Step title="Excluir o arquivo mint.json">
+    Depois de verificar que o `docs.json` está configurado corretamente, você pode excluir com segurança o antigo arquivo `mint.json`.
+  </Step>
+</Steps>

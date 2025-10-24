@@ -1,0 +1,319 @@
+---
+title: "Configurazione dell'autenticazione"
+description: "Controlla la privacy della tua documentazione autenticando gli utenti"
+keywords: ['auth']
+---
+
+<Info>
+  I [piani Pro](https://mintlify.com/pricing?ref=authentication) includono l&#39;autenticazione tramite password.
+
+  I [piani Enterprise](https://mintlify.com/pricing?ref=authentication) includono tutti i metodi di autenticazione.
+</Info>
+
+L&#39;autenticazione richiede che gli utenti accedano prima di poter visualizzare la tua documentazione.
+
+<div id="authentication-modes">
+  ## Modalità di autenticazione
+</div>
+
+Scegli tra autenticazione completa e autenticazione parziale in base alle tue esigenze di controllo degli accessi.
+
+**Autenticazione completa**: Tutte le pagine sono protette. Gli utenti devono effettuare l’accesso prima di poter visualizzare qualsiasi contenuto.
+
+**Autenticazione parziale**: Alcune pagine sono pubbliche mentre altre richiedono autenticazione. Gli utenti possono consultare liberamente i contenuti pubblici e autenticarsi solo quando accedono alle pagine protette.
+
+Quando configuri uno dei metodi di handshake riportati di seguito, selezionerai **Autenticazione completa** oppure **Autenticazione parziale** nelle impostazioni della dashboard.
+
+## Configurazione dell&#39;autenticazione
+
+Seleziona il metodo di handshake che desideri configurare.
+
+<Tabs>
+  <Tab title="Password">
+    <Info>
+      L&#39;autenticazione tramite password fornisce solo controllo degli accessi e **non** supporta la Personalizzazione dei contenuti.
+    </Info>
+
+    ### Prerequisiti
+
+    * I requisiti di sicurezza consentono la condivisione delle password tra gli utenti.
+
+    ### Implementazione
+
+    <Steps>
+      <Step title="Crea una password.">
+        1. Nel tuo dashboard, vai su [Authentication](https://dashboard.mintlify.com/settings/deployment/authentication).
+        2. Seleziona **Full Authentication** o **Autenticazione parziale**.
+        3. Seleziona **Password**.
+        4. Inserisci una password sicura.
+        5. Seleziona **Save changes**.
+      </Step>
+
+      <Step title="Distribuisci l'accesso.">
+        Condividi in modo sicuro la password e l&#39;URL della documentazione con gli utenti autorizzati.
+      </Step>
+    </Steps>
+
+    ## Esempio
+
+    La documentazione è ospitata su `docs.foo.com` e ti serve un controllo degli accessi di base senza tracciare i singoli utenti. Vuoi impedire l&#39;accesso pubblico mantenendo la configurazione semplice.
+
+    **Crea una password robusta** nel tuo dashboard. **Condividi le credenziali** con gli utenti autorizzati. Ecco fatto!
+  </Tab>
+
+  <Tab title="Dashboard Mintlify">
+    ### Prerequisiti
+
+    * Gli utenti della tua documentazione sono anche gli editor della documentazione.
+
+    ### Implementazione
+
+    <Steps>
+      <Step title="Abilita l'autenticazione nel dashboard di Mintlify.">
+        1. Nel dashboard, vai su [Authentication](https://dashboard.mintlify.com/settings/deployment/authentication).
+        2. Seleziona **Full Authentication** o **Autenticazione parziale**.
+        3. Seleziona **Mintlify Auth**.
+        4. Seleziona **Enable Mintlify Auth**.
+      </Step>
+
+      <Step title="Aggiungi gli utenti autorizzati.">
+        1. Nel dashboard, vai su [Members](https://dashboard.mintlify.com/settings/organization/members).
+        2. Aggiungi tutte le persone che devono avere accesso alla documentazione.
+        3. Assegna i ruoli appropriati in base alle loro autorizzazioni di modifica.
+      </Step>
+    </Steps>
+
+    ### Esempio
+
+    La tua documentazione è ospitata su `docs.foo.com` e il tuo team utilizza il dashboard per modificarla. Vuoi limitare l’accesso ai soli membri del team.
+
+    **Abilita l’autenticazione Mintlify** nelle impostazioni del dashboard.
+
+    **Verifica l’accesso del team** controllando che tutti i membri del team siano stati aggiunti alla tua organizzazione.
+  </Tab>
+
+  <Tab title="OAuth 2.0">
+    ### Prerequisiti
+
+    * Un server OAuth o OIDC che supporti l’Authorization Code Flow.
+    * Possibilità di creare un endpoint API accessibile tramite token di accesso OAuth (opzionale, per abilitare le funzionalità di Personalizzazione).
+
+    ### Implementazione
+
+    <Steps>
+      <Step title="Configura le impostazioni OAuth.">
+        1. Nel dashboard, vai su [Authentication](https://dashboard.mintlify.com/settings/deployment/authentication).
+        2. Seleziona **Full Authentication** o **Autenticazione parziale**.
+        3. Seleziona **OAuth** e configura questi campi:
+
+        * **Authorization URL**: Il tuo endpoint OAuth.
+        * **Client ID**: L’identificatore del tuo client OAuth 2.0.
+        * **Client Secret**: Il client secret del tuo OAuth 2.0.
+        * **Scopes**: Permessi da richiedere. Copia l’**intera** stringa dello scope (ad esempio, per uno scope come `provider.users.docs`, copia l’intero `provider.users.docs`). Usa più scope se ti servono livelli di accesso diversi.
+        * **Token URL**: Il tuo endpoint di scambio token OAuth.
+        * **Info API URL** (opzionale): Endpoint per recuperare informazioni utente per la Personalizzazione. Se omesso, il flusso OAuth verrà utilizzato solo per verificare l’identità e le informazioni utente saranno vuote.
+        * **Logout URL**: L’URL di logout nativo del tuo provider OAuth. Se il tuo provider ha un parametro `returnTo` o simile, reindirizzalo all’URL della tua documentazione.
+
+        4. Seleziona **Save changes**.
+      </Step>
+
+      <Step title="Configura il tuo server OAuth.">
+        1. Copia la **Redirect URL** dalle [authentication settings](https://dashboard.mintlify.com/settings/deployment/authentication).
+        2. Aggiungi la Redirect URL come URL di reindirizzamento autorizzato per il tuo server OAuth.
+      </Step>
+
+      <Step title="Crea l’endpoint per le informazioni utente (opzionale).">
+        Per abilitare le funzionalità di Personalizzazione, crea un endpoint API che:
+
+        * Accetti token di accesso OAuth per l’autenticazione.
+        * Restituisca i dati utente nel formato `User`. Vedi [User data format](/it/deploy/personalization-setup#user-data-format) per maggiori informazioni.
+
+        Aggiungi l’URL di questo endpoint nel campo **Info API URL** nelle [authentication settings](https://dashboard.mintlify.com/settings/deployment/authentication).
+      </Step>
+    </Steps>
+
+    ### Esempio
+
+    La tua documentazione è ospitata su `foo.com/docs` e disponi di un server OAuth esistente su `auth.foo.com` che supporta l’Authorization Code Flow.
+
+    **Configura i dettagli del tuo server OAuth** nel dashboard:
+
+    * **Authorization URL**: `https://auth.foo.com/authorization`
+    * **Client ID**: `ydybo4SD8PR73vzWWd6S0ObH`
+    * **Scopes**: `['provider.users.docs']`
+    * **Token URL**: `https://auth.foo.com/exchange`
+    * **Info API URL**: `https://api.foo.com/docs/user-info`
+    * **Logout URL**: `https://auth.foo.com/logout?returnTo=https%3A%2F%2Ffoo.com%2Fdocs`
+
+    **Crea un endpoint di informazioni utente** su `api.foo.com/docs/user-info`, che richiede un token di accesso OAuth con lo scope `provider.users.docs` e restituisce:
+
+    ```json
+    {
+      "content": {
+        "firstName": "Jane",
+        "lastName": "Doe"
+      },
+      "groups": ["engineering", "admin"]
+    }
+    ```
+
+    **Configura il server OAuth per consentire i reindirizzamenti** all’URL di callback.
+  </Tab>
+
+  <Tab title="JWT">
+    ### Prerequisiti
+
+    * Un sistema di autenticazione in grado di generare e firmare JWT.
+    * Un servizio backend in grado di creare URL di reindirizzamento.
+
+    ### Implementazione
+
+    <Steps>
+      <Step title="Genera una chiave privata.">
+        1. Nel tuo dashboard, vai su [Authentication](https://dashboard.mintlify.com/settings/deployment/authentication).
+        2. Seleziona **Full Authentication** o **Partial Authentication**.
+        3. Seleziona **JWT**.
+        4. Inserisci l’URL del tuo flusso di login esistente e seleziona **Save changes**.
+        5. Seleziona **Generate new key**.
+        6. Conserva la chiave in modo sicuro, in un luogo accessibile dal tuo backend.
+      </Step>
+
+      <Step title="Integra l’autenticazione di Mintlify nel tuo flusso di login.">
+        Modifica il flusso di login esistente per includere questi passaggi dopo l’autenticazione dell’utente:
+
+        * Crea un JWT contenente le informazioni dell’utente autenticato nel formato `User`. Consulta [User data format](/it/deploy/personalization-setup#user-data-format) per maggiori informazioni.
+        * Firma il JWT con la tua chiave segreta utilizzando l’algoritmo EdDSA.
+        * Crea un URL di reindirizzamento verso il percorso `/login/jwt-callback` della tua documentazione, includendo il JWT come hash.
+      </Step>
+    </Steps>
+
+    ### Esempio
+
+    La tua documentazione è ospitata su `docs.foo.com` e il sistema di autenticazione esistente è su `foo.com`. Vuoi estendere il flusso di login per concedere l’accesso alla documentazione mantenendola separata dal dashboard (o non hai un dashboard).
+
+    Crea un endpoint di login su `https://foo.com/docs-login` che estenda l’autenticazione esistente.
+
+    Dopo aver verificato le credenziali dell’utente:
+
+    * Genera un JWT con i dati utente nel formato di Mintlify.
+    * Firma il JWT e reindirizza a `https://docs.foo.com/login/jwt-callback#{SIGNED_JWT}`.
+
+    <CodeGroup>
+      ```ts TypeScript
+      import * as jose from 'jose';
+      import { Request, Response } from 'express';
+
+      const TWO_WEEKS_IN_MS = 1000 * 60 * 60 * 24 * 7 * 2;
+
+      const signingKey = await jose.importPKCS8(process.env.MINTLIFY_PRIVATE_KEY, 'EdDSA');
+
+      export async function handleRequest(req: Request, res: Response) {
+        const user = {
+          expiresAt: Math.floor((Date.now() + TWO_WEEKS_IN_MS) / 1000), // scadenza sessione di 2 settimane
+          groups: res.locals.user.groups,
+          content: {
+            firstName: res.locals.user.firstName,
+            lastName: res.locals.user.lastName,
+          },
+        };
+
+        const jwt = await new jose.SignJWT(user)
+          .setProtectedHeader({ alg: 'EdDSA' })
+          .setExpirationTime('10 s') // scadenza JWT di 10 secondi
+          .sign(signingKey);
+
+        return res.redirect(`https://docs.foo.com/login/jwt-callback#${jwt}`);
+      }
+      ```
+
+      ```python Python
+      import jwt # pyjwt
+      import os
+
+      from datetime import datetime, timedelta
+      from fastapi.responses import RedirectResponse
+
+      private_key = os.getenv(MINTLIFY_JWT_PEM_SECRET_NAME, '')
+
+      @router.get('/auth')
+      async def return_mintlify_auth_status(current_user):
+        jwt_token = jwt.encode(
+          payload={
+            'exp': int((datetime.now() + timedelta(seconds=10)).timestamp()),    # scadenza JWT di 10 secondi
+            'expiresAt': int((datetime.now() + timedelta(weeks=2)).timestamp()), # scadenza sessione di 1 settimana
+            'groups': ['admin'] if current_user.is_admin else [],
+            'content': {
+              'firstName': current_user.first_name,
+              'lastName': current_user.last_name,
+            },
+          },
+          key=private_key,
+          algorithm='EdDSA'
+        )
+
+        return RedirectResponse(url=f'https://docs.foo.com/login/jwt-callback#{jwt_token}', status_code=302)
+      ```
+    </CodeGroup>
+
+    ### Reindirizzamento degli utenti non autenticati
+
+    Quando un utente non autenticato tenta di accedere a una pagina protetta, la destinazione prevista viene preservata nel reindirizzamento al tuo URL di login:
+
+    1. L’utente tenta di visitare una pagina protetta: `https://docs.foo.com/quickstart`.
+    2. Reindirizzamento al tuo URL di login con un parametro di query redirect: `https://foo.com/docs-login?redirect=%2Fquickstart`.
+    3. Dopo l’autenticazione, reindirizza a `https://docs.foo.com/login/jwt-callback?redirect=%2Fquickstart#{SIGNED_JWT}`.
+    4. L’utente approda alla destinazione originale.
+  </Tab>
+</Tabs>
+
+<div id="making-pages-public">
+  ## Rendere pubbliche le pagine
+</div>
+
+Quando si utilizza l’autenticazione parziale, tutte le pagine sono protette per impostazione predefinita. È possibile rendere alcune pagine accessibili senza autenticazione, a livello di pagina o di gruppo, utilizzando la proprietà `public`.
+
+<div id="page-level">
+  ### A livello di pagina
+</div>
+
+Per rendere una pagina pubblica, aggiungi `public: true` al front matter della pagina.
+
+```mdx Public page example
+---
+title: "Pagina pubblica"
+public: true
+---
+```
+
+<div id="group-level">
+  ### Livello di gruppo
+</div>
+
+Per rendere pubbliche tutte le pagine di un gruppo, aggiungi `"public": true` sotto il nome del gruppo nell’oggetto `navigation` del tuo `docs.json`.
+
+```json Public group example
+{
+  "navigation": {
+    "groups": [
+      {
+        "group": "Gruppo pubblico",
+        "public": true,
+        "icon": "play",
+        "pages": [
+          "quickstart",
+          "installation",
+          "settings"
+        ]
+      },
+      {
+        "group": "Gruppo privato",
+        "icon": "pause",
+        "pages": [
+          "private-information",
+          "secret-settings"
+        ]
+      }
+    ]
+  }
+}
+```

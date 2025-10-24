@@ -1,0 +1,43 @@
+---
+title: "Marcos"
+description: "Envuelve imágenes u otros componentes en un contenedor"
+---
+
+Utiliza marcos para mostrar imágenes, diagramas u otro contenido visual con un estilo uniforme y leyendas opcionales. Los marcos centran el contenido y ofrecen separación visual del texto circundante.
+
+<Frame>
+  <img src="https://mintlify-assets.b-cdn.net/yellowstone.jpeg" alt="Fotografía de un lago rodeado de árboles con montañas a lo lejos en el Parque Nacional de Yellowstone." />
+</Frame>
+
+<div id="captions">
+  ## Leyendas
+</div>
+
+Puedes añadir contexto adicional a una imagen usando la prop opcional `caption`.
+
+<Frame caption="El Parque Nacional de Yosemite recibe más de 3,5 millones de visitantes cada año">
+  <img src="https://mintlify-assets.b-cdn.net/yosemite.jpg" alt="Fotografía del valle de Yosemite." />
+</Frame>
+
+<div id="properties">
+  ## Propiedades
+</div>
+
+<ResponseField name="caption" type="string">
+  Texto de pie opcional para mostrar centrado debajo de tu componente.
+</ResponseField>
+
+<CodeGroup>
+
+```mdx Frame
+<Frame>
+  <img src="/path/image.jpg" alt="Texto alternativo descriptivo" />
+</Frame>
+```
+
+```mdx Frame with a caption
+<Frame caption="Texto del pie">
+  <img src="/path/image.jpg" alt="Texto alternativo descriptivo" />
+</Frame>
+```
+</CodeGroup>

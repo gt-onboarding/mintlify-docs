@@ -1,0 +1,212 @@
+---
+title: "Assistent"
+description: "Hilf deinen Nutzerinnen und Nutzern, mit deinem Produkt erfolgreich zu sein und schneller Antworten zu finden"
+---
+
+<Info>
+  Der Assistent ist in den [Pro- und Custom-Plänen](https://mintlify.com/pricing?ref=assistant) automatisch aktiviert.
+</Info>
+
+<div id="about-the-assistant">
+  ## Über den Assistenten
+</div>
+
+Der Assistent beantwortet Fragen zu Ihrer Dokumentation über natürlichsprachliche Anfragen. Er ist direkt in Ihre Dokumentations-Website eingebettet und bietet Nutzern unmittelbaren Zugriff auf kontextbezogene Hilfe.
+
+Der Assistent verwendet agentisches RAG (Retrieval-Augmented Generation) mit Tool-Calling, betrieben von Claude Sonnet 4. Wenn Nutzer Fragen stellen, tut der Assistent Folgendes:
+
+* **Sucht und ruft** relevante Inhalte aus Ihrer Dokumentation ab, um präzise Antworten zu liefern.
+* **Zitiert Quellen** und stellt navigierbare Links bereit, die Nutzer direkt zu den referenzierten Seiten führen.
+* **Generiert kopierbare Codebeispiele**, um Nutzern zu helfen, Lösungen aus Ihrer Dokumentation umzusetzen.
+
+Jede Nachricht, die an den Assistenten gesendet wird, zählt zu Ihrem Nachrichtenkontingent im jeweiligen Tarif. Wenn Sie dieses Kontingent überschreiten, fallen für zusätzliche Nachrichten Mehrkosten an. Sie können Ausgabelimits festlegen oder den Assistenten deaktivieren, sobald Sie Ihr Nachrichtenkontingent erreichen.
+
+Sie können die Nutzung des Assistenten über Ihr Dashboard einsehen, um das Nutzerverhalten und die Effektivität der Dokumentation zu verstehen. Exportieren und analysieren Sie Abfragedaten, um Folgendes zu identifizieren:
+
+* Häufig gestellte Fragen, die möglicherweise eine bessere Abdeckung benötigen.
+* Inhaltslücken, bei denen Nutzer Schwierigkeiten haben, Antworten zu finden.
+* Beliebte Themen, die von zusätzlichen Inhalten profitieren könnten.
+
+<div id="configuring-the-assistant">
+  ## Den Assistenten konfigurieren
+</div>
+
+Der Assistent ist standardmäßig für die Pro- und Custom-Tarife aktiviert.
+
+Verwalten Sie den Assistenten über Ihr [Dashboard](https://dashboard.mintlify.com/products/assistant/settings). Klicken Sie auf **Configuration**, um den Assistenten zu aktivieren oder zu deaktivieren, die Antwortverarbeitung zu konfigurieren, Standardfragen hinzuzufügen und ein Ausgabenlimit festzulegen.
+
+<Frame>
+  <img src="/images/assistant/configuration-light.png" alt="Die Assistenten-Symbolleiste im Dashboard. Die Schaltfläche „Configuration“ ist mit einem orangefarbenen Rechteck hervorgehoben." className="block dark:hidden" />
+
+  <img src="/images/assistant/configuration-dark.png" alt="Die Assistenten-Symbolleiste im Dashboard. Die Schaltfläche „Configuration“ ist mit einem orangefarbenen Rechteck hervorgehoben." className="hidden dark:block" />
+</Frame>
+
+<div id="enable-or-disable-the-assistant">
+  ### Assistent aktivieren oder deaktivieren
+</div>
+
+Schalten Sie den Assistentenstatus um, um den Assistenten für Ihre Dokumentationsseite zu aktivieren oder zu deaktivieren.
+
+<Frame>
+  <img src="/images/assistant/status-light.png" alt="Der Status-Umschalter des Assistenten im Dashboard." className="block dark:hidden" />
+
+  <img src="/images/assistant/status-dark.png" alt="Der Status-Umschalter des Assistenten im Dashboard." className="hidden dark:block" />
+</Frame>
+
+<div id="set-deflection-email">
+  ### Deflection-E-Mail festlegen
+</div>
+
+Aktivieren Sie im Abschnitt zur Antwortverarbeitung den Assistenten, um unbeantwortete Fragen an Ihr Support-Team weiterzuleiten. Geben Sie eine E-Mail-Adresse an, die der Assistent Nutzenden nennt, wenn er eine Frage nicht beantworten kann.
+
+<Frame>
+  <img src="/images/assistant/deflection-light.png" alt="Das Deflection-Panel des Assistenten im Dashboard. Assistent-Deflection ist aktiviert und support@mintlify.com ist als Deflection-E-Mail festgelegt." className="block dark:hidden" />
+
+  <img src="/images/assistant/deflection-dark.png" alt="Das Deflection-Panel des Assistenten im Dashboard. Assistent-Deflection ist aktiviert und support@mintlify.com ist als Deflection-E-Mail festgelegt." className="hidden dark:block" />
+</Frame>
+
+<div id="search-sites">
+  ### Suchseiten
+</div>
+
+<Note>
+  Die Seitensuche befindet sich in der Beta-Phase. Um sie für Ihre Dokumentationsseite zu aktivieren, [kontaktieren Sie unser Sales-Team](mailto:gtm@mintlify.com).
+</Note>
+
+Konfigurieren Sie im Abschnitt zur Antwortverarbeitung die Sites, die der Assistent zur Beantwortung von Fragen für zusätzlichen Kontext durchsuchen darf.
+
+* Sites müssen öffentlich zugänglich sein.
+* Sites, die zum Laden JavaScript benötigen, werden nicht unterstützt.
+
+<Frame>
+  <img src="/images/assistant/search-sites-light.png" alt="Das Panel „Assistent: Suchseiten“ im Dashboard. Der Assistent ist so konfiguriert, dass er die Domains mintlify.com und mintlify.com/blog durchsucht." className="block dark:hidden" />
+
+  <img src="/images/assistant/search-sites-dark.png" alt="Das Panel „Assistent: Suchseiten“ im Dashboard. Der Assistent ist so konfiguriert, dass er die Domains mintlify.com und mintlify.com/blog durchsucht." className="hidden dark:block" />
+</Frame>
+
+Verwenden Sie die folgende Filtersyntax, um präziser zu steuern, was der Assistent durchsuchen kann:
+
+* **Domainbasierte Filter**
+  * `example.com`: Nur die Domain `example.com` durchsuchen
+  * `docs.example.com`: Nur die Subdomain `docs.example.com` durchsuchen
+  * `*.example.com`: Alle Subdomains von `example.com` durchsuchen
+* **Pfadbasierte Filter**
+  * `docs.example.com/api`: Alle Seiten unter dem Teilpfad `/api` durchsuchen
+* **Mehrere Muster**
+  * Fügen Sie mehrere Einträge hinzu, um verschiedene Bereiche von Sites abzudecken
+
+<div id="add-sample-questions">
+  ### Beispielsfragen hinzufügen
+</div>
+
+Helfen Sie Ihren Nutzern, mit dem Assistenten ins Fragenstellen zu starten, indem Sie Beispielsfragen hinzufügen. Fügen Sie im Bereich „Suchvorschläge“ bis zu drei Beispielsfragen hinzu.
+
+<Frame>
+  <img src="/images/assistant/search-suggestions-light.png" alt="Das Panel „Suchvorschläge“ im Dashboard. „What is an OpenAPI spec?“ ist als Beispielsfrage konfiguriert." className="block dark:hidden" />
+
+  <img src="/images/assistant/search-suggestions-dark.png" alt="Das Panel „Suchvorschläge“ im Dashboard. „What is an OpenAPI spec?“ ist als Beispielsfrage konfiguriert." className="hidden dark:block" />
+</Frame>
+
+<div id="set-a-spend-limit">
+  ### Ausgabenlimit festlegen
+</div>
+
+Legen Sie ein Ausgabenlimit fest, um zu steuern, was passiert, wenn Sie Ihr Nachrichtenkontingent erreichen. Standardmäßig beantwortet der Assistent weiterhin Nutzerfragen, nachdem Sie Ihr Nachrichtenkontingent ausgeschöpft haben, was zu Mehrkosten führt.
+
+Wenn Sie Ihr Ausgabenlimit erreichen, wird der Assistent deaktiviert, bis Ihr Nachrichtenkontingent zurückgesetzt wird.
+
+1. Wählen Sie die Registerkarte **Billing**.
+
+<Frame>
+  <img src="/images/assistant/billing-light.png" alt="Die Registerkarte Billing auf der Seite Assistant Configurations. Die Registerkarte Billing ist mit einem orangefarbenen Rechteck hervorgehoben." className="block dark:hidden" style={{ width: '268px', height: 'auto' }} />
+
+  <img src="/images/assistant/billing-dark.png" alt="Die Registerkarte Billing auf der Seite Assistant Configurations. Die Registerkarte Billing ist mit einem orangefarbenen Rechteck hervorgehoben." className="hidden dark:block" style={{ width: '268px', height: 'auto' }} />
+</Frame>
+
+2. Legen Sie ein Ausgabenlimit für Assistenten-Nachrichten fest, die über Ihr Kontingent hinausgehen.
+3. Richten Sie Nutzungsbenachrichtigungen ein, um eine E‑Mail zu erhalten, wenn Sie einen bestimmten Prozentsatz Ihres Ausgabenlimits erreichen.
+
+<div id="using-the-assistant">
+  ## Den Assistenten verwenden
+</div>
+
+Nutzer können auf drei Arten auf den Assistenten zugreifen:
+
+* **Tastenkürzel**: <kbd>Command</kbd> + <kbd>I</kbd> (<kbd>Ctrl</kbd> + <kbd>I</kbd> unter Windows)
+* **Assistenten-Schaltfläche** neben der Suchleiste
+  <img
+    src="/images/assistant/assistant-button-light.png"
+    className="block dark:hidden rounded-2xl border border-gray-100 shadow-lg"
+    style={{
+    width: '268px',
+    height: 'auto',
+  }}
+    alt="Suchleiste und Assistenten-Schaltfläche im hellen Modus."
+  />
+  <img
+    src="/images/assistant/assistant-button-dark.png"
+    className="hidden dark:block rounded-2xl border border-white/10 shadow-lg"
+    style={{
+    width: '268px',
+    height: 'auto',
+  }}
+    alt="Suchleiste und Assistenten-Schaltfläche im dunklen Modus."
+  />
+* **URLs**, die `?assistant=open` enthalten, öffnen den Assistenten beim Laden der Seite. Zum Beispiel: [https://mintlify.com/docs?assistant=open](https://mintlify.com/docs?assistant=open).
+
+Jede Methode öffnet ein Chat-Panel auf der rechten Seite Ihrer Doku. Nutzer können beliebige Fragen stellen, und der Assistent durchsucht Ihre Dokumentation nach einer Antwort. Wenn keine relevanten Informationen gefunden werden, teilt der Assistent mit, dass er die Frage nicht beantworten kann.
+
+<div id="making-content-ai-ingestible">
+  ## Inhalte KI-gerecht aufbereiten
+</div>
+
+Strukturieren Sie Ihre Dokumentation, damit der Assistent präzise und relevante Antworten geben kann. Eine klare Struktur und umfassender Kontext helfen sowohl menschlichen Lesern als auch der KI.
+
+<Card title="Struktur und Organisation">
+  * Verwenden Sie semantisches Markup.
+  * Schreiben Sie aussagekräftige Abschnittsüberschriften.
+  * Bauen Sie eine logische Informationshierarchie auf.
+  * Nutzen Sie konsistente Formatierung in Ihrer Dokumentation.
+  * Ergänzen Sie umfassende Metadaten im Frontmatter der Seite.
+  * Gliedern Sie lange Textblöcke in kürzere Absätze.
+</Card>
+
+<Card title="Kontext">
+  * Definieren Sie spezifische Begriffe und Akronyme bei der ersten Nennung.
+  * Stellen Sie ausreichend konzeptionelle Inhalte zu Funktionen und Abläufen bereit.
+  * Fügen Sie Beispiele und Anwendungsfälle hinzu.
+  * Verweisen Sie auf verwandte Themen.
+  * Fügen Sie [Verborgene Seiten](/de/organize/hidden-pages) mit zusätzlichem Kontext hinzu, den Nutzer nicht benötigen, auf den der Assistent jedoch zurückgreifen kann.
+</Card>
+
+<div id="exporting-and-analyzing-queries">
+  ## Abfragen exportieren und analysieren
+</div>
+
+Überprüfen und exportieren Sie Abfragen aus Ihrem Dashboard, um zu verstehen, wie Nutzer mit Ihrer Dokumentation interagieren, und um Verbesserungsmöglichkeiten zu identifizieren. Einige Beispiele, wie die Analyse von Abfragen Ihre Dokumentation verbessern kann:
+
+* Identifizieren Sie Inhaltslücken, bei denen häufige Abfragen unzureichend beantwortet werden.
+* Erkennen Sie Verhaltensmuster und wiederkehrende Informationsbedürfnisse anhand von Themen und Mustern in den Abfragen.
+* Priorisieren Sie Seiten mit hohem Traffic für Verbesserungen bei Genauigkeit und Qualität.
+
+Sie können Abfragen in Ihrem [Dashboard](https://dashboard.mintlify.com/products/assistant) erkunden. Für tiefere Einblicke empfehlen wir jedoch, eine `CSV`-Datei mit Ihren Abfragen, Antworten und Quellen zu exportieren, um diese mit Ihrem bevorzugten KI-Tool zu analysieren.
+
+1. Navigieren Sie zur [Assistent-Seite](https://dashboard.mintlify.com/products/assistant) in Ihrem Dashboard.
+2. Wählen Sie **Export to CSV**.
+3. Analysieren Sie die exportierten Daten mit Ihrem bevorzugten Tool.
+
+<Card title="Beispiel-Analyse-Prompts">
+  * Fassen Sie die häufigsten Themen der Abfragen zusammen.
+  * Listen Sie alle Abfragen auf, bei denen keine Quellen angegeben wurden.
+  * Finden Sie Muster in erfolglosen Interaktionen.
+</Card>
+
+<div id="troubleshooting">
+  ## Fehlerbehebung
+</div>
+
+<Accordion title="Assistent-Chatleiste nicht sichtbar">
+  Wenn die Assistenten-UI in bestimmten Browsern nicht sichtbar ist, müssen Sie möglicherweise einen False-Positive-Bericht an [EasyList](https://easylist.to) einreichen. Browser, die die EasyList Cookies List verwenden, wie Brave und Comet, blockieren bisweilen den Assistenten oder andere UI-Elemente. Die EasyList Cookies List enthält eine domainspezifische Regel, die feste Elemente auf bestimmten Domains ausblendet, um Cookie-Banner zu blockieren. Diese Regel beeinträchtigt unbeabsichtigt legitime UI-Komponenten.
+
+  Reichen Sie einen False-Positive-Bericht bei [EasyList](https://github.com/easylist/easylist) ein, um die Entfernung der Regel zu beantragen. Das Problem wird für alle Nutzer behoben, sobald die Filterliste aktualisiert wurde.
+</Accordion>

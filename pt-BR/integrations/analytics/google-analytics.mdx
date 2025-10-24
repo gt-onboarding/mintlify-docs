@@ -1,0 +1,53 @@
+---
+title: "Google Analytics 4"
+---
+
+Você precisará gerar uma nova propriedade <Tooltip tip="Google Analytics 4">GA4</Tooltip> para usar com a Mintlify. Os dados coletados serão enviados para o mesmo projeto que os seus outros dados do Google Analytics.
+
+Se você estiver usando a versão antiga do Google Analytics, o Universal Analytics, ainda poderá gerar uma propriedade <Tooltip tip="Google Analytics 4">GA4</Tooltip>. Os dados do <Tooltip tip="Google Analytics 4">GA4</Tooltip> são um pouco diferentes dos do UA, mas ainda são coletados no mesmo projeto.
+
+<div id="how-to-connect-ga4-to-mintlify">
+  ## Como conectar o GA4 ao Mintlify
+</div>
+
+<div id="create-a-web-stream">
+  ### Criar um stream da Web
+</div>
+
+Você precisará criar um stream da Web para obter o Measurement ID e inseri-lo no Mintlify.
+
+Clique no ícone de engrenagem no canto inferior esquerdo da tela do Google Analytics. Em seguida, clique em Data Streams.
+
+<Frame>![Screenshot of the Data Streams page in the Google Analytics dashboard.](/images/ga4-web-streams.png)</Frame>
+
+Crie um stream da Web e informe a URL do seu site de documentação do Mintlify como a URL do stream.
+
+Seu Measurement ID tem o formato `G-XXXXXXX` e aparecerá em Stream Details imediatamente após você criar o stream da Web.
+
+<div id="put-measurement-id-in-docsjson">
+  ### Adicione o Measurement ID no docs.json
+</div>
+
+Inclua seu Measurement ID no arquivo `docs.json` assim:
+
+```json docs.json
+"integrations": {
+    "ga4": {
+        "measurementId": "G-XXXXXXX"
+    }
+}
+```
+
+<div id="wait">
+  ### Aguarde
+</div>
+
+O Google Analytics leva de dois a três dias para exibir seus dados.
+
+Você pode usar o [Google Analytics Debugger](https://chrome.google.com/webstore/detail/google-analytics-debugger/jnkmfdileelhofjcijamephohjechhna?hl=en) para verificar se a coleta está ativada corretamente. A extensão registrará no console do navegador toda vez que o GA4 fizer uma solicitação.
+
+<Note>
+
+Links de pré-visualização têm a coleta de dados desativada.
+
+</Note>

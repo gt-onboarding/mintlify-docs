@@ -1,0 +1,132 @@
+---
+title: "Wiederverwendbare Snippets"
+description: "Wiederverwendbare, benutzerdefinierte Snippets, um Inhalte synchron zu halten"
+---
+
+Eines der Grundprinzipien der Softwareentwicklung ist DRY („Don&#39;t Repeat Yourself“), was auch für die Dokumentation gilt. Wenn Sie denselben Inhalt an mehreren Stellen wiederholen, sollten Sie ein benutzerdefiniertes Snippet erstellen, um Ihre Inhalte synchron zu halten.
+
+<div id="creating-a-custom-snippet">
+  ## Erstellen eines benutzerdefinierten Snippets
+</div>
+
+**Voraussetzung**: Sie müssen Ihre Snippet-Datei im Verzeichnis `snippets` erstellen, damit der Import funktioniert.
+
+Jede Seite im Verzeichnis `snippets` wird als Snippet behandelt und nicht
+als eigenständige Seite gerendert. Wenn Sie aus dem Snippet eine eigenständige Seite
+erstellen möchten, importieren Sie das Snippet in eine andere Datei und verwenden Sie es als
+Komponente.
+
+<div id="default-export">
+  ### Standardexport
+</div>
+
+1. Fügen Sie Ihrer Snippet-Datei Inhalte hinzu, die Sie wiederverwenden möchten. Optional können Sie Variablen hinzufügen, die beim Import des Snippets über Props befüllt werden können.
+   In diesem Beispiel lautet unsere Variable word.
+
+```typescript snippets/my-snippet.mdx
+Hallo Welt! Dies ist mein Inhalt, den ich seitenübergreifend wiederverwenden möchte. 
+```
+
+2. Importieren Sie das Snippet in die Zieldatei.
+
+```typescript destination-file.mdx
+---
+title: Mein Titel
+description: Meine Beschreibung
+---
+
+import MySnippet from '/snippets/path/to/my-snippet.mdx';
+
+## Überschrift
+
+Lorem ipsum dolor sit amet.
+
+<MySnippet/>
+
+```
+
+<div id="exporting-with-variables">
+  ### Exportieren mit Variablen
+</div>
+
+1. Optional können Sie Variablen hinzufügen, die beim Import des Snippets über Props befüllt werden können. In diesem Beispiel heißt unsere Variable word.
+
+```typescript snippets/my-snippet.mdx
+Mein Schlüsselwort des Tages ist {word}.
+```
+
+2. Importieren Sie das Snippet zusammen mit der Variable in Ihre Zieldatei. Die Eigenschaft wird gemäß Ihrer Vorgabe automatisch ausgefüllt.
+
+```typescript destination-file.mdx
+---
+title: Mein Titel
+description: Meine Beschreibung
+---
+
+import MySnippet from '/snippets/path/to/my-snippet.mdx';
+
+## Überschrift
+
+Lorem ipsum dolor sit amet.
+
+<MySnippet word="bananas" />
+
+```
+
+<div id="reusable-variables">
+  ### Wiederverwendbare Variablen
+</div>
+
+1. Exportiere eine Variable aus deiner Snippet-Datei:
+
+```typescript snippets/path/to/custom-variables.mdx
+export const myName = 'my name';
+
+export const myObject = { fruit: 'strawberries' };
+```
+
+2. Importieren Sie das Snippet aus der Zieldatei und verwenden Sie die Variable:
+
+```typescript destination-file.mdx
+---
+title: Mein Titel
+description: Meine Beschreibung
+---
+
+import { myName, myObject } from '/snippets/path/to/custom-variables.mdx';
+
+Hallo, mein Name ist {myName} und ich mag {myObject.fruit}.
+```
+
+<div id="jsx-snippets">
+  ### JSX-Snippets
+</div>
+
+1. Exportieren Sie eine JSX-Komponente aus Ihrer Snippet-Datei. (Siehe [React-Komponenten](/de/customize/react-components) für weitere Informationen.)
+
+```js icon=square-js snippets/my-jsx-snippet.jsx
+export const MyJSXSnippet = () => {
+  return (
+    <div>
+      <h1>Hallo, Welt!</h1>
+    </div>
+  )
+}
+```
+
+<Note>
+  Wichtig: Beim Erstellen von JSX-Snippets nutze die Arrow-Function-Syntax (`=>`) statt Funktionsdeklarationen. Das Schlüsselwort `function` wird in diesem Kontext nicht unterstützt.
+</Note>
+
+2. Importiere das Snippet aus deiner Zieldatei und verwende die Komponente:
+
+```typescript destination-file.mdx
+---
+title: Mein Titel
+description: Meine Beschreibung
+---
+
+import { MyJSXSnippet } from '/snippets/my-jsx-snippet.jsx';
+
+<MyJSXSnippet />
+```

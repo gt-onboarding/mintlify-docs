@@ -1,0 +1,21 @@
+---
+openapi: POST /agent/{projectId}/job
+---
+
+Diese Schnittstelle erstellt einen Agent-Job auf Grundlage der angegebenen Nachrichten und Branch-Informationen. Der Job wird asynchron ausgeführt und liefert eine Streaming-Antwort mit Ausführungsdetails und Ergebnissen.
+
+Existiert der Branch nicht, legt der Agent ihn an. Wenn Dateien erfolgreich bearbeitet wurden, wird am Ende des Jobs automatisch ein Entwurf eines Pull Requests erstellt.
+
+<div id="rate-limits">
+  ## Ratenbegrenzungen
+</div>
+
+Die Agent-API hat die folgenden Limits:
+
+- 100 Nutzungen pro Mintlify‑Projekt und Stunde
+
+<div id="suggested-usage">
+  ## Empfohlene Verwendung
+</div>
+
+Für optimale Ergebnisse verwenden Sie den [useChat-Hook aus ai-sdk](https://ai-sdk.dev/docs/reference/ai-sdk-ui/use-chat#usechat), um Anfragen zu senden und Antworten zu verarbeiten.

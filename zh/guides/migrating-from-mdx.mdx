@@ -1,0 +1,162 @@
+---
+title: "将 MDX API 页面迁移到 OpenAPI 导航"
+sidebarTitle: "从 MDX 迁移到 OAS"
+description: "从单个 MDX 端点页面升级为具备灵活导航的 OpenAPI 自动生成"
+---
+
+如果你目前为 API 端点使用独立的 `MDX` 页面，可以迁移到基于 OpenAPI 规范的自动生成，同时保留单个页面的自定义能力。这样有助于减少需要维护的文件数量，并提升 API 文档的一致性。
+
+你可以在 OpenAPI 规范中为每个端点定义元数据和内容，并在导航中按需组织端点的位置。
+
+<div id="cli-migration">
+  ## CLI 迁移
+</div>
+
+推荐使用 `mint migrate-mdx` 命令，将 MDX 端点页面迁移为自动生成的页面。
+
+该命令会：
+
+* 解析你的 `docs.json` 导航结构。
+* 识别用于生成 OpenAPI 端点页面的 MDX 页面。
+* 从 MDX 文件中提取内容并移入 OpenAPI 规范中的 `x-mint` 扩展。
+* 更新你的 `docs.json`，使其直接引用 OpenAPI 端点，而非 MDX 文件。
+* 删除原始的 MDX 端点文件。
+
+<Info>
+  如果你已为某个端点定义了 `x-mint`，同时还存在一个包含该端点内容的 MDX 页面，则该 MDX 内容会覆盖现有的 `x-mint` 设置。
+
+  如果同一端点存在多个内容不同的 MDX 页面，脚本将采用在你的 `docs.json` 中出现最靠后的那一页的内容。
+
+  迁移工具不支持在应用更改前预览变更。
+</Info>
+
+<Steps>
+  <Step title="准备你的 OpenAPI 规范。">
+    确保你的 OpenAPI 规范有效，并包含你想要记录的所有端点。
+
+    任何你想迁移的 MDX 页面必须在 frontmatter 中通过 `openapi:` 引用某个端点。
+
+    <Tip>
+      使用 [Swagger Editor](https://editor.swagger.io/) 或 [Mint CLI](https://www.npmjs.com/package/mint) 验证你的 OpenAPI 文件。
+    </Tip>
+  </Step>
+
+  <Step title="安装 Mint CLI">
+    如有需要，安装或更新 [Mint CLI](/zh/installation)。
+  </Step>
+
+  <Step title="运行迁移命令。">
+    ```bash
+    mint migrate-mdx
+    ```
+  </Step>
+</Steps>
+
+<div id="manual-migration-steps">
+  ## 手动迁移步骤
+</div>
+
+<Steps>
+  <Step title="准备你的 OpenAPI 规范。">
+    确保你的 OpenAPI 规范有效，并包含你希望纳入文档的所有端点。
+
+    若需为某些端点自定义元数据或内容，请在这些端点上添加 `x-mint` 扩展。详情见 [x-mint 扩展](/zh/api-playground/openapi-setup#x-mint-extension)。
+
+    若需将某些端点从文档中排除，请在这些端点上添加 `x-hidden` 扩展。
+
+    <Info>
+      使用 [Swagger Editor](https://editor.swagger.io/) 或 [Mint CLI](https://www.npmjs.com/package/mint) 验证你的 OpenAPI 文件。
+    </Info>
+  </Step>
+
+  <Step title="更新你的导航结构。">
+    在 `docs.json` 中，将对 `MDX` 页面的引用替换为 OpenAPI 端点。
+
+    ```json
+    "navigation": {
+      "groups": [
+        {
+          "group": "API Reference",
+          "openapi": "/path/to/openapi.json",
+          "pages": [
+            "overview",
+            "authentication",
+            "introduction",
+            "GET /health",
+            "quickstart", 
+            "POST /users",
+            "GET /users/{id}",
+            "advanced-features"
+          ]
+        }
+      ]
+    }
+    ```
+  </Step>
+
+  <Step title="删除旧的 MDX 文件。">
+    在确认新导航正常工作后，删除不再需要的 `MDX` 端点文件。
+  </Step>
+</Steps>
+
+<div id="navigation-patterns">
+  ## 导航模式
+</div>
+
+你可以自定义 API 文档在导航中的显示方式。
+
+<div id="mixed-content-navigation">
+  ### 混合内容导航
+</div>
+
+将自动生成的 API 页面与其他页面组合使用：
+
+```json
+"navigation": {
+  "groups": [
+    {
+      "group": "API 参考",
+      "openapi": "openapi.json",
+      "pages": [
+        "api/overview",
+        "GET /users",
+        "POST /users", 
+        "api/authentication"
+      ]
+    }
+  ]
+}
+```
+
+<div id="multiple-api-versions">
+  ### 多个 API 版本
+</div>
+
+通过选项卡或分组来组织不同的 API 版本：
+
+```json
+"navigation": {
+  "tabs": [
+    {
+      "tab": "API v1",
+      "openapi": "specs/v1.json"
+    },
+    {
+      "tab": "API v2",
+      "openapi": "specs/v2.json"
+    }
+  ]
+}
+```
+
+<div id="when-to-use-individual-mdx-pages">
+  ## 何时使用单独的 `MDX` 页面
+</div>
+
+在以下情况下可考虑保留单独的 `MDX` 页面：
+
+* 每个端点需要大量自定义内容，例如 React 组件或较长的示例。
+* 需要独特的页面布局。
+* 针对特定端点尝试实验性的文档写作方式。
+
+对于大多数场景，使用 OpenAPI 导航能带来更好的可维护性和一致性。

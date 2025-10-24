@@ -1,0 +1,58 @@
+---
+title: 'Campos de resposta'
+description: 'Exibir valores de resposta da API'
+---
+
+O componente `<ResponseField>` foi projetado para definir os valores de retorno de uma API. Muitas docs também usam `<ResponseField>` em páginas quando é necessário listar os tipos de algo.
+
+<ResponseField name="response" type="string" required>
+  Um exemplo de campo de resposta
+</ResponseField>
+
+```mdx
+<ResponseField name="response" type="string" required>
+  Um exemplo de campo de resposta
+</ResponseField>
+```
+
+<div id="props">
+  ## Propriedades
+</div>
+
+<ResponseField name="name" type="string" required>
+  O nome do valor da resposta.
+</ResponseField>
+
+<ResponseField name="type" type="string" required>
+  Tipo esperado do valor da resposta — pode ser qualquer string arbitrária.
+</ResponseField>
+
+<ResponseField name="default" type="string">
+  O valor padrão.
+</ResponseField>
+
+<ResponseField name="required" type="boolean">
+  Mostrar "required" ao lado do nome do campo.
+</ResponseField>
+
+<ResponseField name="deprecated" type="boolean">
+  Indica se o campo está obsoleto ou não.
+</ResponseField>
+
+<ResponseField name="pre" type="string[]">
+  Rótulos exibidos antes do nome do campo
+</ResponseField>
+
+<ResponseField name="post" type="string[]">
+  Rótulos exibidos após o nome do campo
+</ResponseField>
+
+<RequestExample>
+
+```mdx Response Field Example
+<ResponseField name="response" type="string" required>
+  Exemplo de campo de resposta
+</ResponseField>
+```
+
+</RequestExample>

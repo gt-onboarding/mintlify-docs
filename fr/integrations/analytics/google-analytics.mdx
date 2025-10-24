@@ -1,0 +1,53 @@
+---
+title: "Google Analytics 4"
+---
+
+Vous devrez créer une nouvelle propriété <Tooltip tip="Google Analytics 4">GA4</Tooltip> à utiliser avec Mintlify. Les données collectées seront ajoutées au même projet que vos autres données Google Analytics.
+
+Si vous utilisez l’ancienne version de Google Analytics, Universal Analytics, vous pourrez tout de même créer une propriété <Tooltip tip="Google Analytics 4">GA4</Tooltip>. Les données <Tooltip tip="Google Analytics 4">GA4</Tooltip> diffèrent légèrement des données UA, mais sont malgré tout collectées dans le même projet.
+
+<div id="how-to-connect-ga4-to-mintlify">
+  ## Comment connecter GA4 à Mintlify
+</div>
+
+<div id="create-a-web-stream">
+  ### Créer un flux Web
+</div>
+
+Vous devez créer un flux Web pour obtenir l’ID de mesure à renseigner dans Mintlify.
+
+Cliquez sur l’icône d’engrenage en bas à gauche de l’écran Google Analytics. Puis cliquez sur Flux de données.
+
+<Frame>![Capture d’écran de la page Flux de données dans le tableau de bord Google Analytics.](/images/ga4-web-streams.png)</Frame>
+
+Créez un flux Web et indiquez l’URL de votre site de documentation Mintlify comme URL du flux.
+
+Votre ID de mesure ressemble à `G-XXXXXXX` et s’affichera sous Détails du flux immédiatement après la création du flux Web.
+
+<div id="put-measurement-id-in-docsjson">
+  ### Ajouter l’ID de mesure dans docs.json
+</div>
+
+Ajoutez votre ID de mesure à votre fichier `docs.json` comme suit :
+
+```json docs.json
+"integrations": {
+    "ga4": {
+        "measurementId": "G-XXXXXXX"
+    }
+}
+```
+
+<div id="wait">
+  ### Patientez
+</div>
+
+Google Analytics met deux à trois jours à afficher vos données.
+
+Vous pouvez utiliser le [Google Analytics Debugger](https://chrome.google.com/webstore/detail/google-analytics-debugger/jnkmfdileelhofjcijamephohjechhna?hl=en) pour vérifier que Google Analytics est correctement activé. L’extension inscrit un journal dans la console de votre navigateur chaque fois que GA4 envoie une requête.
+
+<Note>
+
+Les liens de prévisualisation désactivent Google Analytics.
+
+</Note>

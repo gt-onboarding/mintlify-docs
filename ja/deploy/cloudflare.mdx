@@ -1,0 +1,208 @@
+---
+title: "Cloudflare"
+description: "Cloudflare Workers を使って独自のサブパスでドキュメントをホストする"
+---
+
+import Propagating from "/snippets/ja/custom-subpath-propagating.mdx";
+
+Cloudflare を使用して `yoursite.com/docs` のようなカスタムサブパスでドキュメントをホストするには、Cloudflare Workers を作成して設定する必要があります。
+
+<Info>
+  始める前に、Cloudflare アカウントとドメイン名（Cloudflare での管理・外部での管理のどちらでも可）が必要です。
+</Info>
+
+
+<div id="repository-structure">
+  ## リポジトリ構成
+</div>
+
+ドキュメントファイルは、選択したサブパス構成に合わせてリポジトリ内で整理する必要があります。たとえば、ドキュメントを `yoursite.com/docs` に配置したい場合は、すべてのドキュメントファイルを格納する `docs/` ディレクトリを作成します。
+
+<div id="set-up-a-cloudflare-worker">
+  ## Cloudflare Worker をセットアップする
+</div>
+
+まだの場合は、[Cloudflare Workers の開始ガイド](https://developers.cloudflare.com/workers/get-started/dashboard/)に従って Cloudflare Worker を作成してください。
+
+<Warning>
+  DNS プロバイダーが Cloudflare の場合、CNAME レコードではプロキシを有効にしないでください。
+</Warning>
+
+<div id="proxies-with-vercel-deployments">
+  ### Vercel デプロイでのプロキシ
+</div>
+
+Vercel のデプロイで Cloudflare をプロキシとして使用する場合は、Vercel のドメイン検証や SSL 証明書の発行と競合しないよう、適切に設定する必要があります。
+
+不適切なプロキシ設定により、Vercel が Let's Encrypt の SSL 証明書を発行できず、ドメイン検証に失敗する可能性があります。
+
+<div id="required-path-allowlist">
+  #### 必須のパス許可リスト
+</div>
+
+Cloudflare Worker は、以下の特定のパスへのトラフィックをブロックやリダイレクトせずに許可する必要があります：
+
+- `/.well-known/acme-challenge/*` - Let's Encrypt の証明書検証に必須
+- `/.well-known/vercel/*` - Vercel のドメイン検証に必須
+
+Cloudflare は多くの検証ルールを自動処理しますが、追加のカスタムルールを作成すると、この重要なトラフィックを誤ってブロックしてしまうおそれがあります。
+
+<div id="header-forwarding-requirements">
+  #### ヘッダー転送の要件
+</div>
+
+Worker の設定で `HOST` ヘッダーが正しく転送されるようにしてください。ヘッダーが適切に転送されない場合、検証リクエストは失敗します。
+
+<div id="configure-routing">
+  ### ルーティングの設定
+</div>
+
+Cloudflare ダッシュボードで **Edit Code** を選択し、以下のスクリプトを Worker のコードに追加します。Worker の編集方法については、[Cloudflare のドキュメント](https://developers.cloudflare.com/workers-ai/get-started/dashboard/#development)を参照してください。
+
+<Tip>
+  `[SUBDOMAIN]` は固有のサブドメインに、`[YOUR_DOMAIN]` はサイトのベース URL に、`/docs` は必要に応じて希望するサブパスに置き換えてください。
+</Tip>
+
+```javascript
+addEventListener("fetch", (event) => {
+  event.respondWith(handleRequest(event.request));
+});
+
+async function handleRequest(request) {
+  try {
+    const urlObject = new URL(request.url);
+    
+    // Vercel検証パスへのリクエストの場合、そのまま通過させる
+    if (urlObject.pathname.startsWith('/.well-known/')) {
+      return await fetch(request);
+    }
+    
+    // docsサブディレクトリへのリクエストの場合
+    if (/^\/docs/.test(urlObject.pathname)) {
+      // Mintlifyにプロキシする
+      const DOCS_URL = "[SUBDOMAIN].mintlify.dev";
+      const CUSTOM_URL = "[YOUR_DOMAIN]";
+
+      let url = new URL(request.url);
+      url.hostname = DOCS_URL;
+
+      let proxyRequest = new Request(url, request);
+
+      proxyRequest.headers.set("Host", DOCS_URL);
+      proxyRequest.headers.set("X-Forwarded-Host", CUSTOM_URL);
+      proxyRequest.headers.set("X-Forwarded-Proto", "https");
+      // Vercelにデプロイする場合、クライアントIPを保持する
+      proxyRequest.headers.set("CF-Connecting-IP", request.headers.get("CF-Connecting-IP"));
+
+      return await fetch(proxyRequest);
+    }
+  } catch (error) {
+    // 該当するアクションがない場合、通常のリクエストを実行する
+    return await fetch(request);
+  }
+}
+```
+
+「**Deploy**」を選択し、変更が反映されるまで待ちます。
+
+<Propagating />
+
+
+<div id="test-your-worker">
+  ### Worker をテストする
+</div>
+
+コードをデプロイしたら、Worker が Mintlify のドキュメントに正しくルーティングされることを確認します。
+
+1. Worker のプレビュー URL を使ってテストします: `your-worker.your-subdomain.workers.dev/docs`
+2. Worker が Mintlify のドキュメントおよび自社サイトに正しくルーティングされることを確認します。
+
+<div id="add-custom-domain">
+  ### カスタムドメインを追加する
+</div>
+
+1. [Cloudflare ダッシュボード](https://dash.cloudflare.com/)で、対象の Worker に移動します。
+2. **Settings > Domains & Routes > Add > Custom Domain** を開きます。
+3. ドメインを追加します。 
+
+<Tip>
+  `www.` あり・なしの両方のドメインを追加することをおすすめします。
+</Tip>
+
+詳細は、Cloudflare ドキュメントの [Add a custom domain](https://developers.cloudflare.com/workers/configuration/routing/custom-domains/#add-a-custom-domain) を参照してください。 
+
+<div id="resolve-dns-conflicts">
+  ### DNS の競合を解消する
+</div>
+
+ドメインがすでに別のサービスを向いている場合は、既存の DNS レコードを削除する必要があります。Cloudflare Workers は、ドメインへのすべてのトラフィックを制御するように構成されている必要があります。
+
+1. ドメインの既存の DNS レコードを削除します。詳細は Cloudflare ドキュメントの [Delete DNS records](https://developers.cloudflare.com/dns/manage-dns-records/how-to/create-dns-records/#delete-dns-records) を参照してください。
+2. Workers に戻り、カスタムドメインを追加します。
+
+<div id="webflow-custom-routing">
+  ## Webflow のカスタムルーティング
+</div>
+
+メインサイトのホスティングに Webflow を使用しており、同一ドメインの `/docs` で Mintlify ドキュメントを配信したい場合は、Cloudflare Workers でカスタムルーティングを設定し、ドキュメント以外のトラフィックをすべてメインサイトへプロキシする必要があります。
+
+<Warning>
+  この Worker をデプロイする前に、必ずメインサイトをランディングページとして設定してください。そうしないと、メインサイトの訪問者にエラーが表示されます。
+</Warning>
+
+1. Webflow で、`landing.yoursite.com` のようなメインサイト用のランディングページを設定します。訪問者がサイトにアクセスしたときに表示されるページです。
+2. メインサイトをそのランディングページにデプロイします。これにより、Worker の設定中もメインサイトへのアクセス性が維持されます。
+3. 競合を避けるため、メインサイト内の絶対 URL を相対 URL に更新します。
+4. Cloudflare で **Edit Code** を選択し、以下のスクリプトを Worker のコードに追加します。
+
+<Tip> `[SUBDOMAIN]` は固有のサブドメインに、`[YOUR_DOMAIN]` はサイトのベース URL に、`[LANDING_DOMAIN]` はランディングページの URL に、`/docs` は必要に応じて希望のサブパスに置き換えてください。 </Tip>
+
+```javascript
+  addEventListener("fetch", (event) => {
+  event.respondWith(handleRequest(event.request));
+  });
+  async function handleRequest(request) {
+  try {
+    const urlObject = new URL(request.url);
+    
+    // Vercel検証パスへのリクエストの場合、そのまま通過させる
+    if (urlObject.pathname.startsWith('/.well-known/')) {
+      return await fetch(request);
+    }
+    
+    // docsサブディレクトリへのリクエストの場合
+    if (/^\/docs/.test(urlObject.pathname)) {
+      // Mintlifyにプロキシする
+      const DOCS_URL = "[SUBDOMAIN].mintlify.dev";
+      const CUSTOM_URL = "[YOUR_DOMAIN]";
+      let url = new URL(request.url);
+      url.hostname = DOCS_URL;
+      let proxyRequest = new Request(url, request);
+      proxyRequest.headers.set("Host", DOCS_URL);
+      proxyRequest.headers.set("X-Forwarded-Host", CUSTOM_URL);
+      proxyRequest.headers.set("X-Forwarded-Proto", "https");
+      // Vercelにデプロイする場合、クライアントIPを保持する
+      proxyRequest.headers.set("CF-Connecting-IP", request.headers.get("CF-Connecting-IP"));
+      return await fetch(proxyRequest);
+    }
+    // その他すべてをメインサイトにルーティングする
+    const MAIN_SITE_URL = "[LANDING_DOMAIN]";
+    if (MAIN_SITE_URL && MAIN_SITE_URL !== "[LANDING_DOMAIN]") {
+      let mainSiteUrl = new URL(request.url);
+      mainSiteUrl.hostname = MAIN_SITE_URL;
+      return await fetch(mainSiteUrl, {
+        method: request.method,
+        headers: request.headers,
+        body: request.body
+      });
+    }
+  } catch (error) {
+    // アクションが見つからない場合、通常のリクエストを処理する
+    return await fetch(request);
+  }
+  }
+```
+
+5. **Deploy** を選択し、変更の反映が完了するまで待ちます。
+
+<Propagating />

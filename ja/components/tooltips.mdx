@@ -1,0 +1,28 @@
+---
+title: "ツールチップ"
+description: "テキストにカーソルを乗せたときに定義を表示する"
+---
+
+ユーザーがテキストの一部にカーソルを乗せたときに、追加の文脈情報や定義を提示するにはツールチップを使用します。ツールチップには、任意でコールトゥアクションのリンクを含められます。
+
+**例**: <Tooltip tip="Application Programming Interface: a set of protocols for software applications to communicate." cta="API ガイドを読む" href="/ja/api-reference">API</Tooltip> ドキュメントは、開発者がサービスとの連携方法を理解するのに役立ちます。
+
+```mdx Tooltip example wrap
+<Tooltip tip="Application Programming Interface: ソフトウェアアプリケーション間で通信を行うためのプロトコル群" cta="APIガイドを読む" href="/api-reference">API</Tooltip>ドキュメントは、開発者がお客様のサービスとの連携方法を理解するために役立ちます。
+```
+
+<div id="properties">
+  ## プロパティ
+</div>
+
+<ResponseField name="tip" type="string" required>
+  ツールチップに表示されるテキスト。
+</ResponseField>
+
+<ResponseField name="cta" type="string">
+  ツールチップ内のリンクに表示するCTA（行動喚起）テキスト。
+</ResponseField>
+
+<ResponseField name="href" type="string">
+  CTAリンクのURL。`cta` を使用する場合は必須です。
+</ResponseField>

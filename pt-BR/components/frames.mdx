@@ -1,0 +1,43 @@
+---
+title: "Molduras"
+description: "Envolva imagens ou outros componentes em um contêiner"
+---
+
+Use molduras para exibir imagens, diagramas ou outros conteúdos visuais com estilo consistente e legendas opcionais. As molduras centralizam o conteúdo e proporcionam separação visual em relação ao texto ao redor.
+
+<Frame>
+  <img src="https://mintlify-assets.b-cdn.net/yellowstone.jpeg" alt="Fotografia de um lago cercado por árvores, com montanhas ao fundo no Parque Nacional de Yellowstone." />
+</Frame>
+
+<div id="captions">
+  ## Legendas
+</div>
+
+Você pode adicionar mais contexto a uma imagem usando a prop opcional `caption`.
+
+<Frame caption="O Parque Nacional de Yosemite recebe mais de 3,5 milhões de visitantes todos os anos">
+  <img src="https://mintlify-assets.b-cdn.net/yosemite.jpg" alt="Fotografia do Vale de Yosemite." />
+</Frame>
+
+<div id="properties">
+  ## Propriedades
+</div>
+
+<ResponseField name="caption" type="string">
+  Texto opcional de legenda para exibir centralizado abaixo do componente.
+</ResponseField>
+
+<CodeGroup>
+
+```mdx Frame
+<Frame>
+  <img src="/path/image.jpg" alt="Descriptive alt text" />
+</Frame>
+```
+
+```mdx Frame with a caption
+<Frame caption="Caption text">
+  <img src="/path/image.jpg" alt="Descriptive alt text" />
+</Frame>
+```
+</CodeGroup>

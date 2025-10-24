@@ -1,0 +1,460 @@
+---
+title: "コードの整形"
+description: "インラインコードとコードブロックを表示"
+---
+
+<div id="adding-code-samples">
+  ## コードサンプルの追加
+</div>
+
+インラインのコードスニペットやコードブロックを追加できます。コードブロックでは、構文ハイライト、タイトル、行のハイライト、アイコンなどのメタオプションを利用できます。
+
+<div id="inline-code">
+  ### インラインコード
+</div>
+
+`word` や `phrase` のような語句をコードとして示すには、バッククォート（`）で囲みます。
+
+```mdx
+`単語`や`フレーズ`をコードとして表記するには、バッククォート(`)で囲みます。
+```
+
+<div id="code-blocks">
+  ### コードブロック
+</div>
+
+コードをバッククォート3つで囲んで、[フェンスコードブロック](https://www.markdownguide.org/extended-syntax/#fenced-code-blocks)を使用します。コードブロックはコピーでき、アシスタントを有効にしている場合は、ユーザーがAIにコードの説明を依頼できます。
+
+シンタックスハイライトとメタオプションを有効にするために、プログラミング言語を指定します。タイトルやアイコンなどのメタオプションは、言語名の後に追加します。
+
+<CodeGroup>
+  ```java HelloWorld.java example lines icon="java"
+  class HelloWorld {
+      public static void main(String[] args) {
+          System.out.println("Hello, World!");
+      }
+  }
+  ```
+
+  ````mdx Format
+  ```java HelloWorld.java lines icon="java"
+  class HelloWorld {
+      public static void main(String[] args) {
+          System.out.println("Hello, World!");
+      }
+  }
+  ```
+  ````
+</CodeGroup>
+
+<div id="code-block-options">
+  ## コードブロックのオプション
+</div>
+
+コードブロックにメタオプションを追加して、表示をカスタマイズできます。
+
+<Note>
+  他のメタオプションを追加する前に、コードブロックのプログラミング言語を必ず指定してください。
+</Note>
+
+<div id="option-syntax">
+  ### オプションの構文
+</div>
+
+* **文字列とブール値のオプション**: `""`、`''`、または引用符なしで記述します。
+* **式のオプション**: `{}`、`""`、または `''` で記述します。
+
+<div id="syntax-highlighting">
+  ### 構文ハイライト
+</div>
+
+コードブロックの開始バッククォート直後にプログラミング言語を指定すると、構文ハイライトが有効になります。
+
+構文ハイライトには [Shiki](https://shiki.style/) を使用しており、利用可能なすべての言語をサポートしています。対応する[言語一覧](https://shiki.style/languages)は Shiki のドキュメントをご覧ください。
+
+`docs.json` の `styling.codeblocks` でコードブロックのテーマをグローバルにカスタマイズできます。`system` や `dark` といったシンプルなテーマを指定するほか、ライト/ダークモード向けにカスタムの [Shiki テーマ](https://shiki.style/themes)を設定できます。設定項目は [Settings](/ja/organize/settings#styling) を参照してください。
+
+<Accordion title="カスタム構文ハイライトテーマ">
+  カスタムテーマを使用する場合は、`docs.json` のテーマを `"css-variables"` に設定し、`--mint-` プレフィックスの CSS 変数で構文ハイライトの色を上書きします。
+
+  使用可能な変数は次のとおりです。
+
+  **基本色**
+
+  * `--mint-color-text`: 既定の文字色
+  * `--mint-color-background`: 背景色
+
+  **トークンの色**
+
+  * `--mint-token-constant`: 定数・リテラル
+  * `--mint-token-string`: 文字列値
+  * `--mint-token-comment`: コメント
+  * `--mint-token-keyword`: キーワード
+  * `--mint-token-parameter`: 関数パラメータ
+  * `--mint-token-function`: 関数名
+  * `--mint-token-string-expression`: 文字列式
+  * `--mint-token-punctuation`: 句読点
+  * `--mint-token-link`: リンク
+
+  **ANSI カラー**
+
+  * `--mint-ansi-black`, `--mint-ansi-black-dim`
+  * `--mint-ansi-red`, `--mint-ansi-red-dim`
+  * `--mint-ansi-green`, `--mint-ansi-green-dim`
+  * `--mint-ansi-yellow`, `--mint-ansi-yellow-dim`
+  * `--mint-ansi-blue`, `--mint-ansi-blue-dim`
+  * `--mint-ansi-magenta`, `--mint-ansi-magenta-dim`
+  * `--mint-ansi-cyan`, `--mint-ansi-cyan-dim`
+  * `--mint-ansi-white`, `--mint-ansi-white-dim`
+  * `--mint-ansi-bright-black`, `--mint-ansi-bright-black-dim`
+  * `--mint-ansi-bright-red`, `--mint-ansi-bright-red-dim`
+  * `--mint-ansi-bright-green`, `--mint-ansi-bright-green-dim`
+  * `--mint-ansi-bright-yellow`, `--mint-ansi-bright-yellow-dim`
+  * `--mint-ansi-bright-blue`, `--mint-ansi-bright-blue-dim`
+  * `--mint-ansi-bright-magenta`, `--mint-ansi-bright-magenta-dim`
+  * `--mint-ansi-bright-cyan`, `--mint-ansi-bright-cyan-dim`
+  * `--mint-ansi-bright-white`, `--mint-ansi-bright-white-dim`
+</Accordion>
+
+<CodeGroup>
+  ```java 構文ハイライトの例
+  class HelloWorld {
+      public static void main(String[] args) {
+          System.out.println("Hello, World!");
+      }
+  }
+  ```
+
+  ````mdx Format
+  ```java
+  class HelloWorld {
+      public static void main(String[] args) {
+          System.out.println("Hello, World!");
+      }
+  }
+  ```
+  ````
+</CodeGroup>
+
+<div id="twoslash">
+  ### Twoslash
+</div>
+
+JavaScript と TypeScript のコードブロックでは、`twoslash` を使ってインタラクティブな型情報を有効化できます。ユーザーは IDE のように、変数・関数・引数にホバーして、型やエラーを確認できます。
+
+<CodeGroup>
+  ```ts twoslash Twoslash example
+  type Pet = "cat" | "dog" | "hamster";
+
+  function adoptPet(name: string, type: Pet) {
+  return `${name} the ${type} is now adopted!`;
+  }
+
+  // Hover to see the inferred types
+  const message = adoptPet("Mintie", "cat");
+
+  ```
+
+  ````mdx Format
+  ```ts twoslash
+  type Pet = "cat" | "dog" | "hamster";
+
+  function adoptPet(name: string, type: Pet) {
+    return `${name} the ${type} is now adopted!`;
+  }
+
+  // Hover to see the inferred types
+  const message = adoptPet("Mintie", "cat");
+  ````
+
+  `````
+  </CodeGroup>
+
+  ### Title
+
+  コード例にラベルを付けるため、タイトルを追加します。`title="Your title"` または 1 行の文字列を使用します。
+
+  <CodeGroup>
+  ```javascript Title example
+  const hello = "world";
+  ```
+
+  ````mdx Format
+  ```javascript Title example
+  const hello = "world";
+  ```
+  `````
+</CodeGroup>
+
+<div id="icon">
+  ### アイコン
+</div>
+
+`icon` プロパティを使ってコードブロックにアイコンを追加できます。利用可能なオプションは [Icons](/ja/components/icons) を参照してください。
+
+<CodeGroup>
+  ```javascript Icon example icon="square-js"
+  const hello = "world";
+  ```
+
+  ````mdx Format
+  ```javascript icon="square-js"
+  const hello = "world";
+  ```
+  ````
+</CodeGroup>
+
+<div id="line-highlighting">
+  ### 行のハイライト
+</div>
+
+コードブロック内の特定の行を強調表示するには、`highlight` にハイライトしたい行番号や範囲を指定します。
+
+<CodeGroup>
+  ```javascript Line highlighting example highlight= {1-2,5}
+  const greeting = "Hello, World!";
+  function sayHello() {
+    console.log(greeting);
+  }
+  sayHello();
+  ```
+
+  ````mdx Format
+  ```javascript highlight={1-2,5}
+  const greeting = "Hello, World!";
+  function sayHello() {
+    console.log(greeting);
+  }
+  sayHello();
+  ```
+  ````
+</CodeGroup>
+
+<div id="line-focusing">
+  ### 行のフォーカス
+</div>
+
+`focus` に行番号や範囲を指定して、コードブロック内の特定の行を強調表示します。
+
+<CodeGroup>
+  ```javascript Line focus example focus= {2,4-5}
+  const greeting = "Hello, World!";
+  function sayHello() {
+    console.log(greeting);
+  }
+  sayHello();
+  ```
+
+  ````mdx Format
+  ```javascript focus={2,4-5}
+  const greeting = "Hello, World!";
+  function sayHello() {
+    console.log(greeting);
+  }
+  sayHello();
+  ```
+  ````
+</CodeGroup>
+
+<div id="show-line-numbers">
+  ### 行番号を表示
+</div>
+
+`lines` を使って、コードブロックの左側に行番号を表示します。
+
+<CodeGroup>
+  ```javascript 行番号表示の例 lines
+  const greeting = "Hello, World!";
+  function sayHello() {
+    console.log(greeting);
+  }
+  sayHello();
+  ```
+
+  ````mdx Format
+  ```javascript lines
+  const greeting = "Hello, World!";
+  function sayHello() {
+    console.log(greeting);
+  }
+  sayHello();
+  ```
+  ````
+</CodeGroup>
+
+<div id="expandable">
+  ### 展開
+</div>
+
+`expandable` を使うと、長いコードブロックを展開・折りたたみできるようになります。
+
+<CodeGroup>
+  ```python Expandable example expandable
+  from datetime import datetime, timedelta
+  from typing import Dict, List, Optional
+  from dataclasses import dataclass
+
+  @dataclass
+  class Book:
+  title: str
+  author: str
+  isbn: str
+  checked_out: bool = False
+  due_date: Optional[datetime] = None
+
+  class Library:
+  def **init**(self):
+  self.books: Dict[str, Book] = {}
+  self.checkouts: Dict[str, List[str]] = {} # patron -> list of ISBNs
+
+      def add_book(self, book: Book) -> None:
+          if book.isbn in self.books:
+              raise ValueError(f"Book with ISBN {book.isbn} already exists")
+          self.books[book.isbn] = book
+
+      def checkout_book(self, isbn: str, patron: str, days: int = 14) -> None:
+          if patron not in self.checkouts:
+              self.checkouts[patron] = []
+
+          book = self.books.get(isbn)
+          if not book:
+              raise ValueError("Book not found")
+
+          if book.checked_out:
+              raise ValueError("Book is already checked out")
+
+          if len(self.checkouts[patron]) >= 3:
+              raise ValueError("Patron has reached checkout limit")
+
+          book.checked_out = True
+          book.due_date = datetime.now() + timedelta(days=days)
+          self.checkouts[patron].append(isbn)
+
+      def return_book(self, isbn: str) -> float:
+          book = self.books.get(isbn)
+          if not book or not book.checked_out:
+              raise ValueError("Book not found or not checked out")
+
+          late_fee = 0.0
+          if datetime.now() > book.due_date:
+              days_late = (datetime.now() - book.due_date).days
+              late_fee = days_late * 0.50
+
+          book.checked_out = False
+          book.due_date = None
+
+          # Remove from patron's checkouts
+          for patron, books in self.checkouts.items():
+              if isbn in books:
+                  books.remove(isbn)
+                  break
+
+          return late_fee
+
+      def search(self, query: str) -> List[Book]:
+          query = query.lower()
+          return [
+              book for book in self.books.values()
+              if query in book.title.lower() or query in book.author.lower()
+          ]
+
+  def main():
+  library = Library()
+
+      # Add some books
+      books = [
+          Book("The Hobbit", "J.R.R. Tolkien", "978-0-261-10295-4"),
+          Book("1984", "George Orwell", "978-0-452-28423-4"),
+      ]
+
+      for book in books:
+          library.add_book(book)
+
+      # Checkout and return example
+      library.checkout_book("978-0-261-10295-4", "patron123")
+      late_fee = library.return_book("978-0-261-10295-4")
+      print(f"Late fee: ${late_fee:.2f}")
+
+  if **name** == "**main**":
+  main()
+
+  ```
+
+  ````text Format
+  ```python expandable
+  from datetime import datetime, timedelta
+  from typing import Dict, List, Optional
+  from dataclasses import dataclass
+
+  # ...
+
+  if __name__ == "__main__":
+      main()
+  ````
+
+  `````
+  </CodeGroup>
+
+  ### 折り返し
+
+  `wrap` を使用すると、長い行のテキスト折り返しを有効化できます。これにより水平スクロールを防ぎ、長い行が読みやすくなります。
+
+  <CodeGroup>
+  ```javascript Wrap example wrap
+  const greeting = "Hello, World! I am a long line of text that will wrap to the next line.";
+  function sayHello() {
+    console.log(greeting);
+  }
+  sayHello();
+  ```
+
+  ````mdx Format
+  ```javascript wrap
+  const greeting = "Hello, World! I am a long line of text that will wrap to the next line.";
+  function sayHello() {
+    console.log(greeting);
+  }
+  sayHello();
+  ```
+  `````
+</CodeGroup>
+
+<div id="diff">
+  ### Diff
+</div>
+
+コードブロック内で追加・削除された行の差分を視覚的に表示します。追加行は緑、削除行は赤でハイライトされます。
+
+差分を作成するには、コードブロック内の各行の末尾に次の特別なコメントを追加します。
+
+* `// [!code ++]`: 行を追加としてマーク（緑でハイライト）。
+* `// [!code --]`: 行を削除としてマーク（赤でハイライト）。
+
+複数の連続する行を対象にする場合は、コロンの後に行数を指定します。
+
+* `// [!code ++:3]`: 現在の行と次の2行を追加としてマーク。
+* `// [!code --:5]`: 現在の行と次の4行を削除としてマーク。
+
+コメントの記法は使用するプログラミング言語に合わせてください（例: JavaScript は `//`、Python は `#`）。
+
+<CodeGroup>
+  ```js Diff example lines
+  const greeting = "Hello, World!"; // [!code ++]
+  function sayHello() {
+    console.log("Hello, World!"); // [!code --]
+    console.log(greeting); // [!code ++]
+  }
+  sayHello();
+  ```
+
+  ````text Format
+  ```js lines
+  const greeting = "Hello, World!"; // [!code ++]
+  function sayHello() {
+    console.log("Hello, World!"); // [!code --]
+    console.log(greeting); // [!code ++]
+  }
+  sayHello();
+  ```
+  ````
+</CodeGroup>

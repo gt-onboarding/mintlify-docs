@@ -1,0 +1,172 @@
+---
+title: "フォント"
+description: "カスタムフォントを設定する"
+---
+
+サイト全体、または見出しと本文で別々にカスタムフォントを設定できます。Google Fonts、ローカルのフォントファイル、外部ホストのフォントを使用できます。デフォルトのフォントはテーマによって異なります。
+
+フォントは `docs.json` の[fonts プロパティ](/ja/organize/settings#param-fonts)で管理します。
+
+<div id="google-fonts">
+  ## Google Fonts
+</div>
+
+`docs.json` にフォントファミリー名を指定すると、Mintlify は自動的に [Google Fonts](https://fonts.google.com) を読み込みます。
+
+```json docs.json
+"fonts": {
+  "family": "Inter"
+}
+```
+
+<div id="local-fonts">
+  ## ローカルフォント
+</div>
+
+ローカルフォントを使用するには、フォントファイルをプロジェクトディレクトリに配置し、`docs.json` の設定で参照してください。
+
+<div id="setting-up-local-fonts">
+  ### ローカルフォントの設定
+</div>
+
+<Steps>
+  <Step title="フォントファイルをプロジェクトに追加する">
+    例として、`fonts` ディレクトリを作成し、フォントファイルを追加します。
+
+    ```text
+    your-project/
+    ├── fonts/
+    │   ├── InterDisplay-Regular.woff2
+    │   └── InterDisplay-Bold.woff2
+    ├── docs.json
+    └── ...
+    ```
+  </Step>
+
+  <Step title="docs.json でフォントを設定する">
+    プロジェクトのルートからの相対パスでローカルフォントを参照します。
+
+    ```json docs.json
+    {
+      "fonts": {
+        "family": "InterDisplay",
+        "source": "/fonts/InterDisplay-Regular.woff2",
+        "format": "woff2",
+        "weight": 400
+      }
+    }
+    ```
+  </Step>
+</Steps>
+
+<div id="local-fonts-for-headings-and-body">
+  ### 見出しと本文のローカルフォント
+</div>
+
+`docs.json` で、見出し用と本文用のローカルフォントを別々に設定できます:
+
+```json docs.json
+{
+  "fonts": {
+    "heading": {
+      "family": "InterDisplay",
+      "source": "/fonts/InterDisplay-Bold.woff2",
+      "format": "woff2",
+      "weight": 700
+    },
+    "body": {
+      "family": "InterDisplay",
+      "source": "/fonts/InterDisplay-Regular.woff2",
+      "format": "woff2",
+      "weight": 400
+    }
+  }
+}
+```
+
+<div id="externally-hosted-fonts">
+  ## 外部ホストのフォント
+</div>
+
+`docs.json` でフォントのソースURLを指定して、外部ホストのフォントを使用します:
+
+```json docs.json
+{
+  "fonts": {
+    "family": "Hubot Sans",
+    "source": "https://mintlify-assets.b-cdn.net/fonts/Hubot-Sans.woff2",
+    "format": "woff2",
+    "weight": 400
+  }
+}
+```
+
+<div id="font-configuration-reference">
+  ## フォント設定リファレンス
+</div>
+
+<ResponseField name="fonts" type="object">
+  ドキュメントのフォント設定。
+
+  <Expandable title="Fonts">
+    <ResponseField name="family" type="string" required>
+      フォントファミリー名（例: &quot;Inter&quot; や &quot;Playfair Display&quot;）。
+    </ResponseField>
+
+    <ResponseField name="weight" type="number">
+      フォントの太さ（例: 400 や 700）。可変フォントでは 550 のような細かな値も指定できます。
+    </ResponseField>
+
+    <ResponseField name="source" type="string (uri)">
+      フォントソースの URL（例: `https://mintlify-assets.b-cdn.net/fonts/Hubot-Sans.woff2`）、またはローカルフォントファイルへのパス（例: `/assets/fonts/InterDisplay.woff2`）。Google Fonts は Google フォントの `family` 名を指定すると自動で読み込まれるため、ソース URL は不要です。
+    </ResponseField>
+
+    <ResponseField name="format" type="'woff' | 'woff2'">
+      フォントファイルの形式。`source` フィールドを使用する場合は必須です。
+    </ResponseField>
+
+    <ResponseField name="heading" type="object">
+      見出しのフォント設定を個別に上書きします。
+
+      <Expandable title="Heading">
+        <ResponseField name="family" type="string" required>
+          見出し用のフォントファミリー名。
+        </ResponseField>
+
+        <ResponseField name="weight" type="number">
+          見出し用のフォントの太さ。
+        </ResponseField>
+
+        <ResponseField name="source" type="string (uri)">
+          フォントソースの URL（例: `https://mintlify-assets.b-cdn.net/fonts/Hubot-Sans.woff2`）、または見出し用のローカルフォントファイルへのパス。Google Fonts は Google フォントの `family` 名を指定すると自動で読み込まれるため、ソース URL は不要です。
+        </ResponseField>
+
+        <ResponseField name="format" type="'woff' | 'woff2'">
+          見出し用のフォントファイル形式。`source` フィールドを使用する場合は必須です。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="body" type="object">
+      本文のフォント設定を個別に上書きします。
+
+      <Expandable title="Body">
+        <ResponseField name="family" type="string" required>
+          本文用のフォントファミリー名。
+        </ResponseField>
+
+        <ResponseField name="weight" type="number">
+          本文用のフォントの太さ。
+        </ResponseField>
+
+        <ResponseField name="source" type="string (uri)">
+          フォントソースの URL（例: `https://mintlify-assets.b-cdn.net/fonts/Hubot-Sans.woff2`）、または本文用のローカルフォントファイルへのパス。Google Fonts は Google フォントの `family` 名を指定すると自動で読み込まれるため、ソース URL は不要です。
+        </ResponseField>
+
+        <ResponseField name="format" type="'woff' | 'woff2'">
+          本文用のフォントファイル形式。`source` フィールドを使用する場合は必須です。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+  </Expandable>
+</ResponseField>

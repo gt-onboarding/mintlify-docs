@@ -1,0 +1,48 @@
+---
+title: "Introdução"
+description: "Dispare atualizações, incorpore o Assistente de IA e muito mais"
+---
+
+A REST API do Mintlify permite interagir programaticamente com sua documentação, disparar atualizações e incorporar experiências de chat com IA.
+
+<div id="endpoints">
+  ## Endpoints
+</div>
+
+* [Acionar atualização](/pt-BR/api-reference/update/trigger): Acione uma atualização do seu site quando quiser.
+* [Obter status da atualização](/pt-BR/api-reference/update/status): Obtenha o status de uma atualização e outros detalhes sobre sua documentação.
+* [Criar tarefa de agente](/pt-BR/api-reference/agent/create-agent-job): Crie uma tarefa de agente para editar sua documentação automaticamente.
+* [Obter tarefa de agente](/pt-BR/api-reference/agent/get-agent-job): Recupere os detalhes e o status de uma tarefa de agente específica.
+* [Obter todas as tarefas de agente](/pt-BR/api-reference/agent/get-all-jobs): Recupere todas as tarefas de agente de um domínio.
+* [Gerar mensagem do Assistente](/pt-BR/api-reference/assistant/create-assistant-message): Incorpore o Assistente, treinado na sua documentação, em qualquer aplicativo de sua escolha.
+* [Pesquisar na documentação](/pt-BR/api-reference/assistant/search): Pesquise na sua documentação.
+
+<div id="authentication">
+  ## Autenticação
+</div>
+
+Você pode gerar uma chave de API pelo [dashboard](https://dashboard.mintlify.com/settings/organization/api-keys). As chaves de API são associadas à organização inteira e podem ser usadas em várias implantações.
+
+<div id="admin-api-key">
+  ### Chave de API de administrador
+</div>
+
+A chave de API de administrador é usada para [disparar atualização](/pt-BR/api-reference/update/trigger), [obter o status da atualização](/pt-BR/api-reference/update/status) e em todos os endpoints de agente.
+
+As chaves de API de administrador começam com o prefixo `mint_`. Mantenha suas chaves de API de administrador em sigilo.
+
+<div id="assistant-api-key">
+  ### Chave da API do Assistente
+</div>
+
+A chave da API do Assistente é usada nos endpoints [Generate assistant message](/pt-BR/api-reference/assistant/create-assistant-message) e [Search documentation](/pt-BR/api-reference/assistant/search).
+
+As chaves da API do Assistente começam com o prefixo `mint_dsc_`.
+
+A **chave** da API do Assistente é um token do lado do servidor que deve ser mantido em sigilo.
+
+O **token** da API do Assistente é público e pode ser referenciado no seu código de frontend.
+
+<Note>
+  Chamadas usando o token da API do Assistente podem gerar custos: seja consumindo seus créditos do Assistente de IA ou incorrendo em excedentes.
+</Note>

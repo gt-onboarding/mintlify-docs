@@ -1,0 +1,117 @@
+---
+title: "Cloudflare ファイアウォールのトラブルシューティング"
+description: "Cloudflare による Mintlify アセットのブロックが原因の 500 エラーやページ遷移の遅さを解消する"
+---
+
+ドキュメンテーションサイトで、数秒後に 500 エラーが表示されたり、ページ遷移が遅くなる場合は、Cloudflare のファイアウォールが Mintlify のアセットへのリクエストをブロックしている可能性があります。
+
+<div id="symptoms">
+  ## 症状
+</div>
+
+- ドキュメントページは最初は読み込まれるが、30〜60秒後に 500 エラーでクラッシュする
+- ページ間のクライアントサイドのナビゲーションが遅い、または壊れている（機能しない）
+- `/mintlify-assets/*` パスへのリクエストで、ブラウザのコンソールに 403 エラーが出る
+- Cloudflare のセキュリティチャレンジで「不正なデータ」や「疑わしい URL パターン」に関するメッセージが表示される
+
+<div id="root-cause">
+  ## 根本原因
+</div>
+
+Cloudflare の Web Application Firewall（WAF）と Bot Fight Mode は、次の理由により Mintlify のアセット要求を不審と判定する場合があります：
+
+- エンコードされた URL パラメータに含まれる複数の「%」記号
+- 特殊文字を含む長いクエリ文字列
+- アイドル状態のタブによる自動リクエスト
+
+<div id="solution">
+  ## 解決策
+</div>
+
+Mintlify のアセットをセキュリティ検査の対象外にするため、Cloudflare のファイアウォールルールを作成します。
+
+<div id="create-the-firewall-exception">
+  ### ファイアウォールの例外を作成する
+</div>
+
+1. [Cloudflare ダッシュボード](https://dash.cloudflare.com/)にログイン
+2. 対象のドメインを選択
+3. **Security > WAF** に移動
+4. **Create rule** を選択
+5. 次の設定でルールを構成:
+
+**Rule name:** Allow Mintlify assets
+
+**When incoming requests match:**
+
+- Field: `Hostname`
+- Operator: `equals`
+- Value: `docs.yourdomain.com`（実際のドキュメント用ドメインに置き換えてください）
+
+**And:**
+
+- Field: `URI Path`
+- Operator: `starts with`
+- Value: `/mintlify-assets/`
+
+**Then:**
+
+- Action: `Skip`
+- Select: `All remaining custom rules`、`Managed rules`、`Super Bot Fight Mode`
+
+6. 一致したリクエストを記録するために **Log** を有効化
+7. **Deploy** を選択
+
+<div id="verify-the-rule">
+  ### ルールを検証する
+</div>
+
+デプロイ後:
+
+1. ブラウザでドキュメントサイトを開く
+2. ページを2〜3分間アイドル状態にする
+3. ページ間を移動する
+4. ブラウザのコンソールに403エラーが出ていないか確認する
+
+問題が解消しない場合は、ルール設定を確認してください:
+
+- ホスト名がドキュメントのドメインと完全一致していることを確認する
+- URIパスが `starts with`（`contains` ではない）になっていることを確認する
+- パスの値にワイルドカード（`*`）を含めない
+- ルールが有効化され、デプロイ済みであることを確認する
+
+<div id="common-mistakes">
+  ## よくあるミス
+</div>
+
+- `/mintlify-assets/*` に `contains` 演算子を使う — `*` はワイルドカードではなく文字として扱われます
+- URI Path に `equals` を使う — 正確なパス `/mintlify-assets/` にしか一致せず、サブパスは対象外です
+- Bot Fight Mode をスキップし忘れる — スキップアクションに明示的に含める必要があります
+- 誤ったホスト名 — 実際のドキュメント用ドメインと一致している必要があります
+
+<div id="additional-troubleshooting">
+  ## 追加のトラブルシューティング
+</div>
+
+ファイアウォールの例外で問題が解決しない場合:
+
+1. Cloudflare の **Security > Events** ログでブロックされたリクエストを確認する
+2. （カスタムサブパスを使用している場合）Cloudflare Worker が `Host` ヘッダーを正しく転送しているか確認する
+3. 原因が Cloudflare か切り分けるため、一時的に Security Level を「Essentially Off」に設定する
+4. ファイアウォールの例外を上書きする可能性のあるカスタム Page Rules を見直す
+
+<div id="example-working-configuration">
+  ## 動作する構成例
+</div>
+
+```
+ルール: Mintlify アセットを許可
+ステータス: 有効
+
+受信リクエストが次の条件に一致する場合:
+  (http.host eq "docs.flashnet.xyz" and starts_with(http.request.uri.path, "/mintlify-assets/"))
+
+その場合:
+  スキップ: 残りのすべてのカスタムルール、マネージドルール、Super Bot Fight Mode
+  ログ: 有効
+```

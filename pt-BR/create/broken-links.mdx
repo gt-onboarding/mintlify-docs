@@ -1,0 +1,46 @@
+---
+title: "Redirecionamentos e links quebrados"
+description: "Ferramentas para evitar links inválidos"
+---
+
+Quando você altera o caminho de um arquivo na pasta docs, o caminho da URL dessa página também é alterado. Isso pode ocorrer ao reestruturar a documentação ou ao mudar o título exibido na barra lateral.
+
+<div id="broken-links">
+  ## Links quebrados
+</div>
+
+Identifique links quebrados com nossa CLI. [Instale a CLI](/pt-BR/installation) e execute o comando:
+
+```bash
+mint broken-links
+```
+
+A CLI identifica quaisquer links relativos inexistentes na sua documentação.
+
+<div id="redirects">
+  ## Redirecionamentos
+</div>
+
+Defina redirecionamentos 301 adicionando o campo `redirects` ao arquivo `docs.json`.
+
+```json
+"redirects": [
+  {
+    "source": "/caminho/origem",
+    "destination": "/caminho/destino"
+  }
+]
+```
+
+Isso redireciona permanentemente `/source/path` para `/destination/path`, para que você não perca o SEO acumulado da página original.
+
+Para corresponder a um caminho coringa, use `*` após um parâmetro. Neste exemplo, `/beta/:slug*` corresponde a `/beta/introduction` e o redireciona para `/v2/introduction`.
+
+```json
+"redirects": [
+  {
+    "source": "/beta/:slug*",
+    "destination": "/v2/:slug*"
+  }
+]
+```

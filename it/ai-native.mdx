@@ -1,0 +1,60 @@
+---
+title: "Nativa per l’IA"
+description: "Scopri come l’IA migliora la lettura, la scrittura e l’esplorazione della tua documentazione"
+---
+
+Quando pubblichi la tua documentazione su Mintlify, le funzionalità IA integrate aiutano i tuoi utenti a trovare risposte e il tuo team a gestire i contenuti in modo più efficiente. I tuoi contenuti forniscono il contesto a queste funzionalità native per l’IA per migliorare l’esperienza di lettura, scrittura ed esplorazione della tua documentazione.
+
+<div id="what-makes-your-documentation-ai-native">
+  ## Cosa rende la tua documentazione nativa per l’AI
+</div>
+
+<div id="reading">
+  ### Lettura
+</div>
+
+Oltre a consultare singole pagine, gli utenti possono chattare con l’[Assistente](/it/ai/assistant) nella tua documentazione per ottenere risposte immediate alle loro domande e collegamenti a contenuti pertinenti. L’Assistente aiuta a guidare gli utenti all’interno del tuo prodotto con informazioni accurate tratte dalla tua documentazione. Integra l’Assistente in app personalizzate tramite l’[API](api-reference/assistant/create-assistant-message) per ampliare i punti di accesso alla tua documentazione.
+
+<div id="writing">
+  ### Scrittura
+</div>
+
+L’[agente](/it/ai/agent) ti aiuta a scrivere e mantenere la documentazione. Crea pull request con modifiche proposte basate sui tuoi prompt, sulle pull request e sui thread di Slack. Aggiungi l’agente al tuo workspace Slack così chiunque nel tuo team può contribuire alla manutenzione della documentazione chattando con l’agente. Oppure integra l’agente nelle tue app personalizzate tramite l’[API](/it/api-reference/agent/create-agent-job).
+
+Configura strumenti come [Cursor](/it/guides/cursor), [Claude Code](/it/guides/claude-code) e [Windsurf](/it/guides/windsurf) per fare riferimento allo schema di Mintlify, alla tua guida di stile e alle best practice.
+
+<div id="discovering">
+  ### Scoperta
+</div>
+
+Il tuo sito è ottimizzato automaticamente per gli strumenti di IA e i motori di ricerca, così gli utenti possono trovare più facilmente la tua documentazione. Tutte le pagine vengono inviate agli agenti di IA in formato Markdown invece che HTML, il che consente a questi strumenti di elaborare i contenuti più rapidamente e con un minor consumo di token. Ogni pagina è anche consultabile in Markdown aggiungendo `.md` all’URL.
+
+Mintlify ospita i file `llms.txt` e `llms-full.txt` per la tua documentazione. Questi file standard del settore aiutano gli LLM a indicizzare i contenuti e a rispondere in modo efficiente con informazioni pertinenti alle richieste degli utenti.
+
+Il tuo sito di documentazione ospita anche un server MCP che consente agli utenti di collegare direttamente la tua documentazione ai loro strumenti di IA, ottenendo informazioni aggiornate sul tuo prodotto esattamente dove ne hanno bisogno.
+
+La ricerca full-text e la comprensione semantica aiutano utenti e strumenti di IA a trovare rapidamente informazioni rilevanti. La ricerca comprende l’intento dell’utente invece di limitarsi alla corrispondenza di parole chiave. E se un utente incontra un errore 404, il sito suggerisce pagine correlate per aiutarlo a trovare ciò che sta cercando. Nessuna configurazione necessaria.
+
+<div id="enable-ai-features">
+  ## Abilita le funzionalità AI
+</div>
+
+Seleziona una delle seguenti schede per ulteriori informazioni.
+
+<CardGroup cols={2}>
+  <Card title="Assistente" icon="bot-message-square" href="/it/ai/assistant">
+    Configura l’Assistente per cercare su siti esterni o indirizzare le persone al tuo team di supporto se non riesce a rispondere alle loro domande.
+  </Card>
+
+  <Card title="Agente" icon="pen-line" href="/it/ai/agent">
+    Aggiungi l’Agente al tuo workspace Slack o incorporalo in app personalizzate per aiutarti a scrivere e aggiornare la documentazione.
+  </Card>
+
+  <Card title="Menu contestuale" icon="sparkles" href="/it/ai/contextual-menu">
+    Aggiungi un menu alle pagine che consente agli utenti di interrogare strumenti di AI, connettersi al tuo server MCP e copiare le pagine come contesto con un clic.
+  </Card>
+
+  <Card title="Integrazione MCP" icon="plug" href="/it/ai/model-context-protocol">
+    Il tuo sito dispone di un server MCP gestito che consente agli utenti di collegare la tua documentazione direttamente ai loro strumenti di AI. Informa gli utenti dell’esistenza del tuo server MCP e di come connettersi.
+  </Card>
+</CardGroup>

@@ -1,0 +1,42 @@
+---
+title: "Mit Branches arbeiten"
+description: "Verwenden Sie Branches, um Änderungen vorzunehmen und zu überprüfen, ohne Ihre Live-Dokumentation zu beeinflussen"
+---
+
+Branches sind ein Feature der Versionsverwaltung, das auf bestimmte Commits in Ihrem Repository verweist. Ihr Deployment-Branch, in der Regel `main`, steht für den Inhalt, aus dem Ihre Live-Dokumentation gebaut wird. Alle anderen Branches sind unabhängig von Ihren Live-Dokumenten, sofern Sie sie nicht in Ihren Deployment-Branch mergen.
+
+Branches ermöglichen es Ihnen, separate Instanzen Ihrer Dokumentation zu erstellen, um Änderungen vorzunehmen, Reviews einzuholen und neue Ansätze auszuprobieren, bevor Sie veröffentlichen. Ihr Team kann in Branches arbeiten, um verschiedene Teile Ihrer Dokumentation parallel zu aktualisieren, ohne zu beeinflussen, was Nutzer auf Ihrer Live‑Site sehen, bis Sie Änderungen veröffentlichen.
+
+Wir empfehlen, beim Aktualisieren der Dokumentation grundsätzlich mit Branches zu arbeiten, um Ihre Live‑Site stabil zu halten und Review-Workflows zu ermöglichen.
+
+<Tip>
+  - Benennen Sie Branches eindeutig, damit Teammitglieder verstehen, woran Sie arbeiten.
+  - Löschen Sie Branches nach dem Mergen, um Ihr Repository übersichtlich zu halten.
+  - Informieren Sie Ihr Team, wenn Sie an größeren Änderungen arbeiten, die sich auf ihre Arbeit auswirken könnten.
+</Tip>
+
+<div id="creating-a-branch">
+  ## Einen Branch erstellen
+</div>
+
+1. Wählen Sie in der Editor-Toolbar den Branchnamen aus (standardmäßig meist `main`).
+2. Wählen Sie **New Branch**.
+3. Geben Sie einen aussagekräftigen Namen für Ihren Branch ein, z. B. `update-getting-started` oder `fix-api-examples`.
+4. Wählen Sie **Create Branch**.
+
+<div id="saving-changes-on-a-branch">
+  ## Änderungen in einem Branch speichern
+</div>
+
+Um Ihre Änderungen in einem Branch zu speichern, klicken Sie oben rechts im Editor auf **Save Changes**. Dadurch wird ein Commit erstellt und Ihre Arbeit in Ihren Branch gepusht.
+
+<div id="switching-branches">
+  ## Branch wechseln
+</div>
+
+1. Wählen Sie den Branchnamen in der Editor-Symbolleiste aus.
+2. Wählen Sie im Dropdown-Menü den Branch aus, zu dem Sie wechseln möchten.
+
+<Tip>
+  Nicht gespeicherte Änderungen gehen beim Wechseln des Branches verloren. Speichern oder veröffentlichen Sie Ihre Arbeit, bevor Sie den Branch wechseln.
+</Tip>

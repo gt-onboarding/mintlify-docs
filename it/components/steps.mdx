@@ -1,0 +1,71 @@
+---
+title: "Passaggi"
+description: "Organizza i contenuti in sequenza con il componente Steps"
+---
+
+import IconsOptional from "/snippets/it/icons-optional.mdx";
+
+Usa i passaggi per mostrare una serie di azioni o eventi sequenziali. Puoi aggiungere tutti i passaggi necessari.
+
+<Steps>
+  <Step title="Primo passaggio">
+    Queste sono istruzioni o contenuti che riguardano solo il primo passaggio.
+  </Step>
+
+  <Step title="Secondo passaggio">
+    Queste sono istruzioni o contenuti che riguardano solo il secondo passaggio.
+  </Step>
+
+  <Step title="Terzo passaggio">
+    Queste sono istruzioni o contenuti che riguardano solo il terzo passaggio.
+  </Step>
+</Steps>
+
+```mdx Steps example
+<Steps>
+  <Step title="Primo Passaggio">
+    Queste sono istruzioni o contenuti relativi esclusivamente al primo passaggio.
+  </Step>
+  <Step title="Secondo Passaggio">
+    Queste sono istruzioni o contenuti relativi esclusivamente al secondo passaggio.
+  </Step>
+  <Step title="Terzo Passaggio">
+    Queste sono istruzioni o contenuti relativi esclusivamente al terzo passaggio.
+  </Step>
+</Steps>
+```
+
+
+<div id="steps-properties">
+  ## Proprietà di Steps
+</div>
+
+<ResponseField name="children" type="ReactElement<StepProps>[]" required>
+  Un elenco di componenti `Step`.
+</ResponseField>
+
+<ResponseField name="titleSize" type="string" default="p">
+  La dimensione dei titoli degli step. Valori ammessi: `p`, `h2` o `h3`.
+</ResponseField>
+
+<div id="individual-step-properties">
+  ## Proprietà del singolo step
+</div>
+
+<ResponseField name="children" type="string | ReactNode" required>
+  Il contenuto dello step, come testo semplice o come componenti.
+</ResponseField>
+
+<IconsOptional />
+
+<ResponseField name="title" type="string">
+  Il titolo è il testo principale dello step e viene mostrato accanto all’indicatore.
+</ResponseField>
+
+<ResponseField name="stepNumber" type="number">
+  Il numero dello step.
+</ResponseField>
+
+<ResponseField name="titleSize" type="string" default="p">
+  La dimensione del titolo dello step. Una tra `p`, `h2` e `h3`.
+</ResponseField>

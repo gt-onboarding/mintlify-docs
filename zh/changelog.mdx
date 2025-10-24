@@ -1,0 +1,911 @@
+---
+title: "产品更新"
+description: "新版本与改进"
+rss: true
+noindex: true
+---
+
+<Update label="10月17日" tags={["Improvements"]} rss={{ title: "每周更新", description: "助手改进、导航增强、API 操作台更新以及错误修复" }}>
+  ## 助手与 AI 改进
+
+  * 升级助手提示词以提升准确性与上下文感知的回复
+  * 新增置信度评分以改进助手回复的决策
+  * 增强助手搜索，使用并行文档查询以加快结果
+  * 修复助手消失的错误，并改进其在小页面上的可见性
+
+  ## 导航与 UI 增强
+
+  * 为导航组件添加稳定的滚动条预留区以保持一致布局
+  * 将“本页内容”板块改为可点击，快速回到页面顶部
+  * 修复所有主题下助手栏的定位
+  * 改进助手栏以防止与内容重叠
+  * 修复 Almond 主题宽页的最大宽度
+  * 调整下拉箭头图标尺寸以保持导航分组外观一致
+
+  ## API 操作台与 OpenAPI 改进
+
+  * 为新的 API 参考页设计添加功能开关支持
+  * 改进 OpenAPI 架构图工具以正确处理组合
+  * 在操作数据中添加端点类型以改进 API 文档
+  * 修复当枚举与表格在 Markdown 中时 API 操作台的描述渲染
+  * 调整 API 操作台中描述的渲染位置以获得更好的布局
+
+  ## 错误修复与可靠性
+
+  * 修复语言切换以停留在当前页面，而非重定向至首页
+  * 修复断链检查 CLI，使其在 CI/CD 集成中以代码 1 退出
+  * 修复本地字体路径以正确添加前导斜杠
+  * 修复重定向处理以忽略 `docs.json` 中的前导斜杠
+  * 修复规范 URL 去除 `/index` 以提升 SEO
+  * 修复手风琴内有序列表的定位
+  * 修复 `<span>` 标签样式，使其表现与 `<p>` 标签一致
+  * 修复列表中首个 `<p>` 标签的块级显示
+  * 修复 OG 图片显示，使索引页展示 division 名称
+  * 修复图标路径以包含 `BASE_PATH`，支持相对路径
+  * 移除助手背景模糊以提升性能
+</Update>
+
+<Update label="10月11日" tags={["Improvements"]} rss={{ title: "每周更新", description: "API 操作台改进、洞察增强、网页编辑器更新，以及错误修复" }}>
+  ## 助手与 Agent AI 功能
+
+  * 为 agent 新增 list&#95;pull&#95;requests 与 list&#95;commits 工具，使其可记录某日期范围内的 PR，或一次记录多个 PR
+  * 将 agent 与助手升级至 Claude Sonnet 4.5
+  * 改进助手搜索以并行查询文档，从而更快地返回助手回复
+  * 修复会话长度统计以排除工具调用
+
+  ## Insights 改进
+
+  * 将 analytics 重命名为 insights
+  * 移除 insights 的点击加载要求，使你能立即查看全部数据
+  * 使用服务端时间戳提升 insights 数据准确性
+
+  ## 网页编辑器与控制台改进
+
+  * 在编辑器中移除代码块背景以获得更简洁的外观
+  * 修复分支创建流程以正确导航到新建分支
+  * 新增部署历史分页
+  * 为预览部署表新增游标分页
+  * 修复预览部署仅返回预览环境的部署
+  * 改进控制台 UI/UX，包括更好的留白、输入处理与布局修复
+  * 改善控制台助手聊天中的链接处理
+  * 修复 Firefox 中聊天助手的描边问题
+
+  ## API 操作台增强
+
+  * 改进 API 操作台模态框的渲染
+  * 修复 API 操作台可展开内容与锚点链接不兼容的问题
+  * 在 API 操作台中新增合并示例与用户输入请求体的支持
+  * 修复 API 操作台中视频响应的展示方式
+
+  ## 错误修复与可靠性
+
+  * 修复 404 推荐页面中的重复基础路径与链接
+  * 自动填充 og:url 标签为合适的规范 URL
+  * 新增 canonical 标签以提升 SEO
+  * 修复代码块过度滚动问题
+  * 使搜索引擎为 SEO 目的忽略预览部署
+  * 修复引荐来源跟踪以使用域名而非完整 URL
+  * 修复图片总是变为 MDX 块级元素的问题（保持行内图片为行内）
+  * 移除原始 Markdown 页面中的注释，从而可使用 TODO 注释而不泄露给用户
+  * 修复 read&#95;external&#95;files 的目录读取支持
+
+  ## 组件与样式
+
+  * 在 products division 中新增下拉菜单支持
+  * 修复 middleware 导航工具函数中的 products 与菜单
+  * 更改 404 页面文案以更清晰
+</Update>
+
+<Update label="October 3" tags={["New releases", "Improvements"]} rss={{ title: "Weekly Updates", description: "Products navigation, accessibility CLI, API playground enhancements, and extensive accessibility improvements" }}>
+  ## 新功能
+
+  * **产品导航**：通过产品切换器为多个产品的文档进行组织
+  * **无障碍 CLI 命令**：运行 `mint a11y` 测试文档的无障碍问题
+  * **API 操作台中的视频响应**：API 操作台现已支持展示视频类型的响应
+  * **API 操作台预填**：新增选项，可为 API 操作台示例预填数据，加快测试
+  * **未认证反馈**：对于使用部分身份验证的站点，用户现在无需登录即可提交反馈
+  * **Shiki 主题支持**：现已支持使用 Shiki 主题为代码块设定样式
+  * **代码块的 Twoslash**：TypeScript 和 JavaScript 代码块现已支持 Twoslash，提供内联类型信息
+
+  ## 无障碍改进
+
+  * 在各组件中添加了完整的 ARIA 属性，更好地支持屏幕阅读器
+  * 新增“跳至主内容”按钮，便于键盘导航
+  * 选项卡组件支持方向键导航
+  * 增强了工具提示、嵌套列表和代码组的可访问性
+  * 全局改进焦点状态与键盘交互模式
+
+  ## 助手与分析改进
+
+  * 助手查询分析新增柱状图可视化
+  * 助手分析页统一了日期范围选择器
+  * 助手分析图表新增缩放控件
+  * 通过快捷键和聊天抽屉改进了助手历史记录管理
+
+  ## 缺陷修复与可靠性
+
+  * 修复了侧边面板遮罩层的 z-index 问题
+  * 修复了浅色模式颜色回退与主题相关的样式问题
+  * 修复了 API 操作台的可展开项与锚点链接不兼容的问题
+  * 修复了 `.md` 链接对 ChatGPT 和其他 LLM 代理的可访问性问题
+  * 修复了按百分比设置宽高的图片尺寸处理
+  * 修复了带语言标签与自定义主题的代码块渲染问题
+  * 修复了手风琴链接的格式与样式
+  * 修复了在助手配置为空时的页脚间距
+  * 修复了本地仓库图片的卡片图标渲染
+  * 修复了 API 操作台中的音频文件处理（避免 UTF-8 解码）
+  * 改进了网页编辑器中的 PR 发布状态管理
+</Update>
+
+<Update label="September 26" tags={["Improvements"]} rss={{ title: "Weekly Updates", description: "Language support expansion, UI improvements, and infrastructure enhancements" }}>
+  ## 语言支持扩展
+
+  * 在文档界面新增对罗马尼亚语和捷克语的支持
+  * 增强本地化能力，为新增语言提供完整翻译覆盖
+  * 改进所有主题中的语言选择器功能
+
+  ## 界面与用户体验改进
+
+  * 修复了 404 页面上的选项卡可见性问题，防止错误的活动选项卡高亮
+  * 为非优化图片正确传递宽度和高度属性，增强图片处理
+  * 改进了 404 页面的布局与样式一致性
+
+  ## 基础设施与性能改进
+
+  * 通过跳过代价高昂的 Imgix 自动格式化来增强 GIF 处理，从而减少处理时间和带宽占用
+  * 通过对动图的特殊处理优化了图片服务性能
+
+  ## 缺陷修复与可靠性
+
+  * 修复了仪表板设置中用于 助手 增强功能请求的联系邮箱路由
+  * 加强了数据库架构更新，以改进用户管理
+</Update>
+
+<Update label="September 19" tags={["Improvements"]} rss={{ title: "Weekly Updates", description: "Web editor and authentication improvements, and bug fixes" }}>
+  ## 网页编辑器与仪表板登录改进
+
+  * 持续推进网页编辑器的 app router 迁移，移除阻碍并提升性能
+  * 增强登录错误处理，提供明确的邮箱验证提示
+  * 修复了电子邮件地址验证中的空白字符处理
+
+  ## 身份验证改进
+
+  * 在登录回调中新增对已验证重定向参数的支持，降低登录摩擦
+  * 改进了 SSO 登录流程，提升重定向处理
+
+  ## 缺陷修复与可靠性
+
+  * 修复了大型仓库的 GitLab 集成问题
+  * 通过优化部署查询改进了仪表板加载性能
+  * 修复了文档中的 SVG 路径渲染问题
+  * 修复了搜索与聊天功能中的键盘导航
+</Update>
+
+<Update label="September 13" tags={["New releases", "Improvements"]} rss={{ title: "Weekly Updates", description: "AI 404 建议、助手网页搜索外部来源、安全性增强与可靠性修复" }}>
+  ## 主要更新
+
+  * **重大增强**：404 页面提供 AI 建议页面，[当用户访问死链 → AI 代理读取路径 → 建议语义相似的页面](https://x.com/mintlify/status/1966625627773059495)
+  * **重大发布**：助手的网页搜索现已支持包含外部来源\
+    *注意：如需为你的网站启用此功能，请联系我们。*
+
+  ## 助手与 MCP
+
+  * 修复了因时间窗口未正确滑动导致助手被错误限流的问题
+  * 修复了助手工具调用在处理空 `text` 块时的错误
+  * 修复了 MCP 服务器名称与工具调用拼接后有时会超过 MCP 客户端强制的 60 个字符限制的问题
+  * 修复了助手菜单高度远超视口、导致无限滚动的问题
+  * 修复了仪表盘中助手花费数值可能显示超过两位小数的问题
+
+  ## 网页编辑器与部署
+
+  * 提升了编辑器安全性，只有对连接的 Git 托管仓库拥有 `write permissions` 的用户才能进行更改
+  * 修复了分支名包含 `=` 时预览部署无法运行的问题
+  * 修复了创建预览部署时长分支名会导致模态框内容溢出的问题
+  * 使用体验优化：在注册邀请中，email 查询参数将预填输入框
+  * 修复了通过上下文菜单复制页面在 Safari 上无法使用的问题
+
+  ## API 操作台与导航
+
+  * 多个 API 操作台响应码现在在聚焦时显示于受控样式的选择菜单中，而非系统默认选择菜单
+  * 你现在可以使用 [`docs.json 中导航分组的 expanded 字段以默认展开`](https://mintlify.com/docs/navigation#default-expanded-state)
+
+  ## SEO 与界面
+
+  * 修复了站点图标未在搜索引擎中显示的问题：现通过与各文档站点相同的 URL 提供 favicon
+  * 修复了 YouTube 嵌入在加载时闪烁的问题
+  * 修复了将反馈菜单展开为包含书面回复时导致与目录发生布局位移的问题
+  * 修复了在 Maple 主题中关闭通知横幅后文本溢出到顶栏之上的问题
+  * 优化了 Maple 与 Willow 主题：在侧边栏新增登录/登出按钮，便于访问
+
+  ## 分析与导出
+
+  * 修复了助手分析视图与导出的可靠性问题
+  * 助手分析导出现改为后台执行并通过电子邮件发送，以提供更可靠的体验
+</Update>
+
+<Update label="August 24 - August 30" tags={["Improvements"]} rss={{ title: "每周更新", description: "强化反馈收集、导航优化与身份验证漏洞修复" }}>
+  ## 重大更新：更强大的反馈收集
+
+  * **重要改进**：读者在选择“点赞/点踩”后，现在可以提供更详细的反馈，包括选项和文字评论。你还可以对代码块收集反馈，并在控制台的分析中查看所有响应。\
+    *注意：请联系我们为你的网站启用此功能。*
+
+  ## 导航与易用性改进
+
+  * 易用性优化：忽略结尾斜杠和双斜杠，这样你在 docs.json 中无需精确处理它们
+  * 你现在可以为 `h1-6` HTML 标签添加 `noAnchor` 属性，以避免生成锚点链接
+  * Palm 主题现已在左下角提供浮动语言选择器，类似 Stripe 的做法
+  * 在 docs.json 中新增字段 [`drilldown`](https://mintlify.com/docs/navigation#enable-auto-navigation-for-groups)，用于控制在展开导航分组时是否将用户自动导航到该分组的第一页
+  * 易用性优化：使嵌套有序列表在十进制/罗马数字与字母样式之间交替
+
+  ## 错误修复与可靠性
+
+  * 修复了页面存在 JS 组件时，滚动位置锚点链接无法正常工作的错误
+  * 修复了由于缺少 `x-robots-tag noindex` 头而导致 Google 索引原始 `*.md` 文件的问题
+  * 修复了受保护文档的 OAuth 问题：成功完成流程后无法重定向回起始页面
+  * 修复了受身份验证保护文档的预览中无法看到完整导航栏的问题
+  * 修复了在使用全新图片 CDN 时处理 SVG 的相关问题
+
+  ## 组件与样式增强
+
+  * 为 `SidebarNavGroupDivider` 的自定义样式新增了一个 CSS 选择器
+  * 为由 MDX 定义且包含安全配置的 API 页面新增回归测试，进一步提升稳定性
+
+  ## 性能改进
+
+  * 通过将 KaTeX 的 CSS 从 cdnjs 迁移到我们在 CloudFront 上的自有 CDN，降低延迟并提升性能
+</Update>
+
+<Update label="August 23" tags={["Improvements"]} rss={{ title: "每周更新", description: "图像布局修复、身份验证增强、移动端导航改进与网页编辑器稳定性提升" }}>
+  ## 图像处理改进
+
+  * **重要改进**：即使未指定宽高属性，图像默认也不会引发布局位移——自动尺寸可在页面加载时防止内容跳动
+  * 部署时将自动上传并托管你仓库中的所有静态文件（PDF、TXT、XML 等），实现完整的资源覆盖
+
+  ## 网页编辑器与部署增强
+
+  * 修复了网页编辑器中的分支创建流程，确保正确跳转并停留在新建分支上
+  * 增强了合并冲突对话框，支持正确的退出操作，无需再刷新页面来关闭冲突
+  * 优化更新流程性能：在部分更新期间仅对变更页面进行缓存失效处理，缩短部署时间
+
+  ## 身份验证与导航改进
+
+  * 新增对自定义子目录的身份验证支持；如果你在 `https://yourdomain.com/docs` 提供文档，身份验证现可无缝运行
+  * 修复了在仅配置一个链接时侧边栏显示不正确的错误
+  * 全面重构移动端导航：按钮居中并具备合适的外边距/内边距，改进下拉菜单间距，移除空分区的不必要分隔线和边距，并修复 Maple 主题的间距/内边距问题
+
+  ## 组件与样式修复
+
+  * 解决了将 `<h1-6>` 标签错误转换为 Heading 组件从而破坏自定义样式的问题
+  * 在控制台新增一键助手配置开关，便于管理
+
+  ## 技术改进与可靠性
+
+  * 增强了更新流程的日志系统，加速调试与问题定位
+  * 通过从单文件抓取切换为仓库克隆，修复了面向拥有 10+ OpenAPI/AsyncAPI 规范客户的 GitHub 速率限制问题
+  * 提升了助手的可靠性：加入备用 LLM 支持、改进限流错误处理，并增强搜索工具的稳健性
+</Update>
+
+<Update label="8月16日" tags={["Improvements"]} rss={{ title: "每周更新", description: "性能优化、LLM 集成、网页编辑器优化，以及 API 操作台增强" }}>
+  ## 性能与构建优化
+
+  * 在未缓存的 NextJS 无服务器环境中，MDX 转译现已在部署时执行，而非每次页面加载时执行，从而缩短未缓存页面的首字节时间（TTFB）。
+  * 基于内容的哈希可在 MDX 未变更时避免重复转译，将大型站点用户的更新流程耗时减少约 50%（超过 5 分钟的部署预计可缩短至约一半）
+  * 通过在后端添加数据库索引并并行化查询，仪表盘中的预览部署加载更快
+  * 通过移除每个页面 `rsc` 负载中的重复 `navigation` 数据来减小页面体积——在页面数量较多或导航结构复杂时，性能提升最为明显
+  * 更积极的预取使页面更常实现瞬时加载
+
+  ## API 操作台与 OpenAPI 增强
+
+  * 将 OpenAPI 到 MCP 的转换迁移至后端，使托管的 MCP 服务器能够包含工具（更清晰的文档与配置选项即将推出）
+  * 为 API 操作台新增 Ruby 支持
+  * 新增能力：你现在可以[仅通过 docs.json 指定 API 页面](/zh/api-playground/openapi-setup#auto-populate-api-pages)，无需创建任何新的 MDX 文件。
+  * 在基于 OpenAPI 规范的文档导航中支持[`webhook pages`](/zh/api-playground/openapi-setup#webhooks)
+  * 通过在导航至 Anthropic、OpenAI 或其他提供商时，从 Markdown 链接中移除锚点参数来优化 AI 模型上下文
+
+  ## 网页编辑器改进
+
+  * 创建/重命名文件时，现在点击其他位置即可保存更改，无需按 Enter 键
+  * 修复分支导航问题：当将 URL 更改为某个特定分支时，会重定向到上次活动分支而非预期目标
+  * 对包含 `/` 的分支标题进行正确的 URL 编码，防止导航异常
+  * 修复了单体仓库仪表盘的编辑器中 `Ctrl+K` 链接快捷键会在前面附加文档仓库路径并造成链接失效的问题
+
+  ## 分析与 LLM 集成
+
+  * 支持自定义 `llms.txt` 与 `llms-full.txt`——将文件添加到文档仓库根目录，即可分别在 `/llms.txt` 与 `/llms-full.txt` 端点提供，便于定制 LLM
+  * 新增 [Hightouch 分析集成](/zh/integrations/analytics/hightouch#hightouch)
+  * 增强了上下文菜单的分析追踪（仪表盘可视化即将推出）
+  * 为 `llms.txt` 与 `llms-full.txt` 增加端到端测试，确保正确服务
+
+  ## 组件与样式增强
+
+  * `h{1-4}` 标签支持自定义 classnames，以应用自定义标题样式
+  * 修复在自定义页面模式下，`h{1-4}` 标签被渲染为带有芯片的 `Heading` 组件的问题
+  * 为[面包屑](/zh/organize/navigation#breadcrumbs)添加 CSS 选择器，以便进行自定义 CSS 定位
+  * 通过分析尺寸，在 56px 高度下按比例缩放，修复被拉伸的 open-graph 图片
+  * 在启用时，将上下文菜单中的 `VSCode` 更正为 `VS Code`
+  * 修复自定义组件内的标题会与语义化标题一并出现在目录中的问题
+
+  ## Bug 修复与可靠性
+
+  * 通过清理可能导致生成问题的字符，修复了某些页面标题的 PDF 渲染问题
+  * 解决在遇到空的 OpenAPI JSON 文件时出现的 CLI 错误 `Cannot convert undefined or null to object`
+  * 修复自定义 `docs.json` open-graph 元标签被生成项覆盖的问题
+  * 通过对 RSS 链接使用 origin + pathname，修复在锚点链接落地时 RSS 订阅按钮点击失效的问题
+  * 通过移除 sourcemap 提升 CLI 下载速度
+
+  ## 技术改进
+
+  * 在 CI 流水线中加入可视化测试，更早发现回归
+  * 增强错误处理与调试能力
+  * 为新功能与边界情况提供更全面的测试覆盖
+</Update>
+
+<Update label="8月9日" tags={["Improvements"]} rss={{ title: "每周更新", description: "Search API、OAuth 优化、资源服务与 MCP 工具" }}>
+  ## 身份验证改进
+
+  * 组级公开访问：可通过 `docs.json` 将整组页面设为公开，无需在每个页面单独添加 `public: true`（[了解更多](https://mintlify.com/docs/authentication-personalization/authentication-setup#group-level)）
+  * 支持在[`OAuth 配置中设置 logoutURL`](https://mintlify.com/docs/authentication-personalization/authentication-setup#implementation-3)以删除上游 cookies 并完成登出
+  * 发生 OAuth 错误时，用户将被重定向到你指定的 `logoutURL` 以重新开始认证流程
+  * 修复了在回调前的 OAuth/JWT 流程中短暂闪现 500 错误的问题
+  * 在 OAuth/JWT 配置中自动去除 URL 的 `https://` 以防止错误配置
+
+  ## API 操作台增强
+
+  * 新增[Search API 端点](https://mintlify.com/docs/api-reference/assistant/search)，可在文档之上构建代理和 MCP 服务器
+  * 现在会在指定路径提供 `openapi` 与 `asyncapi` 文件（例如 `https://mydocsurl.extension/{openapi-or-file-name}.json`）
+  * 你现在可以在 OpenAPI 文件中使用[`x-mint 字段`](https://mintlify.com/docs/api-playground/openapi-setup#x-mint-extension)来覆盖生成字段、自定义前置内容，或更改代码示例中的端点 URL
+  * 在 OpenAPI 配置中，[`x-mcp` 现改为 `x-mint.mcp`](https://mintlify.com/docs/api-playground/openapi-setup#mcp)，用于控制哪些路由作为 MCP 工具暴露
+
+  ## 助手更新
+
+  * 修复了当新消息流入时，旧消息的操作菜单（包含复制、点赞等选项）会消失的问题
+  * 修复了上周[托管 MCP 服务器发布](https://mintlify.com/docs/ai/model-context-protocol#accessing-your-mcp-server)后嵌套的 `/mcp/...` 页面可访问性问题
+
+  ## 性能与可靠性
+
+  * 文档仓库中的所有图像和视频资源现均可在你的域名下以正确路径提供服务。例如，仓库中有 `/assets/marketing/my-logo.png` 时，可通过 `https://mydocsurl.extension/assets/marketing/my-logo.png` 访问。
+  * Mintlify 控制台登录页的邮箱输入框现在会自动聚焦，你可以立即开始输入（体验优化）
+  * 在 Redis 中同时存储自定义域名与子域名，提升导航加载性能（约 50ms 延迟降低）
+  * 为 PDF 导出新增重试逻辑以提升可靠性
+  * 修复了在接受或关闭后 cookie 同意弹窗仍会再次出现的问题——首次选择现在会被正确保留
+  * 通过在 `navigator.write` 中指定 MIME `type`，修复了在 Safari 上复制页面到剪贴板的问题
+
+  ## 技术改进
+
+  * 修复了 Windows 与 pnpm 上的 CLI 问题，并添加了 CI 测试以防止回归
+  * 改进了错误日志输出——为工程团队调试带来更佳体验
+  * 当缺少 `contentDirectory` 文件时，修复了 broken-link CI action 的一些小问题
+  * 修复了上周与受保护预览相关的修复引发的回归，导致导航 UI 中的活动选项卡未被正确设置
+  * 修复了主题浅色背景未应用于活动选项卡图标的问题
+  * 修复了在控制台更改认证类型会先更新后又回退到先前保存类型的问题——现在新选择在保存后会持久化
+  * 为拥有自定义 UI 库的企业客户改进了内部 DX——我们现在更易在更短周期内纳入你的组件并满足需求
+</Update>
+
+<Update label="August 2" tags={["Improvements"]} rss={{ title: "Weekly Updates", description: "Authentication improvements, search enhancements, and assistant API" }}>
+  ## 身份验证改进
+
+  * 改进本地环境中的身份验证流程，加速该领域功能开发与缺陷修复
+  * 现已支持为受身份验证保护的站点提供预览部署
+  * 修复重定向逻辑，确保用户在身份验证后返回原始页面
+  * 修复完整身份验证的退出按钮显示问题（此前仅在部分身份验证下正常）
+
+  ## API 操作台增强
+
+  * 修复 API 操作台中 `multipart/form-data` 文件上传功能
+  * 修复锚点链接行为，使点击后仅更新 URL 而不会滚动到页面顶部
+  * 修复嵌套选项卡中的锚点链接问题
+
+  ## 助手更新
+
+  * 新增助手 API，便于集成到你的产品中，兼容 AI SDK
+  * 为聊天回复添加“复制”按钮
+  * 修复在助手中重试消息的问题
+  * 改进默认助手提示词，使其默认更为简洁
+
+  ## 性能与可靠性
+
+  * 通过在输入时中止防抖请求，让搜索更为敏捷和准确
+  * 为新的 CDN 进行资源预配——预计图片资源与页面加载时间将很快提升
+  * 修复渲染复杂 Mermaid 图表（如甘特图）的错误
+  * 修复 Windows 上的 CLI 问题以提升稳定性，并新增测试以防止回归
+
+  ## 技术改进
+
+  * 在 Next.js 应用中加入 OpenTelemetry 追踪，以改善客户的首字节时间（TTFB）
+  * 从 Octokit 迁移到 GitHub API Client，降低网页编辑器中的延迟
+  * 修复 OpenGraph 的重复 meta 标签
+  * 将 MongoDB 从 6 升级至 7，以提升性能并解锁新功能
+</Update>
+
+<Update label="July 2025" tags={["New releases", "Improvements"]} rss={{ title: "July Product Updates", description: "Slack app integration, hosted MCP servers, Cursor integration, and performance improvements" }}>
+  ## Slack 应用
+
+  * 零阻力接入：Bot 会响应私信、@提及，以及你 `#ask-ai` 频道中的任何问题
+  * 一键设置：可在 Mintlify 仪表盘中几秒内直接安装
+  * 上下文回答：搜索你的全部文档以提供相关且准确的回复
+  * 减少支持中断：将日常问题转化为即时的自助式答案
+
+  在我们的 [Slack 应用指南](/zh/ai/slack-app) 中了解更多。
+
+  ## 托管 MCP 服务器
+
+  通过 Mintlify 直接部署托管的 Model Context Protocol（MCP）服务器，以集成 Claude、Cursor 等 AI 工具。更多信息见我们的 [MCP 指南](/zh/ai/model-context-protocol)。
+
+  通过上下文菜单，让用户可从文档任意页面快速将你的 MCP 服务器连接到 Cursor 或 VS Code。更多信息见 [上下文菜单](/zh/ai/contextual-menu)。
+
+  ## 代码块改进
+
+  * 改进语法高亮
+  * 增加更多自定义选项，包括专注模式、可展开代码块、深浅色模式自适配、语言下拉菜单、行号和图标
+</Update>
+
+<Update label="June 2025" tags={["New releases", "Improvements"]} rss={{ title: "June Product Updates", description: "AI assistant updates and subscribable changelogs" }}>
+  ## AI 助手更新
+
+  * 通过带工具调用的代理式 RAG 提升准确性
+  * 提供可导航的引用页面链接，便于用户直接跳转到答案来源
+  * 为助手生成的代码示例提供复制快捷键
+  * 在文档的代码块上提供“Ask AI”快捷方式，从助手生成解释
+
+  在 [助手文档](/zh/ai/assistant) 中了解更多。
+
+  ## 可订阅的更新日志
+
+  * 从更新日志页面自动生成 RSS 源
+  * 将启用 RSS 的更新集成到 Slack、邮件及其他工具
+
+  参阅全新的[更新日志指南](/zh/create/changelogs)了解更多
+</Update>
+
+<Update label="May 2025" tags={["Improvements"]}>
+  ## API 操作台稳定性更新
+
+  * 支持搜索以定位端点
+  * 以标签标注已弃用的端点
+  * 从导航中隐藏自动生成的 API 页面
+  * 上传 multipart 或表单数据文件
+
+  在 [API 操作台文档](/zh/api-playground/) 了解更多。
+
+  ## `mint update`
+
+  现在可以使用 `mint update` 更新你的 CLI。
+</Update>
+
+<Update label="April 2025" tags={["New releases", "Improvements"]}>
+  ## 网页编辑器 3.0
+
+  <Frame>
+    ![Webeditor3 Jpe](/images/webeditor3.jpeg)
+  </Frame>
+
+  全面升级所见即所得编辑器的易用性。
+
+  **重大改进**
+
+  * 使用 ⌘ + P 快捷键按文件名搜索
+  * 页面加载速度提升 10 倍
+  * 搜索分支时加载更快
+  * 新增“页面选项”选项卡，可配置布局、标题与 SEO 元数据
+  * 选中文本时显示浮动工具栏
+
+  **其他修复**
+
+  * 修复更新日志组件的顶部边距
+  * 提升右键操作的稳定性
+  * 点击发布后将停留在当前页面，不再跳转到空状态
+  * 统一文件图标的配色
+  * 连续多次切换到新分支后的稳定性提升
+  * 移除 Diff 模式
+  * 通过下拉菜单新建文件夹时行为更一致
+  * 修复尝试取消选择时引用块会继续生成新引用块的问题
+
+  ## AI 翻译（测试版）
+
+  <Frame>
+    ![AI Translations graphic](/images/changelog/translations.png)
+  </Frame>
+
+  使用 AI 翻译全部文档。[了解更多。](organize/navigation#localization)
+
+  ## 导出文档为 PDF（测试版）
+
+  将全部文档、某个子目录或单个页面导出为 PDF。
+
+  ## 支持 React Hooks
+
+  为文档引入交互性。所有标准 React Hooks 会在你的 MDX 文件中自动可用。[了解更多。](customize/react-components)
+</Update>
+
+<Update label="March 2025" tags={["New releases", "Improvements"]}>
+  ## MCP 服务器生成器
+
+  <Frame>
+    ![screenshot of MCP server generator](/images/changelog/mcpgenerator.png)
+  </Frame>
+
+  生成 MCP 服务器，让 AI 应用可与文档或 API 交互。书面内容会自动生成为 MCP 服务器，你也可以一键从 OpenAPI 规范生成 MCP 服务器。查看[《MCP 入门》文档。](/zh/ai/model-context-protocol)
+
+  ## 改进
+
+  * 为更新日志条目添加标签，便于终端用户筛选
+  * AI Chat 支持 Sonnet-3.7。可在仪表盘中配置首选模型
+  * 可在仪表盘设置中直接更改部署名称
+
+  ## 错误修复
+
+  * 修复 OG 图片
+  * 修复无容器时锚点图标样式不一致的问题
+  * 优化仪表盘边框在移动/平板/桌面端的响应式样式细节
+  * 即使在简洁模式下，API 操作台也会显示代码示例
+  * 在网页编辑器中支持 “Command + K” 搜索快捷键
+  * 引用中的代码块可扩展以填满引用区域的宽度
+</Update>
+
+<Update label="February 2025" tags={["New releases", "Improvements"]}>
+  ## 新的配置模式 `docs.json`
+
+  <Frame>
+    ![docs.json 截图](/images/changelog/docsjson.png)
+  </Frame>
+
+  我们推出了新的 `docs.json` 模式以取代 `mint.json`，以支持更完善的多级版本管理、更直观的视觉理解，以及更一致的术语。详细变更请[查看我们的博客](https://mintlify.com/blog/refactoring-mint-json-into-docs-json)。
+
+  按以下步骤从 `mint.json` 升级到 `docs.json`：
+
+  1. 确保你的 CLI 为最新版本
+
+  ```bash
+  npm i mint@latest -g
+  ```
+
+  1. 在你的文档仓库中运行
+
+  ```bash
+  mint upgrade
+  ```
+
+  1. 删除旧的 `mint.json` 文件并推送你的更改
+
+  ## CI 检查
+
+  自动对文档进行 lint，定位失效链接、拼写与语法问题，或通过自定义的 Vale 配置强制执行写作风格。了解更多请查看我们的[文档](deploy/ci)。
+
+  ## 面向 LLM 的 .md 支持
+
+  所有文档页面现已自动提供为纯 Markdown 文件——只需在 URL 末尾追加 `.md`。这便于 LLM 更轻松地摄取文档的单个页面。
+
+  ## 更多主题
+
+  <Frame>
+    ![带有文本 "Themes v2" 的图形](/images/changelog/themes.png)
+  </Frame>
+
+  新增[预构建主题](customize/themes)，用于定制文档的外观与体验。可通过你的 [docs.json 文件](organize/settings) 配置。
+
+  现已提供：
+
+  * Maple
+  * Palm
+  * Willow
+
+  ## 其他改进
+
+  * [技术写作指南：](https://mintlify.com/guides/introduction)技术文档写作的最佳实践，包括受众研究、内容类型与写作技巧。
+  * [Dropdown 组件](organize/navigation#dropdowns)：除标签页与锚点外，还可用下拉菜单组织导航。
+  * [AI 语法修复器](https://x.com/ricardonunez_io/status/1892334887644123192)：网页编辑器会捕捉解析错误并使用 AI 提出修复建议。
+</Update>
+
+<Update label="January 2025" tags={["Improvements"]}>
+  ## AI 助手改进
+
+  * 全新 UI，包含专用聊天页面与预填提示
+  * 稳定性提升。例如修复了编辑到错误文件或未编辑任何文件的缺陷
+  * 在添加与编辑组件方面的知识更全面
+  * 改进了 `docs.json` 文件编辑体验
+
+  ## 部分身份验证
+
+  根据用户权限自定义对任意页面或内容分组的访问。支持接入你的自有身份验证系统。
+
+  ## 全面焕新的 API 操作台
+
+  我们重构了 [API 操作台](/zh/api-playground/) 的设计与性能。更新包括：
+
+  * 更便捷地展开细节以总览字段
+  * 更直观的嵌套交互，例如添加或删除条目
+  * 更快的响应时间
+
+  ## 质量改进
+
+  * 支持要求进行身份验证后才能访问预览部署
+</Update>
+
+<Update label="December 2024">
+  ## 身份验证
+
+  <Frame>
+    ![Authentication 截图](/images/changelog/authentication.png)
+  </Frame>
+
+  通过设置 JWT、OAuth 或通用密码使文档变为私有。在此隐私保护下，你可以创建内部知识库或防止竞争对手查看你的文档。
+</Update>
+
+<Update label="2024年11月">
+  ## AI Writer
+
+  <Frame>
+    ![AI 助手](/images/changelog/ai-assistant.jpg)
+  </Frame>
+
+  现在你可以在结合所有现有文档上下文的基础上，让 AI 修改你的文档。输入指令，Writer 将通过生成 pull request 来提出更改。
+
+  ## GitLab 集成升级
+
+  我们改进了与 GitLab 同步的支持，例如启用自动更新和预览部署。查看我们的[GitLab 文档](/zh/deploy/gitlab)以开始使用。
+
+  ## 网页编辑器
+
+  <Frame>
+    ![网页编辑器](/images/changelog/webeditor.jpg)
+  </Frame>
+
+  我们重构了网页编辑器，现在你可以在保持与 Markdown 同步的同时，以完整的所见即所得体验更新文档。
+
+  查看我们的[网页编辑器入门文档](/zh/editor)。
+
+  ## /llms.txt 支持
+
+  <Frame>
+    ![llms.txt 支持](/images/changelog/llms.jpg)
+  </Frame>
+
+  所有文档实例现在都会自动提供 /llms.txt 和 /llms-full.txt，便于 LLM 轻松摄取你的文档。更多信息请阅读[新的 llms.txt 标准文档](https://llmstxt.org)。
+
+  ## 本地化
+
+  你现在可以对文档进行本地化，其工作方式与版本管理类似。向某个版本添加 `locale` 后，Mintlify 中的固定内容（例如“此页面是否对你有帮助？”）也会匹配该语言区域。
+
+  ### 质量改进
+
+  * 基于用户当前阅读的版本返回聊天与搜索结果
+  * 除 JWT 或 Shared Session 令牌外，支持使用 OAuth 验证用户
+</Update>
+
+<Update label="2024年10月">
+  ## 更新日志
+
+  推出全新的[Update 组件](/zh/components/update)，让你更轻松地向用户展示与汇报更新（就像这条一样）。
+
+  <Frame>
+    ![Changelog](/images/changelog/changelog.jpg)
+  </Frame>
+
+  ## 代码行高亮
+
+  现在你可以在文档中高亮特定代码行。只需在语言标识后添加特殊注释，使用花括号 `{}` 指定行号或用逗号分隔的范围即可。
+
+  ```javascript Line Highlighting Example {1,3,4,5}
+  const greeting = "Hello, World!";
+  function sayHello() {
+    console.log(greeting);
+  }
+  sayHello();
+  ```
+
+  ````mdx
+  ```javascript Line Highlighting Example {1,3-5}
+  const greeting = "Hello, World!";
+  function sayHello() {
+    console.log(greeting);
+  }
+  sayHello();
+  ```
+  ````
+
+  ## 浅色模式代码块
+
+  代码块现在支持浅色模式，你可以在 `docs.json` 中添加以下配置启用：
+
+  ```json
+  "codeBlock": {
+    "mode": "auto"
+  }
+  ```
+
+  ## 高级页脚
+
+  <Frame>
+    ![Advanced Footer](/images/changelog/advanced-footer.gif)
+  </Frame>
+
+  你现在可以在标准页脚中添加更多链接。此升级能提升落地页与文档之间的一致性，或在需要突出社交媒体、状态日志等特定页面时提供更强的自定义能力。
+
+  ## 基于当前用户的搜索过滤
+
+  启用个性化后，搜索结果会基于当前登录用户进行过滤，确保他们只看到与其相关的内容。
+
+  ## AI 聊天自定义提示词
+
+  现在可以自定义 AI 聊天的提示词。如需自定义，请联系[support](mailto:support@mintlify.com)。
+
+  ## 控制台改进
+
+  * 支持在控制台设置中将自定义域名直接设置为 /docs。
+  * 合并登录与注册页面，降低阻碍与困惑。
+  * 实现发现式登录流程，支持隶属多个组织的用户在它们之间切换。
+  * 新增使用 Google OAuth 登录。
+  * 支持在控制台设置中添加新部署。
+
+  ## 错误修复
+
+  * 现在可在导航中使用前导斜杠。
+  * 现在可在网页编辑器中编辑 CSS 和 JS 文件。
+  * 修复已启用时 `suggestEdit` 仍不显示的问题。
+  * 修复搜索与聊天的键盘导航，现在可以使用上下方向键浏览结果。
+  * 不允许搜索引擎抓取需要用户认证的受保护页面。
+  * 当组织被删除时会重新验证缓存。
+  * 现在使用 Scalar OpenAPI 解析器解析 OpenAPI 定义，以提升性能、修复解析问题，并提供更清晰的错误信息。
+  * 现在支持在基于 OpenAPI 定义自动生成的 API 参考页面中展示顶级描述。
+  * 新增对图标的内联样式支持。
+  * 修复文档中自定义 CSS 的突然弹入问题。
+  * 与链接同时使用时，正确显示行内代码样式。
+  * 在浏览器中点击返回按钮时保持滚动位置。
+</Update>
+
+<Update label="September 2024">
+  ## 自定义字体
+
+  <Frame>
+    ![自定义字体](/images/changelog/custom-fonts.jpeg)
+  </Frame>
+
+  你可以将文档字体设置为托管在 CDN 上的自有字体，或从 Google Fonts 中选择，使文档更契合你的品牌。
+
+  ## Card 组件中的图片
+
+  在卡片中添加 `img` 属性即可在卡片顶部显示图片。了解更多[请见此处](/zh/components/cards#image-card)。
+
+  ## 更新速度优化
+
+  <Frame>
+    ![性能改进](/images/changelog/performance-improvements.png)
+  </Frame>
+
+  对于大型项目（约 3,000 个文件），文档更新的下载步骤现已快约 440 倍——时间减少 99.8%。整体来看，更新期间的文件下载现已快约 5.5 倍——时间减少 81.8%。
+
+  ## SEO 改进
+
+  <Frame>
+    ![SEO 改进](/images/changelog/seo-improvements.jpeg)
+  </Frame>
+
+  我们修复了文档在移动端和桌面端的布局，使其更利于 SEO——包括为导航栏和切换元素添加合适的 aria 标签。
+
+  ## 仪表盘改进
+
+  * 仪表盘完成 App Router 迁移。
+  * 仪表盘现已提供搜索分析。
+  * 仪表盘新增删除组织功能。
+  * 上线 GitLab 连接界面。
+  * 修复分析数据不准确的问题。
+  * 现在可直接在仪表盘购买附加组件。
+
+  ## Bug 修复
+
+  * 修复了在自定义模式且侧边栏布局为 `sidenav` 时，顶栏无法撑满屏幕宽度的问题。
+  * 修复 AI 小组件的相对定位。
+
+  ## 更多
+
+  * **API 页面故障排查**：API 页面可能较为复杂，我们整理了常见问题，帮助你快速定位并解决——[阅读文档](/zh/api-playground/troubleshooting)
+</Update>
+
+<Update label="August 2024">
+  ## OpenAPI 参考页面
+
+  * 由 OpenAPI 定义、结构复杂且递归的端点体积现缩小 98%。
+  * 我们现在会在 OpenAPI 页面中展示 [additionalProperties](https://swagger.io/docs/specification/data-models/dictionaries/)。
+
+  ## API 操作台中的文件上传
+
+  默认情况下，API 操作台的请求由 Mintlify 代理。现在你可以通过 `disableProxy` 禁用该行为，以支持文件上传等请求类型。
+
+  * [了解更多 API 配置](organize/settings#api-configurations)
+
+  ## 移动端 SEO 改进
+
+  我们修复了文档的移动端布局，使其更利于 SEO——包括为相关元素添加合适的 aria 标签。
+
+  ## 支持表单
+
+  我们在 Mintlify 仪表盘中新增了更详细的支持表单。你现在可以提交表单与我们联系。
+
+  ## Bug 修复
+
+  * 修复了 Segment 集成功能的一个问题。
+  * 与编辑器交互时，我们现在会针对 GitHub 权限抛出更细粒度的错误信息。
+  * 修复了使用直达链接时导航无法正确展开的问题。
+</Update>
+
+<Update label="July 2024">
+  ## AI 小组件
+
+  <Frame>
+    ![AI 小组件](/images/changelog/widget.png)
+  </Frame>
+
+  面向 `Pro` 用户，我们推出了 Mintlify Widget，它扩展你的文档，能在用户提出问题的时间和地点进行解答。你可以将这个 AI 驱动的聊天机器人添加到任意网页：着陆页、产品内，或现有文档页面。
+
+  * [阅读博客公告](https://mintlify.com/blog/widget)
+
+  ## Pro 方案
+
+  我们也更新了定价方案，以获得更好的自定义能力与扩展性。
+
+  * [阅读博客公告](https://mintlify.com/blog/pro-plan)
+
+  ## API 操作台代码示例同步
+
+  在浏览 API 文档时，所选代码示例现在会跨页面同步。
+
+  ## Insights
+
+  目前处于测试阶段，该功能会将常见的用户问题与模式汇总为易于理解的报告，并提供 AI 驱动的产品改进建议。
+</Update>
+
+<Update label="June 2024">
+  ## 发布周亮点
+
+  * 主题：使用预配置主题自定义样式。只需在 `docs.json` 中添加 Quill、Prism 或 Venus 主题，即可更新文档的外观样式。
+  * 搜索 V2：可直接检索 OpenAPI 端点的描述与标题以定位 API 参考页，从搜索结果中移除隐藏页面，并体验全新的搜索栏界面。
+  * 网页编辑器分支：无需 IDE，即可在我们的网页编辑器中创建分支。
+  * 用户个性化：通过 Shared Session 或 JWT 验证用户，以展示定制化内容，例如预填 API 密钥或为特定客户显示专属内容。
+  * OpenAPI 自动化升级：要自动生成 API 操作台页面，可在 `docs.json` 的 tabs 或 anchors 数组中对象里添加 `openapi` 字段。
+</Update>
+
+<Update label="May 2024">
+  ## Okta SSO
+
+  我们现已支持通过 Okta SAML 和 OIDC 登录。
+
+  ## Mintlify REST API
+
+  以编程方式触发文档更新。
+</Update>
+
+<Update label="April 2024">
+  ## 自定义模式
+
+  在元数据中添加配置，以移除除顶部栏之外的所有元素。示例用例：
+
+  * 使用自定义组件创建全局自定义落地页
+  * 添加全屏视频或图片库
+  * 嵌入自定义 iFrame 演示组件，为文档增强交互性
+
+  查看我们的[自定义模式文档](organize/pages#custom-mode)。
+</Update>
+
+<Update label="March 2024">
+  ## VSCode 的 Mintlify MDX
+
+  无需离开 VSCode，即可插入我们预构建组件与提示的代码片段。[在此安装扩展](https://marketplace.visualstudio.com/items?itemName=mintlify.mintlify-snippets)。
+</Update>
+
+<Update label="February 2024">
+  ## 质量改进
+
+  * 控制台升级：查看更新日志以了解变更与状态，并在不同 Mintlify 项目间切换以管理部署
+  * 完整支持基于选项卡的版本管理
+  * 支持通配符重定向
+  * CLI 错误检测：本地开发解析出错时，将显示无效 frontmatter 的具体位置
+</Update>
+
+<Update label="January 2024">
+  ## 发布周亮点
+
+  * 预览部署：创建 pull request 时，会生成一个唯一链接，用于展示文档在生产环境中的实时预览。你可以将该链接分享给团队成员。
+  * Snippets V2：现在支持可完全复用的组件与变量，用于片段。
+  * 开源 MDX 引擎：我们开放了两个 API——getCompiledMdx 和 MDXComponent——以便访问 Mintlify 的 Markdown 与代码语法高亮。[欢迎为该项目贡献代码](https://github.com/mintlify/mdx)。
+  * AI Chat 洞察：可按日期分段查看聊天记录、在控制台提升 AI Chat 配额，并查看特定查询的出现频率。
+</Update>

@@ -1,0 +1,398 @@
+---
+title: "Acessibilidade"
+description: "Crie documentação que o máximo de pessoas possível possa usar"
+---
+
+Ao criar documentação acessível, você prioriza um design de conteúdo que torna sua documentação utilizável pelo maior número possível de pessoas, independentemente de como elas acessam e interagem com ela.
+
+A documentação acessível melhora a experiência de uso para todos. Seu conteúdo fica mais claro, melhor estruturado e mais fácil de navegar.
+
+Este guia apresenta algumas práticas recomendadas para criar documentação acessível, mas não é exaustivo. Considere a acessibilidade um processo contínuo. Tecnologias e padrões mudam ao longo do tempo, o que traz novas oportunidades para melhorar a documentação.
+
+<div id="what-is-accessibility">
+  ## O que é acessibilidade?
+</div>
+
+Acessibilidade (às vezes abreviada como a11y, pelo número de letras entre a primeira e a última de “accessibility”) é projetar e construir de forma intencional sites e ferramentas que possam ser usados pelo maior número possível de pessoas. Pessoas com deficiências temporárias ou permanentes devem ter o mesmo nível de acesso às tecnologias digitais. E projetar com acessibilidade em mente beneficia a todos, inclusive quem acessa seu site em dispositivos móveis ou em redes lentas.
+
+Documentação acessível segue os padrões de acessibilidade na web, principalmente as [Diretrizes de Acessibilidade para Conteúdo da Web (WCAG)](https://www.w3.org/WAI/WCAG22/quickref/). Essas diretrizes ajudam a garantir que seu conteúdo seja perceptível, operável, compreensível e robusto.
+
+<div id="getting-started-with-accessibility">
+  ## Introdução à acessibilidade
+</div>
+
+Tornar sua documentação acessível é um processo. Você não precisa corrigir tudo de uma só vez, e isso não é algo que se faça apenas uma vez.
+
+Se você está começando a implementar práticas de acessibilidade na sua documentação, considere uma abordagem em fases: comece por mudanças de alto impacto e avance a partir daí.
+
+<div id="first-steps">
+  ### Primeiros passos
+</div>
+
+Aqui estão três ações que você pode realizar agora para melhorar a acessibilidade da sua documentação:
+
+1. **Execute `mint a11y`** para identificar problemas de acessibilidade no seu conteúdo.
+2. **Adicione texto alternativo (alt)** a todas as imagens.
+3. **Verifique a hierarquia de títulos** para garantir um H1 por página e que os títulos sigam a ordem sequencial.
+
+<div id="plan-your-accessibility-work">
+  ### Planeje seu trabalho de acessibilidade
+</div>
+
+O melhor fluxo de trabalho é aquele que funciona para a sua equipe. Aqui está uma forma de abordar o trabalho de acessibilidade:
+
+**Fase 1: Imagens e estrutura**
+
+- Revise todas as imagens para garantir textos alternativos descritivos.
+- Avalie o texto dos links e substitua frases genéricas como “clique aqui”.
+- Corrija problemas de hierarquia de títulos em toda a sua documentação.
+
+**Fase 2: Navegação e mídia**
+
+- Teste a navegação por teclado na sua documentação.
+- Teste a compatibilidade com leitores de tela.
+- Adicione legendas e transcrições aos vídeos incorporados.
+- Revise o contraste de cores.
+
+**Fase 3: Incorpore ao seu fluxo de trabalho**
+
+- Execute `mint a11y` antes de publicar novo conteúdo.
+- Inclua verificações de acessibilidade no seu processo de revisão de conteúdo.
+- Teste a navegação por teclado ao adicionar recursos interativos.
+- Verifique se novos links externos e conteúdos incorporados incluem títulos e descrições adequados.
+
+Começar pequeno e incorporar a acessibilidade ao seu fluxo de trabalho regular torna tudo mais sustentável. Cada melhoria ajuda mais pessoas a acessar sua documentação com sucesso.
+
+<div id="structure-your-content">
+  ## Estruture seu conteúdo
+</div>
+
+Um conteúdo bem estruturado é mais fácil de navegar e compreender, especialmente para usuários de leitores de tela, que dependem de cabeçalhos para percorrer as páginas, e para pessoas que utilizam navegação por teclado.
+
+<div id="use-proper-heading-hierarchy">
+  ### Use a hierarquia correta de títulos
+</div>
+
+Cada página deve ter um único H1, definido pela propriedade `title:` no frontmatter da página. Use os demais títulos em ordem, sem pular níveis. Por exemplo, não pule de H2 para H4.
+
+```mdx
+<!-- Bom -->
+# Título da página (H1)
+
+## Seção principal (H2)
+
+### Subseção (H3)
+
+### Outra subseção (H3)
+
+## Outra seção principal (H2)
+
+<!-- Ruim -->
+# Título da página (H1)
+
+## Seção principal (H2)
+
+#### Subseção (H4)
+
+### Outra subseção (H3)
+```
+
+Títulos no mesmo nível devem ter nomes únicos.
+
+```mdx
+<!-- Bom -->
+## Dicas de acessibilidade (H2)
+
+### Escreva texto alternativo eficaz (H3)
+
+### Use contraste de cores adequado (H3)
+
+<!-- Ruim -->
+## Dicas de acessibilidade (H2)
+
+### Dica (H3)
+
+### Dica (H3)
+```
+
+
+<div id="write-descriptive-link-text">
+  ### Escreva textos de link descritivos
+</div>
+
+O texto do link deve ser claro e relacionado ao destino. Evite frases vagas como &quot;clique aqui&quot; ou &quot;saiba mais&quot;.
+
+```mdx
+<!-- Bom -->
+Aprenda a [configurar sua navegação](/organize/navigation).
+
+<!-- Relação pouco clara entre  -->
+[Saiba mais](/organize/navigation).
+```
+
+
+<div id="keep-content-scannable">
+  ### Mantenha o conteúdo fácil de escanear
+</div>
+
+- Quebre parágrafos longos.
+- Use listas para etapas e opções.
+- Destaque informações com observações.
+
+<div id="use-proper-table-structure">
+  ### Use a estrutura de tabela adequada
+</div>
+
+Use tabelas com parcimônia e apenas para dados tabulares cujo significado derive dos cabeçalhos de colunas e linhas.
+
+Ao usar tabelas, inclua cabeçalhos para que leitores de tela possam associar os dados à coluna correta:
+
+```mdx
+| Recurso | Status |
+| ------- | ------ |
+| Busca  | Ativo |
+| Analytics | Ativo |
+```
+
+
+<div id="write-descriptive-alt-text">
+  ## Escreva texto alternativo descritivo
+</div>
+
+O texto alternativo torna as imagens acessíveis a usuários de leitores de tela e aparece quando elas não são carregadas. As imagens na sua documentação devem incluir texto alternativo que descreva a imagem e deixe claro por que ela está ali. Mesmo com texto alternativo, não confie apenas em imagens para transmitir informações. Certifique-se de que seu conteúdo descreva o que a imagem comunica.
+
+<div id="write-effective-alt-text">
+  ### Escreva um texto alternativo eficaz
+</div>
+
+* **Seja específico**: Descreva o que a imagem mostra, não apenas que é uma imagem.
+* **Seja conciso**: Procure usar uma ou duas frases.
+* **Evite redundância**: Não comece com &quot;Imagem de&quot;, pois leitores de tela já sabem que o texto alternativo está associado a uma imagem. No entanto, inclua descrições como &quot;Captura de tela de&quot; ou &quot;Diagrama de&quot; se esse contexto for importante para a imagem.
+
+```mdx
+<!-- Bom -->
+![Captura de tela do painel mostrando três projetos ativos e dois convites pendentes](/images/dashboard.png)
+
+<!-- Não útil -->
+![Captura de tela do painel](/images/dashboard.png)
+```
+
+
+<div id="add-alt-text-to-images">
+  ### Adicione texto alternativo às imagens
+</div>
+
+Para imagens em Markdown, inclua o texto alternativo entre colchetes:
+
+```mdx
+![Descrição da imagem](/path/to/image.png)
+```
+
+Para imagens em HTML, use o atributo `alt`:
+
+```html
+<img
+  src="/images/screenshot.png"
+  alt="Painel de configurações com opções de acessibilidade ativadas. As opções estão destacadas com um retângulo laranja."
+/>
+```
+
+
+<div id="add-titles-to-embedded-content">
+  ### Adicione títulos ao conteúdo incorporado
+</div>
+
+Iframes e vídeos incorporados exigem títulos descritivos:
+
+```html
+<iframe
+  src="https://www.youtube.com/embed/example"
+  title="Tutorial: Configurando seu primeiro site de documentação"
+></iframe>
+```
+
+
+<div id="design-for-readability">
+  ## Design voltado à legibilidade
+</div>
+
+As escolhas de design visual afetam a acessibilidade da sua documentação para pessoas com baixa visão, daltonismo ou outras deficiências visuais.
+
+<div id="ensure-sufficient-color-contrast">
+  ### Garanta contraste de cor suficiente
+</div>
+
+Se você personalizar as cores do tema, verifique se as razões de contraste atendem aos requisitos do WCAG:
+
+- Corpo do texto: razão de contraste mínima de 4,5:1
+- Texto grande: razão de contraste mínima de 3:1
+- Elementos interativos: razão de contraste mínima de 3:1
+
+Teste nos modos claro e escuro. O comando `mint a11y` verifica o contraste de cores.
+
+<div id="dont-rely-on-color-alone">
+  ### Não dependa apenas da cor
+</div>
+
+Se você usar cores para transmitir informações, inclua também um rótulo de texto ou um ícone. Por exemplo, não indique erros apenas com texto em vermelho. Inclua um ícone de erro ou a palavra “Erro”.
+
+<div id="use-clear-concise-language">
+  ### Use linguagem clara e concisa
+</div>
+
+- Escreva em linguagem simples.
+- Defina os termos técnicos na primeira vez que forem usados.
+- Evite períodos longos.
+- Use a voz ativa.
+
+<div id="make-code-examples-accessible">
+  ## Torne exemplos de código acessíveis
+</div>
+
+Blocos de código são parte essencial da documentação técnica, mas exigem considerações específicas de acessibilidade para garantir que pessoas que usam leitores de tela possam compreendê-los. Em geral, siga estas diretrizes:
+
+- Divida exemplos de código longos em blocos menores e lógicos.
+- Adicione comentários explicando lógicas complexas dentro do código.
+- Considere fornecer uma descrição em texto para algoritmos complexos.
+- Ao mostrar a estrutura de arquivos, use blocos de código de verdade com indicação da linguagem, em vez de arte ASCII.
+
+<div id="specify-the-programming-language">
+  ### Especifique a linguagem de programação
+</div>
+
+Sempre declare o idioma para destaque de sintaxe. Isso ajuda os leitores de tela a anunciar o contexto do código aos usuários:
+
+````mdx
+```javascript
+function getUserData(id) {
+  return fetch(`/api/users/${id}`);
+}
+```
+````
+
+
+<div id="provide-context-around-code">
+  ### Forneça contexto para o código
+</div>
+
+Forneça um contexto claro para os blocos de código:
+
+````mdx
+A função a seguir busca dados do usuário da API:
+
+```javascript
+function getUserData(id) {
+  return fetch(`/api/users/${id}`);
+}
+```
+
+Isso retorna uma promise que é resolvida com o objeto do usuário.
+````
+
+
+<div id="video-and-multimedia-accessibility">
+  ## Acessibilidade em vídeos e multimídia
+</div>
+
+Vídeos, animações e outros conteúdos multimídia precisam de alternativas em texto para que todos os usuários possam acessar as informações que contêm.
+
+<div id="add-captions-to-videos">
+  ### Adicione legendas aos vídeos
+</div>
+
+As legendas tornam o conteúdo em vídeo acessível para pessoas surdas ou com deficiência auditiva. Elas também ajudam quem está em ambientes sensíveis a som e falantes não nativos:
+
+- Use legendas para todo o conteúdo falado nos vídeos.
+- Inclua efeitos sonoros relevantes nas legendas.
+- Garanta que as legendas estejam sincronizadas com o áudio.
+- Use pontuação adequada e identifique os falantes quando houver várias pessoas falando.
+
+A maioria das plataformas de hospedagem de vídeo permite adicionar legendas. Envie arquivos de legenda ou use legendas geradas automaticamente como ponto de partida e, em seguida, revise para garantir a precisão.
+
+<div id="provide-transcripts">
+  ### Forneça transcrições
+</div>
+
+As transcrições oferecem uma forma alternativa de acessar conteúdo em vídeo. Elas podem ser pesquisadas, são mais fáceis de consultar e acessíveis a leitores de tela:
+
+```mdx
+<iframe
+  src="https://www.youtube.com/embed/example"
+  title="Tutorial: Configurando autenticação"
+></iframe>
+
+<Accordion title="Transcrição do vídeo">
+Neste tutorial, vamos mostrar como configurar a autenticação...
+</Accordion>
+```
+
+Posicione as transcrições próximas ao vídeo ou disponibilize um link claro para acessá-las.
+
+
+<div id="consider-alternatives-to-video-only-content">
+  ### Considere alternativas a conteúdo apenas em vídeo
+</div>
+
+Se informações críticas aparecem somente em um vídeo:
+
+- Ofereça as mesmas informações em texto.
+- Inclua capturas de tela essenciais com texto alternativo descritivo.
+- Crie um tutorial escrito que aborde o mesmo conteúdo.
+
+Isso garante que usuários que não têm acesso a conteúdo em vídeo ainda consigam concluir suas tarefas.
+
+<div id="test-your-documentation">
+  ## Teste sua documentação
+</div>
+
+Testes regulares ajudam a identificar problemas de acessibilidade antes que os usuários os encontrem.
+
+<div id="check-for-accessibility-issues-with-mint-a11y">
+  ### Verifique problemas de acessibilidade com `mint a11y`
+</div>
+
+Use o comando de CLI `mint a11y` para verificar automaticamente sua documentação em busca de problemas comuns de acessibilidade:
+
+```bash
+mint a11y
+```
+
+O comando verifica:
+
+* Falta de texto alternativo em imagens
+* Hierarquia de títulos inadequada
+* Contraste de cores insuficiente
+
+Quando a verificação for concluída, revise os problemas reportados e corrija-os no seu conteúdo. Execute o comando novamente para confirmar as correções.
+
+
+<div id="basic-keyboard-navigation-test">
+  ### Teste básico de navegação por teclado
+</div>
+
+Navegue pela documentação usando apenas o teclado:
+
+1. Pressione <kbd>Tab</kbd> para avançar pelos elementos interativos.
+2. Pressione <kbd>Shift</kbd> + <kbd>Tab</kbd> para voltar.
+3. Pressione <kbd>Enter</kbd> para ativar links e botões.
+4. Verifique se todos os elementos interativos são alcançáveis e exibem indicadores visuais de foco.
+
+<div id="go-deeper-with-accessibility-testing">
+  ### Aprofunde os testes de acessibilidade
+</div>
+
+Para uma avaliação mais abrangente:
+
+- **Leitores de tela**: Teste com [NVDA (Windows)](https://www.nvaccess.org/) ou [VoiceOver (Mac)](https://www.apple.com/accessibility/voiceover/).
+- **Extensões do navegador**: Instale [axe DevTools](https://www.deque.com/axe/browser-extensions/) ou [WAVE](https://wave.webaim.org/extension/) para verificar páginas em busca de problemas.
+- **Diretrizes WCAG**: Consulte as [Diretrizes de Acessibilidade para Conteúdo da Web](https://www.w3.org/WAI/WCAG22/quickref/) para obter padrões detalhados.
+
+<div id="additional-resources">
+  ## Recursos adicionais
+</div>
+
+Continue aprendendo sobre acessibilidade com estes recursos confiáveis:
+
+- **[WebAIM](https://webaim.org/)**: artigos e tutoriais práticos sobre acessibilidade na web
+- **[The A11y Project](https://www.a11yproject.com/)**: recursos e checklist de acessibilidade orientados pela comunidade
+- **[W3C Web Accessibility Initiative (WAI)](https://www.w3.org/WAI/)**: padrões e diretrizes oficiais de acessibilidade

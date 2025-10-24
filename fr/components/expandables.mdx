@@ -1,0 +1,45 @@
+---
+title: "Volets déroulants"
+description: "Permet d’afficher ou de masquer des propriétés imbriquées"
+---
+
+Utilisez des volets déroulants pour afficher ou masquer le contenu imbriqué dans les champs de réponse. Ils sont particulièrement utiles pour présenter des propriétés d’objets complexes dans la documentation d’API.
+
+<ResponseField name="user" type="User Object">
+  <Expandable title="properties">
+    <ResponseField name="full_name" type="string">
+      Nom complet de l’utilisateur
+    </ResponseField>
+
+    <ResponseField name="is_over_21" type="boolean">
+      Indique si l’utilisateur a plus de 21 ans
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+```mdx Expandable example
+<ResponseField name="user" type="User Object">
+  <Expandable title="properties">
+    <ResponseField name="full_name" type="string">
+      Le nom complet de l'utilisateur
+    </ResponseField>
+
+    <ResponseField name="is_over_21" type="boolean">
+      Indique si l'utilisateur a plus de 21 ans
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+```
+
+
+<div id="properties">
+  ## Propriétés
+</div>
+
+<ResponseField name="title" type="string">
+  Le nom de l’objet affiché.
+</ResponseField>
+
+<ResponseField name="defaultOpen" type="boolean" default="false">
+  Définir sur `true` pour que le panneau extensible s’ouvre au chargement de la page.
+</ResponseField>

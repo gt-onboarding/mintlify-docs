@@ -1,0 +1,50 @@
+---
+title: "更新"
+description: "跟踪更改与更新"
+---
+
+使用 `Update` 组件以统一的格式展示更新日志、版本变更和发行说明。
+
+<Update label="示例" description="v0.1.1">
+  ## 示例更新
+
+  你可以在这里添加任何内容，例如截图、代码片段或变更列表。
+
+  <Frame>
+    <img className="block" src="https://mintlify-assets.b-cdn.net/hero-light.png" alt="PearsDB 介绍页截图，用作 Update 组件中图像示例。" />
+  </Frame>
+
+  ### 功能
+
+  * 自适应设计
+  * 每个更新都有锚点
+  * 为每个更新生成 RSS 订阅源条目
+</Update>
+
+<div id="how-to-use">
+  ## 使用指南
+</div>
+
+```mdx Update example
+<Update label="2024-10-11" description="v0.1.0" tags={["Mintlify"]}>
+  这是一个带有标签、描述和标记的更新。
+</Update>
+```
+
+使用多个 `Update` 组件创建[更新日志](/zh/create/changelogs)。
+
+<div id="props">
+  ## Props
+</div>
+
+<ResponseField name="label" type="string" required>
+  更新项的标签。显示在更新项左侧，并会创建一个锚点链接。标签应唯一。
+</ResponseField>
+
+<ResponseField name="tags" type="string[]">
+  更新项的标签。显示为右侧面板中的筛选条件。
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  更新项的描述。显示在标签和标签下方。
+</ResponseField>

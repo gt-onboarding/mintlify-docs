@@ -1,0 +1,71 @@
+---
+title: "Passos"
+description: "Organize conteúdo em sequência usando o componente Steps"
+---
+
+import IconsOptional from "/snippets/pt-BR/icons-optional.mdx";
+
+Use etapas para exibir uma série de ações ou eventos sequenciais. Você pode adicionar quantas etapas forem necessárias.
+
+<Steps>
+  <Step title="Primeira etapa">
+    Estas são instruções ou conteúdos que se aplicam apenas à primeira etapa.
+  </Step>
+
+  <Step title="Segunda etapa">
+    Estas são instruções ou conteúdos que se aplicam apenas à segunda etapa.
+  </Step>
+
+  <Step title="Terceira etapa">
+    Estas são instruções ou conteúdos que se aplicam apenas à terceira etapa.
+  </Step>
+</Steps>
+
+```mdx Steps example
+<Steps>
+  <Step title="Primeira Etapa">
+    Estas são instruções ou conteúdo relacionados apenas à primeira etapa.
+  </Step>
+  <Step title="Segunda Etapa">
+    Estas são instruções ou conteúdo relacionados apenas à segunda etapa.
+  </Step>
+  <Step title="Terceira Etapa">
+    Estas são instruções ou conteúdo relacionados apenas à terceira etapa.
+  </Step>
+</Steps>
+```
+
+
+<div id="steps-properties">
+  ## Propriedades de Steps
+</div>
+
+<ResponseField name="children" type="ReactElement<StepProps>[]" required>
+  Uma lista de componentes `Step`.
+</ResponseField>
+
+<ResponseField name="titleSize" type="string" default="p">
+  O tamanho dos títulos dos passos. Um entre `p`, `h2` e `h3`.
+</ResponseField>
+
+<div id="individual-step-properties">
+  ## Propriedades individuais da etapa
+</div>
+
+<ResponseField name="children" type="string | ReactNode" required>
+  O conteúdo de uma etapa, seja como texto simples ou como componentes.
+</ResponseField>
+
+<IconsOptional />
+
+<ResponseField name="title" type="string">
+  O título é o texto principal da etapa e aparece ao lado do indicador.
+</ResponseField>
+
+<ResponseField name="stepNumber" type="number">
+  O número da etapa.
+</ResponseField>
+
+<ResponseField name="titleSize" type="string" default="p">
+  O tamanho dos títulos das etapas. Um dentre `p`, `h2` e `h3`.
+</ResponseField>

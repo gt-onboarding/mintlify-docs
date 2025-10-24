@@ -1,0 +1,30 @@
+---
+title: "Deployments"
+description: "Probleme mit Ihren Deployments beheben"
+---
+
+Ihre Dokumentationssite wird automatisch deployed, wenn Sie Änderungen in das verbundene Repository pushen. Hierfür muss die Mintlify-GitHub-App ordnungsgemäß installiert und verbunden sein.
+
+Wenn Ihre neuesten Änderungen nicht auf der Live-Site erscheinen, prüfen Sie zunächst, ob die GitHub-App auf dem Konto oder in der Organisation installiert ist, die Ihr Docs-Repository besitzt. Weitere Informationen finden Sie unter [GitHub-Troubleshooting](/de/deploy/github#troubleshooting).
+
+Wenn die GitHub-App verbunden ist, Änderungen jedoch weiterhin nicht deployed werden, können Sie in Ihrem Dashboard manuell einen Rebuild auslösen.
+
+<div id="manually-triggering-a-deployment">
+  ## Bereitstellung manuell auslösen
+</div>
+
+<Steps>
+  <Step title="Prüfen Sie, ob Ihr letzter Commit erfolgreich war.">
+    Vergewissern Sie sich, dass Ihr letzter Commit im Docs-Repository erscheint und keine Fehler aufgetreten sind.
+  </Step>
+
+  <Step title="Bereitstellung manuell auslösen.">
+    Öffnen Sie Ihr [Dashboard](https://dashboard.mintlify.com) und klicken Sie auf Deploy.
+
+    <Frame>
+      <img src="/images/deployments/manual-update-light.png" alt="Die Schaltfläche für das manuelle Update, hervorgehoben durch ein orangefarbenes Rechteck." className="block dark:hidden" />
+
+      <img src="/images/deployments/manual-update-dark.png" alt="Die Schaltfläche für das manuelle Update, hervorgehoben durch ein orangefarbenes Rechteck." className="hidden dark:block" />
+    </Frame>
+  </Step>
+</Steps>

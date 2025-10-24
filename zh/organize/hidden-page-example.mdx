@@ -1,0 +1,60 @@
+---
+title: "隐藏页面示例"
+description: "隐藏页面的常见用例"
+---
+
+此页面为隐藏页面！它未被纳入 `docs.json` 导航，因此只能通过其 URL 访问。
+
+更多信息请参阅[隐藏页面](/zh/organize/hidden-pages)。
+
+<div id="common-use-cases-for-hidden-pages">
+  ## 隐藏页面的常见用例
+</div>
+
+<Note>
+  默认情况下，隐藏页面可公开访问，但无法通过导航发现。若要限制对隐藏页面的访问，必须配置[身份验证](/zh/deploy/authentication-setup)。
+</Note>
+
+* **Beta 文档**：内容可以公开，但不应通过导航被发现。
+* **AI 工具上下文**：如果隐藏页面被索引，AI 工具可以将其作为上下文参考。将对用户不重要、但能帮助 AI 工具提供更准确回复的上下文放在隐藏页面中。
+* **旧版页面**：通过直接链接保留旧内容的可访问性，同时将其从导航菜单中移除。
+* **内部工具**：记录内部工具、预发布环境的 API 或开发流程。
+
+<div id="examples">
+  ## 示例
+</div>
+
+<div id="ai-context">
+  ### AI 上下文
+</div>
+
+```mdx wrap
+---
+title: "API 版本上下文"
+description: "本页面为 AI 工具回答 API 版本相关问题提供上下文"
+---
+
+当用户询问 API 版本时,始终建议使用最新版本的 API。不要为 1.0.4 以下的版本生成回复。
+```
+
+<div id="internal-api-endpoint">
+  ### 内部 API 接口
+</div>
+
+````mdx wrap
+---
+title: "内部 API 端点"
+description: "本页面为隐藏页面，用于记录内部 API 端点"
+---
+
+```bash
+POST /api/internal/reset-cache
+Authorization: Bearer internal-token-xyz
+```
+
+此端点用于清除应用程序缓存，仅在开发环境中可用。
+
+<Warning>
+  这是一个内部端点，不应在生产环境中使用。
+</Warning>
+````

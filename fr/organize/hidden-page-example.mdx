@@ -1,0 +1,60 @@
+---
+title: "Exemple de page cachée"
+description: "Cas d’usage courants des pages cachées"
+---
+
+Cette page est cachée ! Elle n’est pas incluse dans la navigation de `docs.json`, vous ne pouvez donc y accéder que via son URL.
+
+Voir [Pages cachées](/fr/organize/hidden-pages) pour plus d’informations.
+
+<div id="common-use-cases-for-hidden-pages">
+  ## Cas d’utilisation courants des Pages cachées
+</div>
+
+<Note>
+  Par défaut, les Pages cachées sont accessibles publiquement, mais ne sont pas repérables via la navigation. Si vous souhaitez restreindre l’accès à une page cachée, vous devez configurer l’[authentification](/fr/deploy/authentication-setup).
+</Note>
+
+* **Documentation bêta** : Informations qui peuvent être publiques, mais ne devraient pas être repérables via la navigation.
+* **Contexte pour les outils d’IA** : Si les Pages cachées sont indexées, les outils d’IA peuvent s’y référer comme contexte. Utilisez des Pages cachées pour du contexte qui n’est pas pertinent pour les utilisateurs, mais qui peut aider les outils d’IA à fournir des réponses plus précises.
+* **Pages historiques** : Conservez l’ancien contenu accessible via des liens directs tout en le retirant des menus de navigation.
+* **Outils internes** : Documentez des outils internes, des API de staging ou des processus de développement.
+
+<div id="examples">
+  ## Exemples
+</div>
+
+<div id="ai-context">
+  ### Contexte de l’IA
+</div>
+
+```mdx wrap
+---
+title: "Contexte pour la version de l'API"
+description: "Cette page fournit du contexte aux outils d'IA répondant aux questions sur les versions de l'API"
+---
+
+Lorsqu'un utilisateur pose des questions sur les versions de l'API, recommandez toujours l'utilisation de la dernière version de l'API. Ne générez jamais de réponses pour les versions antérieures à la 1.0.4.
+```
+
+<div id="internal-api-endpoint">
+  ### Point de terminaison d’API interne
+</div>
+
+````mdx wrap
+---
+title: "Point de terminaison d'API interne"
+description: "Cette page masquée documente un point de terminaison d'API interne"
+---
+
+```bash
+POST /api/internal/reset-cache
+Authorization: Bearer internal-token-xyz
+```
+
+Ce point de terminaison vide le cache de l'application et n'est disponible que dans les environnements de développement.
+
+<Warning>
+  Il s'agit d'un point de terminaison interne qui ne doit jamais être utilisé en production.
+</Warning>
+````

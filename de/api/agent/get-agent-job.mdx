@@ -1,0 +1,19 @@
+---
+openapi: GET /agent/{projectId}/job/{id}
+---
+
+<div id="usage">
+  ## Verwendung
+</div>
+
+Dieser Endpunkt ruft Details und Status eines bestimmten Agent-Jobs anhand seiner eindeutigen ID ab. Nutzen Sie ihn, um den Fortschritt, den Status und die Ergebnisse eines zuvor erstellten Agent-Jobs zu überprüfen.
+
+<div id="job-details">
+  ## Jobdetails
+</div>
+
+Die Antwort enthält Informationen wie:
+
+- Ausführungsstatus und Abschlussstatus des Jobs
+- Branch-Informationen und Details zur Pull-Request
+- Sitzungsmetadaten und Zeitstempel

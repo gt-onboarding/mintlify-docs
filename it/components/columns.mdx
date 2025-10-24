@@ -1,0 +1,37 @@
+---
+title: "Colonne"
+description: "Mostra le card affiancate in una griglia"
+keywords: ['card groups']
+---
+
+Il componente `Columns` consente di raggruppare più componenti `Card` insieme. È usato soprattutto per disporre le card in una griglia, specificando il numero di colonne.
+
+<Columns cols={2}>
+  <Card title="Per iniziare" icon="rocket">
+    Configura il tuo progetto con la nostra guida rapida.
+  </Card>
+
+  <Card title="Reference API" icon="code">
+    Esplora endpoint, parametri ed esempi della tua API.
+  </Card>
+</Columns>
+
+```mdx Columns example
+<Columns cols={2}>
+  <Card title="Inizia">
+    Configura il tuo progetto con la nostra guida rapida.
+  </Card>
+  <Card title="Riferimento API">
+    Esplora endpoint, parametri ed esempi per la tua API.
+  </Card>
+</Columns>
+```
+
+
+<div id="properties">
+  ## Proprietà
+</div>
+
+<ResponseField name="cols" default={2}>
+  Numero di colonne per riga.
+</ResponseField>

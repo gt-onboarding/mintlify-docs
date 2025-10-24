@@ -1,0 +1,160 @@
+---
+title: "Migrare le pagine API MDX alla navigazione OpenAPI"
+sidebarTitle: "Migra da MDX a OAS"
+description: "Passa dalle singole pagine degli endpoint MDX alla generazione automatica con OpenAPI e una navigazione flessibile"
+---
+
+Se stai attualmente usando pagine `MDX` per i tuoi endpoint API, puoi migrare alla generazione automatica a partire dalla tua specifica OpenAPI mantenendo la possibilità di personalizzare le singole pagine. Questo ti aiuta a ridurre il numero di file da gestire e a migliorare la coerenza della documentazione API.
+
+Puoi definire metadati e contenuti per ogni endpoint nella tua specifica OpenAPI e organizzare gli endpoint dove preferisci nella navigazione.
+
+<div id="cli-migration">
+  ## Migrazione tramite CLI
+</div>
+
+Il comando `mint migrate-mdx` è il metodo consigliato per migrare dalle pagine endpoint in MDX alle pagine autogenerate.
+
+Questo comando:
+
+* Analizza la struttura di navigazione del tuo `docs.json`.
+* Identifica le pagine MDX che generano pagine endpoint OpenAPI.
+* Estrae il contenuto dai file MDX e lo sposta nell’estensione `x-mint` nella tua specifica OpenAPI.
+* Aggiorna il tuo `docs.json` per fare riferimento direttamente agli endpoint OpenAPI invece che ai file MDX.
+* Elimina i file MDX originali degli endpoint.
+
+<Info>
+  Se hai già `x-mint` definito per un endpoint e disponi anche di una pagina MDX con contenuti per lo stesso endpoint, il contenuto MDX sovrascriverà le impostazioni `x-mint` esistenti.
+
+  Se hai più pagine MDX per lo stesso endpoint con contenuti diversi, lo script userà il contenuto della pagina che compare per ultima nel tuo `docs.json`.
+
+  Lo strumento di migrazione non supporta l’anteprima delle modifiche prima di applicarle.
+</Info>
+
+<Steps>
+  <Step title="Prepara la tua specifica OpenAPI.">
+    Assicurati che la tua specifica OpenAPI sia valida e includa tutti gli endpoint che vuoi documentare.
+
+    Qualsiasi pagina MDX che desideri migrare deve avere il frontmatter `openapi:` che fa riferimento a un endpoint.
+
+    <Tip>
+      Convalida il tuo file OpenAPI usando lo [Swagger Editor](https://editor.swagger.io/) o la [Mint CLI](https://www.npmjs.com/package/mint).
+    </Tip>
+  </Step>
+
+  <Step title="Installa la Mint CLI">
+    Se necessario, installa o aggiorna la [Mint CLI](/it/installation).
+  </Step>
+
+  <Step title="Esegui il comando di migrazione.">
+    ```bash
+    mint migrate-mdx
+    ```
+  </Step>
+</Steps>
+
+<div id="manual-migration-steps">
+  ## Passaggi di migrazione manuale
+</div>
+
+<Steps>
+  <Step title="Prepara la specifica OpenAPI.">
+    Assicurati che la specifica OpenAPI sia valida e includa tutti gli endpoint che desideri documentare.
+
+    Per gli endpoint di cui vuoi personalizzare metadati o contenuti, aggiungi l&#39;estensione `x-mint` all&#39;endpoint. Consulta [x-mint extension](/it/api-playground/openapi-setup#x-mint-extension) per maggiori dettagli.
+
+    Per gli endpoint che vuoi escludere dalla documentazione, aggiungi l&#39;estensione `x-hidden` all&#39;endpoint.
+
+    <Info>
+      Convalida il file OpenAPI usando lo [Swagger Editor](https://editor.swagger.io/) o la [Mint CLI](https://www.npmjs.com/package/mint).
+    </Info>
+  </Step>
+
+  <Step title="Aggiorna la struttura di navigazione.">
+    Sostituisci i riferimenti alle pagine `MDX` con gli endpoint OpenAPI nel file `docs.json`.
+
+    ```json
+    "navigation": {
+      "groups": [
+        {
+          "group": "API Reference",
+          "openapi": "/path/to/openapi.json",
+          "pages": [
+            "overview",
+            "authentication",
+            "introduction",
+            "GET /health",
+            "quickstart", 
+            "POST /users",
+            "GET /users/{id}",
+            "advanced-features"
+          ]
+        }
+      ]
+    }
+    ```
+  </Step>
+
+  <Step title="Rimuovi i vecchi file MDX.">
+    Dopo aver verificato che la nuova navigazione funzioni correttamente, rimuovi i file `MDX` degli endpoint di cui non hai più bisogno.
+  </Step>
+</Steps>
+
+<div id="navigation-patterns">
+  ## Modelli di navigazione
+</div>
+
+Puoi personalizzare il modo in cui la documentazione della tua API viene mostrata nella navigazione.
+
+<div id="mixed-content-navigation">
+  ### Navigazione di contenuti misti
+</div>
+
+Combina pagine API generate automaticamente con altre pagine:
+
+```json
+"navigation": {
+  "groups": [
+    {
+      "group": "Riferimento API",
+      "openapi": "openapi.json",
+      "pages": [
+        "api/overview",
+        "GET /users",
+        "POST /users", 
+        "api/authentication"
+      ]
+    }
+  ]
+}
+```
+
+### Più versioni dell&#39;API
+
+Organizza le diverse versioni dell&#39;API usando tab o gruppi:
+
+```json
+"navigation": {
+  "tabs": [
+    {
+      "tab": "API v1",
+      "openapi": "specs/v1.json"
+    },
+    {
+      "tab": "API v2",
+      "openapi": "specs/v2.json"
+    }
+  ]
+}
+```
+
+<div id="when-to-use-individual-mdx-pages">
+  ## Quando usare pagine `MDX` individuali
+</div>
+
+Valuta di mantenere pagine `MDX` individuali quando ti servono:
+
+* Contenuti personalizzati approfonditi per ciascun endpoint, come componenti React o esempi estesi.
+* Layout di pagina unici.
+* Approcci di documentazione sperimentali per endpoint specifici.
+
+Per la maggior parte dei casi d’uso, la navigazione OpenAPI garantisce migliore mantenibilità e coerenza.

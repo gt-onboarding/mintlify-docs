@@ -1,0 +1,23 @@
+<ResponseField name="icon" type="string" required>
+  L'icona da visualizzare.
+  
+  Opzioni:
+  - Nome dell'icona [Font Awesome](https://fontawesome.com/icons)
+  - Nome dell'icona [Lucide](https://lucide.dev/icons)
+  - Codice SVG compatibile con JSX racchiuso tra parentesi graffe
+  - URL di un'icona ospitata esternamente
+  - Percorso di un file icona nel tuo progetto
+  
+  Per icone SVG personalizzate:
+  1. Converti l'SVG con il [convertitore SVGR](https://react-svgr.com/playground/).
+  1. Incolla il codice SVG nel campo di input SVG.
+  2. Copia l'elemento completo `<svg>...</svg>` dal campo di output JSX.
+  3. Racchiudi il codice SVG compatibile con JSX tra parentesi graffe: `icon={<svg ...> ... </svg>}`.
+  4. Regola `height` e `width` secondo necessità.
+</ResponseField>
+
+<ResponseField name="iconType" type="string">
+  Lo stile dell'icona [Font Awesome](https://fontawesome.com/icons). Utilizzato solo con le icone Font Awesome. 
+  
+  Opzioni: `regular`, `solid`, `light`, `thin`, `sharp-solid`, `duotone`, `brands`.
+</ResponseField>

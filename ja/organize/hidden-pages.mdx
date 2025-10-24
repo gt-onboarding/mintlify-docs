@@ -1,0 +1,87 @@
+---
+title: "非表示ページ"
+description: "ナビゲーションからページを除外する"
+---
+
+非表示ページは、サイトのナビゲーションには表示されませんが、URL を知っている人であれば誰でもアクセスできます（公開状態）。
+
+非表示ページは、サイト上でアクセス可能にしたい、または AI ツールのコンテキストとして参照させたいが、ナビゲーションからは見つからないようにしたいコンテンツに使用してください。
+
+厳密なアクセス制御が必要なコンテンツについては、[認証](/ja/deploy/authentication-setup) を設定してください。
+
+特定のユーザーグループ向けにページを非表示にしたい場合は、パーソナライゼーションを使用して[ページの表示制御](/ja/authentication-personalization/overview#page-visibility)を行ってください。
+
+<div id="hiding-a-page">
+  ## ページを非表示にする
+</div>
+
+`docs.json` のナビゲーションに含まれていないページは非表示になります。ページを非表示にするには、ナビゲーション構造からそのページを削除してください。
+
+非表示ページは、ファイルパスに基づいて通常のページと同じ URL 構造になります。たとえば、`guides/hidden-page.mdx` は `docs.yoursite.com/guides/hidden-page` でアクセスできます。
+
+[非表示ページの例](/ja/organize/hidden-page-example)をご覧ください。
+
+<Note>
+  サイドバー、ドロップダウン、タブなどのナビゲーション要素は、非表示ページでは空になったり、レイアウトが崩れたりする場合があります。
+</Note>
+
+<div id="hiding-a-group-of-pages">
+  ## ページグループを非表示にする
+</div>
+
+`docs.json` ファイルで `hidden` プロパティを `true` に設定すると、ページグループは非表示になります。
+
+```json highlight={4}
+"groups": [
+  {
+    "group": "はじめに",
+    "hidden": true,
+    "pages": [
+      "index",
+      "quickstart"
+    ]
+  },
+  {
+    "group": "ガイド",
+    "pages": [
+      "guides/hidden-page.mdx",
+      "guides/hidden-groups.mdx"
+    ]
+  }
+]
+```
+
+この例では、`Getting started` グループは非表示で、`Guides` グループは表示されています。
+
+<div id="hiding-a-tab">
+  ### タブを非表示にする
+</div>
+
+`docs.json` ファイルに `hidden` プロパティを追加すると、タブを非表示にできます。
+
+```json highlight={4}
+"tabs": [
+  {
+    "tab": "ホーム",
+    "hidden": true,
+    "pages": [
+      "index",
+      "quickstart"
+    ]
+  }
+]
+```
+
+<div id="search-seo-and-ai-indexing">
+  ## 検索、SEO、AIのインデックス化
+</div>
+
+既定では、非表示ページは検索エンジンのインデックス、ドキュメント内検索、およびアシスタントのコンテキストから除外されます。非表示ページを検索結果やアシスタントのコンテキストに含めるには、`docs.json` に `seo` プロパティを追加します。
+
+```json
+"seo": {
+    "indexing": "all"
+}
+```
+
+特定のページを除外するには、そのフロントマターに `noindex: true` を追加します。

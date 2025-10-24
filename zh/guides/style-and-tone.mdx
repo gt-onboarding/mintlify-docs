@@ -1,0 +1,39 @@
+---
+title: "风格与语气"
+description: "撰写高效技术文档的原则"
+---
+
+<Tip>
+  本页介绍撰写技术文档的风格取舍、常见误区以及实践建议。
+</Tip>
+
+<div id="writing-principles">
+  ## 写作原则
+</div>
+
+* **保持简洁。** 人们阅读文档是为达成目标。尽快切入正题。
+* **清晰优先于巧妙。** 语言要简洁直接，避免术语或复杂句式。
+* **使用主动语态。** 不要写“应当创建一个配置文件”，而要写“创建一个配置文件”。
+* **便于快速浏览。** 用标题帮助读者定位；拆分长段落；使用项目符号和列表便于快速扫读。
+* **使用第二人称。** 直接称呼读者有助于他们遵循指引，也让文档更具亲和力。
+
+<div id="common-writing-mistakes">
+  ## 常见写作错误
+</div>
+
+* **拼写和语法错误。** 即便只有少量拼写或语法错误，也会降低文档的可信度并影响可读性。
+* **术语不一致。** 在一段中称为“API key”，下一段又称为“API token”，会让用户难以理解和跟进。
+* **产品中心化术语。** 用户并不具备你产品的完整上下文，请使用他们熟悉的表述。
+* **口语化表达。** 尤其在本地化场景中，口语化会影响清晰度。
+
+<div id="tips-for-enforcing-style">
+  ## 规范文档风格的实用建议
+</div>
+
+利用现有风格指南来统一你的文档：
+
+* [Microsoft Style Guide](https://learn.microsoft.com/en-us/style-guide/welcome/)
+* [Splunk Style Guide](https://docs.splunk.com/Documentation/StyleGuide/current/StyleGuide/Howtouse)
+* [Google Developer Documentation Style Guide](https://developers.google.com/style)
+
+确定要采用的写作原则后，尽可能进行自动化。你可以使用 [CI 检查](/zh/deploy/ci) 或像 [Vale](https://vale.sh) 这样的代码风格校验工具（linter）。

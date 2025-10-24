@@ -1,0 +1,53 @@
+---
+title: "Google Analytics 4"
+---
+
+Dovrai generare una nuova proprietà <Tooltip tip="Google Analytics 4">GA4</Tooltip> da utilizzare con Mintlify. I dati raccolti confluiranno nello stesso progetto degli altri dati di Google Analytics.
+
+Se stai utilizzando la vecchia versione di Google Analytics, Universal Analytics, potrai comunque generare una proprietà <Tooltip tip="Google Analytics 4">GA4</Tooltip>. I dati di <Tooltip tip="Google Analytics 4">GA4</Tooltip> sono leggermente diversi dai dati UA, ma vengono comunque raccolti nello stesso progetto.
+
+<div id="how-to-connect-ga4-to-mintlify">
+  ## Come connettere GA4 a Mintlify
+</div>
+
+<div id="create-a-web-stream">
+  ### Crea uno stream Web
+</div>
+
+Devi creare uno stream web per ottenere l’ID di misurazione da inserire in Mintlify.
+
+Fai clic sull’icona a forma di ingranaggio in basso a sinistra nella schermata di Google Analytics. Quindi fai clic su Data Streams.
+
+<Frame>![Screenshot della pagina Data Streams nella dashboard di Google Analytics.](/images/ga4-web-streams.png)</Frame>
+
+Crea uno stream Web e inserisci l’URL del tuo sito di documentazione Mintlify come URL dello stream.
+
+Il tuo ID di misurazione è nel formato `G-XXXXXXX` e apparirà nella sezione Stream Details subito dopo aver creato lo stream Web.
+
+<div id="put-measurement-id-in-docsjson">
+  ### Inserisci il Measurement ID in docs.json
+</div>
+
+Aggiungi il tuo Measurement ID al file `docs.json` come segue:
+
+```json docs.json
+"integrations": {
+    "ga4": {
+        "measurementId": "G-XXXXXXX"
+    }
+}
+```
+
+<div id="wait">
+  ### Attendi
+</div>
+
+Google Analytics impiega due o tre giorni per mostrare i dati.
+
+Puoi utilizzare il [Google Analytics Debugger](https://chrome.google.com/webstore/detail/google-analytics-debugger/jnkmfdileelhofjcijamephohjechhna?hl=en) per verificare che Google Analytics sia attivato correttamente. L’estensione registrerà nella console del browser ogni volta che GA4 effettua una richiesta.
+
+<Note>
+
+I link di anteprima hanno Google Analytics disattivato.
+
+</Note>

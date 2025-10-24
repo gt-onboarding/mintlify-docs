@@ -1,0 +1,45 @@
+---
+title: "Expansíveis"
+description: "Alternar para exibir propriedades aninhadas"
+---
+
+Use expansíveis para mostrar e ocultar conteúdo aninhado em campos de resposta. Expansíveis são especialmente úteis para exibir propriedades de objetos complexos na documentação de API.
+
+<ResponseField name="user" type="User Object">
+  <Expandable title="properties">
+    <ResponseField name="full_name" type="string">
+      O nome completo do usuário
+    </ResponseField>
+
+    <ResponseField name="is_over_21" type="boolean">
+      Se o usuário tem mais de 21 anos
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+```mdx Expandable example
+<ResponseField name="user" type="User Object">
+  <Expandable title="properties">
+    <ResponseField name="full_name" type="string">
+      O nome completo do usuário
+    </ResponseField>
+
+    <ResponseField name="is_over_21" type="boolean">
+      Se o usuário tem mais de 21 anos
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+```
+
+
+<div id="properties">
+  ## Propriedades
+</div>
+
+<ResponseField name="title" type="string">
+  O nome do objeto que você está exibindo.
+</ResponseField>
+
+<ResponseField name="defaultOpen" type="boolean" default="false">
+  Defina como `true` para que a seção expansível seja aberta quando a página carregar
+</ResponseField>

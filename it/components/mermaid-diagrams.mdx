@@ -1,0 +1,61 @@
+---
+title: "Mermaid"
+description: "Mostra diagrammi con Mermaid"
+---
+
+[Mermaid](https://mermaid.js.org/) permette di creare flowchart, diagrammi di sequenza, diagrammi di Gantt e altri diagrammi utilizzando testo e codice.
+
+Per l’elenco completo dei tipi di diagrammi supportati e della relativa sintassi, consulta la [documentazione di Mermaid](https://mermaid.js.org/intro/).
+
+```mermaid
+  flowchart LR
+    subgraph subgraph1
+        direction TB
+        top1[alto] --> bottom1[basso]
+    end
+    subgraph subgraph2
+        direction TB
+        top2[alto] --> bottom2[basso]
+    end
+    %% ^ Questi sottografi sono identici, ad eccezione dei collegamenti verso di essi:
+
+    %% Collegamento *verso* subgraph1: la direzione di subgraph1 viene mantenuta
+    outside --> subgraph1
+    %% Collegamento *all'interno di* subgraph2:
+    %% subgraph2 eredita la direzione del grafico di livello superiore (LR)
+    outside ---> top2
+```
+
+````mdx Mermaid flowchart example
+```mermaid
+  flowchart LR
+    subgraph subgraph1
+        direction TB
+        top1[top] --> bottom1[bottom]
+    end
+    subgraph subgraph2
+        direction TB
+        top2[top] --> bottom2[bottom]
+    end
+    %% ^ Questi sottografi sono identici, tranne che per i collegamenti verso di essi:
+
+    %% Collegamento *verso* subgraph1: la direzione di subgraph1 viene mantenuta
+    outside --> subgraph1
+    %% Collegamento *all'interno di* subgraph2:
+    %% subgraph2 eredita la direzione del grafico di livello superiore (LR)
+    outside ---> top2
+```
+````
+
+
+<div id="syntax">
+  ## Sintassi
+</div>
+
+Per creare un diagramma Mermaid, scrivi la definizione del diagramma all’interno di un blocco di codice Mermaid.
+
+````mdx
+```mermaid
+// Il codice del tuo diagramma Mermaid va qui
+```
+````

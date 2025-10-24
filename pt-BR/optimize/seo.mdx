@@ -1,0 +1,241 @@
+---
+title: "SEO"
+description: "Boas práticas de SEO e configuração de meta tags para melhorar a visibilidade nas buscas"
+---
+
+A Mintlify trata automaticamente de muitas boas práticas de SEO, incluindo:
+
+* Geração de meta tags
+* Geração de sitemap e do arquivo `robots.txt`
+* Estrutura HTML semântica
+* Otimização para dispositivos móveis
+
+Você pode personalizar completamente as meta tags do seu site adicionando o campo `metatags` ao `docs.json` ou ao frontmatter de uma página.
+
+<div id="global-meta-tags">
+  ## Metatags globais
+</div>
+
+Para definir metatags padrão para todas as páginas, adicione o campo `metatags` ao seu `docs.json`.
+
+```json
+"seo": {
+    "metatags": {
+        "og:image": "link para sua imagem padrão de meta tag"
+    }
+}
+```
+
+<div id="set-a-canonical-url">
+  ### Defina uma URL canônica
+</div>
+
+Se você estiver usando um domínio personalizado, defina a meta tag `canonical` para garantir que os mecanismos de pesquisa indexem seu domínio preferido. Uma URL canônica informa aos mecanismos de pesquisa qual versão da sua documentação é a principal. Isso melhora o SEO quando sua documentação está acessível por várias URLs e evita problemas de conteúdo duplicado.
+
+```json
+"seo": {
+    "metatags": {
+        "canonical": "https://www.seu-dominio-customizado-aqui.com"
+    }
+}
+```
+
+<div id="page-specific-meta-tags">
+  ## Metatags específicas da página
+</div>
+
+Para definir metatags específicas de uma página, adicione-as ao frontmatter da página.
+
+```mdx
+---
+title: "Título da sua página de exemplo"
+"og:image": "link para a imagem da sua meta tag"
+---
+```
+
+<Note>
+  Metatags com dois-pontos devem estar entre aspas.
+</Note>
+
+<div id="common-meta-tags-reference">
+  ## Referência de meta tags comuns
+</div>
+
+Abaixo está uma lista abrangente de meta tags que você pode adicionar ao seu `docs.json`. Essas meta tags ajudam a melhorar o SEO do seu site, o compartilhamento em redes sociais e a compatibilidade com navegadores.
+
+<Note>
+  O `og:image` adiciona uma imagem de fundo que a Mintlify sobrepõe automaticamente com seu logotipo, título da página e descrição ao gerar prévias nas redes sociais.
+</Note>
+
+Você pode visualizar antecipadamente como suas meta tags aparecerão em diferentes plataformas usando o [metatags.io](https://metatags.io/).
+
+```json expandable
+"seo": {
+    "metatags": {
+      "robots": "noindex",
+      "charset": "UTF-8",
+      "viewport": "width=device-width, initial-scale=1.0",
+      "description": "Descrição da página",
+      "keywords": "palavra-chave1, palavra-chave2, palavra-chave3",
+      "author": "Nome do Autor",
+      "robots": "index, follow",
+      "googlebot": "index, follow",
+      "google": "notranslate",
+      "google-site-verification": "verification_token",
+      "generator": "Mintlify",
+      "theme-color": "#000000",
+      "color-scheme": "light dark",
+      "canonical": "https://your-custom-domain-here.com",
+      "format-detection": "telephone=no",
+      "referrer": "origin",
+      "refresh": "30",
+      "rating": "geral",
+      "revisit-after": "7 dias",
+      "language": "en",
+      "copyright": "Copyright 2024",
+      "reply-to": "email@example.com",
+      "distribution": "global",
+      "coverage": "Mundial",
+      "category": "Tecnologia",
+      "target": "todos",
+      "HandheldFriendly": "True",
+      "MobileOptimized": "320",
+      "apple-mobile-web-app-capable": "yes",
+      "apple-mobile-web-app-status-bar-style": "black",
+      "apple-mobile-web-app-title": "Título do App",
+      "application-name": "Nome do App",
+      "msapplication-TileColor": "#000000",
+      "msapplication-TileImage": "path/to/tile.png",
+      "msapplication-config": "path/to/browserconfig.xml",
+      "og:title": "Título Open Graph",
+      "og:type": "website",
+      "og:url": "https://example.com",
+      "og:image": "https://example.com/image.jpg",
+      "og:description": "Descrição Open Graph",
+      "og:site_name": "Nome do Site",
+      "og:locale": "en_US",
+      "og:video": "https://example.com/video.mp4",
+      "og:audio": "https://example.com/audio.mp3",
+      "twitter:card": "summary",
+      "twitter:site": "@username",
+      "twitter:creator": "@username",
+      "twitter:title": "Título Twitter",
+      "twitter:description": "Descrição Twitter",
+      "twitter:image": "https://example.com/image.jpg",
+      "twitter:image:alt": "Descrição da Imagem",
+      "twitter:player": "https://example.com/player",
+      "twitter:player:width": "480",
+      "twitter:player:height": "480",
+      "twitter:app:name:iphone": "Nome do App",
+      "twitter:app:id:iphone": "12345",
+      "twitter:app:url:iphone": "app://",
+      "article:published_time": "2024-01-01T00:00:00+00:00",
+      "article:modified_time": "2024-01-02T00:00:00+00:00",
+      "article:expiration_time": "2024-12-31T00:00:00+00:00",
+      "article:author": "Nome do Autor",
+      "article:section": "Tecnologia",
+      "article:tag": "tag1, tag2, tag3",
+      "book:author": "Nome do Autor",
+      "book:isbn": "1234567890",
+      "book:release_date": "2024-01-01",
+      "book:tag": "tag1, tag2, tag3",
+      "profile:first_name": "John",
+      "profile:last_name": "Doe",
+      "profile:username": "johndoe",
+      "profile:gender": "male",
+      "music:duration": "205",
+      "music:album": "Nome do Álbum",
+      "music:album:disc": "1",
+      "music:album:track": "1",
+      "music:musician": "Nome do Artista",
+      "music:song": "Nome da Música",
+      "music:song:disc": "1",
+      "music:song:track": "1",
+      "video:actor": "Nome do Ator",
+      "video:actor:role": "Nome do Papel",
+      "video:director": "Nome do Diretor",
+      "video:writer": "Nome do Roteirista",
+      "video:duration": "120",
+      "video:release_date": "2024-01-01",
+      "video:tag": "tag1, tag2, tag3",
+      "video:series": "Nome da Série"
+  }
+}
+```
+
+<div id="sitemaps-and-robotstxt-files">
+  ## Sitemaps e arquivos robots.txt
+</div>
+
+O Mintlify gera automaticamente um arquivo `sitemap.xml` e um arquivo `robots.txt`. Você pode visualizar seu sitemap adicionando `/sitemap.xml` ao URL do seu site de documentação.
+
+Por padrão, apenas as páginas presentes no seu `docs.json` são incluídas. Para incluir links ocultos, adicione `seo.indexing` ao seu `docs.json`:
+
+```json
+"seo": {
+    "indexing": all
+}
+```
+
+<div id="custom-sitemaps-and-robotstxt-files">
+  ### Sitemaps e arquivos robots.txt personalizados
+</div>
+
+Para adicionar um `sitemap.xml` ou `robots.txt` personalizado, crie um arquivo `sitemap.xml` ou `robots.txt` na raiz do seu projeto. Ao adicionar um arquivo personalizado, ele substituirá o arquivo gerado automaticamente com o mesmo nome. Se você excluir um arquivo personalizado, o arquivo padrão voltará a ser usado.
+
+<div id="disabling-indexing">
+  ## Desativando a indexação
+</div>
+
+Se você quiser impedir que uma página seja indexada por mecanismos de busca, inclua o seguinte no [frontmatter](/pt-BR/organize/pages) da sua página:
+
+```
+---
+noindex: true
+---
+```
+
+Você também pode definir `noindex` para todas as páginas da sua documentação configurando o campo `metatags.robots` como `"noindex"` no seu `docs.json`:
+
+```json
+"seo": {
+    "metatags": {
+      "robots": "noindex"
+    }
+  }
+```
+
+<div id="seo-best-practices">
+  ## Melhores práticas de SEO
+</div>
+
+<AccordionGroup>
+  <Accordion title="Escreva títulos e descrições descritivos">
+    * Use títulos de página claros e descritivos (50–60 caracteres)
+    * Escreva descrições atraentes (150–160 caracteres)
+    * Inclua palavras-chave relevantes
+    * Torne cada título e descrição de página únicos
+  </Accordion>
+
+  <Accordion title="Otimize a estrutura do conteúdo">
+    * Use a hierarquia adequada de títulos (H1 → H2 → H3)
+    * Escreva primeiro para pessoas, depois para mecanismos de busca
+    * Inclua palavras-chave relevantes nos títulos e no conteúdo
+    * Mantenha URLs curtas, descritivas e organizadas hierarquicamente
+    * Quebre conteúdos longos com subtítulos e listas
+  </Accordion>
+
+  <Accordion title="Estratégia de links internos">
+    * Crie links para páginas relacionadas dentro da documentação
+    * Use texto âncora descritivo em vez de &quot;clique aqui&quot;
+    * Crie clusters de tópicos ao vincular conceitos relacionados
+    * Use os recursos automáticos de referência cruzada
+  </Accordion>
+
+  <Accordion title="SEO para imagens">
+    * Use nomes de arquivo descritivos para as imagens
+    * Sempre inclua texto alternativo (alt) para acessibilidade e SEO
+    * Otimize o tamanho dos arquivos de imagem para carregamento mais rápido
+    * Use imagens relevantes que reforcem seu conteúdo
+  </Accordion>
+</AccordionGroup>

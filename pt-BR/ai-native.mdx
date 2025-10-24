@@ -1,0 +1,60 @@
+---
+title: "Nativo em IA"
+description: "Saiba como a IA melhora a leitura, a escrita e a descoberta da sua documentação"
+---
+
+Ao hospedar sua documentação na Mintlify, recursos de IA integrados ajudam seus usuários a encontrar respostas e sua equipe a manter o conteúdo com mais eficiência. Seu conteúdo fornece o contexto para que esses recursos nativos em IA aprimorem as experiências de leitura, escrita e descoberta da sua documentação.
+
+<div id="what-makes-your-documentation-ai-native">
+  ## O que torna sua documentação nativa em IA
+</div>
+
+<div id="reading">
+  ### Leitura
+</div>
+
+Além de ler páginas individuais, os usuários podem conversar com o [assistente](/pt-BR/ai/assistant) na sua documentação para obter respostas imediatas às suas perguntas e links para conteúdo relevante. O Assistente ajuda a guiar os usuários pelo seu produto com informações precisas da sua documentação. Incorpore o Assistente em apps personalizados com a [API](api-reference/assistant/create-assistant-message) para ampliar onde os usuários podem acessar sua documentação.
+
+<div id="writing">
+  ### Escrita
+</div>
+
+O [agente](/pt-BR/ai/agent) ajuda você a escrever e manter a documentação. Ele cria pull requests com alterações propostas com base nos seus prompts, pull requests e threads do Slack. Adicione o agente ao seu workspace do Slack para que qualquer pessoa da sua equipe possa ajudar a manter sua documentação conversando com ele. Ou incorpore o agente em aplicativos personalizados via a [API](/pt-BR/api-reference/agent/create-agent-job).
+
+Configure ferramentas populares como [Cursor](/pt-BR/guides/cursor), [Claude Code](/pt-BR/guides/claude-code) e [Windsurf](/pt-BR/guides/windsurf) para fazer referência ao esquema do Mintlify, ao seu guia de estilo e às melhores práticas.
+
+<div id="discovering">
+  ### Descoberta
+</div>
+
+Seu site é automaticamente otimizado para ferramentas de IA e mecanismos de busca, ajudando os usuários a encontrar sua documentação. Todas as páginas são enviadas como Markdown para agentes de IA, em vez de HTML, o que permite a essas ferramentas processarem seu conteúdo mais rapidamente e consumirem menos tokens. Cada página também pode ser visualizada em Markdown ao adicionar `.md` ao final da URL.
+
+A Mintlify hospeda os arquivos `llms.txt` e `llms-full.txt` para sua documentação. Esses arquivos, padrão do setor, ajudam LLMs a indexar sua documentação e a responder com eficiência, fornecendo informações relevantes às consultas dos usuários.
+
+Seu site de documentação também hospeda um servidor MCP que permite aos usuários conectar sua documentação diretamente às ferramentas de IA para obter informações atualizadas sobre seu produto exatamente onde desejarem.
+
+A busca em texto integral e a compreensão semântica ajudam usuários e ferramentas de IA a encontrar informações relevantes rapidamente. A busca entende a intenção do usuário, em vez de apenas corresponder a palavras-chave. E, se um usuário encontrar um erro 404, seu site sugere páginas relacionadas para ajudá-lo a encontrar o que está procurando. Nenhuma configuração necessária.
+
+<div id="enable-ai-features">
+  ## Ativar recursos de IA
+</div>
+
+Selecione qualquer um dos cartões abaixo para mais informações.
+
+<CardGroup cols={2}>
+  <Card title="Assistant" icon="bot-message-square" href="/pt-BR/ai/assistant">
+    Configure o Assistente para pesquisar sites externos ou encaminhar as pessoas para sua equipe de suporte quando não puder responder às perguntas.
+  </Card>
+
+  <Card title="Agent" icon="pen-line" href="/pt-BR/ai/agent">
+    Adicione o agente ao seu workspace do Slack ou incorpore-o em apps personalizados para ajudar a redigir e atualizar sua documentação.
+  </Card>
+
+  <Card title="Menu contextual" icon="sparkles" href="/pt-BR/ai/contextual-menu">
+    Adicione um menu às páginas que permite aos usuários consultar ferramentas de IA, conectar-se ao seu servidor MCP e copiar páginas como contexto com um clique.
+  </Card>
+
+  <Card title="Integração com MCP" icon="plug" href="/pt-BR/ai/model-context-protocol">
+    Seu site conta com um servidor MCP hospedado que permite aos usuários conectar sua documentação diretamente às ferramentas de IA. Informe seus usuários sobre seu servidor MCP e como se conectar a ele.
+  </Card>
+</CardGroup>

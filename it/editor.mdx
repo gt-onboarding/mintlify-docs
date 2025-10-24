@@ -1,0 +1,390 @@
+---
+title: "Editor visuale"
+description: "Crea, gestisci e pubblica la documentazione direttamente dal browser"
+---
+
+<img className="block dark:hidden my-0 pointer-events-none" src="/images/editor/editor-light.png" alt="Interfaccia dell'editor visuale di Mintlify in modalità chiara" />
+
+<img className="hidden dark:block my-0 pointer-events-none" src="/images/editor/editor-dark.png" alt="Interfaccia dell'editor visuale di Mintlify in modalità scura" />
+
+Accedi all’editor visuale dalla tua [dashboard](https://dashboard.mintlify.com/editor) per gestire la documentazione direttamente nel browser.
+
+* **Modifica WYSIWYG**: Apporta modifiche alla documentazione con un editor what-you-see-is-what-you-get (WYSIWYG) che mostra l’anteprima di come apparirà il contenuto una volta pubblicato.
+* **Sincronizzazione con Git**: Tutte le modifiche vengono sincronizzate automaticamente con il tuo repository Git per mantenere il controllo delle versioni.
+* **Collaborazione del team**: Più persone possono lavorare sulla documentazione contemporaneamente.
+* **Integrazione dei componenti**: Aggiungi callout, blocchi di codice e altri componenti con i comandi con slash.
+* **Nessuna configurazione necessaria**: Inizia a scrivere subito dalla dashboard.
+
+<div id="overview">
+  ## Panoramica
+</div>
+
+Ecco come lavori di solito nell’editor visuale:
+
+<Steps>
+  <Step title="Scegli il branch">
+    Crea un branch o apporta modifiche direttamente al branch di deployment. Ti consigliamo di creare un branch così puoi visualizzare l’anteprima delle modifiche prima che vadano online.
+  </Step>
+
+  <Step title="Apri il file">
+    Passa a un file esistente nella barra laterale oppure creane uno nuovo usando l’esplora file.
+  </Step>
+
+  <Step title="Modifica i contenuti">
+    Apporta modifiche nell’editor visuale. Premi <kbd>/</kbd> per aprire il menu dei componenti.
+  </Step>
+
+  <Step title="Visualizza l’anteprima delle modifiche">
+    La modalità visuale mostra come appariranno le modifiche sul tuo sito live. Usala per verificare che sia tutto corretto.
+  </Step>
+
+  <Step title="Pubblica le modifiche">
+    Se stai lavorando sul branch di deployment, pubblica le modifiche direttamente dall’editor visuale. Sugli altri branch, crea una pull request per la revisione prima della pubblicazione.
+  </Step>
+</Steps>
+
+## Modalità dell&#39;editor
+
+L&#39;editor visuale offre due modalità per soddisfare diverse preferenze ed esigenze di modifica: modalità visiva e modalità Markdown.
+
+Usa l&#39;interruttore di modalità nella barra degli strumenti dell&#39;editor per passare da una modalità all&#39;altra.
+
+<Frame>
+  <img src="/images/editor/mode-toggle-light.png" alt="Icone dell'interruttore di modalità evidenziate nell'editor visuale." className="block dark:hidden" />
+
+  <img src="/images/editor/mode-toggle-dark.png" alt="Icone dell'interruttore di modalità evidenziate nell'editor visuale." className="hidden dark:block" />
+</Frame>
+
+<div id="visual-mode">
+  ### Modalità visuale
+</div>
+
+La modalità visuale offre un&#39;esperienza WYSIWYG in cui le modifiche effettuate nell&#39;editor rispecchiano l&#39;aspetto della documentazione pubblicata. Questa modalità è ideale quando vuoi vedere in tempo reale come appariranno le modifiche.
+
+<Frame>
+  <img src="/images/editor/visual-mode-light.png" alt="Modalità di modifica visuale nell'editor visuale di Mintlify" className="block dark:hidden" />
+
+  <img src="/images/editor/visual-mode-dark.png" alt="Modalità di modifica visuale nell'editor visuale di Mintlify" className="hidden dark:block" />
+</Frame>
+
+<div id="markdown-mode">
+  ### Modalità Markdown
+</div>
+
+La modalità Markdown offre accesso diretto al codice `MDX` alla base della documentazione. È ideale quando ti serve un controllo preciso sulle proprietà dei componenti o quando preferisci scrivere con la sintassi Markdown.
+
+<Frame>
+  <img src="/images/editor/markdown-mode-light.png" alt="Modalità Markdown nell'editor visivo di Mintlify" className="block dark:hidden" />
+
+  <img src="/images/editor/markdown-mode-dark.png" alt="Modalità Markdown nell'editor visivo di Mintlify" className="hidden dark:block" />
+</Frame>
+
+<div id="manage-content">
+  ## Gestione dei contenuti
+</div>
+
+<div id="navigate-your-files">
+  ### Esplora i tuoi file
+</div>
+
+Usa l’esplora file nella barra laterale per sfogliare i file della documentazione. Fai clic su un file per aprirlo nell’editor.
+
+Premi <kbd>Command</kbd> + <kbd>P</kbd> su macOS o <kbd>Ctrl</kbd> + <kbd>P</kbd> su Windows per cercare file per nome.
+
+<div id="create-new-pages">
+  ### Crea nuove pagine
+</div>
+
+Seleziona l’icona **Crea un nuovo file** nella barra laterale dell’esplora file.
+
+<Frame>
+  <img
+    src="/images/editor/files-menu-light.png"
+    className="block dark:hidden rounded-2xl border border-gray-100 shadow-lg"
+    style={{
+  width: '400px',
+  height: 'auto',
+}}
+    alt="Menu dei file nell’editor visuale"
+  />
+
+  <img
+    src="/images/editor/files-menu-dark.png"
+    className="hidden dark:block rounded-2xl border border-white/10 shadow-lg"
+    style={{
+  width: '400px',
+  height: 'auto',
+}}
+    alt="Menu dei file nell’editor visuale in modalità scura"
+  />
+</Frame>
+
+I nomi dei file vengono completati automaticamente con l’estensione `.mdx`. Per cambiare il tipo di file, fai clic sull’estensione. Seleziona il tipo di file desiderato dal menu a discesa.
+
+<Frame>
+  <img
+    src="/images/editor/file-type-light.png"
+    className="block dark:hidden"
+    style={{
+  width: 'auto',
+  height: '400px',
+}}
+    alt="Menu dell’estensione del file nell’editor visuale."
+  />
+
+  <img
+    src="/images/editor/file-type-dark.png"
+    className="hidden dark:block"
+    style={{
+  width: 'auto',
+  height: '400px',
+}}
+    alt="Menu dell’estensione del file nell’editor visuale in modalità scura."
+  />
+</Frame>
+
+<div id="rename-pages">
+  ### Rinomina le pagine
+</div>
+
+Per rinominare una pagina, fai clic sull’icona del menu kebab del file che desideri rinominare. Seleziona **Rinomina** dal menu a discesa.
+
+<Frame>
+  <img src="/images/editor/rename-light.png" className="block dark:hidden" alt="Rinomina una pagina nell’editor visuale." />
+
+  <img src="/images/editor/rename-dark.png" className="hidden dark:block" alt="Rinomina una pagina nell’editor visuale in modalità scura." />
+</Frame>
+
+<div id="delete-pages">
+  ### Eliminare pagine
+</div>
+
+Per eliminare una pagina, clicca sull’icona del menu kebab del file che vuoi eliminare. Seleziona **Delete** dal menu a discesa.
+
+<Frame>
+  <img src="/images/editor/delete-page-light.png" className="block dark:hidden" alt="Eliminare una pagina nell'editor visivo." />
+
+  <img src="/images/editor/delete-page-dark.png" className="hidden dark:block" alt="Eliminare una pagina nell'editor visivo in modalità scura." />
+</Frame>
+
+<div id="organize-your-navigation">
+  ### Organizza la navigazione
+</div>
+
+Modifica il file `docs.json` per aggiungere nuove pagine e rimuovere quelle eliminate dalla navigazione del sito. Consulta [Navigation](/it/organize/navigation) per maggiori informazioni su come organizzare le pagine.
+
+**Esempio: aggiungere una pagina Themes al gruppo Profile**
+
+In questo esempio, hai creato una nuova pagina intitolata Themes e vuoi aggiungerla al gruppo Profile nella documentazione. Aggiungi il percorso della nuova pagina all’array `pages` del gruppo `Profile` nel file `docs.json` affinché compaia nella navigazione del sito.
+
+```json title="Adding a Themes page to the Profile group" highlight="18"
+{
+    "navigation": {
+        "groups": [
+            {
+                "group": "Inizia da qui",
+                "pages": [
+                    "index",
+                    "quickstart",
+                    "installation"
+                ]
+            },
+            {
+                "group": "Profilo",
+                "pages": [
+                    "settings",
+                    "account-types",
+                    "dashboard",
+                    "themes"
+                ]
+            }
+        ]
+    }
+}
+```
+
+<div id="edit-content">
+  ### Modifica contenuti
+</div>
+
+Apporta modifiche alle pagine usando la modalità visiva o la modalità Markdown nell’editor.
+
+In modalità visiva, premi <kbd>/</kbd> per aprire il menu dei componenti. Aggiungi blocchi di contenuto, avvisi, blocchi di codice e altri componenti per personalizzare la documentazione.
+
+<Frame>
+  <img src="/images/editor/component-menu-light.png" alt="Il menu dei componenti aperto, evidenziato nell’editor visivo di Mintlify" className="block dark:hidden" />
+
+  <img src="/images/editor/component-menu-dark.png" alt="Il menu dei componenti aperto, evidenziato nell’editor visivo di Mintlify" className="hidden dark:block" />
+</Frame>
+
+In modalità Markdown, modifichi direttamente l’`MDX` delle pagine. Questo è utile quando devi:
+
+* Impostare proprietà specifiche dei componenti
+* Lavorare con componenti annidati complessi
+* Copiare e incollare contenuti `MDX` da altre fonti
+
+Consulta [Formattare il testo](/it/create/text) e [Formattare il codice](/it/create/code) per maggiori informazioni su come scrivere usando la sintassi Markdown.
+
+<div id="publish-your-changes">
+  ## Pubblica le tue modifiche
+</div>
+
+Il branch su cui lavori determina come l’editor pubblica le modifiche:
+
+* **Branch di deployment**: La pubblicazione aggiorna immediatamente il sito in produzione.
+* **Altri branch**: La pubblicazione crea una pull request così puoi rivedere le modifiche prima di distribuirle in produzione.
+
+<Frame>
+  <img src="/images/editor/publish-flow-light.png" alt="Il pulsante Pubblica evidenziato nell’editor visuale di Mintlify" className="block dark:hidden" />
+
+  <img src="/images/editor/publish-flow-dark.png" alt="Il pulsante Pubblica evidenziato nell’editor visuale di Mintlify" className="hidden dark:block" />
+</Frame>
+
+<div id="pull-requests-and-reviewing-changes">
+  ### Pull request e revisione delle modifiche
+</div>
+
+Le pull request ti permettono di proporre modifiche dal tuo branch, così che altre persone possano esaminarle prima di unirle alla documentazione in produzione. Questo aiuta a garantire che le modifiche siano corrette e offre al tuo team l&#39;opportunità di collaborare sui contenuti.
+
+<Tip>
+  Anche se lavori da solo, le pull request sono utili per visualizzare in anteprima le modifiche e mantenere una cronologia chiara degli aggiornamenti.
+</Tip>
+
+<div id="create-a-pull-request">
+  #### Crea una pull request
+</div>
+
+<Steps>
+  <Step title="Salva il tuo lavoro">
+    Seleziona **Save Changes** per salvare tutte le modifiche sul tuo branch.
+  </Step>
+
+  <Step title="Crea la pull request">
+    Seleziona **Publish Pull Request** dalla barra degli strumenti dell’editor.
+  </Step>
+
+  <Step title="Aggiungi un titolo e una descrizione">
+    Scrivi un titolo e una descrizione chiari che spieghino:
+
+    * Quali modifiche hai apportato
+    * Perché le hai apportate
+    * Eventuali aree specifiche che richiedono revisione
+  </Step>
+
+  <Step title="Crea e condividi">
+    Seleziona **Publish Pull Request**. L’editor fornirà un link per visualizzare la tua pull request.
+
+    <Frame>
+      <img src="/images/editor/pull-request-light.png" alt="Pulsante Publish Pull Request evidenziato nell’editor visuale di Mintlify" className="block dark:hidden" />
+
+      <img src="/images/editor/pull-request-dark.png" alt="Pulsante Publish Pull Request evidenziato nell’editor visuale di Mintlify" className="hidden dark:block" />
+    </Frame>
+  </Step>
+</Steps>
+
+<div id="review-pull-requests">
+  #### Revisionare le pull request
+</div>
+
+Una volta creata la pull request:
+
+1. **Rivedi le modifiche**: Tu e i membri del team potete rivedere la pull request nel vostro provider Git, ad esempio GitHub o GitLab.
+2. **Lascia un feedback**: Aggiungi commenti o richiedi modifiche.
+3. **Apporta ulteriori modifiche**: Effettua ulteriori modifiche nell’editor visuale. Quando salvi, l’editor le invia alla pull request.
+4. **Approva**: Approva la pull request quando sei soddisfatto delle modifiche.
+5. **Esegui il merge**: Esegui il merge della pull request quando sei pronto a distribuire le modifiche in produzione.
+
+<div id="keyboard-shortcuts">
+  ## Scorciatoie da tastiera
+</div>
+
+L&#39;editor visuale supporta tutte le scorciatoie da tastiera comuni come copia, incolla, annulla e seleziona tutto, oltre alle seguenti scorciatoie:
+
+| Comando | macOS | Windows |
+|:--------|:------|:--------|
+| **Cerca file** | <kbd>Cmd</kbd> + <kbd>P</kbd> | <kbd>Control</kbd> + <kbd>P</kbd> |
+| **Aggiungi link al testo selezionato** | <kbd>Cmd</kbd> + <kbd>K</kbd> | <kbd>Control</kbd> + <kbd>K</kbd> |
+| **Aggiungi interruzione di riga** | <kbd>Cmd</kbd> + <kbd>Enter</kbd> | <kbd>Control</kbd> + <kbd>Enter</kbd> |
+| **Grassetto** | <kbd>Cmd</kbd> + <kbd>B</kbd> | <kbd>Control</kbd> + <kbd>B</kbd> |
+| **Corsivo** | <kbd>Cmd</kbd> + <kbd>I</kbd> | <kbd>Control</kbd> + <kbd>I</kbd> |
+| **Sottolineato** | <kbd>Cmd</kbd> + <kbd>U</kbd> | <kbd>Control</kbd> + <kbd>U</kbd> |
+| **Barrato** | <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd> | <kbd>Control</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd> |
+| **Codice** | <kbd>Cmd</kbd> + <kbd>E</kbd> | <kbd>Control</kbd> + <kbd>E</kbd> |
+| **Testo normale** | <kbd>Cmd</kbd> + <kbd>Alt</kbd> + <kbd>0</kbd> | <kbd>Control</kbd> + <kbd>Alt</kbd> + <kbd>0</kbd> |
+| **Titolo 1** | <kbd>Cmd</kbd> + <kbd>Alt</kbd> + <kbd>1</kbd> | <kbd>Control</kbd> + <kbd>Alt</kbd> + <kbd>1</kbd> |
+| **Titolo 2** | <kbd>Cmd</kbd> + <kbd>Alt</kbd> + <kbd>2</kbd> | <kbd>Control</kbd> + <kbd>Alt</kbd> + <kbd>2</kbd> |
+| **Titolo 3** | <kbd>Cmd</kbd> + <kbd>Alt</kbd> + <kbd>3</kbd> | <kbd>Control</kbd> + <kbd>Alt</kbd> + <kbd>3</kbd> |
+| **Titolo 4** | <kbd>Cmd</kbd> + <kbd>Alt</kbd> + <kbd>4</kbd> | <kbd>Control</kbd> + <kbd>Alt</kbd> + <kbd>4</kbd> |
+| **Elenco numerato** | <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>7</kbd> | <kbd>Control</kbd> + <kbd>Shift</kbd> + <kbd>7</kbd> |
+| **Elenco puntato** | <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>8</kbd> | <kbd>Control</kbd> + <kbd>Shift</kbd> + <kbd>8</kbd> |
+| **Citazione** | <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>B</kbd> | <kbd>Control</kbd> + <kbd>Shift</kbd> + <kbd>B</kbd> |
+| **Pedice** | <kbd>Cmd</kbd> + <kbd>,</kbd> | <kbd>Control</kbd> + <kbd>,</kbd> |
+| **Apice** | <kbd>Cmd</kbd> + <kbd>.</kbd> | <kbd>Control</kbd> + <kbd>.</kbd> |
+
+<div id="troubleshooting">
+  ## Risoluzione dei problemi
+</div>
+
+Trova soluzioni ai problemi comuni che potresti incontrare usando l’editor visuale.
+
+<AccordionGroup>
+  <Accordion title="Le modifiche non compaiono dopo la pubblicazione">
+    **Possibili cause:**
+
+    * La distribuzione è ancora in corso
+    * Problemi di cache del browser
+    * Errori di build o di distribuzione
+
+    **Soluzioni:**
+
+    1. Controlla lo stato della distribuzione nella dashboard.
+    2. Esegui un aggiornamento forzato del browser (<kbd>Ctrl</kbd> + <kbd>F5</kbd> o <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>R</kbd>)
+    3. Svuota la cache del browser.
+  </Accordion>
+
+  <Accordion title="Errori di autorizzazione durante la pubblicazione">
+    **Possibili cause:**
+
+    * Permessi insufficienti sul repository Git
+    * Problemi di autenticazione con il provider Git
+
+    **Soluzioni:**
+
+    1. Verifica di avere i permessi corretti sul repository.
+    2. Controlla che l’integrazione con Git sia configurata correttamente.
+    3. Consulta la documentazione su [Editor Permissions](/it/dashboard/permissions).
+  </Accordion>
+
+  <Accordion title="Problemi di caricamento dell'editor">
+    **Possibili cause:**
+
+    * Problemi di connettività di rete
+    * Repository di documentazione di grandi dimensioni
+
+    **Soluzioni:**
+
+    1. Controlla la connessione a Internet.
+    2. Aggiorna la pagina.
+    3. Contatta il supporto se il problema persiste.
+  </Accordion>
+
+  <Accordion title="File che non si caricano o mostrano errori">
+    **Possibili cause:**
+
+    * Sintassi MDX non valida nei file
+    * File mancanti o corrotti
+    * File di grandi dimensioni che causano timeout
+
+    **Soluzioni:**
+
+    1. Controlla la sintassi del file per eventuali errori di formattazione MDX.
+    2. Verifica che il file esista nel repository.
+  </Accordion>
+</AccordionGroup>
+
+<div id="next-steps">
+  ## Prossimi passaggi
+</div>
+
+* Scopri i [concetti fondamentali di Git](/it/guides/git-concepts)
+* Impara le buone pratiche per collaborare con i [rami](/it/guides/branches)

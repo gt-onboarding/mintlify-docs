@@ -1,0 +1,121 @@
+---
+title: "Fichiers"
+description: "Diffuser des ressources statiques depuis votre documentation"
+---
+
+Mintlify diffuse automatiquement les ressources statiques de votre dépôt de documentation au chemin approprié sur votre domaine. Par exemple, si vous avez `/images/my-logo.png` dans votre dépôt, le fichier image est accessible à l’adresse `https://docs.your-project.com/images/my-logo.png`.
+
+Vous pouvez mettre à disposition n’importe quel type de fichier pris en charge pour vos utilisateurs, y compris des spécifications OpenAPI, des images, des vidéos, et plus encore.
+
+Les fichiers doivent peser moins de 20 Mo pour les images et moins de 100 Mo pour les autres types de fichiers.
+
+<div id="supported-file-types">
+  ## Types de fichiers pris en charge
+</div>
+
+<div id="image-formats">
+  ### Formats d’image
+</div>
+
+- `.jpeg`, `.jpg`, `.jfif`, `.pjpeg`, `.pjp`
+- `.png`
+- `.svg`, `.svgz`
+- `.ico`
+- `.webp`
+- `.gif`, `.apng`
+- `.avif`
+- `.bmp`
+- `.tiff`, `.tif`
+
+<div id="video-formats">
+  ### Formats vidéo
+</div>
+
+- `.mp4`
+- `.webm`
+- `.ogg`
+- `.avi`
+- `.mov`
+- `.wmv`
+- `.flv`
+- `.mkv`
+- `.m4v`
+
+<div id="audio-formats">
+  ### Formats audio
+</div>
+
+- `.mp3`
+- `.wav`
+- `.flac`
+- `.aac`
+- `.ogg`
+- `.wma`
+- `.m4a`
+
+<div id="font-formats">
+  ### Formats de police
+</div>
+
+- `.woff`
+- `.woff2`
+- `.ttf`
+- `.otf`
+- `.eot`
+
+<div id="document-formats">
+  ### Formats de documents
+</div>
+
+<Note>Les formats de documents sont uniquement disponibles avec les offres Enterprise.</Note>
+
+- `.pdf`
+- `.txt`
+- `.doc`, `.docx`
+- `.xls`, `.xlsx`
+- `.ppt`, `.pptx`
+- `.rtf`
+- `.odt`, `.ods`, `.odp`
+
+<div id="data-formats">
+  ### Formats de données
+</div>
+
+<Note>Les formats de données sont disponibles uniquement avec les plans Enterprise.</Note>
+
+- `.csv`
+- `.tsv`
+- `.xml`
+
+<div id="archive-formats">
+  ### Formats d’archives
+</div>
+
+<Note>Les formats d’archives sont disponibles uniquement avec les offres Enterprise.</Note>
+
+- `.zip`
+- `.rar`
+- `.7z`
+- `.tar`
+- `.gz`
+- `.bz2`
+
+<div id="file-organization">
+  ## Organisation des fichiers
+</div>
+
+Organisez vos fichiers à l’aide de dossiers afin de rendre votre dépôt plus facile à parcourir :
+
+```text
+/your-project
+  |- docs.json
+  |- images/
+    |- logo.png
+    |- screenshots/
+      |- dashboard.png
+  |- assets/
+    |- whitepaper.pdf
+    |- demo-video.mp4
+```
+
+Les fichiers sont servis depuis la racine de votre domaine, de sorte que la structure de votre dépôt correspond directement à la structure des URL. D’après l’exemple précédent, `assets/whitepaper.pdf` serait disponible à l’adresse `https://docs.your-project.com/assets/whitepaper.pdf`.

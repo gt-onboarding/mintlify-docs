@@ -1,0 +1,387 @@
+---
+title: "パーソナライゼーションのセットアップ"
+description: "ユーザーがログインしてカスタマイズされたドキュメント体験を提供する"
+---
+
+パーソナライゼーションは、ユーザーがログインしているときに各ユーザー向けにドキュメントを最適化します。例えば、API キーを自動入力したり、契約プランや役割に応じたコンテンツを表示したり、不要なセクションを非表示にしたりできます。
+
+<div id="personalization-features">
+  ## パーソナライゼーション機能
+</div>
+
+以下のパーソナライゼーション機能でコンテンツをカスタマイズできます。
+
+<div id="api-key-prefilling">
+  ### APIキーの自動入力
+</div>
+
+ユーザーデータで一致するフィールド名を返すことで、APIプレイグラウンドのフィールドにユーザー固有の値を自動入力できます。自動入力を有効にするには、ユーザーデータ内のフィールド名がAPIプレイグラウンドのフィールド名と完全に一致している必要があります。
+
+<div id="dynamic-mdx-content">
+  ### 動的な MDX コンテンツ
+</div>
+
+`user` 変数を使って、名前、プラン、組織などのユーザー情報に基づく動的コンテンツを表示します。
+
+```jsx
+おかえりなさい、{user.firstName}さん！{user.org?.plan}プランには以下が含まれます...
+```
+
+詳しい例と実装ガイドラインは、以下の[ユーザーデータ形式](#user-data-format)セクションをご覧ください。
+
+
+<div id="page-visibility">
+  ### ページの可視性
+</div>
+
+ページのフロントマターに `groups` フィールドを追加すると、ユーザーに表示するページを制限できます。デフォルトでは、すべてのページがすべてのユーザーに表示されます。
+
+ユーザーには、自分が所属する `groups` に含まれるページのみが表示されます。
+
+```mdx
+---
+title: "ユーザー管理"
+description: "組織へのユーザーの追加と削除"
+groups: ["admin"]
+---
+```
+
+
+<div id="user-data-format">
+  ## ユーザーデータの形式
+</div>
+
+パーソナライゼーションを実装する際、システムはコンテンツをカスタマイズできるよう、所定の形式でユーザーデータを返します。このデータは、ハンドシェイク方法に応じて、生の JSON オブジェクトとして送信することも、署名付き JWT に含めて送信することもできます。どちらの場合でも、データの構造は同一です。
+
+```tsx
+type User = {
+  expiresAt?: number;
+  groups?: string[];
+  content?: Record<string, any>;
+  apiPlaygroundInputs?: {
+    header?: Record<string, any>;
+    query?: Record<string, any>;
+    cookie?: Record<string, any>;
+    server?: Record<string, string>;
+  };
+};
+```
+
+<ParamField path="expiresAt" type="number">
+  セッションの有効期限（**UNIX エポックからの経過秒数**）。この時刻以降にユーザーがページを読み込むと、保存されたデータは自動的に削除され、再認証が必要になります。
+  <Warning><b>JWT のハンドシェイクについて:</b> これは JWT の `exp` クレームとは異なり、`exp` は JWT が無効と見なされる時刻を決定します。セキュリティのため、JWT の `exp` クレームは短い期間（10 秒以下）に設定してください。実際のセッションの長さ（数時間〜数週間）には `expiresAt` を使用します。</Warning>
+</ParamField>
+
+<ParamField path="groups" type="string[]">
+  ユーザーが所属するグループ一覧。frontmatter の `groups` が一致するページはこのユーザーに表示されます。
+
+  **例**: `groups: ["admin", "engineering"]` を持つユーザーは、`admin` または `engineering` グループがタグ付けされたページにアクセスできます。
+</ParamField>
+
+<ParamField path="content" type="object">
+  `user` 変数を介して `MDX` コンテンツ内から参照できるカスタムデータ。ドキュメント全体での動的なパーソナライゼーションに使用します。
+
+  **基本例**:
+
+  ```json
+  { "firstName": "Ronan", "company": "Acme Corp", "plan": "Enterprise" }
+  ```
+
+  **`MDX` での使用例**:
+
+  ```mdx
+  Welcome back, {user.firstName}! Your {user.plan} plan includes...
+  ```
+
+  上記の `user` データの場合、次のように表示されます: Welcome back, Ronan! Your Enterprise plan includes...
+
+  **高度な条件付きレンダリング**:
+
+  ```jsx
+  Authentication is an enterprise feature. {
+    user.org === undefined
+      ? <>To access this feature, first create an account at the <a href="https://dashboard.mintlify.com/login">Mintlify dashboard</a>.</>
+      : user.org.plan !== 'enterprise'
+        ? <>You are currently on the ${user.org.plan ?? 'free'} plan. See <a href="https://mintlify.com/pricing">our pricing page</a> for information about upgrading.</>
+        : <>To request this feature for your enterprise org, contact your admin.</>
+  }
+  ```
+
+  <Note>
+    `user` の情報はログイン済みユーザーにのみ提供されます。ログアウト中のユーザーでは `user` の値は `{}` です。ログアウト時にページがクラッシュしないよう、`user` の各フィールドには必ずオプショナルチェイニングを使用してください。例: `{user.org?.plan}`。
+  </Note>
+</ParamField>
+
+<ParamField path="apiPlaygroundInputs" type="object">
+  APIプレイグラウンドのフィールドに事前入力するユーザー固有の値。API をテストする際にユーザーデータを自動入力して時間を節約します。
+
+  **例**:
+
+  ```json
+  {
+    "header": { "X-API-Key": "user_api_key_123" },
+    "server": { "subdomain": "foo" },
+    "query": { "org_id": "12345" }
+  }
+  ```
+
+  ユーザーが特定のサブドメインでリクエストを行う場合、`apiPlaygroundInputs` フィールドとして `{ server: { subdomain: 'foo' } }` を送信できます。この値は、`subdomain` を使用する任意の API ページで事前入力されます。
+
+  <Note>`header`、`query`、`cookie` フィールドは、あなたの [OpenAPI security scheme](https://swagger.io/docs/specification/authentication/) の一部である場合にのみ事前入力されます。フィールドが `Authorization` または `Server` セクションにある場合は事前入力されます。`Authorization` という名前の通常のヘッダーパラメータを作成しても、この機能は有効になりません。</Note>
+</ParamField>
+
+
+<div id="example-user-data">
+  ### ユーザー データの例
+</div>
+
+```json
+{
+  "expiresAt": 1735689600,
+  "groups": ["admin", "beta-users"],
+  "content": {
+    "firstName": "Jane",
+    "lastName": "Smith",
+    "company": "TechCorp",
+    "plan": "Enterprise",
+    "region": "us-west"
+  },
+  "apiPlaygroundInputs": {
+    "header": {
+      "Authorization": "Bearer abc123",
+      "X-Org-ID": "techcorp"
+    },
+    "server": {
+      "environment": "production",
+      "region": "us-west"
+    }
+  }
+}
+```
+
+
+<div id="configuring-personalization">
+  ## パーソナライゼーションの設定
+</div>
+
+設定したいハンドシェイク方法を選択します。
+
+<Tabs>
+  <Tab title="JWT">
+    ### 前提条件
+
+    * JWT を生成して署名できるログインシステム
+    * リダイレクト URL を作成できるバックエンドサービス
+
+    ### 実装
+
+    <Steps>
+      <Step title="秘密鍵を生成します。">
+        1. ダッシュボードで [Authentication](https://dashboard.mintlify.com/settings/deployment/authentication) に移動します。
+        2. **パーソナライゼーション** を選択します。
+        3. **JWT** を選択します。
+        4. 既存のログインフローの URL を入力し、**Save changes** を選択します。
+        5. **Generate new key** を選択します。
+        6. バックエンドから参照できるよう、秘密鍵を安全に保管します。
+      </Step>
+
+      <Step title="Mintlify のパーソナライゼーションをログインフローに統合します。">
+        既存のログインフローを変更し、ユーザーのログイン後に次の手順を追加します:
+
+        * ログイン済みユーザーの情報を `User` 形式で含む JWT を作成します。詳しくは上の [User data format](#user-data-format) セクションをご覧ください。
+        * ES256 アルゴリズムを使用し、秘密鍵で JWT に署名します。
+        * JWT をハッシュとして含めてドキュメントに戻るリダイレクト URL を作成します。
+      </Step>
+    </Steps>
+
+    ### 例
+
+    ドキュメントは `docs.foo.com` でホストされています。ドキュメントをダッシュボードと分離したい（またはダッシュボードがない）場合、パーソナライゼーションを有効にします。
+
+    JWT シークレットを生成します。続いて、ドキュメント向けのログインフローを開始する `https://foo.com/docs-login` にログインエンドポイントを作成します。
+
+    ユーザーの認証情報を検証した後:
+
+    * Mintlify の形式でユーザーデータを含む JWT を生成します。
+    * JWT に署名し、`https://docs.foo.com#{SIGNED_JWT}` にリダイレクトします。
+
+    ```ts
+    import * as jose from 'jose';
+    import { Request, Response } from 'express';
+
+    const TWO_WEEKS_IN_MS = 1000 * 60 * 60 * 24 * 7 * 2;
+
+    const signingKey = await jose.importPKCS8(process.env.MINTLIFY_PRIVATE_KEY, 'ES256');
+
+    export async function handleRequest(req: Request, res: Response) {
+      const user = {
+        expiresAt: Math.floor((Date.now() + TWO_WEEKS_IN_MS) / 1000),
+        groups: res.locals.user.groups,
+        content: {
+          firstName: res.locals.user.firstName,
+          lastName: res.locals.user.lastName,
+        },
+      };
+
+      const jwt = await new jose.SignJWT(user)
+        .setProtectedHeader({ alg: 'ES256' })
+        .setExpirationTime('10 s')
+        .sign(signingKey);
+
+      return res.redirect(`https://docs.foo.com#${jwt}`);
+    }
+    ```
+
+    ### ページアンカーの保持
+
+    ログイン後に特定のセクションへリダイレクトするには、次のURL形式を使用します：`https://docs.foo.com/page#jwt={SIGNED_JWT}&anchor={ANCHOR}`。
+
+    **例:**
+
+    * 元のURL：`https://docs.foo.com/quickstart#step-one`
+    * リダイレクトURL：`https://docs.foo.com/quickstart#jwt={SIGNED_JWT}&anchor=step-one`
+  </Tab>
+
+  <Tab title="OAuth 2.0">
+    ### 前提条件
+
+    * Auth Code with PKCE フローをサポートする OAuth サーバー
+    * OAuth アクセストークンでアクセス可能な API エンドポイントを作成できること
+
+    ### 実装
+
+    <Steps>
+      <Step title="ユーザー情報 API エンドポイントを作成します。">
+        次を満たす API エンドポイントを作成します:
+
+        * 認証に OAuth アクセストークンを受け付ける。
+        * `User` 形式でユーザーデータを返す。詳細は上記の [User data format](#user-data-format) セクションを参照してください。
+        * アクセス用のスコープを定義する。
+      </Step>
+
+      <Step title="OAuth のパーソナライゼーション設定を構成します。">
+        1. ダッシュボードで [Authentication](https://dashboard.mintlify.com/settings/deployment/authentication) に移動します。
+        2. **Personalization** を選択します。
+        3. **OAuth** を選択し、次の項目を設定します:
+
+        * **Authorization URL**: OAuth の認可エンドポイント。
+        * **Client ID**: OAuth 2.0 のクライアント識別子。
+        * **Scopes**: リクエストする権限。スコープ文字列は**全体**をコピーします（例：`provider.users.docs` のようなスコープの場合、`provider.users.docs` 全体をコピー）。最初の手順で構成したエンドポイントのスコープと一致している必要があります。
+        * **Token URL**: OAuth のトークンエクスチェンジ用エンドポイント。
+        * **Info API URL**: パーソナライゼーション用のユーザーデータを取得するエンドポイント。最初の手順で作成したもの。
+
+        4. **Save changes** を選択します。
+      </Step>
+
+      <Step title="OAuth サーバーを構成します。">
+        1. [Authentication 設定](https://dashboard.mintlify.com/settings/deployment/authentication) から **Redirect URL** をコピーします。
+        2. この URL を OAuth サーバーの設定で許可されたリダイレクト URL として追加します。
+      </Step>
+    </Steps>
+
+    ### 例
+
+    ドキュメントは `foo.com/docs` でホスティングされており、PKCE フローをサポートする既存の OAuth サーバーがあります。ユーザーデータに基づいてドキュメントをパーソナライズしたいとします。
+
+    `api.foo.com/docs/user-info` に**ユーザー情報エンドポイントを作成**し、`provider.users.docs` スコープを持つ OAuth アクセストークンを要求し、ユーザーのカスタムデータで応答します。
+
+    ```json
+    {
+      "content": {
+        "firstName": "Jane",
+        "lastName": "Doe"
+      },
+      "groups": ["engineering", "admin"]
+    }
+    ```
+
+    ダッシュボードで**OAuth サーバーの詳細を設定**します:
+
+    * **Authorization URL**: `https://auth.foo.com/authorization`
+    * **Client ID**: `ydybo4SD8PR73vzWWd6S0ObH`
+    * **Scopes**: `['docs-user-info']`
+    * **Token URL**: `https://auth.foo.com/exchange`
+    * **Info API URL**: `https://api.foo.com/docs/user-info`
+
+    **OAuth サーバーを設定**し、コールバック URL へのリダイレクトを許可します。
+  </Tab>
+
+  <Tab title="共有セッション">
+    ### 前提条件
+
+    * Cookie ベースのセッション認証を備えたダッシュボードまたはユーザーポータル。
+    * ダッシュボードと同一オリジンまたはサブドメインで API エンドポイントを作成できること。
+      * ダッシュボードが `foo.com` の場合、**API URL** は `foo.com` または `*.foo.com` で始まる必要があります。
+      * ダッシュボードが `dash.foo.com` の場合、**API URL** は `dash.foo.com` または `*.dash.foo.com` で始まる必要があります。
+    * ドキュメントがダッシュボードと同一ドメインまたはサブドメインでホストされていること。
+      * ダッシュボードが `foo.com` の場合、**docs** は `foo.com` または `*.foo.com` でホストされている必要があります。
+      * ダッシュボードが `*.foo.com` の場合、**docs** は `foo.com` または `*.foo.com` でホストされている必要があります。
+
+    ### 実装
+
+    <Steps>
+      <Step title="ユーザー情報 API エンドポイントを作成する">
+        次の要件を満たす API エンドポイントを作成します:
+
+        * 既存のセッション認証を用いてユーザーを識別する
+        * ユーザーデータを `User` 形式で返す（上記の [User data format](#user-data-format) を参照）
+        * API ドメインと docs ドメインが**完全一致しない**場合:
+
+          * API の `Access-Control-Allow-Origin` ヘッダーに docs ドメインを追加する（`*` は不可）。
+          * API の `Access-Control-Allow-Credentials` ヘッダーを `true` に設定する。
+
+          <Warning>
+            CORS ヘッダーはダッシュボードの API 全体ではなく、この特定のエンドポイントにのみ有効化してください。
+          </Warning>
+      </Step>
+
+      <Step title="パーソナライゼーション設定を構成する">
+        1. ダッシュボードで [Authentication](https://dashboard.mintlify.com/settings/deployment/authentication) に移動します。
+        2. **Personalization** を選択します。
+        3. **Shared Session** を選択します。
+        4. 最初の手順で作成したエンドポイントである **Info API URL** を入力します。
+        5. ユーザーがダッシュボードにログインする **Login URL** を入力します。
+        6. **Save changes** を選択します。
+      </Step>
+    </Steps>
+
+    ### 例
+
+    #### サブドメインにダッシュボード、サブドメインに docs
+
+    `dash.foo.com` にダッシュボードがあり、Cookie ベースのセッション認証を使用しています。ダッシュボードの API ルートは `dash.foo.com/api` でホストされています。`docs.foo.com` でホストされている docs にパーソナライゼーションを設定したいとします。
+
+    **セットアップ手順**:
+
+    1. セッション認証でユーザーを識別し、ユーザーデータを返す **エンドポイント** `dash.foo.com/api/docs/user-info` を作成します。
+    2. このルートに対してのみ **CORS ヘッダーを追加**:
+       * `Access-Control-Allow-Origin`: `https://docs.foo.com`
+       * `Access-Control-Allow-Credentials`: `true`
+    3. 認証設定で **API URL を設定**: `https://dash.foo.com/api/docs/user-info`。
+
+    #### サブドメインにダッシュボード、ルートに docs
+
+    `dash.foo.com` にダッシュボードがあり、Cookie ベースのセッション認証を使用しています。ダッシュボードの API ルートは `dash.foo.com/api` でホストされています。`foo.com/docs` でホストされている docs にパーソナライゼーションを設定したいとします。
+
+    **セットアップ手順**:
+
+    1. セッション認証でユーザーを識別し、ユーザーデータを返す **エンドポイント** `dash.foo.com/api/docs/user-info` を作成します。
+    2. このルートに対してのみ **CORS ヘッダーを追加**:
+       * `Access-Control-Allow-Origin`: `https://foo.com`
+       * `Access-Control-Allow-Credentials`: `true`
+    3. 認証設定で **API URL を設定**: `https://dash.foo.com/api/docs/user-info`。
+
+    #### ルートにダッシュボード、ルートに docs
+
+    `foo.com/dashboard` にダッシュボードがあり、Cookie ベースのセッション認証を使用しています。ダッシュボードの API ルートは `foo.com/api` でホストされています。`foo.com/docs` でホストされている docs にパーソナライゼーションを設定したいとします。
+
+    **セットアップ手順**:
+
+    1. セッション認証でユーザーを識別し、ユーザーデータを返す **エンドポイント** `foo.com/api/docs/user-info` を作成します。
+    2. 認証設定で **API URL を設定**: `https://foo.com/api/docs/user-info`
+
+    <Note>
+      ダッシュボードと docs が同一ドメインであるため、CORS の設定は不要です。
+    </Note>
+  </Tab>
+</Tabs>

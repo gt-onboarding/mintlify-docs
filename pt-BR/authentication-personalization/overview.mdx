@@ -1,0 +1,72 @@
+---
+title: "Visão geral"
+description: "Controle quem vê sua documentação e personalize a experiência"
+keywords: ["auth"]
+---
+
+<Info>
+  [Planos Pro](https://mintlify.com/pricing?ref=authentication) incluem autenticação por senha.
+
+  [Planos Enterprise](https://mintlify.com/pricing?ref=authentication) incluem todos os métodos de autenticação.
+</Info>
+
+Escolha entre três abordagens para gerenciar o acesso e personalizar sua documentação com base nas informações do usuário e nas suas necessidades de segurança:
+
+* **Autenticação completa**: Proteção total de privacidade para todo o conteúdo, com personalização completa do conteúdo.
+* **Autenticação parcial**: Controle de acesso página a página, com personalização completa do conteúdo.
+* **Personalização**: Personalização do conteúdo, com **nenhuma garantia de segurança**. Todo o conteúdo permanece publicamente acessível.
+
+<div id="use-case-examples">
+  ### Exemplos de casos de uso
+</div>
+
+**Escolha autenticação completa quando:**
+
+* Estiver criando documentação interna da empresa que contenha informações confidenciais
+* Estiver documentando APIs proprietárias que exijam verificação do usuário
+* Estiver criando guias de implementação específicos para clientes
+
+**Escolha autenticação parcial quando:**
+
+* Estiver oferecendo guias públicos de primeiros passos com recursos avançados privados
+* Estiver publicando documentação open source com seções empresariais privadas
+
+**Escolha personalização quando:**
+
+* Estiver criando documentação de API pública que mostre exemplos específicos do usuário
+* Estiver criando sites de marketing que personalizem o conteúdo com base nos perfis dos usuários
+* Estiver oferecendo tutoriais públicos que se adaptem às preferências ou ao nível de habilidade do usuário
+
+<div id="handshake-methods">
+  ## Métodos de handshake
+</div>
+
+Escolha o método que melhor se adapta à sua infraestrutura e aos seus requisitos de segurança.
+
+| Método | Disponível para | Complexidade de configuração | Melhor para |
+|:-------|:----------------|:-----------------------------|:-----------|
+| **JWT** | Todas as abordagens | Média | Fluxos de login personalizados, controle máximo de segurança |
+| **OAuth 2.0** | Todas as abordagens | Alta | Provedores de autenticação de terceiros, segurança corporativa |
+| **Mintlify Dashboard** | Apenas autenticação | Baixa | Equipes que já usam o dashboard da Mintlify |
+| **Senha** | Apenas autenticação | Baixa | Acesso compartilhado simples, sem personalização |
+| **Sessão compartilhada** | Apenas personalização | Baixa | Apps com autenticação baseada em sessão já existente |
+
+<div id="when-to-use-each-method">
+  ### Quando usar cada método
+</div>
+
+**JWT**: Use quando você já tem um sistema de autenticação e quer controle total sobre o fluxo de login. Ideal para gerenciamento de usuários personalizado ou quando você precisa desacoplar o acesso à documentação do seu aplicativo principal.
+
+**OAuth 2.0**: Use quando quiser aproveitar provedores de autenticação de terceiros (Google, GitHub etc.) ou precisar de padrões de segurança em nível empresarial. Melhor para organizações que já utilizam infraestrutura OAuth.
+
+**Mintlify Dashboard**: Use quando seus editores de documentação também são seus leitores. Perfeito para equipes internas que já gerenciam conteúdo pelo painel do Mintlify.
+
+**Password**: Use para controle de acesso simples quando você não precisa rastrear usuários individualmente nem personalizar conteúdo. Ótimo para contratados, usuários beta ou cenários de acesso temporário.
+
+**Shared Session**: Use quando quiser login contínuo entre seu aplicativo e a documentação. Ideal quando os usuários já estão autenticados no seu aplicativo principal e você quer personalizar a experiência na documentação.
+
+<div id="content-customization">
+  ## Personalização de conteúdo
+</div>
+
+Todas as três abordagens oferecem recursos de personalização de conteúdo, incluindo conteúdo dinâmico em MDX, preenchimento prévio de chave de API e controles de visibilidade de páginas. Para orientações detalhadas de implementação, consulte [Configuração de personalização](/pt-BR/deploy/personalization-setup).

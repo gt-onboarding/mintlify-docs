@@ -1,0 +1,21 @@
+---
+openapi: POST /agent/{projectId}/job
+---
+
+このエンドポイントは、指定されたメッセージとブランチ情報に基づいてエージェントのジョブを作成します。ジョブは非同期で実行され、実行の詳細と結果を含むストリーミングレスポンスを返します。
+
+ブランチが存在しない場合は、エージェントが新規に作成します。ファイルの編集が成功した場合は、ジョブの終了時に下書きのPull Requestが自動的に作成されます。
+
+<div id="rate-limits">
+  ## レート制限
+</div>
+
+Agent API には次の制限があります：
+
+- Mintlify プロジェクトごとに、1 時間あたり 100 回まで
+
+<div id="suggested-usage">
+  ## 推奨される使用方法
+</div>
+
+最良の結果を得るには、リクエストの送信とレスポンスの処理に [ai-sdk の useChat フック](https://ai-sdk.dev/docs/reference/ai-sdk-ui/use-chat#usechat) を使用してください。

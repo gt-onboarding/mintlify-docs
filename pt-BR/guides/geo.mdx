@@ -1,0 +1,122 @@
+---
+title: "Guia de GEO: Otimize a documentação para busca e motores de resposta com IA"
+sidebarTitle: "GEO"
+description: "Torne sua documentação mais fácil de encontrar e citada com mais frequência por ferramentas de IA"
+---
+
+Otimize sua documentação tanto para mecanismos de busca tradicionais quanto para motores de resposta com IA, como ChatGPT, Perplexity e Google AI Overviews.
+
+A Otimização para Motores Generativos (GEO) tem como objetivo ser citada por sistemas de IA por meio de conteúdo abrangente e informações estruturadas, enquanto o SEO tradicional visa o posicionamento nos resultados de busca.
+
+<div id="geo-quickstart">
+  ## Guia rápido do GEO
+</div>
+
+<div id="initial-setup">
+  ### Configuração inicial
+</div>
+
+1. **Certifique-se de que sua documentação está sendo indexada** nas configurações do `docs.json`
+2. **Revise as páginas atuais** para identificar descrições e títulos ausentes
+
+<div id="content-improvements">
+  ### Melhorias de conteúdo
+</div>
+
+1. **Adicione tabelas de comparação** nas páginas apropriadas
+2. **Revise os títulos** para garantir que respondam às perguntas mais comuns
+3. **Melhore os links internos** entre tópicos relacionados
+4. **Teste com ferramentas de IA** para verificar a precisão
+
+<div id="geo-best-practices">
+  ## Melhores práticas de GEO
+</div>
+
+Em geral, documentação bem escrita e bem estruturada tende a ter um GEO robusto. Continue priorizando escrever para seus usuários e, se seu conteúdo atender às necessidades deles, você estará no caminho certo para otimizar para ferramentas de IA. Criar conteúdo realmente útil, em vez de otimizar apenas por otimizar, é valorizado tanto por mecanismos de busca tradicionais quanto por mecanismos de busca com IA.
+
+Concentre-se em:
+
+- Conteúdo alinhado às necessidades do usuário, e não em correspondência de palavras-chave
+- Informações estruturadas e fáceis de percorrer
+- Respostas diretas às perguntas
+
+<div id="format-for-clarity">
+  ### Formatação para maior clareza
+</div>
+
+Estas práticas de formatação ajudam as ferramentas de IA a processar e entender seu conteúdo:
+
+- Não pule níveis de títulos (H1 → H2 → H3)
+- Use nomes de objetos específicos em vez de “it” ou “this”
+- Rotule os blocos de código com sua linguagem de programação
+- Forneça texto alternativo descritivo para as imagens
+- Adicione links para conceitos relacionados para ajudar a IA a entender as relações
+
+<div id="answer-questions-directly">
+  ### Responda às perguntas diretamente
+</div>
+
+Escreva conteúdo que atenda a perguntas específicas dos usuários:
+
+- Comece as seções com o principal aprendizado
+- Use títulos descritivos que correspondam às dúvidas mais comuns
+- Divida tópicos complexos em etapas numeradas
+
+<div id="mintlify-configuration">
+  ## Configuração do Mintlify
+</div>
+
+Use estes recursos para melhorar o GEO.
+
+<div id="add-descriptive-page-metadata">
+  ### Adicione metadados descritivos à página
+</div>
+
+Inclua títulos e descrições claros no seu frontmatter:
+
+```mdx
+---
+title: "Guia de autenticação de API"
+description: "Guia completo para implementar autenticação de API com exemplos de código"
+---
+```
+
+<div id="configure-global-indexing-settings">
+  ### Configurar as configurações globais de indexação
+</div>
+
+Adicione ao seu `docs.json`:
+
+```json
+{
+  "seo": {
+    "indexing": "all",
+    "metatags": {
+      "og:type": "website",
+      "og:site_name": "Your docs"
+    }
+  }
+}
+```
+
+<div id="llmstxt">
+  ### LLMs.txt
+</div>
+
+Arquivos LLMs.txt ajudam sistemas de IA a entender a estrutura da sua documentação, de forma semelhante a como sitemaps ajudam mecanismos de busca. A Mintlify gera automaticamente arquivos LLMs.txt para sua documentação. Não é necessário nenhuma configuração.
+
+<div id="testing-your-documentation">
+  ## Testando sua documentação
+</div>
+
+Teste várias ferramentas de IA com perguntas sobre seu produto e sua documentação para ver quão bem sua documentação está sendo citada.
+
+**Faça perguntas específicas aos assistentes de IA sobre sua documentação:**
+
+- "Como configuro a autenticação usando esta API?"
+- "Guie-me pelo processo de instalação passo a passo"
+
+**Verifique se as ferramentas fornecem:**
+
+- Exemplos de código corretos
+- Instruções detalhadas, passo a passo

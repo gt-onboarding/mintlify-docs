@@ -1,0 +1,45 @@
+---
+title: "Página 404 personalizada"
+description: "Personalize o título e a descrição da sua página de erro 404"
+---
+
+Você pode controlar o título e a descrição da página de erro 404 que aparece quando os usuários acessam links quebrados ou que não existem.
+
+Ao personalizar sua página 404, use a descrição para direcionar os usuários a recursos úteis ou links na sua documentação que os ajudem a encontrar o que procuram.
+
+<div id="configuration">
+  ## Configuração
+</div>
+
+Configure sua página 404 na seção `errors.404` do arquivo `docs.json`:
+
+```json
+"errors": {
+  "404": {
+    "redirect": false,
+    "title": "Página não encontrada",
+    "description": "O que **aconteceu** com esta _página_?"
+  }
+}
+```
+
+
+<div id="parameters">
+  ## Parâmetros
+</div>
+
+<ResponseField name="redirect" type="boolean">
+  Define se deve redirecionar automaticamente para a página inicial quando uma página não for encontrada.
+  
+  Defina como `true` para redirecionar para a página inicial.
+
+  Defina como `false` para exibir a página 404 personalizada.
+</ResponseField>
+
+<ResponseField name="title" type="string">
+  Título personalizado para a página de erro 404. Substitui o cabeçalho padrão "Página não encontrada".
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  Descrição personalizada para a página de erro 404. Dá suporte à formatação Markdown.
+</ResponseField>

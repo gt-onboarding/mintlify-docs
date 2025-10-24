@@ -1,0 +1,50 @@
+---
+title: "Mise à jour"
+description: "Suivez les changements et les mises à jour"
+---
+
+Utilisez le composant `Update` pour afficher des entrées de journal des modifications, des mises à jour de version et des notes de publication avec une mise en forme cohérente.
+
+<Update label="Exemple" description="v0.1.1">
+  ## Exemple de mise à jour
+
+  Vous pouvez ajouter n’importe quel contenu ici, comme une capture d’écran, un extrait de code ou une liste de modifications.
+
+  <Frame>
+    <img className="block" src="https://mintlify-assets.b-cdn.net/hero-light.png" alt="Capture d’écran de la page d’introduction de PearsDB, à titre d’exemple d’image dans un composant Update." />
+  </Frame>
+
+  ### Fonctionnalités
+
+  * Design responsive
+  * Ancre pour chaque mise à jour
+  * Entrée de flux RSS générée pour chaque mise à jour
+</Update>
+
+<div id="how-to-use">
+  ## Comment l’utiliser
+</div>
+
+```mdx Update example
+<Update label="2024-10-11" description="v0.1.0" tags={["Mintlify"]}>
+  Ceci est une mise à jour avec un libellé, une description et un tag.
+</Update>
+```
+
+Utilisez plusieurs composants `Update` pour créer un [journal des modifications](/fr/create/changelogs).
+
+<div id="props">
+  ## Props
+</div>
+
+<ResponseField name="label" type="string" required>
+  Libellé de la mise à jour. Apparaît à gauche de la mise à jour et crée un lien d’ancrage. Les libellés doivent être uniques.
+</ResponseField>
+
+<ResponseField name="tags" type="string[]">
+  Étiquettes de la mise à jour. Affichées comme filtres dans le panneau latéral droit.
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  Description de la mise à jour. Apparaît sous le libellé et les étiquettes.
+</ResponseField>

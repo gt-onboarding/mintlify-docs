@@ -1,0 +1,43 @@
+---
+title: "フレーム"
+description: "画像や他のコンポーネントをコンテナで包む"
+---
+
+フレームを使うと、画像、図、その他のビジュアルコンテンツを統一されたスタイルで、必要に応じてキャプション付きで表示できます。フレームはコンテンツを中央に配置し、周囲のテキストと視覚的に区切ります。
+
+<Frame>
+  <img src="https://mintlify-assets.b-cdn.net/yellowstone.jpeg" alt="イエローストーン国立公園で、木々に囲まれた湖と遠景の山々を写した写真。" />
+</Frame>
+
+<div id="captions">
+  ## キャプション
+</div>
+
+任意の `caption` プロップを使って、画像に補足情報を追加できます。
+
+<Frame caption="Yosemite National Park（ヨセミテ国立公園）には毎年350万人以上が訪れます">
+  <img src="https://mintlify-assets.b-cdn.net/yosemite.jpg" alt="ヨセミテ渓谷の写真。" />
+</Frame>
+
+<div id="properties">
+  ## プロパティ
+</div>
+
+<ResponseField name="caption" type="string">
+  コンポーネントの直下中央に表示する任意のキャプションテキスト。
+</ResponseField>
+
+<CodeGroup>
+
+```mdx Frame
+<Frame>
+  <img src="/path/image.jpg" alt="Descriptive alt text" />
+</Frame>
+```
+
+```mdx Frame with a caption
+<Frame caption="Caption text">
+  <img src="/path/image.jpg" alt="Descriptive alt text" />
+</Frame>
+```
+</CodeGroup>

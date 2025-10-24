@@ -1,0 +1,61 @@
+---
+title: "Mermaid"
+description: "使用 Mermaid 显示图表"
+---
+
+[Mermaid](https://mermaid.js.org/) 可通过文本与代码构建流程图、时序图、甘特图等各类图表。
+
+如需查看支持的图表类型及语法的完整列表，请参阅 [Mermaid 文档](https://mermaid.js.org/intro/)。
+
+```mermaid
+  flowchart LR
+    subgraph subgraph1
+        direction TB
+        top1[顶部] --> bottom1[底部]
+    end
+    subgraph subgraph2
+        direction TB
+        top2[顶部] --> bottom2[底部]
+    end
+    %% ^ 这些子图完全相同，唯一的区别是指向它们的链接：
+
+    %% 链接*指向* subgraph1：subgraph1 保持其原有方向
+    outside --> subgraph1
+    %% 链接*位于* subgraph2 *内部*：
+    %% subgraph2 继承顶层图的方向（LR）
+    outside ---> top2
+```
+
+````mdx Mermaid flowchart example
+```mermaid
+  flowchart LR
+    subgraph subgraph1
+        direction TB
+        top1[顶部] --> bottom1[底部]
+    end
+    subgraph subgraph2
+        direction TB
+        top2[顶部] --> bottom2[底部]
+    end
+    %% ^ 这些子图完全相同，唯一的区别是指向它们的链接方式：
+
+    %% 链接*指向* subgraph1：subgraph1 保持其自身方向
+    outside --> subgraph1
+    %% 链接*位于* subgraph2 *内部*：
+    %% subgraph2 继承顶层图的方向（LR）
+    outside ---> top2
+```
+````
+
+
+<div id="syntax">
+  ## 语法
+</div>
+
+要创建 Mermaid 图表，请将图表定义写入一个 Mermaid 代码块中。
+
+````mdx
+```mermaid
+// 在此处编写你的 Mermaid 图表代码
+```
+````

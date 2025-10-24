@@ -1,0 +1,53 @@
+---
+title: "Google Analytics 4"
+---
+
+Sie müssen eine neue <Tooltip tip="Google Analytics 4">GA4</Tooltip>-Property anlegen, um sie mit Mintlify zu verwenden. Die erfassten Daten werden demselben Projekt wie Ihre anderen Google-Analytics-Daten zugeordnet.
+
+Wenn Sie die ältere Version von Google Analytics, Universal Analytics, verwenden, können Sie weiterhin eine <Tooltip tip="Google Analytics 4">GA4</Tooltip>-Property erstellen. <Tooltip tip="Google Analytics 4">GA4</Tooltip>-Daten unterscheiden sich leicht von UA-Daten, werden jedoch im selben Projekt erfasst.
+
+<div id="how-to-connect-ga4-to-mintlify">
+  ## GA4 mit Mintlify verbinden
+</div>
+
+<div id="create-a-web-stream">
+  ### Einen Web-Stream erstellen
+</div>
+
+Sie müssen einen Web-Stream erstellen, um die Measurement-ID zu erhalten, die Sie in Mintlify einfügen.
+
+Klicken Sie auf das Zahnrad unten links im Google-Analytics-Bildschirm. Klicken Sie dann auf Data Streams.
+
+<Frame>![Screenshot der Seite „Data Streams“ im Google-Analytics-Dashboard.](/images/ga4-web-streams.png)</Frame>
+
+Erstellen Sie einen Web-Stream und geben Sie die URL Ihrer Mintlify-Dokumentationsseite als Stream-URL ein.
+
+Ihre Measurement-ID sieht aus wie `G-XXXXXXX` und wird direkt nach dem Erstellen des Web-Streams unter „Stream details“ angezeigt.
+
+<div id="put-measurement-id-in-docsjson">
+  ### Measurement ID in docs.json hinzufügen
+</div>
+
+Fügen Sie Ihre Measurement ID wie folgt in die Datei `docs.json` ein:
+
+```json docs.json
+"integrations": {
+    "ga4": {
+        "measurementId": "G-XXXXXXX"
+    }
+}
+```
+
+<div id="wait">
+  ### Warten
+</div>
+
+Google Analytics benötigt zwei bis drei Tage, um Ihre Daten anzuzeigen.
+
+Sie können den [Google Analytics Debugger](https://chrome.google.com/webstore/detail/google-analytics-debugger/jnkmfdileelhofjcijamephohjechhna?hl=en) verwenden, um zu prüfen, ob Analytics korrekt aktiviert ist. Die Erweiterung protokolliert in der Browser-Konsole jedes Mal, wenn GA4 eine Anfrage sendet.
+
+<Note>
+
+Bei Vorschau-Links ist Analytics deaktiviert.
+
+</Note>

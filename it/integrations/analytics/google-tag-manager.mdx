@@ -1,0 +1,27 @@
+---
+title: "Google Tag Manager"
+---
+
+Aggiungi l’ID del tag al file `docs.json` e inseriremo lo script di Google Tag Manager in tutte le tue pagine.
+
+Se necessario, sei tu a dover configurare i banner di consenso cookie con Google Tag Manager.
+
+<CodeGroup>
+
+```json Opzioni di Analytics in docs.json
+"integrations": {
+    "gtm": {
+        "tagId": "required"
+    }
+}
+```
+
+```json Esempio
+"integrations": {
+    "gtm": {
+        "tagId": "GTM-MGBL4PW"
+    }
+}
+```
+
+</CodeGroup>

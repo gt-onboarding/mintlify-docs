@@ -1,0 +1,195 @@
+---
+title: "Páginas"
+description: "Páginas são os blocos de construção da sua documentação"
+keywords: ["tags", "tag"]
+---
+
+Cada página é um arquivo MDX que combina conteúdo em Markdown com componentes React, permitindo criar documentação rica e interativa.
+
+<div id="page-metadata">
+  ## Metadados da página
+</div>
+
+Toda página começa com o frontmatter, os metadados YAML delimitados por `---` no início do arquivo. Esses metadados definem como sua página é exibida e se comporta.
+
+Use o frontmatter para controlar:
+
+* Títulos e descrições da página
+* Títulos, ícones e tags da barra lateral
+* Layouts de página
+* Metatags de SEO
+* Metadados personalizados
+
+<ResponseField name="title" type="string" required>
+  O título da sua página que aparece na navegação e nas abas do navegador.
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  Uma breve descrição do conteúdo desta página. Aparece abaixo do título e melhora o SEO.
+</ResponseField>
+
+<ResponseField name="sidebarTitle" type="string">
+  Um título curto exibido na navegação da barra lateral.
+</ResponseField>
+
+<ResponseField name="icon" type="string">
+  O ícone a ser exibido.
+
+  Opções:
+
+  * Nome do [ícone do Font Awesome](https://fontawesome.com/icons)
+  * Nome do [ícone do Lucide](https://lucide.dev/icons)
+  * URL para um ícone hospedado externamente
+  * Caminho para um arquivo de ícone no seu projeto
+</ResponseField>
+
+<ResponseField name="iconType" type="string">
+  O estilo do ícone do [Font Awesome](https://fontawesome.com/icons). Usado apenas com ícones do Font Awesome.
+
+  Opções: `regular`, `solid`, `light`, `thin`, `sharp-solid`, `duotone`, `brands`.
+</ResponseField>
+
+<ResponseField name="tag" type="string">
+  Uma tag que aparece ao lado do título da sua página na barra lateral.
+</ResponseField>
+
+<ResponseField name="<custom>" type="string">
+  Qualquer frontmatter YAML válido. Por exemplo, `product: "API"` ou `version: "1.0.0"`.
+</ResponseField>
+
+```yaml Example YAML frontmatter wrap
+---
+title: "Sobre o frontmatter"
+description: "O frontmatter é o conjunto de metadados que controla como sua página aparece e se comporta"
+sidebarTitle: "Frontmatter"
+icon: "book"
+tag: "NOVO"
+---
+```
+
+<div id="page-mode">
+  ## Modo da página
+</div>
+
+Controle como sua página é exibida com a configuração `mode`.
+
+<div id="default">
+  ### Padrão
+</div>
+
+Se nenhum modo for definido, usa-se um layout padrão com navegação na barra lateral e um índice.
+
+```yaml
+---
+title: "Título padrão da página"
+---
+```
+
+<div id="wide">
+  ### Largo
+</div>
+
+O modo largo oculta o sumário. Isso é útil para páginas sem títulos ou se você prefere aproveitar o espaço horizontal extra. O modo largo está disponível em todos os temas.
+
+```yaml
+---
+title: "Título da página ampla"
+mode: "wide"
+---
+```
+
+<div id="custom">
+  ### Personalizado
+</div>
+
+O modo Personalizado oferece um layout minimalista que remove todos os elementos, exceto a barra de navegação superior. Ele funciona como uma tela em branco para criar landing pages ou outros layouts exclusivos nos quais você quer ter o mínimo de navegação possível. O modo Personalizado está disponível em todos os temas.
+
+```yaml
+---
+title: "Título personalizado da página"
+mode: "custom"
+---
+```
+
+<div id="frame">
+  ### Frame
+</div>
+
+O modo Frame oferece um layout semelhante ao modo custom, mas preserva a navegação na barra lateral. Esse modo de página permite HTML e componentes personalizados, mantendo a experiência de navegação padrão. O modo Frame está disponível apenas nos temas Aspen e Almond.
+
+```yaml
+---
+title: "Título da página em frame"
+mode: "frame"
+---
+```
+
+<div id="center">
+  ### Centralizado
+</div>
+
+O modo centralizado remove a barra lateral e o sumário, centralizando o conteúdo. Isso é útil para registros de alterações (changelogs) ou outras páginas em que você deseja destacar o conteúdo. O modo centralizado está disponível nos temas Mint e Linden.
+
+```yaml
+---
+title: "Centralizar título da página"
+mode: "center"
+---
+```
+
+<div id="api-pages">
+  ## Páginas de API
+</div>
+
+Crie Playgrounds de API interativos adicionando uma especificação de API ao frontmatter, `api` ou `openapi`.
+
+```yaml
+---
+openapi: "GET /endpoint"
+---
+```
+
+Saiba mais sobre como criar [documentação de API](/pt-BR/api-playground/overview).
+
+<div id="external-links">
+  ## Links externos
+</div>
+
+Crie links para sites externos diretamente na navegação usando o metadado `url`.
+
+```yaml
+---
+title: "Pacote npm"
+url: "https://www.npmjs.com/package/mint"
+---
+```
+
+<div id="search-engine-optimization">
+  ## Otimização para mecanismos de busca
+</div>
+
+A maioria das meta tags de SEO é gerada automaticamente. Você também pode definir meta tags de SEO manualmente para melhorar o SEO do seu site, o compartilhamento em redes sociais e a compatibilidade com navegadores.
+
+<Note>
+  Meta tags com dois-pontos devem estar entre aspas.
+</Note>
+
+```yaml
+---
+"twitter:image": "/images/social-preview.jpg"
+---
+```
+
+Consulte [SEO](/pt-BR/optimize/seo) para ver todas as opções de metadados de SEO.
+
+<div id="internal-search-keywords">
+  ## Palavras-chave de pesquisa interna
+</div>
+
+Melhore a capacidade de descoberta de uma página específica na pesquisa integrada fornecendo `keywords` nos metadados. Essas palavras-chave não aparecerão como parte do conteúdo da página nem nos resultados da pesquisa, mas usuários que pesquisarem por elas verão a página como resultado.
+
+```yaml
+---
+keywords: ['configuração', 'configurar', 'primeiros passos']
+---
+```

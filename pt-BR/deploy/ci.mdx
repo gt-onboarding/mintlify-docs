@@ -1,0 +1,422 @@
+---
+title: "Verificações de CI"
+description: "Adicione verificações de links quebrados, lint e gramática ao processo de atualização"
+---
+
+<Info>
+  Os [planos Pro e Enterprise](https://mintlify.com/pricing?ref=docs-ci) incluem verificações de CI para repositórios do GitHub.
+</Info>
+
+Use as verificações de CI para analisar suas docs em busca de erros e fornecer alertas antes da implantação. As verificações de CI são configuradas para serem executadas em commits no branch de implantação definido ou em pull requests direcionados a esse branch.
+
+<div id="installation">
+  ## Instalação
+</div>
+
+Para começar, siga as etapas na página do [GitHub](/pt-BR/deploy/github).
+
+No caso de GitHub Apps, você pode optar por conceder permissões apenas a um único repositório. Recomendamos fortemente que faça isso, pois precisamos de acesso apenas ao repositório onde sua documentação está hospedada.
+
+## Configuração
+
+Configure as verificações de CI ativadas para uma implantação acessando a página de [Add-ons](https://dashboard.mintlify.com/products/addons) do seu painel. Ative as verificações que você deseja executar.
+
+Ao ativar as verificações, você pode escolher executá-las nos níveis `Warning` ou `Blocking`.
+
+* Uma verificação no nível `Warning` nunca retornará status de falha, mesmo que haja erros ou sugestões.
+* Uma verificação no nível `Blocking` retornará status de falha se não for aprovada ou se forem sugeridas alterações.
+
+<div id="available-ci-checks">
+  ## Verificações de CI disponíveis
+</div>
+
+<div id="broken-links">
+  ### Links quebrados
+</div>
+
+Assim como o [verificador de links da CLI](/pt-BR/create/broken-links#broken-links) funciona na sua máquina local, verificamos automaticamente sua documentação em busca de links quebrados.
+
+Para ver os resultados dessa verificação, acesse a página de resultados de checks do GitHub para um commit específico.
+
+<div id="vale">
+  ### Vale
+</div>
+
+[Vale](https://vale.sh/) é um linter de prosa de código aberto, baseado em regras, que oferece suporte a diversos tipos de documentos, incluindo Markdown e MDX.
+
+O Mintlify permite executar o Vale automaticamente em uma verificação de CI e exibir os resultados como um status de verificação.
+
+<div id="configuration">
+  #### Configuração
+</div>
+
+Se você tiver um arquivo `.vale.ini` no diretório raiz de conteúdo da sua implantação, usaremos automaticamente esse arquivo de configuração. Também usaremos automaticamente quaisquer arquivos de configuração no `stylesPath` especificado.
+
+Se você não tiver um arquivo de configuração do Vale, a configuração padrão será carregada automaticamente.
+
+```mdx Default vale.ini configuration expandable
+# Estilos de nível superior
+StylesPath = /app/styles
+MinAlertLevel = suggestion
+IgnoredScopes = code, tt, img, url, a
+SkippedScopes = script, style, pre, figure, code
+
+# Vocabulários
+Vocab = Mintlify
+
+# Isso é necessário pois o Vale não oferece suporte oficial ao MDX
+[formats]
+mdx = md
+
+# Suporte ao MDX
+[*.mdx]
+BasedOnStyles = Vale
+Vale.Terms = NO # Impõe regras de capitalização muito rígidas, manter desativado
+
+# `import ...`, `export ...`
+# `<Component ... />`
+# `<Component>...</Component>`
+# `{ ... }`
+TokenIgnores = (?sm)((?:import|export) .+?$), \
+(?<!`)(<\w+ ?.+ ?\/>)(?!`), \
+(<[A-Z]\w+>.+?<\/[A-Z]\w+>)
+
+# Excluir:
+# `<Component \n ... />`
+BlockIgnores = (?sm)^(<\w+\n .*\s\/>)$, \
+(?sm)^({.+.*})
+
+CommentDelimiters = {/*, */}
+```
+
+```text Default Vale vocabulary expandable
+Mintlify
+mintlify
+VSCode
+openapi
+OpenAPI
+Github
+APIs
+
+repo
+npm
+dev
+
+Lorem
+ipsum
+impsum
+amet
+
+const
+myName
+myObject
+bearerAuth
+favicon
+topbar
+url
+borderRadius
+args
+modeToggle
+ModeToggle
+isHidden
+autoplay
+
+_italic_
+Strikethrough
+Blockquotes
+Blockquote
+Singleline
+Multiline
+
+onboarding
+
+async
+await
+boolean
+enum
+func
+impl
+init
+instanceof
+typeof
+params
+stdin
+stdout
+stderr
+stdout
+stdin
+var
+const
+let
+null
+undefined
+struct
+bool
+
+cors
+csrf
+env
+xhr
+xhr2
+jwt
+oauth
+websocket
+localhost
+middleware
+runtime
+webhook
+stdin
+stdout
+
+json
+yaml
+yml
+md
+txt
+tsx
+jsx
+css
+scss
+html
+png
+jpg
+svg
+
+cdn
+cli
+css
+dom
+dto
+env
+git
+gui
+http
+https
+ide
+jvm
+mvc
+orm
+rpc
+sdk
+sql
+ssh
+ssl
+tcp
+tls
+uri
+url
+ux
+ui
+
+nodejs
+npm
+yarn
+pnpm
+eslint
+pytest
+golang
+rustc
+kubectl
+mongo
+postgres
+redis
+
+JavaScript
+TypeScript
+Python
+Ruby
+Rust
+Go
+Golang
+Java
+Kotlin
+Swift
+Node.js
+NodeJS
+Deno
+
+React
+Vue
+Angular
+Next.js
+Nuxt
+Express
+Django
+Flask
+Spring
+Laravel
+Redux
+Vuex
+TensorFlow
+PostgreSQL
+MongoDB
+Redis
+PNPM
+
+Docker
+Kubernetes
+AWS
+Azure
+GCP
+Terraform
+Jenkins
+CircleCI
+GitLab
+Heroku
+
+Git
+git
+GitHub
+GitLab
+Bitbucket
+VSCode
+Visual Studio Code
+IntelliJ
+WebStorm
+ESLint
+eslint
+Prettier
+prettier
+Webpack
+webpack
+Vite
+vite
+Babel
+babel
+Jest
+jest
+Mocha
+Cypress
+Postman
+
+HTTP
+HTTPS
+OAuth
+JWT
+GraphQL
+REST
+WebSocket
+TCP/IP
+
+NPM
+Yarn
+PNPM
+Pip
+PIP
+Cargo
+RubyGems
+
+Swagger
+OpenAPI
+Markdown
+MDX
+Storybook
+TypeDoc
+JSDoc
+
+MySQL
+PostgreSQL
+MongoDB
+Redis
+Elasticsearch
+DynamoDB
+
+Linux
+Unix
+macOS
+iOS
+
+Firefox
+Chromium
+WebKit
+
+config
+ctx
+desc
+dir
+elem
+err
+len
+msg
+num
+obj
+prev
+proc
+ptr
+req
+res
+str
+tmp
+val
+vars
+
+todo
+href
+lang
+nav
+prev
+next
+toc
+```
+
+<Warning>
+  Observe que, por motivos de segurança, não oferecemos suporte a nenhum `stylesPath` absoluto nem a `stylesPath` que incluam valores `..`. Use caminhos relativos e inclua o `stylesPath` no seu repositório.
+</Warning>
+
+<div id="packages">
+  #### Pacotes
+</div>
+
+O Vale oferece suporte a vários [pacotes](https://vale.sh/docs/keys/packages), que podem ser usados para verificar erros de ortografia e estilo.
+Quaisquer pacotes que você incluir no seu repositório no `stylesPath` correto serão instalados automaticamente e usados na sua configuração do Vale.
+
+Para pacotes que não estão no seu repositório, você pode especificar qualquer pacote do [registro de pacotes do Vale](https://vale.sh/explorer), e eles serão baixados automaticamente e usados na sua configuração do Vale.
+
+<Warning>
+  Por motivos de segurança, não é possível baixar automaticamente pacotes que não sejam do [registro de pacotes do Vale](https://vale.sh/explorer).
+</Warning>
+
+<div id="vale-with-mdx">
+  #### Vale com `MDX`
+</div>
+
+O Vale não oferece suporte nativo a `MDX`, mas o autor do Vale disponibilizou uma [extensão personalizada](https://github.com/errata-ai/MDX) para habilitar esse suporte.
+
+Se preferir não usar essa extensão, recomendamos adicionar as linhas abaixo ao seu arquivo `.vale.ini`:
+
+```ini
+[formats]
+mdx = md
+
+[*.mdx]
+CommentDelimiters = {/*, */}
+
+TokenIgnores = (?sm)((?:import|export) .+?$), \
+(?<!`)(<\w+ ?.+ ?\/>)(?!`), \
+(<[A-Z]\w+>.+?<\/[A-Z]\w+>)
+
+BlockIgnores = (?sm)^(<\w+\n .*\s\/>)$, \
+(?sm)^({.+.*})
+```
+
+Para usar os comentários dentro do documento no Vale, utilize comentários no estilo MDX `{/* ... */}`. Se você definir `CommentDelimiters = {/*, */}` nessa [configuração](https://vale.sh/docs/keys/commentdelimiters), o Vale interpretará automaticamente esses comentários durante a análise. Isso significa que você pode usar facilmente os recursos nativos do Vale, como ignorar linhas ou seções.
+
+```mdx
+{/* vale off */}
+
+Este texto será ignorado pelo Vale
+
+{/* vale on */}
+```
+
+Se você optar por não usar `CommentDelimiters`, mas ainda assim quiser usar os comentários do Vale, deverá envolver quaisquer comentários do Vale em comentários MDX `{/* ... */}`. Por exemplo:
+
+```mdx
+{/* <!-- vale off --> */}
+
+Este texto será ignorado pelo Vale
+
+{/* <!-- vale on --> */}
+```
+
+Essas tags de comentário não são suportadas dentro dos componentes do Mintlify, mas podem ser usadas em qualquer lugar no nível básico de um documento.

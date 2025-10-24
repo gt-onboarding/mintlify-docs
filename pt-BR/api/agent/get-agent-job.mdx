@@ -1,0 +1,19 @@
+---
+openapi: GET /agent/{projectId}/job/{id}
+---
+
+<div id="usage">
+  ## Uso
+</div>
+
+Este endpoint recupera os detalhes e o status de uma tarefa de agente específica pelo seu identificador exclusivo. Use-o para verificar o progresso, o status e os resultados de uma tarefa de agente criada anteriormente.
+
+<div id="job-details">
+  ## Detalhes do job
+</div>
+
+A resposta inclui informações como:
+
+- Status de execução do job e estado de conclusão
+- Informações da branch e detalhes do pull request
+- Metadados da sessão e registros de data e hora

@@ -1,0 +1,52 @@
+---
+title: "Introduzione"
+description: "Scopri la nuova generazione di documentazione: nativa per l’IA, splendida già pronta all’uso e pensata per gli sviluppatori."
+mode: "frame"
+---
+
+export const HeroCard = ({ filename, title, description, href }) => {
+  return (
+    <a className="group cursor-pointer pb-8" href={href}>
+      <img
+        src={`https://mintlify.s3.us-west-1.amazonaws.com/mintlify/images/hero/${filename}.png`}
+        className="block dark:hidden pointer-events-none group-hover:scale-105 transition-all duration-100"
+      />
+      <img
+        src={`https://mintlify.s3.us-west-1.amazonaws.com/mintlify/images/hero/${filename}-dark.png`}
+        className="pointer-events-none group-hover:scale-105 transition-all duration-100 hidden dark:block"
+      />
+      <h3 className="mt-5 text-gray-900 dark:text-zinc-50 font-medium">
+        {title}
+      </h3>
+      <span className="mt-1.5">{description}</span>
+    </a>
+  );
+};
+
+<div className="relative">
+  <div className="absolute top-0 left-0 right-0">
+    <img src="/images/hero/background-light.png" className="block dark:hidden pointer-events-none" alt="Immagine di sfondo decorativa." />
+
+    <img src="/images/hero/background-dark.png" className="hidden dark:block pointer-events-none" alt="Immagine di sfondo decorativa." />
+  </div>
+
+  <div className="relative z-10 px-4 py-16 lg:py-48 lg:pb-24 max-w-3xl mx-auto">
+    <h1 className="block text-4xl font-medium text-center text-gray-900 dark:text-zinc-50 tracking-tight">
+      Documentazione
+    </h1>
+
+    <div className="max-w-xl mx-auto px-4 mt-4 text-lg text-center text-gray-500 dark:text-zinc-500">
+      Scopri la nuova generazione di documentazione: nativa per l’AI, impeccabile fin da subito e pensata per sviluppatori e team.
+    </div>
+
+    <div className="px-6 lg:px-0 mt-12 lg:mt-24 grid sm:grid-cols-2 gap-x-6 gap-y-4">
+      <HeroCard filename="rocket" title="Guida rapida" description="Pubblica il tuo primo sito di documentazione in pochi minuti con la nostra guida passo per passo" href="/it/quickstart" />
+
+      <HeroCard filename="cli" title="Installazione CLI" description="Installa la CLI per effettuare l’anteprima e sviluppare la documentazione in locale" href="/it/installation" />
+
+      <HeroCard filename="editor" title="Editor web" description="Esegui aggiornamenti rapidi e gestisci i contenuti con il nostro editor web" href="/it/editor" />
+
+      <HeroCard filename="components" title="Componenti" description="Crea documentazione ricca e interattiva con i nostri componenti pronti all’uso" href="/it/text" />
+    </div>
+  </div>
+</div>

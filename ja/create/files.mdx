@@ -1,0 +1,121 @@
+---
+title: "ファイル"
+description: "ドキュメントから静的アセットを配信する"
+---
+
+Mintlify は、ドキュメントのリポジトリ内にある静的アセットを、ドメイン上の適切なパスで自動的に配信します。たとえば、リポジトリに `/images/my-logo.png` がある場合、その画像ファイルは `https://docs.your-project.com/images/my-logo.png` で利用できます。
+
+OpenAPI 仕様、画像、動画など、サポート対象のあらゆるファイルタイプをユーザーに提供できます。
+
+画像は 20 MB 未満、その他のファイルタイプは 100 MB 未満である必要があります。
+
+<div id="supported-file-types">
+  ## サポート対象のファイル形式
+</div>
+
+<div id="image-formats">
+  ### 画像形式
+</div>
+
+- `.jpeg`, `.jpg`, `.jfif`, `.pjpeg`, `.pjp`
+- `.png`
+- `.svg`, `.svgz`
+- `.ico`
+- `.webp`
+- `.gif`, `.apng`
+- `.avif`
+- `.bmp`
+- `.tiff`, `.tif`
+
+<div id="video-formats">
+  ### 動画形式
+</div>
+
+- `.mp4`
+- `.webm`
+- `.ogg`
+- `.avi`
+- `.mov`
+- `.wmv`
+- `.flv`
+- `.mkv`
+- `.m4v`
+
+<div id="audio-formats">
+  ### 音声形式
+</div>
+
+- `.mp3`
+- `.wav`
+- `.flac`
+- `.aac`
+- `.ogg`
+- `.wma`
+- `.m4a`
+
+<div id="font-formats">
+  ### フォントフォーマット
+</div>
+
+- `.woff`
+- `.woff2`
+- `.ttf`
+- `.otf`
+- `.eot`
+
+<div id="document-formats">
+  ### ドキュメント形式
+</div>
+
+<Note>ドキュメント形式はEnterpriseプランでのみ利用可能です。</Note>
+
+- `.pdf`
+- `.txt`
+- `.doc`, `.docx`
+- `.xls`, `.xlsx`
+- `.ppt`, `.pptx`
+- `.rtf`
+- `.odt`, `.ods`, `.odp`
+
+<div id="data-formats">
+  ### データ形式
+</div>
+
+<Note>データ形式は Enterprise プランでのみご利用いただけます。</Note>
+
+- `.csv`
+- `.tsv`
+- `.xml`
+
+<div id="archive-formats">
+  ### アーカイブ形式
+</div>
+
+<Note>アーカイブ形式は Enterprise プランでのみ利用可能です。</Note>
+
+- `.zip`
+- `.rar`
+- `.7z`
+- `.tar`
+- `.gz`
+- `.bz2`
+
+<div id="file-organization">
+  ## ファイル構成
+</div>
+
+リポジトリを分かりやすく保つため、フォルダでファイルを整理してください。
+
+```text
+/your-project
+  |- docs.json
+  |- images/
+    |- logo.png
+    |- screenshots/
+      |- dashboard.png
+  |- assets/
+    |- whitepaper.pdf
+    |- demo-video.mp4
+```
+
+ファイルはドメインのルートから配信されるため、リポジトリ内の構造はそのままURL構造に対応します。前の例では、`assets/whitepaper.pdf` は `https://docs.your-project.com/assets/whitepaper.pdf` で参照できます。

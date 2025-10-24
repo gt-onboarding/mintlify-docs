@@ -1,0 +1,72 @@
+---
+title: "Überblick"
+description: "Steuern Sie, wer Ihre Dokumentation sieht, und passen Sie das Nutzungserlebnis an"
+keywords: ["auth"]
+---
+
+<Info>
+  [Pro-Pläne](https://mintlify.com/pricing?ref=authentication) enthalten Passwortauthentifizierung.
+
+  [Enterprise-Pläne](https://mintlify.com/pricing?ref=authentication) enthalten alle Authentifizierungsmethoden.
+</Info>
+
+Wählen Sie aus drei Ansätzen, um den Zugriff zu steuern und Ihre Dokumentation basierend auf Benutzerinformationen und Ihren Sicherheitsanforderungen anzupassen:
+
+* **Vollständige Authentifizierung**: Umfassender Schutz der Privatsphäre für alle Inhalte mit vollständiger Inhaltsanpassung.
+* **Partielle Authentifizierung**: Seitenweise Zugriffskontrolle mit vollständiger Inhaltsanpassung.
+* **Personalisierung**: Inhaltsanpassung ohne **Sicherheitsgarantien**. Alle Inhalte bleiben öffentlich zugänglich.
+
+<div id="use-case-examples">
+  ### Anwendungsbeispiele
+</div>
+
+**Wählen Sie die vollständige Authentifizierung, wenn:**
+
+* Sie interne Unternehmensdokumentation mit sensiblen Informationen erstellen
+* Sie proprietäre APIs dokumentieren, die eine Nutzerverifizierung erfordern
+* Sie kundenspezifische Implementierungsleitfäden erstellen
+
+**Wählen Sie die partielle Authentifizierung, wenn:**
+
+* Sie öffentliche Einstiegsanleitungen mit privaten, erweiterten Funktionen anbieten
+* Sie Open-Source-Dokumentation mit privaten Enterprise-Bereichen veröffentlichen
+
+**Wählen Sie die Personalisierung, wenn:**
+
+* Sie öffentliche API-Dokumentation erstellen, die nutzerspezifische Beispiele zeigt
+* Sie Marketingseiten erstellen, die Inhalte basierend auf Nutzerprofilen anpassen
+* Sie öffentliche Tutorials anbieten, die sich an Nutzerpräferenzen oder Kenntnisstufen anpassen
+
+<div id="handshake-methods">
+  ## Handshake-Methoden
+</div>
+
+Wählen Sie die Methode, die am besten zu Ihrer bestehenden Infrastruktur und Ihren Sicherheitsanforderungen passt.
+
+| Methode | Verfügbar für | Einrichtungsaufwand | Am besten geeignet für |
+|:-------|:--------------|:--------------------|:-----------------------|
+| **JWT** | Alle Ansätze | Mittel | Benutzerdefinierte Login-Flows, maximale Kontrolle über die Sicherheit |
+| **OAuth 2.0** | Alle Ansätze | Hoch | Auth-Provider von Drittanbietern, Enterprise-Sicherheit |
+| **Mintlify Dashboard** | Nur Authentifizierung | Niedrig | Teams, die bereits das Mintlify-Dashboard nutzen |
+| **Passwort** | Nur Authentifizierung | Niedrig | Einfacher gemeinsamer Zugriff ohne Personalisierung |
+| **Geteilte Sitzung** | Nur Personalisierung | Niedrig | Apps mit bestehender sitzungsbasierter Authentifizierung |
+
+<div id="when-to-use-each-method">
+  ### Wann welche Methode verwenden
+</div>
+
+**JWT**: Verwenden Sie diese Methode, wenn Sie ein bestehendes Authentifizierungssystem haben und die volle Kontrolle über den Anmeldeablauf behalten möchten. Ideal für maßgeschneidertes Benutzer-Management oder wenn Sie den Dokumentationszugriff von Ihrer Hauptanwendung entkoppeln müssen.
+
+**OAuth 2.0**: Verwenden Sie diese Methode, wenn Sie Drittanbieter wie Google oder GitHub einbinden möchten oder Sicherheitsstandards auf Enterprise-Niveau benötigen. Am besten geeignet für Organisationen, die bereits eine OAuth-Infrastruktur nutzen.
+
+**Mintlify Dashboard**: Verwenden Sie diese Methode, wenn Ihre Dokumentations-Redakteure zugleich die Leser sind. Perfekt für interne Teams, die Inhalte bereits über das Mintlify-Dashboard verwalten.
+
+**Passwort**: Verwenden Sie diese Methode für einfache Zugriffskontrolle, wenn Sie keine einzelnen Nutzer nachverfolgen oder Inhalte personalisieren müssen. Geeignet für Auftragnehmer, Beta-Nutzer oder temporäre Zugriffsszenarien.
+
+**Gemeinsame Sitzung**: Verwenden Sie diese Methode, wenn Sie eine nahtlose Anmeldung zwischen Ihrer Anwendung und der Dokumentation wünschen. Ideal, wenn Nutzer bereits in Ihrer Hauptanwendung angemeldet sind und Sie ihre Dokumentationserfahrung personalisieren möchten.
+
+<div id="content-customization">
+  ## Inhaltsanpassung
+</div>
+
+Alle drei Ansätze unterstützen Personalisierungsfunktionen, einschließlich dynamischer MDX-Inhalte, dem automatischen Ausfüllen von API-Schlüsseln und der Steuerung der Seiten­sichtbarkeit. Ausführliche Implementierungshinweise finden Sie unter [Personalisierung einrichten](/de/deploy/personalization-setup).

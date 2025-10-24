@@ -1,0 +1,150 @@
+---
+title: "Windsurf"
+description: "配置 Windsurf，成为你的写作助手"
+---
+
+通过工作区规则和记忆，将 Windsurf 打造成理解你的风格指南、组件和项目上下文的文档专家。
+
+<div id="using-windsurf-with-mintlify">
+  ## 在 Mintlify 中使用 Windsurf
+</div>
+
+Windsurf 的 Cascade AI 助手可以结合 Mintlify 组件按你的标准撰写文档，并通过调优满足规范。Workspace 规则与记忆会为你的项目提供持久的上下文，确保 Cascade 的建议更一致。
+
+* **Workspace 规则** 存放在你的文档仓库中，并与团队共享。
+* **记忆（Memories）** 提供会随时间累积的个人上下文。
+
+我们建议为共享的文档规范设置 workspace 规则。你可以在工作过程中逐步累积记忆，但由于它们不共享，因此无法在团队成员之间保持一致。
+
+在文档仓库的 `.windsurf/rules` 目录中创建 workspace 规则。有关更多信息，请参阅 Windsurf 文档中的 [Memories & Rules](https://docs.windsurf.com/windsurf/cascade/memories)。
+
+<div id="example-workspace-rule">
+  ## 示例工作区规则
+</div>
+
+此规则为 Cascade 提供关于 Mintlify 组件与通用技术写作最佳实践的上下文。
+
+你可以直接使用此示例规则，或根据你的文档进行自定义：
+
+* **写作规范**：更新语言指南以匹配你的风格指南。
+* **组件模式**：添加项目特定的组件或调整现有示例。
+* **代码示例**：将通用示例替换为与你的产品相关的真实 API 调用和响应。
+* **风格与语气偏好**：调整术语、格式和其他规则。
+
+将你的规则保存为 `.md` 文件，放在文档仓库的 `.windsurf/rules` 目录中。
+
+````mdx
+# Mintlify 技术写作规则
+
+## 项目背景
+
+- 这是在 Mintlify 平台上的文档项目
+- 我们使用带有 YAML frontmatter 的 MDX 文件  
+- 导航在 `docs.json` 中配置
+- 我们遵循技术写作最佳实践
+
+## 写作规范
+
+- 在指引中使用第二人称（“you”）
+- 使用主动语态与一般现在时
+- 以先决条件开始流程
+- 为关键步骤包含预期结果
+- 使用描述性、富含关键词的标题
+- 句子保持简洁但信息充分
+
+## 必需的页面结构
+
+每个页面必须以 frontmatter 开始：
+
+```yaml
+---
+title: "清晰、具体的标题"
+description: "用于 SEO 和导航的简洁描述"
+---
+```
+
+## Mintlify 组件
+
+### docs.json
+
+- 在构建 docs.json 文件和站点导航时参考 [docs.json schema](https://mintlify.com/docs.json)
+
+### Callouts
+
+- `<Note>`：用于有用的补充信息
+- `<Warning>`：用于重要警示和不兼容性变更
+- `<Tip>`：用于最佳实践和专家建议  
+- `<Info>`：用于中性的背景信息
+- `<Check>`：用于成功确认
+
+### 代码示例
+
+- 在合适的情况下，包含完整可运行的示例
+- 对多语言示例使用 `<CodeGroup>`
+- 为所有代码块指定语言标签
+- 使用真实数据，而非占位符
+- 在 API 文档中使用 `<RequestExample>` 和 `<ResponseExample>`
+
+### 操作流程
+
+- 对顺序指引使用 `<Steps>` 组件
+- 在相关情况下配合 `<Check>` 组件包含验证步骤
+- 将复杂流程拆分为更小的步骤
+
+### 内容组织
+
+- 对平台特定内容使用 `<Tabs>`
+- 对渐进式披露使用 `<Accordion>`
+- 使用 `<Card>` 和 `<CardGroup>` 突出内容
+- 使用带有描述性 alt 文本的 `<Frame>` 组件包裹图片
+
+## API 文档要求
+
+- 使用 `<ParamField>` 记录所有参数 
+- 使用 `<ResponseField>` 展示响应结构
+- 同时包含成功与错误示例
+- 对嵌套对象属性使用 `<Expandable>`
+- 始终包含身份验证示例
+
+## 质量标准
+
+- 在发布前测试所有代码示例
+- 对内部链接使用相对路径
+- 为所有图片添加 alt 文本
+- 确保正确的标题层级（从 h2 开始）
+- 检查既有模式以保持一致性
+````
+
+<div id="working-with-cascade">
+  ## 使用 Cascade
+</div>
+
+完成规则设置后，您即可使用 Cascade 协助处理各类文档任务。更多信息请参阅 Windsurf 文档中的 [Cascade](https://docs.windsurf.com/windsurf/cascade)。
+
+<div id="example-prompts">
+  ### 示例提示
+</div>
+
+**撰写新内容**：
+
+```text wrap
+创建一个新页面，讲解如何对我们的 API 进行身份验证。请包含 JavaScript、Python 和 cURL 的代码示例。
+```
+
+**改进现有内容**：
+
+```text wrap
+审阅此页面，并就内容清晰度和组件用法提出改进建议。重点让步骤更易于理解和跟进。
+```
+
+**创建代码示例**：
+
+```text wrap
+生成一个完整的代码示例，展示该 API 端点的错误处理。使用贴近实际的数据，并包含预期的响应。
+```
+
+**保持一致性**：
+
+```text wrap
+检查此新页面是否符合我们的文档规范，并提出任何必要的修改建议。
+```

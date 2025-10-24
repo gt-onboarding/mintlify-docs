@@ -1,0 +1,212 @@
+---
+title: "アシスタント"
+description: "ユーザーが製品で成果を出し、より迅速に答えを見つけられるよう支援します"
+---
+
+<Info>
+  アシスタントは[Pro および Custom プラン](https://mintlify.com/pricing?ref=assistant)で自動的に有効になります。
+</Info>
+
+<div id="about-the-assistant">
+  ## アシスタントについて
+</div>
+
+アシスタントは自然言語での問い合わせに応じて、ドキュメントに関する質問に回答します。ドキュメントサイトに直接埋め込まれており、ユーザーは文脈に即したヘルプにすぐアクセスできます。
+
+アシスタントは Claude Sonnet 4 を用いたツール呼び出し対応の agentic RAG（retrieval-augmented generation）を使用します。ユーザーが質問すると、アシスタントは次の処理を行います。
+
+* **検索と取得**: 正確な回答のために、ドキュメントから関連コンテンツを検索・取得します。
+* **出典の明示**: 参照ページへ直接移動できるリンクを提示します。
+* **コピー可能なコード例の生成**: ドキュメントに基づいた解決策を実装しやすいよう、コピーして使えるコード例を生成します。
+
+アシスタントに送信された各メッセージは、プランのメッセージ枠にカウントされます。枠を超えた場合、追加メッセージには超過料金が発生します。支出上限を設定したり、枠に達した際にアシスタントを無効化したりできます。
+
+ダッシュボードでアシスタントの利用状況を確認し、ユーザー行動やドキュメントの有効性を把握できます。クエリデータをエクスポートして分析することで、次の点を特定できます。
+
+* 追加のカバレッジが必要となる可能性があるよくある質問
+* ユーザーが回答を見つけにくいコンテンツの抜けや不足
+* 追加コンテンツで価値が高まる可能性のある人気トピック
+
+<div id="configuring-the-assistant">
+  ## アシスタントの設定
+</div>
+
+アシスタントは Pro プランおよび Custom プランでは既定で有効です。
+
+[ダッシュボード](https://dashboard.mintlify.com/products/assistant/settings)でアシスタントを管理します。**Configuration** をクリックして、アシスタントの有効化／無効化、応答処理の設定、デフォルトの質問の追加、利用上限の設定を行います。
+
+<Frame>
+  <img src="/images/assistant/configuration-light.png" alt="ダッシュボードのアシスタント用ツールバー。「Configuration」ボタンがオレンジ色の枠で強調されています。" className="block dark:hidden" />
+
+  <img src="/images/assistant/configuration-dark.png" alt="ダッシュボードのアシスタント用ツールバー。「Configuration」ボタンがオレンジ色の枠で強調されています。" className="hidden dark:block" />
+</Frame>
+
+<div id="enable-or-disable-the-assistant">
+  ### アシスタントを有効化または無効化する
+</div>
+
+ドキュメントサイトでアシスタントを有効または無効にするには、アシスタントのステータスを切り替えます。
+
+<Frame>
+  <img src="/images/assistant/status-light.png" alt="ダッシュボードのアシスタントのステータス切り替え。" className="block dark:hidden" />
+
+  <img src="/images/assistant/status-dark.png" alt="ダッシュボードのアシスタントのステータス切り替え。" className="hidden dark:block" />
+</Frame>
+
+<div id="set-deflection-email">
+  ### デフレクション用メールを設定する
+</div>
+
+レスポンス処理セクションで、アシスタントが未回答の質問をサポートチームにリダイレクトできるようにします。アシスタントが回答できない質問をしたユーザーに案内する連絡先メールアドレスを指定します。
+
+<Frame>
+  <img src="/images/assistant/deflection-light.png" alt="ダッシュボードのアシスタントのデフレクションパネル。デフレクションはオンに設定され、support@mintlify.com がデフレクション用メールとして指定されています。" className="block dark:hidden" />
+
+  <img src="/images/assistant/deflection-dark.png" alt="ダッシュボードのアシスタントのデフレクションパネル。デフレクションはオンに設定され、support@mintlify.com がデフレクション用メールとして指定されています。" className="hidden dark:block" />
+</Frame>
+
+<div id="search-sites">
+  ### サイト検索
+</div>
+
+<Note>
+  サイト検索はベータ版です。ドキュメントサイトで有効にするには、[営業チームまでご連絡ください](mailto:gtm@mintlify.com)。
+</Note>
+
+レスポンス処理セクションで、アシスタントが質問に回答する際に追加のコンテキストとして参照できる検索対象サイトを設定します。
+
+* サイトは公開されている必要があります。
+* 読み込みに JavaScript を必要とするサイトはサポートされません。
+
+<Frame>
+  <img src="/images/assistant/search-sites-light.png" alt="ダッシュボードのアシスタントのサイト検索パネル。アシスタントは mintlify.com と mintlify.com/blog ドメインを検索するように設定されています。" className="block dark:hidden" />
+
+  <img src="/images/assistant/search-sites-dark.png" alt="ダッシュボードのアシスタントのサイト検索パネル。アシスタントは mintlify.com と mintlify.com/blog ドメインを検索するように設定されています。" className="hidden dark:block" />
+</Frame>
+
+アシスタントの検索範囲をより正確に制御するには、次のフィルタリング構文を使用します。
+
+* **ドメインレベルのフィルタリング**
+  * `example.com`: `example.com` ドメインのみを検索
+  * `docs.example.com`: `docs.example.com` サブドメインのみを検索
+  * `*.example.com`: `example.com` 配下のすべてのサブドメインを検索
+* **パスレベルのフィルタリング**
+  * `docs.example.com/api`: `/api` サブパス配下のすべてのページを検索
+* **複数パターン**
+  * サイト内の異なるセクションを対象にするため、複数のエントリを追加
+
+<div id="add-sample-questions">
+  ### サンプル質問を追加する
+</div>
+
+ユーザーがアシスタントに質問を始めやすいよう、サンプル質問を追加しましょう。検索候補セクションで、最大3つまでサンプル質問を追加できます。
+
+<Frame>
+  <img src="/images/assistant/search-suggestions-light.png" alt="ダッシュボードの検索候補パネル。「What is an OpenAPI spec?」がサンプル質問として設定されています。" className="block dark:hidden" />
+
+  <img src="/images/assistant/search-suggestions-dark.png" alt="ダッシュボードの検索候補パネル。「What is an OpenAPI spec?」がサンプル質問として設定されています。" className="hidden dark:block" />
+</Frame>
+
+<div id="set-a-spend-limit">
+  ### 料金上限を設定する
+</div>
+
+メッセージの割り当てに達した場合の挙動を制御するため、料金上限を設定します。既定では、割り当てに達してもアシスタントはユーザーの質問に回答し続け、超過料金が発生します。
+
+料金上限に達すると、メッセージの割り当てがリセットされるまでアシスタントは無効化されます。
+
+1. **Billing** タブを選択します。
+
+<Frame>
+  <img src="/images/assistant/billing-light.png" alt="Assistant Configurations ページの Billing タブ。Billing タブがオレンジ色の四角で強調表示されています。" className="block dark:hidden" style={{ width: '268px', height: 'auto' }} />
+
+  <img src="/images/assistant/billing-dark.png" alt="Assistant Configurations ページの Billing タブ。Billing タブがオレンジ色の四角で強調表示されています。" className="hidden dark:block" style={{ width: '268px', height: 'auto' }} />
+</Frame>
+
+2. 割り当て超過分のアシスタントメッセージに対する料金上限を設定します。
+3. 料金上限の一定割合に達したときにメールを受け取れるよう、使用量アラートを設定します。
+
+<div id="using-the-assistant">
+  ## アシスタントの使用
+</div>
+
+ユーザーは次の3つの方法でアシスタントにアクセスできます:
+
+* **キーボードショートカット**: <kbd>Command</kbd> + <kbd>I</kbd>（Windowsでは <kbd>Ctrl</kbd> + <kbd>I</kbd>）
+* 検索バー横の**アシスタントボタン**
+  <img
+    src="/images/assistant/assistant-button-light.png"
+    className="block dark:hidden rounded-2xl border border-gray-100 shadow-lg"
+    style={{
+    width: '268px',
+    height: 'auto',
+  }}
+    alt="ライトモードの検索バーとアシスタントボタン。"
+  />
+  <img
+    src="/images/assistant/assistant-button-dark.png"
+    className="hidden dark:block rounded-2xl border border-white/10 shadow-lg"
+    style={{
+    width: '268px',
+    height: 'auto',
+  }}
+    alt="ダークモードの検索バーとアシスタントボタン。"
+  />
+* ページ読み込み時にアシスタントを開く `?assistant=open` を付与した**URL**。例: [https://mintlify.com/docs?assistant=open](https://mintlify.com/docs?assistant=open)
+
+いずれの方法でも、ドキュメントの右側にチャットパネルが開きます。ユーザーは任意の質問を入力でき、アシスタントがドキュメントを検索して回答します。関連情報が見つからない場合は、回答できない旨を返します。
+
+<div id="making-content-ai-ingestible">
+  ## コンテンツをAIが取り込みやすくする
+</div>
+
+ドキュメントを適切に構造化して、アシスタントが正確かつ適切な回答を返せるようにしましょう。明確な構成と十分なコンテキストは、人間の読者にもAIの理解にも有益です。
+
+<Card title="構造と整理">
+  * セマンティックマークアップを使う。
+  * セクションには内容が伝わる見出しを書く。
+  * 論理的な情報階層を設計する。
+  * ドキュメント全体で体裁を統一する。
+  * ページのフロントマターに網羅的なメタデータを含める。
+  * 長文の塊は短い段落に分ける。
+</Card>
+
+<Card title="コンテキスト">
+  * 用語や頭字語は初出時に定義する。
+  * 機能や手順について十分な概念的説明を提供する。
+  * 例やユースケースを含める。
+  * 関連トピックを相互参照する。
+  * ユーザーには不要だがアシスタントが参照できる追加コンテキストとして、[非表示ページ](/ja/organize/hidden-pages) を追加する。
+</Card>
+
+<div id="exporting-and-analyzing-queries">
+  ## クエリのエクスポートと分析
+</div>
+
+ダッシュボードでクエリを確認・エクスポートし、ユーザーがドキュメントをどう利用しているかを把握して改善点を特定します。クエリ分析がドキュメント改善に役立つ例：
+
+* 返答が不十分な頻出クエリから、コンテンツの抜け漏れを特定する。
+* クエリのテーマや傾向から、ユーザー行動パターンや共通の情報ニーズを把握する。
+* トラフィックの多いページを優先的に取り上げ、正確性と品質を改善する。
+
+[dashboard](https://dashboard.mintlify.com/products/assistant) からクエリを確認できますが、より深いインサイトを得るには、クエリ・レスポンス・ソースを `CSV` でエクスポートし、お使いの AI ツールで分析することをおすすめします。
+
+1. ダッシュボードの [assistant page](https://dashboard.mintlify.com/products/assistant) に移動します。
+2. **Export to CSV** を選択します。
+3. エクスポートしたデータをお好みのツールで分析します。
+
+<Card title="分析プロンプトの例">
+  * 最も一般的なクエリのテーマを要約する。
+  * 出典が引用されていないクエリを列挙する。
+  * 失敗したやり取りのパターンを見つける。
+</Card>
+
+<div id="troubleshooting">
+  ## トラブルシューティング
+</div>
+
+<Accordion title="アシスタントのチャットバーが表示されない">
+  特定のブラウザでアシスタントのUIが表示されない場合は、[EasyList](https://easylist.to) に誤検出の報告を送信する必要がある可能性があります。Brave や Comet など、EasyList Cookies List を使用するブラウザでは、アシスタントや他のUI要素がブロックされることがあります。EasyList Cookies List には、特定のドメインで固定表示の要素を非表示にしてクッキーバナーをブロックするドメイン固有のルールが含まれており、このルールが正当なUIコンポーネントにも誤って影響する場合があります。
+
+  ルールの削除を依頼するため、[EasyList](https://github.com/easylist/easylist) に誤検出として報告してください。フィルタリストが更新されると、すべてのユーザーで問題が解消されます。
+</Accordion>

@@ -1,0 +1,911 @@
+---
+title: "Produktupdates"
+description: "Neue Releases und Verbesserungen"
+rss: true
+noindex: true
+---
+
+<Update label="October 17" tags={["Improvements"]} rss={{ title: "Wöchentliche Updates", description: "Verbesserungen am Assistenten, Verbesserungen an der Navigation, Updates der API-Spielwiese und Bugfixes" }}>
+  ## Verbesserungen am Assistenten und bei KI
+
+  * Prompt des Assistenten aktualisiert für höhere Genauigkeit und kontextbewusstere Antworten
+  * Vertrauens-/Konfidenzbewertung ergänzt, um Entscheidungen in Antworten des Assistenten zu verbessern
+  * Suche des Assistenten mit parallelen Abfragen der Dokumentation für schnellere Ergebnisse erweitert
+  * Bug behoben, bei dem der Assistent verschwand, und Sichtbarkeit auf kleinen Seiten verbessert
+
+  ## Verbesserungen an Navigation und UI
+
+  * Stabile Scrollbar-Gasse in Navigationselementen hinzugefügt für ein konsistentes Layout
+  * Abschnitt „Auf dieser Seite“ klickbar gemacht, um schnell zum Seitenanfang zu scrollen
+  * Position der Assistentenleiste in allen Themes korrigiert
+  * Assistentenleiste verbessert, um Überlappungen mit Inhalten zu verhindern
+  * Maximale Seitenbreite für breite Seiten im Almond-Theme korrigiert
+  * Größe des Dropdown-Pfeil-Icons verbessert für ein einheitliches Erscheinungsbild von Navigationsgruppen
+
+  ## Verbesserungen an API-Spielwiese und OpenAPI
+
+  * Feature-Flag-Unterstützung für das neue Design der API-Referenzseite hinzugefügt
+  * OpenAPI-Schema-Graph-Utilities verbessert, um Kompositionen korrekt zu verarbeiten
+  * Endpunkttyp zu Operationsdaten hinzugefügt für bessere API-Dokumentation
+  * Rendering der Beschreibung in der API-Spielwiese korrigiert, wenn Enum und Tabelle in Markdown sind
+  * Rendering von Beschreibungen in der API-Spielwiese verschoben für ein besseres Layout
+
+  ## Bugfixes und Zuverlässigkeit
+
+  * Sprachwechsel korrigiert, sodass man auf derselben Seite bleibt, statt auf die Startseite weitergeleitet zu werden
+  * CLI für defekte Links korrigiert, damit sie mit Code 1 beendet wird (für CI/CD-Integration)
+  * Lokale Schriftpfade korrigiert, um korrekt einen vorangestellten Slash zu verwenden
+  * Weiterleitungsbehandlung korrigiert, um führende Slashes in `docs.json` zu ignorieren
+  * Kanonische URL um „/index“ bereinigt für besseres SEO
+  * Positionierung von nummerierten Listen innerhalb von Akkordeons korrigiert
+  * Styling des `<span>`-Tags korrigiert, damit es sich wie `<p>`-Tags verhält
+  * Anzeige-Block für erstes `<p>`-Tag in Listen korrigiert
+  * OG-Bildanzeige korrigiert, um den Bereichsnamen für Indexseiten zu zeigen
+  * Icon-Pfade korrigiert, um `BASE_PATH` für relative Pfade einzuschließen
+  * Entfernung der Hintergrundunschärfe beim Assistenten korrigiert für bessere Performance
+</Update>
+
+<Update label="October 11" tags={["Improvements"]} rss={{ title: "Wöchentliche Updates", description: "Verbesserungen an der API-Spielwiese, Verbesserungen in den Insights, Updates am Web-Editor und Bugfixes" }}>
+  ## Funktionen für Assistent und Agent-KI
+
+  * Tools list&#95;pull&#95;requests und list&#95;commits für den Agent hinzugefügt, sodass er einen Datumsbereich von PRs oder mehrere PRs auf einmal dokumentieren kann
+  * Agent und Assistent auf Claude Sonnet 4.5 aktualisiert
+  * Assistentensuche verbessert, um Docs parallel abzufragen, für schnellere Antworten
+  * Zählung der Gesprächslänge korrigiert, um Toolaufrufe auszuschließen
+
+  ## Verbesserungen in den Insights
+
+  * Analytics in Insights umbenannt
+  * Klick-zum-Laden-Anforderung für Insights entfernt, damit Sie alle Daten sofort sehen können
+  * Genauigkeit der Insights-Daten mit serverseitigen Zeitstempeln verbessert
+
+  ## Verbesserungen am Web-Editor und Dashboard
+
+  * Hintergrund aus Codeblöcken im Editor entfernt für ein saubereres Erscheinungsbild
+  * Workflow zur Branch-Erstellung korrigiert, damit nach der Erstellung korrekt zum neuen Branch navigiert wird
+  * Paginierung der Bereitstellungshistorie hinzugefügt
+  * Cursor-Paginierung zur Tabelle der Vorschau-Bereitstellungen hinzugefügt
+  * Vorschau-Bereitstellungen korrigiert, sodass nur Deployments der Vorschauumgebung zurückgegeben werden
+  * Dashboard-UI/UX mit besserem Abstand, Eingabehandling und Layoutkorrekturen verbessert
+  * Bessere Handhabung von Links im Dashboard-Assistentenchat hinzugefügt
+  * Umriss-/Focus-Probleme für den Chat-Assistenten in Firefox korrigiert
+
+  ## Verbesserungen an der API-Spielwiese
+
+  * Rendering der Modals der API-Spielwiese verbessert
+  * Problem behoben, dass ausklappbare Bereiche der API-Spielwiese mit Ankerlinks nicht funktionierten
+  * Unterstützung hinzugefügt, um Beispiel- und nutzereingegebenen Body in der API-Spielwiese zusammenzuführen
+  * Anzeige von Videoantworten in der API-Spielwiese korrigiert
+
+  ## Bugfixes und Zuverlässigkeit
+
+  * Doppelte Basispfade und Links in empfohlenen 404-Seiten korrigiert
+  * og:url-Tag automatisch mit der passenden kanonischen URL befüllt
+  * Canonical-Tag für besseres SEO hinzugefügt
+  * Overscroll-Probleme bei Codeblöcken behoben
+  * Suchmaschinen angewiesen, Vorschau-Bereitstellungen für SEO-Zwecke zu ignorieren
+  * Referrer-Tracking korrigiert, um die Domain statt der vollständigen URL zu verwenden
+  * Behoben, dass Bilder immer zu MDX-Blockelementen wurden (Inline-Bilder bleiben inline)
+  * Kommentare in Raw-Markdown-Seiten entfernt, sodass TODO-Kommentare genutzt werden können, ohne dass sie bei Nutzern sichtbar werden
+  * Unterstützung für das Auslesen von Verzeichnissen bei read&#95;external&#95;files korrigiert
+
+  ## Komponenten und Styling
+
+  * Dropdown-Unterstützung im Produktbereich hinzugefügt
+  * Produkte und Menü in der Middleware-Nav-Utility-Funktion korrigiert
+  * Text der 404-Seite klarer formuliert
+</Update>
+
+<Update label="October 3" tags={["New releases", "Improvements"]} rss={{ title: "Weekly Updates", description: "Produktnavigation, Barrierefreiheits-CLI, Verbesserungen an der API-Spielwiese und umfangreiche Barrierefreiheits-Optimierungen" }}>
+  ## Neue Funktionen
+
+  * **Produktnavigation**: Organisieren Sie die Dokumentation für mehrere Produkte mit der Produktumschalter-Navigation
+  * **Barrierefreiheits-CLI-Befehl**: Führen Sie `mint a11y` aus, um Ihre Dokumentation auf Barrierefreiheitsprobleme zu testen
+  * **Videoantworten in der API-Spielwiese**: Die API-Spielwiese unterstützt jetzt die Anzeige von Video-Antworttypen
+  * **Vorbefüllen der API-Spielwiese**: Neue Option zum Vorbefüllen von Beispielen in der API-Spielwiese für schnelleres Testen
+  * **Feedback ohne Anmeldung**: Für Websites mit partieller Authentifizierung können Nutzer jetzt Feedback geben, ohne angemeldet zu sein
+  * **Shiki-Theme-Unterstützung**: Shiki-Themes werden nun für das Styling von Codeblöcken unterstützt
+  * **Twoslash für Codeblöcke**: TypeScript- und JavaScript-Codeblöcke unterstützen jetzt Twoslash für Inline-Typinformationen
+
+  ## Barrierefreiheitsverbesserungen
+
+  * Umfassende ARIA-Attribute in Komponenten hinzugefügt für bessere Screenreader-Unterstützung
+  * Neuer „Zum Hauptinhalt springen“-Button für die Tastaturnavigation
+  * Unterstützung der Pfeiltasten-Navigation in Tab-Komponenten
+  * Verbesserte Tooltips, verschachtelte Listen und Barrierefreiheit von Codegruppen
+  * Verbesserte Fokuszustände und Tastatur-Interaktionsmuster in der gesamten UI
+
+  ## Verbesserungen beim Assistenten und bei der Analyse
+
+  * Balkendiagramm-Visualisierung für Abfrageanalysen des Assistenten hinzugefügt
+  * Vereinheitlichter Datumsbereichsselektor auf der Analyse-Seite des Assistenten
+  * Zoom-Steuerung für Analyse-Diagramme des Assistenten
+  * Bessere Verlaufverwaltung des Assistenten mit Hotkeys und Verbesserungen am Chat-Sheet
+
+  ## Fehlerbehebungen und Zuverlässigkeit
+
+  * Z-Index-Probleme mit Seitenpanel-Overlays behoben
+  * Fallback-Farben im Hellmodus und themebezogene Styling-Bugs behoben
+  * Problem behoben, dass ausklappbare Bereiche der API-Spielwiese mit Ankerlinks nicht funktionierten
+  * Zugänglichkeit von `.md`-Links für ChatGPT und andere LLM-Agents behoben
+  * Handhabung von Bildabmessungen für prozentuale Breiten und Höhen behoben
+  * Rendering-Probleme bei Codeblöcken mit Sprach-Tags und benutzerdefinierten Themes behoben
+  * Formatierung und Styling von Akkordeon-Links behoben
+  * Footer-Abstände behoben, wenn die Assistenten-Konfiguration leer ist
+  * Rendering von Karten-Icons für lokale Repository-Bilder behoben
+  * Handhabung von Audiodateien in der API-Spielwiese behoben (UTF-8-Decodierung verhindert)
+  * Verbesserte PR-Veröffentlichungsstatus-Verwaltung im Web-Editor
+</Update>
+
+<Update label="September 26" tags={["Improvements"]} rss={{ title: "Weekly Updates", description: "Erweiterung der Sprachunterstützung, UI-Verbesserungen und Infrastruktur-Optimierungen" }}>
+  ## Erweiterung der Sprachunterstützung
+
+  * Unterstützung für Rumänisch und Tschechisch in der Dokumentationsoberfläche hinzugefügt
+  * Verbesserte Lokalisierungsfunktionen mit vollständiger Übersetzungsabdeckung für neue Sprachen
+  * Verbesserte Sprachauswahl in allen Themes
+
+  ## Verbesserungen an UI und Nutzererlebnis
+
+  * Sichtbarkeitsprobleme von Tabs auf 404-Seiten behoben, um falsche Hervorhebungen aktiver Tabs zu verhindern
+  * Verbesserte Bildhandhabung mit korrekter Weitergabe von Breiten- und Höhenattributen für nicht optimierte Bilder
+  * Verbesserte Konsistenz bei Layout und Styling der 404-Seite
+
+  ## Infrastruktur- und Performance-Optimierungen
+
+  * Verbesserte Verarbeitung von GIF-Bildern durch Überspringen der kostspieligen Imgix-Autoformatierung zur Reduzierung von Verarbeitungszeit und Bandbreite
+  * Optimierte Bildauslieferung mit spezieller Behandlung für animierte Inhalte
+
+  ## Fehlerbehebungen und Zuverlässigkeit
+
+  * Routing der Kontakt-E-Mail in den Dashboard-Einstellungen für Assistent-Add-on-Anfragen behoben
+  * Verbesserte Datenbankschema-Updates für besseres Nutzermanagement
+</Update>
+
+<Update label="September 19" tags={["Improvements"]} rss={{ title: "Weekly Updates", description: "Verbesserungen am Web-Editor und an der Authentifizierung sowie Fehlerbehebungen" }}>
+  ## Verbesserungen am Web-Editor und beim Dashboard-Login
+
+  * Fortgesetzte App-Router-Migration für den Web-Editor, Blocker entfernt und Leistung verbessert
+  * Verbesserte Fehlerbehandlung beim Login mit eindeutigen E-Mail-Validierungsnachrichten
+  * Korrekte Behandlung von Leerzeichen bei der Validierung von E-Mail-Adressen
+
+  ## Verbesserungen bei der Authentifizierung
+
+  * Unterstützung für validierte Redirect-Parameter im Login-Callback hinzugefügt, um Reibungen beim Login zu reduzieren
+  * Verbesserter Login-Flow für SSO mit besserer Redirect-Behandlung
+
+  ## Fehlerbehebungen und Zuverlässigkeit
+
+  * Probleme mit der GitLab-Integration bei größeren Repositories behoben
+  * Verbesserte Dashboard-Ladeleistung mit optimierten Deployment-Abfragen
+  * Rendering-Probleme von SVG-Pfaden in der Dokumentation behoben
+  * Tastaturnavigation in Suche und Chat behoben
+</Update>
+
+<Update label="September 13" tags={["New releases", "Improvements"]} rss={{ title: "Weekly Updates", description: "KI-404-Vorschläge, Assistenten-Websuche mit externen Quellen, Sicherheitsverbesserungen und Zuverlässigkeitsfixes" }}>
+  ## Wichtige Releases
+
+  * **Wesentliche Verbesserung**: KI-empfohlene Seiten auf 404-Seiten, [wenn jemand auf einen toten Link trifft → KI-Agent liest den Pfad → schlägt semantisch ähnliche Seiten vor](https://x.com/mintlify/status/1966625627773059495)
+  * **Großes Release**: Die Websuche für den Assistenten kann jetzt externe Quellen einbeziehen\
+    *Hinweis: Kontaktieren Sie uns, um diese Funktion für Ihre Site zu aktivieren.*
+
+  ## Assistent und MCP
+
+  * Ein Fehler wurde behoben, bei dem der Assistent fälschlicherweise einer Ratenbegrenzung unterlag, weil das Zeitfenster nicht korrekt gleitend war
+  * Ein Fehler beim Tool-Calling des Assistenten wurde behoben, um leere `text`-Blöcke korrekt zu verarbeiten
+  * Ein Fehler wurde behoben, bei dem mit Tool-Aufrufen verkettete MCP-Servernamen manchmal die von MCP-Clients erzwungene Länge von 60 Zeichen überschritten
+  * Ein Fehler wurde behoben, bei dem das Assistenten-Menü eine mehrfach größere Höhe als der Viewport hatte und endlos scrollte
+  * Ein Fehler wurde behoben, bei dem Ausgaben des Assistenten im Dashboard mit mehr als zwei Dezimalstellen angezeigt werden konnten
+
+  ## Web-Editor und Bereitstellungen
+
+  * Sicherheitsverbesserung im Editor, sodass nur Nutzer mit `write permissions` für das verbundene Git-Repository Änderungen vornehmen können
+  * Ein Fehler wurde behoben, bei dem Vorschau-Bereitstellungen für Branches mit `=` im Namen nicht funktionierten
+  * Ein Fehler wurde behoben, bei dem lange Branchnamen in Modalen bei der Erstellung von Vorschau-Bereitstellungen überliefen
+  * Komfortverbesserung: Der E-Mail-Query-Parameter füllt das Eingabefeld bei Einladungen zur Registrierung automatisch aus
+  * Ein Fehler wurde behoben, bei dem das Kopieren einer Seite über das Kontextmenü in Safari nicht funktionierte
+
+  ## API-Spielwiese und Navigation
+
+  * Mehrere Antwortcodes in der API-Spielwiese werden nun in einem kontrollierten, gestylten Select-Menü statt im systemeigenen Select-Menü bei Fokus angezeigt
+  * Sie können jetzt das [`expanded`-Feld für Navigationsgruppen in Ihrer docs.json verwenden, um sie standardmäßig geöffnet zu lassen](https://mintlify.com/docs/navigation#default-expanded-state)
+
+  ## SEO und UI
+
+  * Ein Fehler wurde behoben, bei dem Favicons in Suchmaschinen nicht angezeigt wurden, indem sie für jede Site von derselben URL wie die Dokumentationssite bereitgestellt werden
+  * Ein Fehler wurde behoben, bei dem YouTube-Einbettungen beim Laden flackerten
+  * Ein Fehler wurde behoben, bei dem das Erweitern des Feedback-Menüs zur Aufnahme schriftlicher Antworten eine Layoutverschiebung beim Inhaltsverzeichnis verursachte
+  * Ein Fehler wurde behoben, bei dem Text im Maple-Theme über die Topbar hinausragte, wenn das Benachrichtigungsbanner geschlossen wurde
+  * Die Themes Maple und Willow wurden verbessert, indem Anmelde-/Abmelde-Buttons für leichteren Zugriff zur Seitenleiste hinzugefügt wurden
+
+  ## Analytics und Exporte
+
+  * Zuverlässigkeitsprobleme mit der Assistenten-Analytics-Ansicht und den Exporten wurden behoben
+  * Assistenten-Analytics-Exporte werden nun im Hintergrund ausgeführt und per E-Mail versendet, um die Zuverlässigkeit zu erhöhen
+</Update>
+
+<Update label="August 24 - August 30" tags={["Improvements"]} rss={{ title: "Weekly Updates", description: "Verbesserte Feedback-Erfassung, Navigationsverbesserungen und Fehlerbehebungen bei der Authentifizierung" }}>
+  ## Major Release: Verbesserte Feedback-Erfassung
+
+  * **Größere Verbesserung**: Leser können nach der Auswahl von *Daumen hoch/runter* nun ausführlicheres Feedback geben, einschließlich Optionen und schriftlicher Kommentare. Sie können außerdem Feedback zu Codeblöcken sammeln und alle Antworten in den Analytics Ihres Dashboards einsehen.\
+    *Hinweis: Kontaktieren Sie uns, um diese Funktion für Ihre Website zu aktivieren.*
+
+  ## Navigation und Verbesserungen für mehr Benutzerfreundlichkeit
+
+  * Verbesserung der Benutzerfreundlichkeit: Nachgestellte Slashes und doppelte Slashes werden ignoriert, sodass Sie sich in Ihrer docs.json nicht mehr um die exakte Schreibweise kümmern müssen
+  * Sie können nun ein `noAnchor`-Attribut zu Ihren `h1-6`-HTML-Tags hinzufügen, um zu verhindern, dass sie einen Ankerlink erhalten
+  * Das Palm-Theme hat jetzt unten links einen schwebenden Sprachumschalter, ähnlich wie bei Stripe
+  * Ein neues Feld namens [`drilldown`](https://mintlify.com/docs/navigation#enable-auto-navigation-for-groups) wurde zur docs.json hinzugefügt. Damit können Sie steuern, ob Nutzer beim Erweitern einer Navigationsgruppe automatisch zur ersten Seite der Gruppe navigiert werden oder nicht
+  * Verbesserung der Benutzerfreundlichkeit: Verschachtelte nummerierte Listen wechseln nun alternierend zwischen Dezimal-/römischen und alphabetischen Stilen
+
+  ## Fehlerbehebungen und Zuverlässigkeit
+
+  * Es wurde ein Fehler behoben, bei dem Ankerlinks zur Scrollposition nicht korrekt funktionierten, wenn sich JS-Komponenten auf einer Seite befanden
+  * Es wurde ein Fehler behoben, bei dem Google rohe `*.md`-Dateien indizierte, weil der Header `x-robots-tag: noindex` fehlte
+  * Es wurde ein Fehler mit OAuth auf geschützten Docs behoben, bei dem Sie nach erfolgreichem Abschluss des Flows nicht zu Ihrer Ausgangsseite zurückgeleitet wurden
+  * Es wurde ein Fehler in Vorschauen von geschützten Docs behoben, bei dem die gesamte Navigationsleiste nicht sichtbar war
+  * Fehlerbehebungen beim Umgang mit SVGs in unserem neuen Image-CDN
+
+  ## Verbesserungen an Komponenten und Styling
+
+  * Ein neuer CSS-Selektor für benutzerdefinierte Styles auf `SidebarNavGroupDivider` wurde hinzugefügt
+  * Neue Regressionstests für in MDX definierte API-Seiten mit definierten Sicherheitsanforderungen sorgen für höhere Stabilität
+
+  ## Leistungsverbesserungen
+
+  * Leistungsverbesserung durch das Verschieben des KaTeX-CSS von cdnjs zu unserem eigenen CDN auf CloudFront für geringere Latenz
+</Update>
+
+<Update label="August 23" tags={["Improvements"]} rss={{ title: "Weekly Updates", description: "Bildlayout-Korrekturen, Auth-Verbesserungen, Verbesserungen der mobilen Navigation und Web-Editor-Stabilität" }}>
+  ## Verbesserungen bei der Bildverarbeitung
+
+  * **Größere Verbesserung**: Bilder verursachen standardmäßig keinen Layout-Shift mehr, selbst wenn Breiten- und Höhenattribute nicht angegeben sind — automatische Größenanpassung verhindert Content-Sprünge während des Seitenladens
+  * Alle statischen Dateien in Ihrem Repository (PDF, TXT, XML, etc.) werden jetzt bei der Bereitstellung automatisch hochgeladen und ausgeliefert, was eine vollständige Asset-Abdeckung bietet
+
+  ## Verbesserungen am Web-Editor und bei Deployments
+
+  * Workflow zur Branch-Erstellung im Web-Editor korrigiert, sodass korrekt zu neu erstellten Branches navigiert wird und man auf ihnen bleibt
+  * Verbesserter Dialog für Merge-Konflikte mit korrekter Escape-Funktionalität; kein Neuladen der Seite mehr nötig, um Konflikte zu schließen
+  * Optimierte Performance des Update-Workflows, indem bei Teilupdates nur geänderte Seiten per Cache-Invalidierung aktualisiert werden, was die Bereitstellungszeiten reduziert
+
+  ## Verbesserungen bei Authentifizierung und Navigation
+
+  * Neue Unterstützung für Authentifizierung in benutzerdefinierten Unterverzeichnissen; wenn Sie Docs unter `https://yourdomain.com/docs` bereitstellen, funktioniert die Authentifizierung jetzt nahtlos
+  * Fehler bei der Sidebar-Anzeige behoben, der fälschlicherweise auftrat, wenn nur ein Link konfiguriert war
+  * Umfassende Überarbeitung der mobilen Navigation: zentrierte Buttons mit korrektem Margin/Padding, verbesserte Abstände in Dropdown-Menüs, entfernte unnötige Trenner und Margins für leere Abschnitte sowie behobene Lücken-/Padding-Probleme im Maple-Theme
+
+  ## Komponenten- und Styling-Korrekturen
+
+  * Problem bei der `<h1-6>`-Tag-Konvertierung behoben, bei dem diese fälschlicherweise in Heading-Komponenten umgewandelt wurden und benutzerdefiniertes Styling beeinträchtigten
+  * Ein-Klick-Umschalter für die Assistent-Konfiguration dem Dashboard hinzugefügt, um die Verwaltung zu erleichtern
+
+  ## Technische Verbesserungen und Zuverlässigkeit
+
+  * Verbessertes Logging-System für Update-Workflows, das schnelleres Debugging und eine schnellere Problemlösung ermöglicht
+  * GitHub-Rate-Limitierung für Kunden mit 10+ OpenAPI/AsyncAPI-Spezifikationen behoben, indem vom Abrufen einzelner Dateien auf Repository-Klonen umgestellt wurde
+  * Verbesserte Zuverlässigkeit des Assistenten mit Backup-LLM-Unterstützung, besserem Umgang mit Rate-Limit-Fehlern und robusterer Suchtool-Funktionalität
+</Update>
+
+<Update label="16. August" tags={["Improvements"]} rss={{ title: "Wöchentliche Updates", description: "Performance-Optimierungen, LLM-Integrationen, Feinschliff am Web-Editor und Verbesserungen an der API-Spielwiese" }}>
+  ## Performance- und Build-Optimierungen
+
+  * Die MDX-Transpilierung erfolgt jetzt zur Deployment-Zeit statt bei jedem Seitenaufruf in ungecachten Next.js-Serverless-Umgebungen, was die Time to First Byte für ungecachte Seiten verbessert.
+  * Inhaltsbasiertes Hashing verhindert eine erneute Transpilierung, wenn sich MDX nicht geändert hat, und reduziert die Update-Workflow-Zeiten um ca. 50 % bei Kunden mit vielen Seiten (Deployments von über 5 Minuten sollten etwa halbiert werden)
+  * Die Vorschau von Deployments im Dashboard ist dank zusätzlicher Datenbankindizes und parallelisierten Abfragen im Backend jetzt schneller
+  * Reduzierte Seitengröße durch Eliminierung doppelter `navigation`-Daten in der `rsc`-Payload jeder Seite — Performancegewinne sind besonders bei hoher Seitenanzahl oder komplexen Navigationsstrukturen spürbar
+  * Aggressiveres Prefetching ermöglicht häufiger sofortige Seitenladezeiten
+
+  ## Verbesserungen an API-Spielwiese und OpenAPI
+
+  * OpenAPI-zu-MCP-Konvertierung ins Backend verlagert, wodurch gehostete MCP-Server Tools enthalten können (bald folgen klarere Dokumentation und Konfigurationsoptionen)
+  * Ruby-Unterstützung für die API-Spielwiese hinzugefügt
+  * Wir haben eine Funktion hinzugefügt, mit der Sie jetzt [API-Seiten allein über Ihre docs.json definieren](/de/api-playground/openapi-setup#auto-populate-api-pages) können, ohne neue MDX-Dateien zu erstellen.
+  * Unterstützung für [`webhook pages`](/de/api-playground/openapi-setup#webhooks) in der Docs-Navigation aus OpenAPI-Spezifikationen
+  * Optimierter Kontext für KI-Modelle durch Entfernen von Ankerangaben aus Markdown-Links beim Navigieren zu Anthropic, OpenAI oder anderen Anbietern
+
+  ## Verbesserungen am Web-Editor
+
+  * Beim Erstellen/Umbenennen von Dateien werden Änderungen jetzt beim Wegklicken gespeichert, statt einen Druck auf die Eingabetaste zu erfordern
+  * Problem bei der Branch-Navigation behoben, bei dem das Ändern der URL auf einen bestimmten Branch zum zuletzt aktiven Branch statt zum gewünschten Ziel weiterleitete
+  * Branch-Titel mit `/` werden korrekt URL-codiert, um Navigationsfehler zu vermeiden
+  * `Strg+K`-Linkkürzel im Monorepo-Dashboard-Editor behoben, das den Pfad des Docs-Repos vorangestellt und dadurch defekte Links erzeugt hatte
+
+  ## Analytics und LLM-Integrationen
+
+  * Unterstützung für benutzerdefinierte `llms.txt` und `llms-full.txt` — zum Root des Docs-Repos hinzufügen, um sie unter den Endpunkten `/llms.txt` und `/llms-full.txt` für LLM-Anpassungen bereitzustellen
+  * [Hightouch-Analytics-Integration](/de/integrations/analytics/hightouch#hightouch) hinzugefügt
+  * Verbessertes Tracking im Kontextmenü (Dashboard-Ansicht folgt bald)
+  * E2E-Tests für `llms.txt` und `llms-full.txt` hinzugefügt, um die korrekte Auslieferung sicherzustellen
+
+  ## Komponenten- und Styling-Verbesserungen
+
+  * Unterstützung für benutzerdefinierte Klassennamen in `h{1-4}`-Tags zur Anwendung individueller Überschriftenstile
+  * Fehler behoben, bei dem `h{1-4}`-Tags als `Heading`-Komponenten mit Chips im benutzerdefinierten Seitenmodus gerendert wurden
+  * CSS-Selektoren zu [Breadcrumbs](/de/organize/navigation#breadcrumbs) für gezieltes Custom-CSS hinzugefügt
+  * Verzerrte Open-Graph-Bilder behoben, indem die Abmessungen analysiert werden, um die Proportionen bei 56 px Höhe beizubehalten
+  * `VSCode` zu `VS Code` im Kontextmenü korrigiert, wenn aktiviert
+  * Problem behoben, bei dem Überschriften innerhalb benutzerdefinierter Komponenten zusätzlich zur semantischen Gliederung in der Inhaltsübersicht erschienen
+
+  ## Bugfixes und Zuverlässigkeit
+
+  * PDF-Renderprobleme mit bestimmten Seitentiteln behoben, indem problematische Zeichen bereinigt wurden
+  * CLI-Fehler `Cannot convert undefined or null to object` beim Auftreten leerer OpenAPI-JSON-Dateien behoben
+  * Problem behoben, bei dem benutzerdefinierte Open-Graph-Meta-Tags in `docs.json` von generierten überschrieben wurden
+  * Problem mit RSS-Feed-Button-Klicks beim Landen auf Ankerlinks behoben, indem für RSS-Links Origin + Pathname verwendet wird
+  * CLI-Downloadgeschwindigkeit durch Entfernen von Sourcemaps verbessert
+
+  ## Technische Verbesserungen
+
+  * Visuelle Tests zur CI-Pipeline hinzugefügt, um Regressionen früher zu erkennen
+  * Verbesserte Fehlerbehandlung und Debugging-Funktionen
+  * Umfassendere Testabdeckung für neue Features und Edge-Cases
+</Update>
+
+<Update label="9. August" tags={["Improvements"]} rss={{ title: "Wöchentliche Updates", description: "Search API, OAuth-Feinschliff, Asset-Auslieferung und MCP-Tooling" }}>
+  ## Verbesserungen bei der Authentifizierung
+
+  * Öffentlicher Zugriff auf Gruppenebene: Mache ganze Seitengruppen über `docs.json` öffentlich, damit du nicht `public: true` auf jeder Seite setzen musst ([mehr erfahren](https://mintlify.com/docs/authentication-personalization/authentication-setup#group-level))
+  * Unterstützung für [`logoutURL in der OAuth-Konfiguration`](https://mintlify.com/docs/authentication-personalization/authentication-setup#implementation-3), um Upstream-Cookies zu löschen und die Abmeldung vollständig durchzuführen
+  * Bei OAuth-Fehlern werden Nutzer zu deiner angegebenen `logoutURL` weitergeleitet, um den Auth-Flow neu zu starten
+  * Ein kurzes Aufblitzen eines 500-Fehlers während OAuth-/JWT-Flows vor dem Callback wurde behoben
+  * Automatisches Entfernen von `https://` aus URLs in der OAuth-/JWT-Auth-Konfiguration, um Fehlkonfigurationen zu verhindern
+
+  ## Verbesserungen an der API-Spielwiese
+
+  * Neuer [Search-API-Endpunkt](https://mintlify.com/docs/api-reference/assistant/search), damit du Agents und MCP-Server auf deinen Docs aufbauen kannst
+  * `openapi`- und `asyncapi`-Dateien werden nun unter ihren angegebenen Pfaden ausgeliefert (zum Beispiel `https://mydocsurl.extension/{openapi-or-file-name}.json`)
+  * Du kannst jetzt das [`x-mint`-Feld in deinen OpenAPI-Dateien](https://mintlify.com/docs/api-playground/openapi-setup#x-mint-extension) verwenden, um generierte Felder zu überschreiben, den Vorspann anzupassen oder Endpunkt-URLs in Codebeispielen zu ändern
+  * [„`x-mcp` ist jetzt `x-mint.mcp“`](https://mintlify.com/docs/api-playground/openapi-setup#mcp) in OpenAPI-Konfigurationen, um zu steuern, welche Routen als MCP-Tools bereitgestellt werden
+
+  ## Assistent-Updates
+
+  * Ein Problem wurde behoben, bei dem das Aktionsmenü (mit Optionen wie Kopieren und Daumen hoch) für ältere Nachrichten verschwand, wenn neue eintrafen
+  * Die Zugänglichkeit verschachtelter `/mcp/...`-Seiten nach dem [Release der gehosteten MCP-Server](https://mintlify.com/docs/ai/model-context-protocol#accessing-your-mcp-server) letzte Woche wurde behoben
+
+  ## Leistung und Zuverlässigkeit
+
+  * Alle Bild- und Video-Assets, die in deinem Docs-Repository vorhanden sind, werden jetzt unter dem passenden Pfad auf deiner Domain ausgeliefert. Wenn du zum Beispiel `/assets/marketing/my-logo.png` in deinem Repo hast, ist es unter `https://mydocsurl.extension/assets/marketing/my-logo.png` verfügbar.
+  * Das E-Mail-Feld beim Login für das Mintlify-Dashboard fokussiert nun automatisch, sodass du sofort tippen kannst *(Quality-of-Life-Verbesserung)*
+  * Sowohl benutzerdefinierte Domains als auch Subdomains in Redis für eine Leistungsverbesserung bei Navigationsladezeiten (~50 ms Latenzreduzierung)
+  * Retry-Logik für PDF-Exporte hinzugefügt, um die Zuverlässigkeit zu verbessern
+  * Behoben, dass das Cookie-Einwilligungs-Popup nach Zustimmung oder Ablehnung erneut erschien — die erste Auswahl wird jetzt respektiert
+  * Kopieren einer Seite in die Zwischenablage auf Safari behoben, indem ein MIME-`type` in `navigator.write` angegeben wurde
+
+  ## Technische Verbesserungen
+
+  * CLI-Bugfixes für Windows und pnpm, plus CI-Tests zur Vermeidung von Regressionen
+  * Verbesserte Error-Logging-Ausgabe — ein Quality-of-Life-Upgrade für unser Engineering-Team beim Debuggen
+  * Kleinere Fixes an der broken-link-CI-Action, wenn `contentDirectory`-Dateien fehlen
+  * Eine Regression wurde behoben, die durch die auth-geschützten Vorschau-Fixes der letzten Woche verursacht wurde, bei der der aktive Tab in der Navigations-UI nicht korrekt gesetzt wurde
+  * Behoben, dass die helle Hintergrundfarbe des Themes nicht auf aktive Tab-Icons angewendet wurde
+  * Ein Problem wurde behoben, bei dem das Ändern des Auth-Typs im Dashboard zunächst aktualisierte und dann wieder auf den zuvor gespeicherten Typ zurücksprang — jetzt bleibt die neue Auswahl nach dem Speichern bestehen
+  * Interne DX-Verbesserungen für Enterprise-Kunden mit benutzerdefinierten UI-Bibliotheken — es ist jetzt einfacher für uns, eure Komponenten einzubinden und Anfragen in kürzeren Zeitfenstern zu berücksichtigen
+</Update>
+
+<Update label="August 2" tags={["Improvements"]} rss={{ title: "Weekly Updates", description: "Verbesserungen bei der Authentifizierung, Suchverbesserungen und Assistant-API" }}>
+  ## Verbesserungen bei der Authentifizierung
+
+  * Verbesserungen für die lokale Entwicklung der Authentifizierung, wodurch Features und Bugfixes in diesem Bereich schneller umgesetzt werden können
+  * Vorschau-Bereitstellungen sind jetzt für auth-geschützte Sites verfügbar
+  * Weiterleitungsverhalten korrigiert, sodass Nutzer nach der Authentifizierung korrekt auf ihre ursprüngliche Seite zurückkehren
+  * Anzeige des Logout-Buttons bei vollständiger Authentifizierung behoben (funktionierte zuvor nur bei partieller Authentifizierung)
+
+  ## Verbesserungen an der API-Spielwiese
+
+  * Funktionalität für `multipart/form-data`-Datei-Uploads in der API-Spielwiese behoben
+  * Verhalten von Ankerlinks korrigiert, sodass ein Klick die URL aktualisiert, ohne zum Seitenanfang zu scrollen
+  * Probleme mit Ankerlinks in verschachtelten Tabs behoben
+
+  ## Assistent-Updates
+
+  * Neue Assistant-API, um ihn in Ihre eigenen Produkte zu integrieren; kompatibel mit dem AI SDK
+  * Kopier-Button zu Chat-Antworten hinzugefügt
+  * Problem beim erneuten Senden von Nachrichten im Assistenten behoben
+  * Verbesserungen am Standard-Prompt des Assistenten, damit er standardmäßig weniger wortreich ist
+
+  ## Performance und Zuverlässigkeit
+
+  * Sucherlebnis wirkt präziser und genauer, indem verzögerte Anfragen während der Eingabe abgebrochen werden
+  * Ressourcenbereitstellung für ein neues CDN – bald sind schnellere Ladezeiten für Bilder und Seiten zu erwarten
+  * Bugs beim Rendern komplexer Mermaid-Diagramme wie Gantt-Diagrammen behoben
+  * CLI-Bugs unter Windows behoben, um die Stabilität zu verbessern, und Tests hinzugefügt, um Regressionen zu verhindern
+
+  ## Technische Verbesserungen
+
+  * OpenTelemetry für Traces in der Next.js-Anwendung hinzugefügt, um die Time to First Byte für Kunden zu verbessern
+  * Migration von Octokit zum GitHub-API-Client, um die Latenz im Web-Editor zu verbessern
+  * Doppelte Meta-Tags für Open Graph behoben
+  * Upgrade von MongoDB von Version 6 auf 7 für bessere Performance und neue Funktionen
+</Update>
+
+<Update label="July 2025" tags={["New releases", "Improvements"]} rss={{ title: "July Product Updates", description: "Slack-App-Integration, gehostete MCP-Server, Cursor-Integration und Leistungsverbesserungen" }}>
+  ## Slack-App
+
+  * Reibungsloser Zugriff: Der Bot antwortet auf DMs, @mentions und jede Frage in Ihrem `#ask-ai`-Channel
+  * Ein-Klick-Setup: Direkt über Ihr Mintlify-Dashboard in Sekunden installieren
+  * Kontextuelle Antworten: Durchsucht Ihre gesamte Dokumentation, um relevante, präzise Antworten zu liefern
+  * Support-Unterbrechungen reduzieren: Verwandeln Sie tägliche Fragen in sofortige Self-Service-Antworten
+
+  Mehr erfahren Sie in unserem [Slack-App-Leitfaden](/de/ai/slack-app).
+
+  ## Gehostete MCP-Server
+
+  Stellen Sie gehostete Model Context Protocol (MCP)-Server direkt über Mintlify bereit, um sie mit KI-Tools wie Claude, Cursor und anderen zu integrieren. Mehr erfahren Sie in unserem [MCP-Leitfaden](/de/ai/model-context-protocol).
+
+  Helfen Sie Nutzern, Ihren MCP-Server schnell von jeder Seite Ihrer Doku aus über das Kontextmenü mit Cursor oder VS Code zu verbinden. Siehe [Kontextmenü](/de/ai/contextual-menu) für weitere Informationen.
+
+  ## Verbesserungen an Codeblöcken
+
+  * Verbesserte Syntaxhervorhebung
+  * Mehr Anpassungsoptionen, einschließlich Fokusmodus, ausklappbarer Codeblöcke, responsivem Verhalten für Dark- und Light-Mode, Sprach-Dropdown, Zeilennummerierung und Icons
+</Update>
+
+<Update label="June 2025" tags={["New releases", "Improvements"]} rss={{ title: "June Product Updates", description: "Updates am KI-Assistenten und abonnierbare Changelogs" }}>
+  ## Updates am KI-Assistenten
+
+  * Verbesserte Genauigkeit durch agentisches RAG mit Toolaufrufen
+  * Bietet navigierbare Links zu referenzierten Seiten, sodass Nutzer direkt zur Quelle der Antworten gelangen können
+  * Kopier-Shortcut für vom Assistenten generierte Codebeispiele
+  * „Ask AI“-Shortcut bei Codeblöcken in der Dokumentation, um Erklärungen vom Assistenten zu generieren
+
+  Erfahren Sie mehr in den [Assistent-Dokumenten](/de/ai/assistant).
+
+  ## Abonnierbare Changelogs
+
+  * Automatische Generierung eines RSS-Feeds aus Changelog-Seiten
+  * Integration von RSS-basierten Updates mit Slack, E-Mail und anderen Tools
+
+  Erfahren Sie mehr in unserem neuen [Changelog-Leitfaden](/de/create/changelogs)
+</Update>
+
+<Update label="May 2025" tags={["Improvements"]}>
+  ## Stabilitätsupdates für die API-Spielwiese
+
+  * Suche, um einen Endpoint zu finden
+  * Veraltete Endpoints mit einem Tag kennzeichnen
+  * Automatisch generierte API-Seiten in der Navigation ausblenden
+  * Multipart- oder Formdaten-Dateien hochladen
+
+  Mehr erfahren in den [API-Spielwiesen-Dokumenten.](/de/api-playground/)
+
+  ## `mint update`
+
+  Sie können jetzt `mint update` verwenden, um Ihre CLI zu aktualisieren.
+</Update>
+
+<Update label="April 2025" tags={["New releases", "Improvements"]}>
+  ## Web-Editor 3.0
+
+  <Frame>
+    ![Webeditor3 Jpe](/images/webeditor3.jpeg)
+  </Frame>
+
+  Überarbeitete Benutzerfreundlichkeit im WYSIWYG-Editor.
+
+  **Wesentliche Verbesserungen**
+
+  * Suche nach Dateinamen mit dem Shortcut ⌘ + P
+  * Seiten laden 10× schneller
+  * Schnellere Ladezeiten bei der Branch-Suche
+  * Tab „Seitenoptionen“, um Layout, Titel und Metadaten für SEO zu konfigurieren
+  * Schwebende Toolbar beim Markieren von Text
+
+  **Weitere Fehlerbehebungen**
+
+  * Oberen Abstand für Changelog-Komponenten korrigiert
+  * Zuverlässigkeit des Rechtsklick-Verhaltens verbessert
+  * Nach dem Klicken auf Veröffentlichen bleibst du auf derselben Seite, statt in einen leeren Zustand zu gelangen
+  * Farben in Dateisymbolen vereinheitlicht
+  * Stabilere Funktion nach mehrfachem, aufeinanderfolgendem Wechseln auf neue Branches
+  * Diff-Modus entfernt
+  * Einheitlicheres Verhalten beim Erstellen eines neuen Ordners über das Dropdown
+  * Fehler behoben, bei dem Blockzitate weitere Blockzitate erzeugten, wenn man die Auswahl aufheben wollte
+
+  ## KI-Übersetzungen (Beta)
+
+  <Frame>
+    ![AI Translations graphic](/images/changelog/translations.png)
+  </Frame>
+
+  Übersetze deine gesamte Dokumentation mit KI. [Mehr erfahren.](organize/navigation#localization)
+
+  ## Docs als PDF exportieren (Beta)
+
+  Exportiere deine gesamte Dokumentation, ein Unterverzeichnis oder eine einzelne Seite als PDF.
+
+  ## Unterstützung für React Hooks
+
+  Bringe Interaktivität in deine Docs. Alle Standard-React-Hooks sind in deinen MDX-Dateien automatisch verfügbar. [Mehr erfahren.](customize/react-components)
+</Update>
+
+<Update label="March 2025" tags={["New releases", "Improvements"]}>
+  ## MCP-Server-Generator
+
+  <Frame>
+    ![screenshot of MCP server generator](/images/changelog/mcpgenerator.png)
+  </Frame>
+
+  Generiere MCP-Server, damit KI-Anwendungen mit deinen Docs oder APIs interagieren können. Geschriebene Inhalte werden automatisch als MCP-Server bereitgestellt, und du kannst mit einem Klick einen MCP-Server aus deiner OpenAPI-Spezifikation erzeugen. Sieh dir die [Dokumentation zum Einstieg in MCP](/de/ai/model-context-protocol) an.
+
+  ## Verbesserungen
+
+  * Changelog-Updates taggen, damit Endnutzer Updates filtern können
+  * Sonnet-3.7 für AI Chat unterstützt. Konfiguriere dein bevorzugtes Modell über das Dashboard
+  * Ändere deinen Bereitstellungsnamen direkt in den Dashboard-Einstellungen
+
+  ## Fehlerbehebungen
+
+  * OG-Bilder korrigiert
+  * Inkonsistente Symbolstile für Anker ohne Container behoben
+  * Feinschliff am Dashboard-Rahmen für Responsiveness auf Mobil-, Tablet- und Desktop-Ansichten
+  * Codebeispiele werden auch im einfachen Modus der API-Spielwiese angezeigt
+  * Shortcut „command + k“ für die Suche im Web-Editor unterstützt
+  * Codeblöcke innerhalb von Callouts erweitern sich auf die volle Breite des Callout-Bereichs
+</Update>
+
+<Update label="Februar 2025" tags={["New releases", "Improvements"]}>
+  ## Neues Konfigurationsschema `docs.json`
+
+  <Frame>
+    ![docs.json screenshot](/images/changelog/docsjson.png)
+  </Frame>
+
+  Wir haben ein neues `docs.json`-Schema als Ersatz für `mint.json` eingeführt, um bessere mehrstufige Versionierung, leichtere visuelle Erfassbarkeit und konsistentere Terminologie zu ermöglichen. Mehr zu den Änderungen finden Sie in unserem [Blog](https://mintlify.com/blog/refactoring-mint-json-into-docs-json).
+
+  So aktualisieren Sie von `mint.json` auf `docs.json`:
+
+  1. Stellen Sie sicher, dass Ihre CLI auf dem neuesten Stand ist
+
+  ```bash
+  npm i mint@latest -g
+  ```
+
+  1. Führen Sie in Ihrem Docs-Repository Folgendes aus
+
+  ```bash
+  mint upgrade
+  ```
+
+  1. Löschen Sie Ihre alte `mint.json`-Datei und pushen Sie Ihre Änderungen
+
+  ## CI-Checks
+
+  Linten Sie Ihre Docs automatisch, um defekte Links zu finden, Rechtschreib- und Grammatikprobleme aufzudecken oder Schreibstile mit Ihrer eigenen Vale-Konfiguration durchzusetzen. Erfahren Sie mehr in unseren [Docs](deploy/ci).
+
+  ## .md-Unterstützung für LLMs
+
+  Alle Dokumentationsseiten sind jetzt automatisch als reine Markdown-Dateien verfügbar — hängen Sie einfach `.md` an die URL an. So können LLMs einzelne Seiten Ihrer Dokumentation leichter verarbeiten.
+
+  ## Weitere Themes
+
+  <Frame>
+    ![graphic with text "Themes v2"](/images/changelog/themes.png)
+  </Frame>
+
+  Neue [vorab erstellte Themes](customize/themes), um das Look &amp; Feel Ihrer Docs anzupassen. Konfigurieren Sie sie über Ihre [docs.json-Datei](organize/settings).
+
+  Jetzt verfügbar:
+
+  * Maple
+  * Palm
+  * Willow
+
+  ## Weitere Verbesserungen
+
+  * [Guide to Technical Writing:](https://mintlify.com/guides/introduction) Best Practices für technische Dokumentation, einschließlich Zielgruppenrecherche, Inhaltstypen und Schreibtipps.
+  * [Dropdown-Komponente](organize/navigation#dropdowns): Organisieren Sie die Navigation mit einem Dropdown, zusätzlich zu Tabs und Sprungmarken.
+  * [KI-Syntax-Fixer](https://x.com/ricardonunez_io/status/1892334887644123192): Der Web-Editor erkennt Parserfehler und verwendet KI, um Korrekturen vorzuschlagen.
+</Update>
+
+<Update label="Januar 2025" tags={["Improvements"]}>
+  ## Verbesserungen am KI-Assistenten
+
+  * Neue UI mit eigener Chat-Seite und vorbefüllten Prompts
+  * Stabilitätsverbesserungen, z. B. Bugfixes beim Bearbeiten der falschen Datei oder gar keiner Datei
+  * Robustere Kenntnisse zum Hinzufügen und Bearbeiten von Komponenten
+  * Verbesserte Bearbeitung der `docs.json`-Datei
+
+  ## Partielle Authentifizierung
+
+  Passen Sie den Zugriff auf beliebige Seiten oder Inhaltsbereiche abhängig von Benutzerberechtigungen an. Unterstützt die Anbindung an Ihr eigenes Authentifizierungssystem.
+
+  ## Überarbeitete API-Spielwiese
+
+  Wir haben das Design und die Performance der [API-Spielwiese](/de/api-playground/) überarbeitet. Aktualisierungen umfassen:
+
+  * Einfacheres Aufklappen von Details für eine Feldübersicht
+  * Intuitiveres verschachteltes Design, z. B. beim Hinzufügen oder Löschen von Einträgen
+  * Schnellere Antwortzeiten
+
+  ## Qualitätsverbesserungen
+
+  * Unterstützung für die verpflichtende Authentifizierung zum Zugriff auf Vorschau-Bereitstellungen
+</Update>
+
+<Update label="Dezember 2024">
+  ## Authentifizierung
+
+  <Frame>
+    ![Authentication screenshot](/images/changelog/authentication.png)
+  </Frame>
+
+  Machen Sie Ihre Docs privat, indem Sie eine Authentifizierung über JWT, OAuth oder ein universelles Passwort einrichten. Damit können Sie eine interne Wissensbasis aufbauen oder verhindern, dass Wettbewerber Ihre Docs einsehen.
+</Update>
+
+<Update label="November 2024">
+  ## AI Writer
+
+  <Frame>
+    ![AI Assistant](/images/changelog/ai-assistant.jpg)
+  </Frame>
+
+  Sie können die KI jetzt mit Änderungen an Ihrer Dokumentation beauftragen – unter Berücksichtigung des Kontexts der gesamten bestehenden Inhalte. Geben Sie eine Eingabe ein, und der Writer schlägt Änderungen vor, indem er eine Pull-Request erstellt.
+
+  ## GitLab-Integrations-Upgrade
+
+  Wir haben die Synchronisierung mit GitLab verbessert, unter anderem durch automatisierte Updates und Vorschau-Bereitstellungen. Lesen Sie unsere [Dokumentation zu GitLab](/de/deploy/gitlab), um loszulegen.
+
+  ## Web-Editor
+
+  <Frame>
+    ![Web Editor](/images/changelog/webeditor.jpg)
+  </Frame>
+
+  Wir haben unseren Web-Editor überarbeitet, sodass Sie Ihre Dokumentation jetzt mit einer vollständig WYSIWYG-basierten Bearbeitung aktualisieren können – bei gleichzeitiger Synchronisierung mit Markdown.
+
+  Lesen Sie unsere [Dokumentation zum Einstieg in den Web-Editor](/de/editor).
+
+  ## Unterstützung für /llms.txt
+
+  <Frame>
+    ![llms.txt support](/images/changelog/llms.jpg)
+  </Frame>
+
+  Alle Dokumentationsinstanzen sind jetzt automatisch unter /llms.txt und /llms-full.txt verfügbar, damit LLMs Ihre Dokumentation leicht verarbeiten können. Weitere Informationen finden Sie in der [Dokumentation zum neuen llms.txt-Standard.](https://llmstxt.org)
+
+  ## Lokalisierung
+
+  Sie können Ihre Dokumentation jetzt lokalisieren; das funktioniert ähnlich wie Versionierung. Fügen Sie einer Version ein `locale` hinzu, und feste Inhalte in Mintlify wie „War diese Seite hilfreich?“ werden ebenfalls an das Locale angepasst.
+
+  ### Qualitätsverbesserungen
+
+  * Chat- und Suchergebnisse auf Basis der aktuellen Version zurückgeben, die der Nutzer gerade liest
+  * Benutzer zusätzlich zu JWT oder Shared-Session-Tokens per OAuth authentifizieren
+</Update>
+
+<Update label="Oktober 2024">
+  ## Changelogs
+
+  Eine neue [Update-Komponente](/de/components/update) wurde eingeführt, um Updates (wie dieses) für Ihre Nutzer einfacher anzuzeigen und zu melden.
+
+  <Frame>
+    ![Changelog](/images/changelog/changelog.jpg)
+  </Frame>
+
+  ## Codezeilen hervorheben
+
+  Sie können jetzt Codezeilen in Ihren Docs hervorheben, um wichtige Teile hervorzuheben und die Aufmerksamkeit darauf zu lenken, indem Sie einen speziellen Kommentar nach dem Sprachbezeichner hinzufügen. Verwenden Sie geschweifte Klammern `{}` und geben Sie Zeilennummern oder Bereiche an, getrennt durch Kommas.
+
+  ```javascript Line Highlighting Example {1,3,4,5}
+  const greeting = "Hello, World!";
+  function sayHello() {
+    console.log(greeting);
+  }
+  sayHello();
+  ```
+
+  ````mdx
+  ```javascript Line Highlighting Example {1,3-5}
+  const greeting = "Hello, World!";
+  function sayHello() {
+    console.log(greeting);
+  }
+  sayHello();
+  ```
+  ````
+
+  ## Light-Mode-Codeblöcke
+
+  Codeblöcke haben jetzt eine Light-Mode-Variante, die Sie aktivieren können, indem Sie Folgendes zu Ihrer `docs.json` hinzufügen:
+
+  ```json
+  "codeBlock": {
+    "mode": "auto"
+  }
+  ```
+
+  ## Erweiterte Fußzeile
+
+  <Frame>
+    ![Advanced Footer](/images/changelog/advanced-footer.gif)
+  </Frame>
+
+  Sie können jetzt mehr Links zur Standardfußzeile hinzufügen. Dieses Upgrade sorgt für mehr Konsistenz zwischen Landingpages und Docs oder ermöglicht mehr Anpassung, wenn Sie bestimmte Seiten wie Socials oder Statusseiten hervorheben möchten.
+
+  ## Suche basierend auf dem aktuellen Nutzer filtern
+
+  Wenn die Personalisierung aktiviert ist, werden Suchergebnisse jetzt basierend auf dem aktuell angemeldeten Nutzer gefiltert, sodass nur relevante Inhalte angezeigt werden.
+
+  ## Benutzerdefinierte Prompts für den AI-Chat
+
+  Sie können die Prompts für den AI-Chat jetzt anpassen. Bitte wenden Sie sich an den [Support](mailto:support@mintlify.com), wenn Sie die Prompts anpassen möchten.
+
+  ## Verbesserungen am Dashboard
+
+  * Möglichkeit hinzugefügt, die benutzerdefinierte Domain direkt über die Dashboard-Einstellungen auf /docs zu ändern.
+  * Login- und Signup-Seiten zusammengeführt, um Reibung und Verwirrung zu verringern.
+  * Den Discovery-Login-Flow implementiert, sodass Nutzer, die Mitglied in mehreren Organisationen sind, jetzt zwischen ihnen wechseln können.
+  * Login mit Google OAuth hinzugefügt.
+  * Möglichkeit hinzugefügt, neue Deployments über die Dashboard-Einstellungen hinzuzufügen.
+
+  ## Fehlerbehebungen
+
+  * Führende Slashes in der Navigation können jetzt verwendet werden.
+  * CSS- und JS-Dateien können jetzt im Web-Editor bearbeitet werden.
+  * `suggestEdit` wird nun korrekt angezeigt, wenn es aktiviert ist.
+  * Tastaturnavigation für Suche und Chat korrigiert, sodass Sie jetzt mit den Pfeiltasten nach oben und unten durch die Ergebnisse navigieren können.
+  * Suchmaschinen dürfen keine nutzer-auth-geschützten Seiten crawlen.
+  * Der Cache wird neu validiert, wenn eine Organisation gelöscht wird.
+  * Wir verwenden jetzt den Scalar OpenAPI-Parser zum Parsen von OpenAPI-Definitionen, was die Performance verbessert, Parsing-Probleme behebt und bessere Fehlermeldungen liefert.
+  * Oberste Beschreibungen (Top-Level) werden jetzt in automatisch aus OpenAPI-Definitionen generierten API-Referenzseiten unterstützt.
+  * Inline-Style-Unterstützung für Icons hinzugefügt.
+  * Das „Pop-in“ von benutzerdefiniertem CSS in Docs behoben.
+  * Inline-Codeformatierung in Verbindung mit Links wird korrekt angezeigt.
+  * Die Scrollposition bleibt erhalten, wenn Sie im Browser die Zurück-Taste klicken.
+</Update>
+
+<Update label="September 2024">
+  ## Benutzerdefinierte Schriftarten
+
+  <Frame>
+    ![Custom Fonts](/images/changelog/custom-fonts.jpeg)
+  </Frame>
+
+  Passen Sie die Schrift Ihrer Doks an – entweder mit Ihrer eigenen, auf einem CDN gehosteten Schrift oder durch die Auswahl aus Google Fonts, damit Ihre Doks zu Ihrer Marke passen.
+
+  ## Bilder in Card-Komponenten
+
+  Fügen Sie einer Card die Eigenschaft `img` hinzu, um oben auf der Card ein Bild anzuzeigen. Erfahren Sie mehr [hier](/de/components/cards#image-card).
+
+  ## Leistungsverbesserungen bei Updates
+
+  <Frame>
+    ![Performance Improvements](/images/changelog/performance-improvements.png)
+  </Frame>
+
+  Für große Projekte (~3.000 Dateien) ist der Download-Schritt für Doks-Updates jetzt ~440x schneller – eine Zeitersparnis von 99,8 %. Insgesamt sind Dateidownloads während Updates jetzt ~5,5x schneller – eine Zeitersparnis von 81,8 %.
+
+  ## SEO-Verbesserungen
+
+  <Frame>
+    ![SEO Improvements](/images/changelog/seo-improvements.jpeg)
+  </Frame>
+
+  Wir haben sowohl das mobile als auch das Desktop-Layout unserer Doks überarbeitet, damit sie SEO-freundlicher sind – einschließlich korrekter ARIA-Tags für Navbar- und Toggle-Elemente.
+
+  ## Dashboard-Verbesserungen
+
+  * Migration auf den App Router im Dashboard.
+  * Such-Analytics sind jetzt im Dashboard verfügbar.
+  * Eine Funktion zum Löschen einer Organisation wurde dem Dashboard hinzugefügt.
+  * GitLab-Verbindungs-UI ausgeliefert.
+  * Falsche Analytics-Daten korrigiert.
+  * Add-ons können jetzt direkt über das Dashboard gekauft werden.
+
+  ## Fehlerbehebungen
+
+  * Ein Fehler wurde behoben, bei dem sich die obere Leiste im benutzerdefinierten Modus nicht auf die Bildschirmbreite erstreckte, wenn das Seitenleisten-Layout `sidenav` ist.
+  * Relative Positionierung des AI-Widgets korrigiert.
+
+  ## Mehr
+
+  * **Troubleshooting für API-Seiten**: API-Seiten können komplex sein, daher haben wir häufige Probleme aufgelistet, damit Sie sie schnell lösen können — [Dokumentation lesen](/de/api-playground/troubleshooting)
+</Update>
+
+<Update label="August 2024">
+  ## OpenAPI-Referenzseiten
+
+  * Von OpenAPI definierte, komplexe und rekursive Endpunkte sind jetzt 98 % kleiner.
+  * Wir zeigen jetzt [additionalProperties](https://swagger.io/docs/specification/data-models/dictionaries/) auf OpenAPI-Seiten an.
+
+  ## Datei-Uploads in der API-Spielwiese
+
+  Standardmäßig werden Anfragen der API-Spielwiese von Mintlify per Proxy gesendet. Jetzt können Sie `disableProxy` verwenden, um dieses Verhalten zu deaktivieren und Anfragetypen wie Datei-Uploads zu unterstützen.
+
+  * [Erfahren Sie mehr über API-Konfigurationen](organize/settings#api-configurations)
+
+  ## Mobile SEO-Verbesserungen
+
+  Wir haben das mobile Layout unserer Doks überarbeitet, damit es SEO-freundlicher ist – einschließlich korrekter ARIA-Tags für Elemente.
+
+  ## Support-Formular
+
+  Wir haben dem Mintlify-Dashboard ein detaillierteres Support-Formular hinzugefügt. Sie können jetzt ein Formular einreichen, um mit uns in Kontakt zu treten.
+
+  ## Fehlerbehebungen
+
+  * Ein Fehler in der Segment-Integration wurde behoben.
+  * Wir geben nun granularere Fehlermeldungen zu GitHub-Berechtigungen aus, wenn Sie mit dem Editor interagieren.
+  * Fehler behoben, bei denen sich die Navigation bei Verwendung eines Direktlinks nicht korrekt ausklappte.
+</Update>
+
+<Update label="July 2024">
+  ## AI-Widget
+
+  <Frame>
+    ![AI Widget](/images/changelog/widget.png)
+  </Frame>
+
+  Für Pro-Nutzer haben wir das Mintlify-Widget eingeführt – eine Erweiterung Ihrer Doks, die Fragen Ihrer Nutzer genau dann und dort beantwortet, wo sie gestellt werden. Sie können diesen KI-gestützten Chatbot zu jeder Webseite hinzufügen: Ihrer Landingpage, in Ihr Produkt oder auf Ihre bestehenden Dokumentationsseiten.
+
+  * [Blog-Ankündigung lesen](https://mintlify.com/blog/widget)
+
+  ## Pro-Plan
+
+  Wir haben auch unsere Preispläne für bessere Anpassbarkeit und Skalierbarkeit aktualisiert.
+
+  * [Blog-Ankündigung lesen](https://mintlify.com/blog/pro-plan)
+
+  ## Codebeispiel-Sync in der API-Spielwiese
+
+  Beim Durchsuchen der API-Dokumentation wird das ausgewählte Codebeispiel jetzt seitenübergreifend synchronisiert.
+
+  ## Insights
+
+  Derzeit in der Beta fasst dieses Feature häufige Nutzerfragen und -muster in leicht verdaulichen Berichten zusammen – mit KI-gestützten Vorschlägen zur Verbesserung Ihres Produkts.
+</Update>
+
+<Update label="Juni 2024">
+  ## Highlights der Launch-Woche
+
+  * Themes: Passe dein Styling mit vorkonfigurierten Themes an. Füge einfach das Theme Quill, Prism oder Venus zu deiner `docs.json`-Datei hinzu, und das Styling deiner Docs wird aktualisiert.
+  * Search V2: Durchsuche direkt OpenAPI-Endpunktbeschreibungen und -titel, um API-Referenzseiten zu finden, entferne Verborgene Seiten aus der Suche und nutze unsere aktualisierte Suchleisten-UI.
+  * Branching im Web-Editor: Erstelle Branches in unserem Web-Editor – ganz ohne IDE.
+  * Nutzerpersonalisierung: Authentifiziere Nutzer mit Shared Session oder JWT, um personalisierte Inhalte anzuzeigen, z. B. das Vorabfüllen von API-Schlüsseln oder das Anzeigen spezifischer Inhalte für Kunden.
+  * OpenAPI-Automatisierungs-Upgrades: Um Seiten der API-Spielwiese automatisch zu befüllen, kannst du ein `openapi`-Feld zu einem Objekt in den Tabs- oder Anchors-Arrays in der `docs.json` hinzufügen.
+</Update>
+
+<Update label="Mai 2024">
+  ## Okta SSO
+
+  Wir unterstützen jetzt Single Sign-On über Okta SAML und OIDC.
+
+  ## Mintlify REST API
+
+  Löse Updates für deine Dokumentation programmgesteuert aus.
+</Update>
+
+<Update label="April 2024">
+  ## Custom Mode
+
+  Füge eine Konfiguration zu den Metadaten hinzu, um alle Elemente außer der Top-Bar zu entfernen. Beispiele:
+
+  * Erstelle eine benutzerdefinierte globale Landingpage mit Custom Components
+  * Füge Vollbildvideos oder Bildergalerien hinzu
+  * Betten benutzerdefinierte iFrame-Demo-Elemente ein, um deinen Docs Interaktivität hinzuzufügen
+
+  Sieh dir unsere [Custom-Mode-Dokumentation](organize/pages#custom-mode) an.
+</Update>
+
+<Update label="März 2024">
+  ## Mintlify MDX für VS Code
+
+  Nutze Snippets unserer vorgefertigten Komponenten und Callouts, ohne VS Code zu verlassen. [Installiere die Erweiterung hier](https://marketplace.visualstudio.com/items?itemName=mintlify.mintlify-snippets).
+</Update>
+
+<Update label="Februar 2024">
+  ## Qualitätsverbesserungen
+
+  * Dashboard-Upgrades: Sieh dir Update-Logs an, um Änderungen und den Status eines Updates zu sehen; wechsle zwischen Mintlify-Projekten, um Bereitstellungen zu verwalten
+  * Versionierung mit Tabs vollständig unterstützt
+  * Wildcard-Weiterleitungen jetzt unterstützt
+  * CLI-Fehlererkennung: Wir zeigen jetzt die Position von ungültigem Frontmatter an, wenn während der lokalen Entwicklung Parsing-Probleme auftreten
+</Update>
+
+<Update label="Januar 2024">
+  ## Highlights der Launch-Woche
+
+  * Vorschau-Bereitstellungen: Wenn du einen Pull Request erstellst, generieren wir einen eindeutigen Link, der eine Live-Vorschau zeigt, wie deine Docs in Prod aussehen. Du kannst diesen Link mit Teamkollegen teilen.
+  * Snippets V2: Wir unterstützen jetzt vollständig wiederverwendbare Komponenten und Variablen für Snippets.
+  * Open-Source-MDX-Engine: Wir haben zwei APIs offengelegt — getCompiledMdx und MDXComponent — damit du auf Mintlify-Markdown und Code-Syntaxhervorhebung zugreifen kannst. [Beiträge zum Projekt](https://github.com/mintlify/mdx) sind willkommen.
+  * AI-Chat-Insights: Segmentiere den Chatverlauf nach Datum, erhöhe das AI-Chat-Kontingent über das Dashboard und sieh, wie oft eine bestimmte Anfrage erscheint.
+</Update>

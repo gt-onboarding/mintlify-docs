@@ -1,0 +1,398 @@
+---
+title: "Accessibilità"
+description: "Crea documentazione utilizzabile dal maggior numero possibile di persone"
+---
+
+Quando crei documentazione accessibile, dai priorità a un design dei contenuti che la renda fruibile dal maggior numero possibile di persone, indipendentemente da come accedono e interagiscono con essa.
+
+La documentazione accessibile migliora l’esperienza d’uso per tutti. I tuoi contenuti risultano più chiari, meglio strutturati e più facili da navigare.
+
+Questa guida propone alcune buone pratiche per creare documentazione accessibile, ma non è esaustiva. Considera l’accessibilità un processo continuo. Tecnologie e standard cambiano nel tempo, introducendo nuove opportunità per migliorare la documentazione.
+
+<div id="what-is-accessibility">
+  ## Che cos'è l'accessibilità?
+</div>
+
+L’accessibilità (talvolta abbreviata in a11y, per il numero di lettere tra la prima e l’ultima di “accessibility”) consiste nel progettare e realizzare consapevolmente siti web e strumenti utilizzabili dal maggior numero possibile di persone. Le persone con disabilità temporanee o permanenti devono avere lo stesso livello di accesso alle tecnologie digitali. Progettare con criteri di accessibilità porta benefici a tutti, incluse le persone che accedono al tuo sito web da dispositivi mobili o su reti lente.
+
+La documentazione accessibile segue gli standard di accessibilità del web, in particolare le [Web Content Accessibility Guidelines (WCAG)](https://www.w3.org/WAI/WCAG22/quickref/). Queste linee guida aiutano a garantire che i tuoi contenuti siano percepibili, utilizzabili, comprensibili e robusti.
+
+<div id="getting-started-with-accessibility">
+  ## Come iniziare con l’accessibilità
+</div>
+
+Rendere la documentazione accessibile è un processo. Non devi sistemare tutto in una volta, e non è qualcosa che fai una volta sola.
+
+Se stai iniziando a introdurre pratiche di accessibilità nella tua documentazione, valuta un approccio graduale: parti dagli interventi a maggior impatto e prosegui da lì.
+
+<div id="first-steps">
+  ### Primi passi
+</div>
+
+Ecco tre azioni che puoi intraprendere subito per migliorare l’accessibilità della tua documentazione:
+
+1. **Esegui `mint a11y`** per individuare problemi di accessibilità nei contenuti.
+2. **Aggiungi il testo alternativo (alt text)** a tutte le immagini.
+3. **Verifica la gerarchia dei titoli** per assicurare un solo H1 per pagina e che i titoli seguano un ordine sequenziale.
+
+<div id="plan-your-accessibility-work">
+  ### Pianifica il lavoro sull'accessibilità
+</div>
+
+Il flusso di lavoro migliore è quello che funziona per il tuo team. Ecco un possibile approccio al lavoro sull'accessibilità:
+
+**Fase 1: Immagini e struttura**
+
+- Esamina tutte le immagini e verifica che abbiano un testo alternativo descrittivo.
+- Controlla i testi dei link e sostituisci frasi generiche come “clicca qui”.
+- Correggi i problemi di gerarchia dei titoli in tutta la documentazione.
+
+**Fase 2: Navigazione e contenuti multimediali**
+
+- Verifica la navigazione da tastiera nella documentazione.
+- Testa il supporto dei lettori di schermo.
+- Aggiungi sottotitoli e trascrizioni ai video incorporati.
+- Verifica il contrasto dei colori.
+
+**Fase 3: Integralo nel tuo flusso di lavoro**
+
+- Esegui `mint a11y` prima di pubblicare nuovi contenuti.
+- Includi i controlli di accessibilità nel processo di revisione dei contenuti.
+- Verifica la navigazione da tastiera quando aggiungi funzionalità interattive.
+- Assicurati che i nuovi link esterni e i contenuti incorporati includano titoli e descrizioni adeguati.
+
+Partire in piccolo e integrare l’accessibilità nel flusso di lavoro quotidiano la rende sostenibile. Ogni miglioramento aiuta più utenti ad accedere con successo alla tua documentazione.
+
+<div id="structure-your-content">
+  ## Struttura i tuoi contenuti
+</div>
+
+Contenuti ben strutturati sono più facili da consultare e comprendere, soprattutto per gli utenti di screen reader che si affidano ai titoli per spostarsi tra le pagine e per chi usa la navigazione da tastiera.
+
+<div id="use-proper-heading-hierarchy">
+  ### Usa una corretta gerarchia di intestazioni
+</div>
+
+Ogni pagina dovrebbe avere un’unica intestazione H1, definita dalla proprietà `title:` nel frontmatter della pagina. Usa le intestazioni successive in ordine, senza saltare livelli. Per esempio, non passare da H2 a H4.
+
+```mdx
+<!-- Corretto -->
+# Titolo della pagina (H1)
+
+## Sezione principale (H2)
+
+### Sottosezione (H3)
+
+### Altra sottosezione (H3)
+
+## Altra sezione principale (H2)
+
+<!-- Errato -->
+# Titolo della pagina (H1)
+
+## Sezione principale (H2)
+
+#### Sottosezione (H4)
+
+### Altra sottosezione (H3)
+```
+
+Le intestazioni dello stesso livello devono avere nomi univoci.
+
+```mdx
+<!-- Corretto -->
+## Suggerimenti per l'accessibilità (H2)
+
+### Scrivere testo alternativo efficace (H3)
+
+### Utilizzare un contrasto cromatico adeguato (H3)
+
+<!-- Errato -->
+## Suggerimenti per l'accessibilità (H2)
+
+### Suggerimento (H3)
+
+### Suggerimento (H3)
+```
+
+
+<div id="write-descriptive-link-text">
+  ### Scrivi testi di link descrittivi
+</div>
+
+Il testo del link deve essere significativo e pertinente alla destinazione. Evita frasi vaghe come &quot;clicca qui&quot; o &quot;scopri di più.&quot;
+
+```mdx
+<!-- Buono -->
+Scopri come [configurare la navigazione](/organize/navigation).
+
+<!-- Relazione poco chiara tra  -->
+[Scopri di più](/organize/navigation).
+```
+
+
+<div id="keep-content-scannable">
+  ### Mantieni i contenuti facilmente leggibili a colpo d’occhio
+</div>
+
+- Spezza i paragrafi troppo lunghi.
+- Usa elenchi per passi e opzioni.
+- Metti in risalto le informazioni con callout.
+
+<div id="use-proper-table-structure">
+  ### Usa una struttura di tabella appropriata
+</div>
+
+Usa le tabelle con parsimonia e solo per dati tabellari il cui significato dipende dalle intestazioni di righe e colonne.
+
+Quando usi le tabelle, includi le intestazioni in modo che gli screen reader possano associare i dati alla colonna corretta:
+
+```mdx
+| Funzionalità | Stato |
+| ------- | ------ |
+| Ricerca  | Attiva |
+| Analytics | Attiva |
+```
+
+
+<div id="write-descriptive-alt-text">
+  ## Scrivi testi alternativi descrittivi
+</div>
+
+Il testo alternativo rende le immagini accessibili agli utenti dei lettori di schermo e compare quando le immagini non vengono caricate. Le immagini nella tua documentazione dovrebbero includere un testo alternativo che descriva l’immagine e chiarisca perché è presente. Anche con il testo alternativo, non dovresti fare affidamento solo sulle immagini per trasmettere informazioni. Assicurati che il contenuto spieghi ciò che l’immagine comunica.
+
+<div id="write-effective-alt-text">
+  ### Scrivi testi alternativi efficaci
+</div>
+
+* **Sii specifico**: Descrivi cosa mostra l&#39;immagine, non limitarti a dire che è un&#39;immagine.
+* **Sii conciso**: Mantieni una o due frasi.
+* **Evita ridondanze**: Non iniziare con &quot;Immagine di&quot; perché gli screen reader sanno già che il testo alternativo è associato a un&#39;immagine. Tuttavia, includi descrizioni come &quot;Screenshot di&quot; o &quot;Diagramma di&quot; se quel contesto è importante per l&#39;immagine.
+
+```mdx
+<!-- Buono -->
+![Screenshot della dashboard che mostra tre progetti attivi e due inviti in sospeso](/images/dashboard.png)
+
+<!-- Non utile -->
+![Screenshot della dashboard](/images/dashboard.png)
+```
+
+
+<div id="add-alt-text-to-images">
+  ### Aggiungi il testo alternativo alle immagini
+</div>
+
+Per le immagini in Markdown, includi il testo alternativo tra parentesi quadre:
+
+```mdx
+![Descrizione dell'immagine](/path/to/image.png)
+```
+
+Per le immagini HTML, utilizza l’attributo `alt`:
+
+```html
+<img
+  src="/images/screenshot.png"
+  alt="Pannello impostazioni con le opzioni di accessibilità attivate. Le opzioni sono evidenziate con un rettangolo arancione."
+/>
+```
+
+
+<div id="add-titles-to-embedded-content">
+  ### Aggiungi titoli ai contenuti incorporati
+</div>
+
+Gli iframe e i video incorporati richiedono titoli descrittivi:
+
+```html
+<iframe
+  src="https://www.youtube.com/embed/example"
+  title="Tutorial: Configurare il tuo primo sito di documentazione"
+></iframe>
+```
+
+
+<div id="design-for-readability">
+  ## Progettare per la leggibilità
+</div>
+
+Le scelte di design visivo influiscono sull’accessibilità della documentazione per gli utenti con ipovisione, daltonismo o altre disabilità visive.
+
+<div id="ensure-sufficient-color-contrast">
+  ### Assicurati di avere un contrasto cromatico sufficiente
+</div>
+
+Se personalizzi i colori del tema, verifica che i rapporti di contrasto rispettino i requisiti WCAG:
+
+- Testo principale: rapporto di contrasto minimo 4,5:1
+- Testo di grandi dimensioni: rapporto di contrasto minimo 3:1
+- Elementi interattivi: rapporto di contrasto minimo 3:1
+
+Testa sia la modalità chiara sia quella scura. Il comando `mint a11y` verifica il contrasto dei colori.
+
+<div id="dont-rely-on-color-alone">
+  ### Non affidarti solo al colore
+</div>
+
+Se usi il colore per trasmettere informazioni, aggiungi anche un'etichetta testuale o un'icona. Ad esempio, non segnalare gli errori solo con del testo rosso. Includi un'icona di errore o la parola «Errore».
+
+<div id="use-clear-concise-language">
+  ### Usa un linguaggio chiaro e conciso
+</div>
+
+- Scrivi in modo semplice.
+- Definisci i termini tecnici alla prima occorrenza.
+- Evita le frasi troppo lunghe.
+- Usa la forma attiva.
+
+<div id="make-code-examples-accessible">
+  ## Rendi accessibili gli esempi di codice
+</div>
+
+I blocchi di codice sono una componente fondamentale della documentazione tecnica, ma richiedono attenzioni specifiche in termini di accessibilità per garantire che gli utenti dei lettori di schermo possano comprenderli. In generale, segui queste linee guida:
+
+- Suddividi gli esempi di codice lunghi in parti più piccole e logiche.
+- Commenta la logica complessa all’interno del codice.
+- Valuta di fornire una descrizione testuale per gli algoritmi complessi.
+- Quando mostri la struttura dei file, usa veri blocchi di codice con indicazione del linguaggio invece di ASCII art.
+
+<div id="specify-the-programming-language">
+  ### Specifica il linguaggio di programmazione
+</div>
+
+Dichiara sempre la lingua per l’evidenziazione della sintassi. Questo aiuta gli screen reader a comunicare agli utenti il contesto del codice:
+
+````mdx
+```javascript
+function getUserData(id) {
+  return fetch(`/api/users/${id}`);
+}
+```
+````
+
+
+<div id="provide-context-around-code">
+  ### Fornisci contesto per il codice
+</div>
+
+Fornisci un contesto chiaro per i blocchi di codice:
+
+````mdx
+La seguente funzione recupera i dati utente dall'API:
+
+```javascript
+function getUserData(id) {
+  return fetch(`/api/users/${id}`);
+}
+```
+
+Questa restituisce una promise che si risolve nell'oggetto utente.
+````
+
+
+<div id="video-and-multimedia-accessibility">
+  ## Accessibilità di video e contenuti multimediali
+</div>
+
+Video, animazioni e altri contenuti multimediali richiedono alternative testuali, in modo che tutti gli utenti possano accedere alle informazioni in essi contenute.
+
+<div id="add-captions-to-videos">
+  ### Aggiungi sottotitoli ai video
+</div>
+
+I sottotitoli rendono i contenuti video accessibili alle persone sorde o con ipoacusia. Sono utili anche per chi si trova in ambienti in cui l’audio non è appropriato e per i non madrelingua:
+
+- Usa i sottotitoli per tutti i contenuti parlati nei video.
+- Includi nei sottotitoli gli effetti sonori rilevanti.
+- Assicurati che i sottotitoli siano sincronizzati con l’audio.
+- Usa una punteggiatura corretta e indica chi sta parlando quando intervengono più persone.
+
+La maggior parte delle piattaforme di hosting video consente di aggiungere sottotitoli. Carica i file dei sottotitoli o usa quelli generati automaticamente come punto di partenza, quindi rivedili per verificarne l’accuratezza.
+
+<div id="provide-transcripts">
+  ### Fornisci trascrizioni
+</div>
+
+Le trascrizioni offrono un modo alternativo per accedere ai contenuti video. Sono ricercabili, più facili da consultare e accessibili ai lettori di schermo:
+
+```mdx
+<iframe
+  src="https://www.youtube.com/embed/example"
+  title="Tutorial: Configurazione dell'autenticazione"
+></iframe>
+
+<Accordion title="Trascrizione video">
+In questo tutorial vedremo come configurare l'autenticazione...
+</Accordion>
+```
+
+Posiziona le trascrizioni vicino al video oppure fornisci un link chiaro per accedervi.
+
+
+<div id="consider-alternatives-to-video-only-content">
+  ### Valuta alternative ai contenuti esclusivamente video
+</div>
+
+Se informazioni critiche sono presenti solo in un video:
+
+- Fornisci le stesse informazioni in formato testuale.
+- Includi schermate chiave con testo alternativo descrittivo.
+- Crea una guida scritta che copra lo stesso materiale.
+
+In questo modo gli utenti che non possono accedere ai contenuti video potranno comunque portare a termine il proprio compito.
+
+<div id="test-your-documentation">
+  ## Verifica la tua documentazione
+</div>
+
+Test regolari aiutano a individuare problemi di accessibilità prima che gli utenti li incontrino.
+
+<div id="check-for-accessibility-issues-with-mint-a11y">
+  ### Verifica i problemi di accessibilità con `mint a11y`
+</div>
+
+Usa il comando CLI `mint a11y` per eseguire una scansione automatica della documentazione alla ricerca dei problemi di accessibilità più comuni:
+
+```bash
+mint a11y
+```
+
+Il comando verifica:
+
+* Testo alternativo mancante nelle immagini
+* Gerarchia dei titoli non corretta
+* Contrasto cromatico insufficiente
+
+Al termine della scansione, esamina i problemi segnalati e correggili nel tuo contenuto. Esegui di nuovo il comando per verificare le correzioni.
+
+
+<div id="basic-keyboard-navigation-test">
+  ### Test di base della navigazione da tastiera
+</div>
+
+Naviga nella documentazione utilizzando solo la tastiera:
+
+1. Premi <kbd>Tab</kbd> per avanzare tra gli elementi interattivi.
+2. Premi <kbd>Shift</kbd> + <kbd>Tab</kbd> per tornare indietro.
+3. Premi <kbd>Invio</kbd> per attivare link e pulsanti.
+4. Verifica che tutti gli elementi interattivi siano raggiungibili e che l’indicatore di messa a fuoco sia visibile.
+
+<div id="go-deeper-with-accessibility-testing">
+  ### Approfondisci i test di accessibilità
+</div>
+
+Per verifiche più complete:
+
+- **Screen reader**: Prova con [NVDA (Windows)](https://www.nvaccess.org/) o [VoiceOver (Mac)](https://www.apple.com/accessibility/voiceover/).
+- **Estensioni del browser**: Installa [axe DevTools](https://www.deque.com/axe/browser-extensions/) o [WAVE](https://wave.webaim.org/extension/) per analizzare le pagine alla ricerca di problemi.
+- **Linee guida WCAG**: Consulta le [Web Content Accessibility Guidelines](https://www.w3.org/WAI/WCAG22/quickref/) per standard dettagliati.
+
+<div id="additional-resources">
+  ## Risorse aggiuntive
+</div>
+
+Continua ad approfondire l’accessibilità con queste risorse affidabili:
+
+- **[WebAIM](https://webaim.org/)**: Articoli pratici e tutorial sull’accessibilità web
+- **[The A11y Project](https://www.a11yproject.com/)**: Risorse e checklist sull’accessibilità basate sulla community
+- **[W3C Web Accessibility Initiative (WAI)](https://www.w3.org/WAI/)**: Standard ufficiali e linee guida sull’accessibilità

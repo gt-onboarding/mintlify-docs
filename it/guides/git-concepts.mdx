@@ -1,0 +1,64 @@
+---
+title: "Concetti di Git"
+description: "Impara le basi di Git per il flusso di lavoro docs-as-code"
+---
+
+Git è un sistema di controllo delle versioni che ti consente di tenere traccia delle modifiche alla documentazione e collaborare con i membri del team. Con Git, per ogni file del progetto puoi vedere cosa è cambiato, quando e perché. Inoltre, Git semplifica il ripristino di versioni precedenti dei file, qualora servisse.
+
+L&#39;Editor web esegue alcune operazioni Git dietro le quinte. Comprendere questi concetti ti aiuterà a lavorare in modo più efficace con l&#39;Editor web e a collaborare con i membri del team che lavorano nei propri ambienti di sviluppo locali.
+
+<div id="core-git-concepts">
+  ## Concetti fondamentali di Git
+</div>
+
+<AccordionGroup>
+  <Accordion title="Repository">
+    L’origine della tua documentazione, dove sono archiviati tutti i file e la loro cronologia. L’editor web si connette al tuo repository per accedere e modificare i contenuti.
+  </Accordion>
+
+  <Accordion title="Commit">
+    Un’istantanea salvata delle tue modifiche in un momento specifico. Ogni commit include un messaggio che descrive cosa è cambiato e crea un record permanente nella cronologia del progetto.
+  </Accordion>
+
+  <Accordion title="Branch">
+    Un branch punta a un commit specifico nel tuo repository. La tua documentazione pubblica viene generata a partire da un deployment branch. Puoi avere qualsiasi numero di altri branch con modifiche non ancora pubblicate. Se vuoi includere le modifiche di un branch nella documentazione pubblica, puoi eseguire il merge del branch nel deployment branch tramite una pull request.
+
+    Usa i branch per lavorare alle modifiche senza influenzare la documentazione pubblica, sperimentare in sicurezza nuove funzionalità e ottenere revisioni prima della pubblicazione.
+  </Accordion>
+
+  <Accordion title="Deployment branch">
+    Il branch principale del progetto da cui viene generata la documentazione pubblica. Le modifiche a questo branch vengono pubblicate automaticamente sul sito di documentazione. Spesso chiamato `main`, ma puoi impostare qualsiasi branch come deployment branch.
+  </Accordion>
+
+  <Accordion title="Pull request">
+    Un modo per proporre il merge delle modifiche di un branch nella documentazione pubblica. Consente revisione e discussione prima che le modifiche vadano online. Comunemente chiamata PR, e anche merge request in GitLab.
+  </Accordion>
+
+  <Accordion title="Diff">
+    Un diff (o differenza) mostra le modifiche tra due versioni di un file. Quando si esaminano le pull request, i diff evidenziano ciò che è stato aggiunto, rimosso o modificato, facilitando l’identificazione di cosa è cambiato.
+  </Accordion>
+</AccordionGroup>
+
+## Come l&#39;editor web utilizza Git
+
+L&#39;editor web si collega al tuo repository Git tramite la [GitHub App](/it/deploy/github) o l&#39;[integrazione con GitLab](/it/deploy/gitlab) e automatizza le operazioni Git più comuni.
+
+Quando:
+
+* **Apri un file**: l&#39;editor recupera la versione più recente dal tuo repository, assicurandoti di lavorare sempre con contenuti aggiornati.
+* **Apporti modifiche**: l&#39;editor traccia le tue modifiche come bozza, che può diventare un commit quando sei pronto a salvare il tuo lavoro.
+* **Salvi le modifiche**: l&#39;editor crea un commit con le tue modifiche, preservando il tuo lavoro nella cronologia del progetto.
+* **Crei un branch**: l&#39;editor crea un nuovo branch nel tuo repository che può essere usato da chiunque abbia accesso al repository per collaborare e rivedere le modifiche.
+* **Pubblichi sul tuo branch di deployment**: l&#39;editor effettua commit e push direttamente sul tuo branch di deployment, pubblicando immediatamente le tue modifiche.
+* **Pubblichi su altri branch**: l&#39;editor crea una pull request, che ti consente di ottenere feedback da altri prima di unire le tue modifiche nel tuo branch di deployment.
+
+<div id="git-best-practices">
+  ## Best practice per Git
+</div>
+
+Ogni team svilupperà i propri workflow e preferenze, ma queste sono alcune best practice generali per iniziare.
+
+* **Scrivi messaggi di commit descrittivi**: Sii specifico su ciò che è cambiato usando un linguaggio attivo.
+* **Usa nomi di branch descrittivi**: I nomi dei branch dovrebbero spiegare il lavoro svolto ed essere chiari per chi consulta i branch nel tuo repository.
+* **Mantieni i branch focalizzati**: Mantieni le modifiche in un branch concentrate su un’attività o un progetto specifico.
+* **Elimina i branch dopo il merge**: Elimina i branch quando non servono più per mantenere il repository ordinato.

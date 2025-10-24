@@ -1,0 +1,138 @@
+---
+title: "Agent"
+description: "L'agente ti aiuta a scrivere e mantenere la documentazione"
+---
+
+<Info>
+  L&#39;agente è disponibile nei [piani Pro e Custom](https://mintlify.com/pricing?ref=agent) per chiunque abbia accesso alla tua dashboard.
+</Info>
+
+L&#39;agente crea pull request con modifiche proposte alla tua documentazione in base ai tuoi prompt. Quando invii una richiesta all&#39;agente, fa riferimento alla tua documentazione, ai repository collegati e ai messaggi Slack per creare contenuti che seguono le best practice di technical writing e rispettano lo schema di Mintlify. Accedi all&#39;agente nel tuo workspace Slack o incorporalo in applicazioni personalizzate tramite API.
+
+Usa l&#39;agente per:
+
+* Scrivere nuovi contenuti a partire dai tuoi prompt, dai link alle pull request o dai thread Slack
+* Aggiornare esempi di codice obsoleti e riferimenti API
+* Cercare e aggiornare contenuti esistenti
+* Rispondere a domande sulla tua documentazione e su temi di technical writing
+
+Per iniziare, aggiungi l&#39;agente al tuo workspace Slack e menzionalo con `@mintlify` in un canale.
+
+## Aggiungi l&#39;agente al tuo workspace Slack
+
+<Note>
+  Se il proprietario del tuo workspace Slack richiede l&#39;approvazione di un amministratore per installare le app, chiedi che venga approvata l&#39;app Mintlify prima di connetterla.
+</Note>
+
+1. Vai alla pagina [agent](https://dashboard.mintlify.com/products/agent) della tua dashboard.
+2. Seleziona il pulsante **Connect**.
+3. Segui le istruzioni di Slack per aggiungere l&#39;app `mintlify` al tuo workspace.
+4. Segui le istruzioni di Slack per collegare il tuo account Mintlify al tuo workspace Slack.
+5. Verifica che l&#39;agente funzioni e risponda quando:
+   * gli invii un messaggio diretto;
+   * lo menzioni con `@mintlify` in un canale.
+
+<div id="connect-repositories-as-context">
+  ## Collega i repository come contesto
+</div>
+
+L&#39;agente può accedere solo ai repository che colleghi tramite l’app GitHub di Mintlify. Modifica a quali repository può accedere l’agente nelle [impostazioni dell’app GitHub](https://github.com/apps/mintlify/installations/new).
+
+## Integra l&#39;agente tramite API
+
+Usa gli endpoint dell&#39;agente per [creare job](/it/api-reference/agent/create-agent-job), [recuperare un job specifico](/it/api-reference/agent/get-agent-job) e [recuperare tutti i job](/it/api-reference/agent/get-all-jobs).
+
+<div id="write-effective-prompts">
+  ## Scrivi prompt efficaci
+</div>
+
+Pensa all’agente come a un Assistente utile che ha bisogno della tua guida per completare le attività. Fornisci istruzioni chiare e contesto. Le attività più mirate sono più semplici da completare, quindi suddividi i progetti complessi in passi più piccoli.
+
+Rendi i tuoi prompt specifici e orientati al risultato. Prompt generici come `@mintlify Improve the onboarding page` applicano buone pratiche generali, ma potrebbero non migliorare i contenuti nel modo preciso che avevi in mente.
+
+Prova prompt basati sui risultati che vuoi far ottenere ai tuoi utenti o sui problemi che incontrano. Ad esempio:
+
+* `@mintlify A lot of users have trouble installing the CLI. Review the onboarding page and update the docs so that users can easily install the CLI`
+* `@mintlify Developers keep getting 401 errors when following our authentication guide. Review the auth docs and add clearer examples showing how to properly format the API key`
+
+Usa prompt ampi per la manutenzione generale dei contenuti, come correggere i refusi, aggiornare i redirect o rinominare una funzionalità in tutta la documentazione. Ad esempio:
+
+* `@mintlify Find and fix all typos in the docs`
+* `@mintlify change all unordered lists to use * instead of -`
+
+<div id="specify-a-subdomain">
+  ## Specificare un sottodominio
+</div>
+
+Se disponi di più siti di documentazione con i propri sottodomini, includi il parametro `subdomain` nel tuo messaggio per indicare su quale sottodominio l&#39;agente deve lavorare.
+
+Usa il formato `@mintlify subdomain=<your-subdomain> <your-prompt>` per chiedere all&#39;agente di operare su un sottodominio specifico.
+
+Esempi:
+
+* `@mintlify subdomain=public-docs Add a new section to the quickstart about inviting collaborators based on this PR`: Chiede all&#39;agente di aggiornare il quickstart solo sul sottodominio `public-docs`.
+* `@mintlify subdomain=customer-docs Update the auth docs for the new authentication method`: Chiede all&#39;agente di aggiornare la documentazione di autenticazione solo sul sottodominio `customer-docs`.
+
+## Flussi di lavoro dell&#39;agente
+
+L&#39;agente assiste in molte attività di documentazione. Questi flussi di lavoro illustrano alcuni modi per integrare l&#39;agente nel tuo processo di documentazione. Scegli un approccio che si adatti al modo in cui il tuo team lavora oggi e personalizzalo in base alle tue esigenze specifiche.
+
+<div id="iterate-on-a-prompt-in-a-slack-thread">
+  ### Iterare su un prompt in un thread Slack
+</div>
+
+Invia un prompt all’agente, quindi continua a menzionarlo con `@mintlify` nello stesso thread per perfezionare e iterare sulla pull request che crea.
+
+Per esempio: `@mintlify La nostra pagina di quickstart ha bisogno di una nuova sezione sull’invito dei collaboratori`. Poi: `@mintlify La nuova sezione dovrebbe chiamarsi "Inviting collaborators"`. Segui con eventuali altre iterazioni.
+
+### Inizia con l&#39;agente, termina manualmente
+
+Chiedi all’agente di avviare un progetto, quindi passa al branch che crea e completa l’attività nel tuo ambiente locale o nell’editor web. L’agente può aiutarti a partire, poi puoi intervenire tu per portare a termine l’attività.
+
+Per esempio: `@mintlify Update the quickstart page to include information about inviting collaborators`, quindi passa al branch per apportare eventuali modifiche aggiuntive con il metodo che preferisci.
+
+<div id="update-docs-when-merging-feature-changes">
+  ### Aggiorna la documentazione quando fai merge di modifiche alle feature
+</div>
+
+Quando fai merge di una pull request di una feature, condividi il link della PR con l&#39;agente per aggiornare la documentazione rilevante.
+
+Ad esempio: `@mintlify Questa PR aggiunge un nuovo metodo di autenticazione. Aggiorna la documentazione per includere il nuovo flusso di autenticazione: [PR link]`.
+
+<div id="generate-release-notes-from-a-pull-request">
+  ### Genera note di rilascio da una pull request
+</div>
+
+Richiedi all&#39;agente di usare una specifica pull request per generare note di rilascio o aggiornamenti del changelog basati sulla cronologia dei commit.
+
+Ad esempio: `@mintlify Generate release notes for this PR: [PR link]`.
+
+<div id="generate-code-examples">
+  ### Genera esempi di codice
+</div>
+
+Chiedi all’agente di generare esempi di codice per le funzionalità presenti nella tua documentazione o su pagine specifiche.
+
+Ad esempio: `@mintlify Genera un esempio di codice per rendere più facile da capire il metodo di autenticazione`.
+
+<div id="review-existing-content">
+  ### Rivedi i contenuti esistenti
+</div>
+
+Chiedi all’agente di verificare i contenuti esistenti per accuratezza tecnica, stile, grammatica o altri problemi.
+
+Ad esempio: `@mintlify Review the API rate limiting section. We changed limits last month`.
+
+<div id="respond-to-user-feedback">
+  ### Rispondi al feedback degli utenti
+</div>
+
+Inoltra all&#39;agente il feedback dei tuoi utenti per apportare aggiornamenti mirati alla documentazione.
+
+Ad esempio: `@mintlify Gli utenti si confondono al passaggio 3 della guida di configurazione. Cosa potrebbe renderlo poco chiaro?`.
+
+### Automatizza con l&#39;API
+
+Integra l&#39;agente nei tuoi strumenti di automazione esistenti per aggiornare automaticamente la documentazione quando cambiano il codice, avviare revisioni dei contenuti o sincronizzare gli aggiornamenti della documentazione su più repository.
+
+Scopri come nella guida [Aggiorna automaticamente la documentazione quando il codice viene unito](/it/guides/automate-agent).

@@ -1,0 +1,290 @@
+---
+title: "Inicio rápido"
+description: "Despliega tu documentación en minutos"
+---
+
+Esta guía de inicio rápido te muestra cómo configurar y desplegar tu sitio de documentación en minutos.
+
+Al completar esta guía, tendrás un sitio de documentación en vivo listo para personalizar y ampliar.
+
+<Info>
+  **Requisitos previos**: Antes de comenzar, [crea una cuenta](https://mintlify.com/start) y completa el proceso de incorporación.
+</Info>
+
+<div id="getting-started">
+  ## Primeros pasos
+</div>
+
+Después de completar el onboarding, tu sitio de documentación se despliega automáticamente en una URL única con este formato:
+
+```
+https://<your-project-name>.mintlify.app
+```
+
+Encuentra tu URL en la página Overview de tu [dashboard](https://dashboard.mintlify.com/).
+
+<Frame>
+  <img src="/images/quickstart/mintlify-domain-light.png" alt="Mintlify Domain" className="block dark:hidden" />
+
+  <img src="/images/quickstart/mintlify-domain-dark.png" alt="Mintlify Domain" className="hidden dark:block" />
+</Frame>
+
+La URL de tu sitio está disponible de inmediato. Usa esta URL para hacer pruebas y compartirla con tu equipo mientras configuras tu sitio de documentación.
+
+<div id="install-the-github-app">
+  ### Instalar la app de GitHub
+</div>
+
+Mintlify ofrece una app de GitHub que automatiza el despliegue cuando haces push de cambios a tu repositorio.
+
+Instala la app de GitHub siguiendo las instrucciones de la lista de verificación de onboarding o desde tu panel.
+
+1. Ve a **Settings** en tu panel de Mintlify.
+2. Selecciona **GitHub App** en la barra lateral.
+3. Selecciona **Install GitHub App**. Se abrirá una nueva pestaña con la página de instalación de la app de GitHub.
+4. Selecciona la organización o la cuenta de usuario donde quieres instalar la app.
+5. Selecciona los repositorios que quieres conectar.
+
+<Frame>
+  <img src="/images/quickstart/github-app-installation-light.png" alt="Instalación de la app de GitHub" className="block dark:hidden" />
+
+  <img src="/images/quickstart/github-app-installation-dark.png" alt="Instalación de la app de GitHub" className="hidden dark:block" />
+</Frame>
+
+<Info>
+  Actualiza los permisos de la app de GitHub si mueves tu documentación a otro repositorio.
+</Info>
+
+<div id="authorize-your-github-account">
+  ### Autoriza tu cuenta de GitHub
+</div>
+
+1. Ve a **Settings** en tu panel de Mintlify.
+2. Selecciona **My Profile** en la barra lateral.
+3. Selecciona **Authorize GitHub account**. Se abrirá una nueva pestaña con la página de autorización de GitHub.
+
+<Info>
+  Es posible que un administrador de tu organización de GitHub deba autorizar tu cuenta, según la configuración de tu organización.
+</Info>
+
+<div id="editing-workflows">
+  ## Flujos de edición
+</div>
+
+Mintlify ofrece dos flujos para crear y mantener tu documentación:
+
+<Card title="Flujo basado en código" icon="terminal" horizontal href="#code-based-workflow">
+  Para quienes prefieren trabajar con sus herramientas en el entorno local. Haz clic para ir a esta sección.
+</Card>
+
+<Card title="Flujo del editor web" icon="mouse-pointer-2" horizontal href="#web-editor-workflow">
+  Para quienes prefieren una interfaz visual en el navegador. Haz clic para ir a esta sección.
+</Card>
+
+<div id="code-based-workflow">
+  ## Flujo de trabajo basado en código
+</div>
+
+El flujo de trabajo basado en código se integra con tu entorno de desarrollo y repositorios de Git existentes. Este flujo es ideal para equipos técnicos que desean gestionar la documentación junto con el código.
+
+<div id="install-the-cli">
+  ### Instalar la CLI
+</div>
+
+<Info>
+  **Requisito previo**: La CLI requiere [Node.js](https://nodejs.org/en) v19 o posterior.
+</Info>
+
+Para trabajar localmente con tu documentación, instala la interfaz de línea de comandos (CLI), llamada [mint](https://www.npmjs.com/package/mint), ejecutando este comando en tu terminal:
+
+<CodeGroup>
+  ```bash npm
+  npm i -g mint
+  ```
+
+  ```bash pnpm
+  pnpm add -g mint
+  ```
+</CodeGroup>
+
+<div id="edit-the-documentation">
+  ### Editar la documentación
+</div>
+
+Después de configurar tu entorno, puedes empezar a editar los archivos de tu documentación. Por ejemplo, actualiza el título de la página de introducción:
+
+1. Abre el repositorio que se creó durante la incorporación.
+2. Abre `index.mdx` y ve al inicio del archivo:
+
+```mdx index.mdx
+---
+title: "Introduction"
+description: "This is the introduction to the documentation"
+---
+```
+
+3. Actualiza el campo `title` a `"Hello World"`.
+
+```mdx index.mdx {2}
+---
+title: "Hello World"
+description: "This is the introduction to the documentation"
+---
+```
+
+<div id="preview-the-changes">
+  ### Vista previa de los cambios
+</div>
+
+Para ver una vista previa de los cambios localmente, ejecuta el siguiente comando:
+
+```bash
+mint dev
+```
+
+La vista previa estará disponible en `localhost:3000`.
+
+<Frame>
+  <img src="/images/quickstart/mintlify-dev-light.png" alt="Mintlify Dev" className="block dark:hidden" />
+
+  <img src="/images/quickstart/mintlify-dev-dark.png" alt="Mintlify Dev" className="hidden dark:block" />
+</Frame>
+
+<div id="push-the-changes">
+  ### Envía los cambios
+</div>
+
+Cuando estés listo para publicar tus cambios, súbelos a tu repositorio.
+
+Mintlify detecta automáticamente los cambios, compila tu documentación y despliega las actualizaciones en tu sitio. Supervisa el estado del despliegue en el historial de commits de tu repositorio de GitHub o en el [panel](https://dashboard.mintlify.com).
+
+Cuando finalice el despliegue, la actualización más reciente estará disponible en `<your-project-name>.mintlify.app`.
+
+<Card title="Saltar a agregar un dominio personalizado" icon="arrow-down" href="#adding-a-custom-domain" horizontal>
+  Opcionalmente, omite el flujo del Editor web y salta a agregar un dominio personalizado.
+</Card>
+
+<div id="web-editor-workflow">
+  ## Flujo de trabajo del Editor web
+</div>
+
+El flujo de trabajo del Editor web ofrece una interfaz WYSIWYG (lo que ves es lo que obtienes) para crear y editar documentación. Este flujo es ideal para quienes prefieren trabajar en su navegador, sin herramientas de desarrollo locales adicionales.
+
+<div id="access-the-web-editor">
+  ### Accede al editor web
+</div>
+
+1. Inicia sesión en tu [panel de control](https://dashboard.mintlify.com).
+2. Selecciona **Editor** en la barra lateral izquierda.
+
+<Info>
+  Si no has instalado la app de GitHub, se te pedirá que la instales al abrir el editor web.
+</Info>
+
+<Frame>
+  <img alt="El editor web de Mintlify en modo de editor visual" src="/images/quickstart/web-editor-light.png" className="block dark:hidden" />
+
+  <img alt="El editor web de Mintlify en modo de editor visual" src="/images/quickstart/web-editor-dark.png" className="hidden dark:block" />
+</Frame>
+
+### Edita la documentación
+
+En el Editor web, puedes navegar por los archivos de tu documentación desde la barra lateral. Actualicemos la página de introducción:
+
+Busca y selecciona `index.mdx` en el explorador de archivos.
+
+Luego, en el editor, actualiza el campo de título a &quot;Hello World&quot;.
+
+<Frame>
+  <img alt="Editing in Web Editor" src="/images/quickstart/web-editor-editing-light.png" className="block dark:hidden" />
+
+  <img alt="Editing in Web Editor" src="/images/quickstart/web-editor-editing-dark.png" className="hidden dark:block" />
+</Frame>
+
+<Tip>
+  El editor ofrece un conjunto completo de herramientas de formato y Componentes (Mintlify). Escribe <kbd>/</kbd> en el editor para abrir el menú de comandos y acceder a estas herramientas.
+</Tip>
+
+<div id="publish-your-changes">
+  ### Publica tus cambios
+</div>
+
+Cuando estés conforme con tus ediciones, selecciona el botón **Publish** en la esquina superior derecha. Tus cambios se publicarán de inmediato en tu sitio de documentación.
+
+<Tip>
+  Usa ramas para previsualizar y revisar cambios mediante pull requests antes de publicar en tu sitio en producción.
+</Tip>
+
+Para más detalles sobre cómo usar el Editor web, incluido el uso de ramas y pull requests para colaborar y previsualizar cambios, consulta nuestra [documentación del Editor web](/es/editor).
+
+<div id="adding-a-custom-domain">
+  ## Añadir un dominio personalizado
+</div>
+
+Aunque tu subdominio `<your-project-name>.mintlify.app` funciona bien para pruebas y desarrollo, la mayoría de los equipos prefieren usar un dominio personalizado para la documentación en producción.
+
+Para añadir un dominio personalizado, ve a la página de [Configuración de dominio](https://dashboard.mintlify.com/settings/deployment/custom-domain) en tu panel.
+
+<Frame>
+  <img src="/images/quickstart/custom-domain-light.png" alt="Dominio personalizado" className="block dark:hidden" />
+
+  <img src="/images/quickstart/custom-domain-dark.png" alt="Dominio personalizado" className="hidden dark:block" />
+</Frame>
+
+Introduce tu dominio (por ejemplo, `docs.yourcompany.com`) y sigue las instrucciones indicadas para configurar la DNS con tu proveedor de dominio.
+
+<Table>
+  | Tipo de registro | Nombre | Valor | TTL |
+  |-------------|------|-------|-----|
+  | CNAME | docs (o subdominio) | cname.mintlify.app | 3600 |
+</Table>
+
+<Info>
+  Los cambios de DNS pueden tardar hasta 48 horas en propagarse, aunque a menudo se completan mucho antes.
+</Info>
+
+<div id="next-steps">
+  ## Próximos pasos
+</div>
+
+¡Felicidades! Has desplegado correctamente tu sitio de documentación con Mintlify. Aquí tienes algunos pasos recomendados para mejorar tu documentación:
+
+<Card title="Configura los ajustes globales" icon="settings" href="es/organize/settings" horizontal>
+  Configura el estilo del sitio, la navegación, las integraciones y más con el archivo `docs.json`.
+</Card>
+
+<Card title="Personaliza el tema" icon="paintbrush" href="es/customize/themes" horizontal>
+  Aprende a personalizar colores, tipografías y la apariencia general de tu sitio de documentación.
+</Card>
+
+<Card title="Organiza la navegación" icon="map" href="es/organize/navigation" horizontal>
+  Estructura tu documentación con una navegación intuitiva para ayudar a los usuarios a encontrar lo que necesitan.
+</Card>
+
+<Card title="Añade componentes interactivos" icon="puzzle" href="/es/components/accordions" horizontal>
+  Mejora tu documentación con componentes interactivos como acordeones, pestañas y ejemplos de código.
+</Card>
+
+<Card title="Configura las referencias de API" icon="code" href="/es/api-playground/overview" horizontal>
+  Crea referencias de API interactivas con especificaciones OpenAPI y AsyncAPI.
+</Card>
+
+<div id="troubleshooting">
+  ## Solución de problemas
+</div>
+
+Si encuentras problemas durante el proceso de configuración, revisa estas soluciones comunes:
+
+<AccordionGroup>
+  <Accordion title="La vista previa local no funciona">
+    Asegúrate de tener Node.js v19+ instalado y de ejecutar el comando `mint dev` desde el directorio que contiene tu archivo `docs.json`.
+  </Accordion>
+
+  <Accordion title="Los cambios no se reflejan en el sitio en producción">
+    El despliegue puede tardar varios minutos. Revisa tus GitHub Actions (para flujos de trabajo basados en código) o los registros de despliegue en el panel de Mintlify para asegurarte de que no haya errores de compilación.
+  </Accordion>
+
+  <Accordion title="El dominio personalizado no se conecta">
+    Verifica que tus registros DNS estén configurados correctamente y deja suficiente tiempo para la propagación de DNS (hasta 48 horas). Puedes usar herramientas como [DNSChecker](https://dnschecker.org) para verificar tu registro CNAME.
+  </Accordion>
+</AccordionGroup>

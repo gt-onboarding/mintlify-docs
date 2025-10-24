@@ -1,0 +1,121 @@
+---
+title: "Dateien"
+description: "Statische Assets aus Ihrer Dokumentation bereitstellen"
+---
+
+Mintlify stellt statische Assets aus Ihrem Dokumentations-Repository automatisch unter dem entsprechenden Pfad auf Ihrer Domain bereit. Wenn Sie zum Beispiel `/images/my-logo.png` in Ihrem Repo haben, ist die Bilddatei unter `https://docs.your-project.com/images/my-logo.png` erreichbar.
+
+Sie können sämtliche unterstützten Dateitypen für Ihre Nutzer bereitstellen, einschließlich OpenAPI-Spezifikationen, Bildern, Videos und mehr.
+
+Dateien dürfen bei Bildern maximal 20 MB und bei anderen Dateitypen maximal 100 MB groß sein.
+
+<div id="supported-file-types">
+  ## Unterstützte Dateiformate
+</div>
+
+<div id="image-formats">
+  ### Bildformate
+</div>
+
+- `.jpeg`, `.jpg`, `.jfif`, `.pjpeg`, `.pjp`
+- `.png`
+- `.svg`, `.svgz`
+- `.ico`
+- `.webp`
+- `.gif`, `.apng`
+- `.avif`
+- `.bmp`
+- `.tiff`, `.tif`
+
+<div id="video-formats">
+  ### Videoformate
+</div>
+
+- `.mp4`
+- `.webm`
+- `.ogg`
+- `.avi`
+- `.mov`
+- `.wmv`
+- `.flv`
+- `.mkv`
+- `.m4v`
+
+<div id="audio-formats">
+  ### Audioformate
+</div>
+
+- `.mp3`
+- `.wav`
+- `.flac`
+- `.aac`
+- `.ogg`
+- `.wma`
+- `.m4a`
+
+<div id="font-formats">
+  ### Schriftformate
+</div>
+
+- `.woff`
+- `.woff2`
+- `.ttf`
+- `.otf`
+- `.eot`
+
+<div id="document-formats">
+  ### Dokumentformate
+</div>
+
+<Note>Dokumentformate sind nur in Enterprise-Tarifen verfügbar.</Note>
+
+- `.pdf`
+- `.txt`
+- `.doc`, `.docx`
+- `.xls`, `.xlsx`
+- `.ppt`, `.pptx`
+- `.rtf`
+- `.odt`, `.ods`, `.odp`
+
+<div id="data-formats">
+  ### Datenformate
+</div>
+
+<Note>Datenformate sind nur in Enterprise‑Tarifen verfügbar.</Note>
+
+- `.csv`
+- `.tsv`
+- `.xml`
+
+<div id="archive-formats">
+  ### Archivformate
+</div>
+
+<Note>Archivformate sind nur für Enterprise-Pläne verfügbar.</Note>
+
+- `.zip`
+- `.rar`
+- `.7z`
+- `.tar`
+- `.gz`
+- `.bz2`
+
+<div id="file-organization">
+  ## Dateiorganisation
+</div>
+
+Organisieren Sie Ihre Dateien in Ordnern, damit Ihr Repository leicht zu navigieren ist:
+
+```text
+/your-project
+  |- docs.json
+  |- images/
+    |- logo.png
+    |- screenshots/
+      |- dashboard.png
+  |- assets/
+    |- whitepaper.pdf
+    |- demo-video.mp4
+```
+
+Dateien werden vom Stammverzeichnis Ihrer Domain ausgeliefert, sodass die Struktur in Ihrem Repository direkt der URL-Struktur entspricht. Im vorherigen Beispiel wäre `assets/whitepaper.pdf` unter `https://docs.your-project.com/assets/whitepaper.pdf` verfügbar.

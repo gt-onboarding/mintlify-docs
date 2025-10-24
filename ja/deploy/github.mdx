@@ -1,0 +1,105 @@
+---
+title: "GitHub"
+description: "ドキュメントを GitHub リポジトリと同期する"
+---
+
+Mintlify は GitHub アプリを使用して、ドキュメントを GitHub リポジトリと自動同期します。
+
+<div id="installing-the-github-app">
+  ## GitHub アプリのインストール
+</div>
+
+ドキュメント用リポジトリの所有者である GitHub アカウントまたは組織に Mintlify GitHub App をインストールします。アプリのインストールには、組織のオーナー権限またはリポジトリの管理者権限が必要です。必要な権限がない場合は、リポジトリ所有者によるインストールリクエストの承認が必要です。
+
+[ダッシュボード](https://dashboard.mintlify.com/settings/organization/github-app)から Mintlify GitHub App をインストールします。
+
+<Tip>
+ドキュメントをホストしているリポジトリにのみアクセス権を付与することをおすすめします。
+</Tip>
+
+<Frame>
+  <img className="h-80" alt="Mintlify GitHub App のインストールページで「Only select repositories」オプションが選択されている画面。" src="/images/github/select-repos.png" />
+</Frame>
+
+<div id="permissions">
+  ## 権限
+</div>
+
+GitHub アプリをインストールすると、次の権限の付与を求められます。
+
+読み取り権限:
+
+* `metadata`: 基本的なリポジトリ情報
+
+読み取り/書き込み権限:
+
+* `checks`: プルリクエストにステータスチェックを作成
+* `code`: ドキュメント用ブランチへのコミット時のファイル変更を読み取り
+* `deployments`: プルリクエスト向けのプレビューデプロイを生成
+* `pull requests`: ウェブエディタからブランチとプルリクエストを作成
+* `workflows`: ドキュメントのデプロイ用の GitHub Actions を管理
+
+<Info>
+このアプリは、明示的にアクセス権を付与したリポジトリにのみアクセスします。ブランチ保護ルールが有効な場合、アプリは保護されたブランチに直接プッシュできません。
+</Info>
+
+<div id="managing-repository-access">
+  ## リポジトリへのアクセス管理
+</div>
+
+GitHub アプリをインストールする際、すべてのリポジトリ、または特定のリポジトリへのアクセス権を付与できます。ドキュメントがあるリポジトリのみにアクセス権を付与することを推奨します。この設定はいつでも [GitHub アプリの設定](https://github.com/apps/mintlify/installations/new)で変更できます。
+
+<div id="configuring-docs-source">
+  ## ドキュメントのソースを設定する
+</div>
+
+ドキュメントのビルド元となる組織、リポジトリ、またはブランチは、ダッシュボードの [Git Settings](https://dashboard.mintlify.com/settings/deployment/git-settings) セクションで変更できます。
+
+<div id="troubleshooting">
+  ## トラブルシューティング
+</div>
+
+<div id="github-app-connection-issues">
+  ### GitHub アプリの接続に関する問題
+</div>
+
+GitHub アプリで不具合が発生した場合、接続をリセットすると多くの問題を解決できます。
+
+<Steps>
+  <Step title="GitHub で Mintlify アプリをアンインストールする">
+    1. GitHub の [installations](https://github.com/settings/installations) にアクセスし、Mintlify アプリの横にある **Configure** を選択します。ページ下部までスクロールして **Uninstall** を選択します。
+    2. [Authorized GitHub Apps](https://github.com/settings/apps/authorizations) にアクセスし、Mintlify アプリの横にある **Revoke** を選択します。
+  </Step>
+  <Step title="Mintlify アプリを再インストールする">
+    1. Mintlify ダッシュボードの [Git Settings](https://dashboard.mintlify.com/settings/deployment/git-settings) に移動し、GitHub アプリをインストールします。
+    2. ダッシュボードの [My Profile](https://dashboard.mintlify.com/settings/account) でアカウントを承認します。
+  </Step>
+</Steps>
+
+<div id="feedback-add-ons-are-unavailable">
+  ### フィードバック用アドオンを利用できない
+</div>
+
+ダッシュボードで「edit suggestions」や「raise issues」を有効にできず、かつリポジトリが公開リポジトリの場合は、Git 設定を再検証してください。
+
+<Steps>
+  <Step title="Git Settings に移動">
+    ダッシュボードの [Git Settings](https://dashboard.mintlify.com/settings/deployment/git-settings) に移動します。
+  </Step>
+  <Step title="設定を再検証する">
+    リポジトリ設定を再検証するため、Git 設定ボックスの隅にある緑色のチェックマークをクリックします。これにより、リポジトリが公開か非公開かに応じて、リポジトリ設定が強制的に更新されます。
+
+    <Frame>
+      <img
+        src="/images/github/revalidate-settings-light.png"
+        alt="Mintlify ダッシュボードの Git Settings ページ。リポジトリ設定を再検証する緑色のチェックマークを指すオレンジ色の矢印が表示されています。"
+        className="block dark:hidden"
+      />
+      <img
+        src="/images/github/revalidate-settings-dark.png"
+        alt="Mintlify ダッシュボードの Git Settings ページ。リポジトリ設定を再検証する緑色のチェックマークを指すオレンジ色の矢印が表示されています。"
+        className="hidden dark:block"
+      />
+    </Frame>
+  </Step>
+</Steps>

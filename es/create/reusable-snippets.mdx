@@ -1,0 +1,132 @@
+---
+title: "Fragmentos reutilizables"
+description: "Fragmentos personalizados reutilizables para mantener el contenido sincronizado"
+---
+
+Uno de los principios fundamentales del desarrollo de software es DRY (Don&#39;t Repeat Yourself), que también se aplica a la documentación. Si te encuentras repitiendo el mismo contenido en varios lugares, deberías crear un fragmento personalizado para mantener el contenido sincronizado.
+
+<div id="creating-a-custom-snippet">
+  ## Creación de un fragmento personalizado
+</div>
+
+**Requisito previo**: Debes crear el archivo del fragmento en el directorio `snippets` para que la importación funcione.
+
+Cualquier página en el directorio `snippets` se tratará como un fragmento y no
+se representará como una página independiente. Si deseas crear una página independiente
+a partir del fragmento, importa el fragmento en otro archivo y utilízalo como
+un componente.
+
+<div id="default-export">
+  ### Exportación predeterminada
+</div>
+
+1. Agrega contenido al archivo de snippet que quieras reutilizar. Opcionalmente, puedes agregar variables que se puedan completar mediante props
+   cuando importes el snippet. En este ejemplo, nuestra variable es word.
+
+```typescript snippets/my-snippet.mdx
+¡Hola mundo! Este es mi contenido que quiero reutilizar en varias páginas. 
+```
+
+2. Importa el fragmento en tu archivo de destino.
+
+```typescript destination-file.mdx
+---
+title: Mi título
+description: Mi descripción
+---
+
+import MySnippet from '/snippets/path/to/my-snippet.mdx';
+
+## Encabezado
+
+Lorem impsum dolor sit amet.
+
+<MySnippet/>
+
+```
+
+<div id="exporting-with-variables">
+  ### Exportación con variables
+</div>
+
+1. De forma opcional, puedes añadir variables que se completen mediante props al importar el snippet. En este ejemplo, nuestra variable es word.
+
+```typescript snippets/my-snippet.mdx
+Mi palabra clave del día es {word}.
+```
+
+2. Importa el snippet en tu archivo de destino usando la variable. La propiedad se completará según tu especificación.
+
+```typescript destination-file.mdx
+---
+title: Mi título
+description: Mi descripción
+---
+
+import MySnippet from '/snippets/path/to/my-snippet.mdx';
+
+## Encabezado
+
+Lorem impsum dolor sit amet.
+
+<MySnippet word="bananas" />
+
+```
+
+<div id="reusable-variables">
+  ### Variables reutilizables
+</div>
+
+1. Exporta una variable desde tu archivo de fragmento:
+
+```typescript snippets/path/to/custom-variables.mdx
+export const myName = 'my name';
+
+export const myObject = { fruit: 'strawberries' };
+```
+
+2. Importa el fragmento desde el archivo de destino y usa la variable:
+
+```typescript destination-file.mdx
+---
+title: Mi título
+description: Mi Descripción
+---
+
+import { myName, myObject } from '/snippets/path/to/custom-variables.mdx';
+
+Hola, mi nombre es {myName} y me gusta {myObject.fruit}.
+```
+
+<div id="jsx-snippets">
+  ### Fragmentos de JSX
+</div>
+
+1. Exporta un componente JSX desde tu archivo de fragmentos. (Consulta [Componentes de React](/es/customize/react-components) para obtener más información):
+
+```js icon=square-js snippets/my-jsx-snippet.jsx
+export const MyJSXSnippet = () => {
+  return (
+    <div>
+      <h1>¡Hola, mundo!</h1>
+    </div>
+  )
+}
+```
+
+<Note>
+  Importante: Al crear fragmentos de JSX, usa la sintaxis de funciones flecha (`=>`) en lugar de declaraciones de función. La palabra clave `function` no es compatible en este contexto.
+</Note>
+
+2. Importa el fragmento desde tu archivo de destino y usa el componente:
+
+```typescript destination-file.mdx
+---
+title: Mi título
+description: Mi descripción
+---
+
+import { MyJSXSnippet } from '/snippets/my-jsx-snippet.jsx';
+
+<MyJSXSnippet />
+```

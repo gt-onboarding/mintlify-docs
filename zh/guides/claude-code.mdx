@@ -1,0 +1,175 @@
+---
+title: "Claude Code"
+description: "配置 Claude Code，助你撰写、评审与更新文档"
+---
+
+Claude Code 是一款具备智能代理能力的命令行工具，可帮助你维护文档。它可以撰写新内容、评审现有页面，并确保文档保持最新。
+
+你可以在项目中添加 `CLAUDE.md` 文件，并持续迭代优化，从而训练 Claude Code 理解你的文档规范与工作流程。
+
+<div id="getting-started">
+  ## 入门
+</div>
+
+**前提条件：**
+
+- 有效的 Claude 订阅（Pro、Max 或 API 访问权限）
+
+**设置：**
+
+1. 安装 Claude Code：
+
+```bash
+  npm install -g @anthropic-ai/claude-code
+  ```
+
+2. 进入你的文档目录。
+3.（可选）将下方的 `CLAUDE.md` 文件添加到你的项目中。
+4. 运行 `claude` 开始使用。
+5. 按照提示完成初始配置（如有需要）。
+
+<div id="claudemd-template">
+  ## CLAUDE.md 模板
+</div>
+
+在文档目录的根路径保存一个 `CLAUDE.md` 文件，帮助 Claude Code 理解你的项目。该文件会让 Claude Code 学习你的文档规范、偏好和工作流程。更多信息请参见 Anthropic 文档的[管理 Claude 的记忆](https://docs.anthropic.com/en/docs/claude-code/memory)。
+
+复制以下示例模板，或根据你的文档要求进行修改：
+
+```mdx
+# Mintlify 文档
+
+## 工作关系
+- 你可以对想法提出质疑——这有助于产出更好的文档。提出质疑时请引用来源并说明理由
+- 务必寻求澄清,而非自行假设
+- 绝不撒谎、猜测或编造任何内容
+
+## 项目背景
+- 格式:带有 YAML frontmatter 的 MDX 文件
+- 配置:docs.json 用于配置导航、主题和设置
+- 组件:Mintlify 组件
+
+## 内容策略
+- 记录恰到好处的内容以确保用户成功——不多不少
+- 优先保证准确性和可用性
+- 尽可能让内容保持长期有效
+- 添加新内容前先搜索现有内容。除非出于战略考虑,否则避免重复
+- 检查现有模式以保持一致性
+- 从最小合理的改动开始
+
+## docs.json
+
+- 构建 docs.json 文件和站点导航时,请参考 [docs.json schema](https://mintlify.com/docs.json)
+
+## 页面 Frontmatter 要求
+- title:清晰、描述性的页面标题
+- description:用于 SEO/导航的简洁摘要
+
+## 写作规范
+- 使用第二人称("你")
+- 操作性内容开头列出前置条件
+- 发布前测试所有代码示例
+- 与现有页面的样式和格式保持一致
+- 包含基础和进阶用例
+- 所有代码块添加语言标签
+- 所有图片添加替代文本
+- 内部链接使用相对路径
+
+## Git 工作流
+- 提交时绝不使用 --no-verify
+- 开始前询问如何处理未提交的更改
+- 当没有明确的变更分支时,创建新分支
+- 开发过程中频繁提交
+- 绝不跳过或禁用 pre-commit 钩子
+
+## 禁止事项
+- 跳过任何 MDX 文件的 frontmatter
+- 内部链接使用绝对 URL
+- 包含未经测试的代码示例
+- 自行假设——务必寻求澄清
+```
+
+
+<div id="sample-prompts">
+  ## 示例提示
+</div>
+
+完成 Claude Code 的设置后，试试以下提示，看看它如何帮助你处理常见文档任务。你可以直接复制这些示例并粘贴使用，或根据你的具体需求进行调整。
+
+<div id="convert-notes-to-polished-docs">
+  ### 将笔记转换为完善的文档
+</div>
+
+将初稿打磨为包含组件和 frontmatter 的规范 Markdown 页面。
+
+**示例提示：**
+
+```text wrap
+Convert this text into a properly formatted MDX page: [paste your text here]
+```
+
+<div id="review-docs-for-consistency">
+  ### 审阅文档以确保一致性
+</div>
+
+获取关于改进写作风格、格式和组件用法的建议。
+
+**示例提示：**
+
+```text wrap
+Review the files in docs/ and suggest improvements for consistency and clarity
+```
+
+<div id="update-docs-when-features-change">
+  ### 功能变更时更新文档
+</div>
+
+在产品迭代时保持文档最新。
+
+**示例提示：**
+
+```text wrap
+Our API now requires a version parameter. Update our docs to include version=2024-01 in all examples
+```
+
+<div id="generate-comprehensive-code-examples">
+  ### 生成完整的代码示例
+</div>
+
+创建包含错误处理的多语言示例。
+
+**示例提示：**
+
+```text wrap
+Create code examples for [your API endpoint] in JavaScript, Python, and cURL with error handling
+```
+
+<div id="extending-claude-code">
+  ## 扩展 Claude Code
+</div>
+
+除了手动与 Claude Code 交互外，你还可以将其集成到现有工作流中。
+
+<div id="automation-with-github-actions">
+  ### 使用 GitHub Actions 实现自动化
+</div>
+
+在代码变更时自动运行 Claude Code，确保文档始终保持最新。你可以在拉取请求上触发文档审阅，或在检测到 API 变更时更新示例。
+
+<div id="multi-instance-workflows">
+  ### 多实例工作流
+</div>
+
+针对不同任务分别使用独立的 Claude Code 会话——一个用于撰写新内容，另一个用于审阅与质量把控。这样有助于保持一致性，并捕捉单一会话可能忽略的问题。
+
+<div id="team-collaboration">
+  ### 团队协作
+</div>
+
+将你完善的 `CLAUDE.md` 文件分享给团队，确保所有贡献者遵循一致的文档标准。团队通常会制定针对项目的提示和工作流程，并将其纳入文档体系。
+
+<div id="custom-commands">
+  ### 自定义命令
+</div>
+
+在 `.claude/commands/` 中创建可复用的斜杠命令，用于你的项目或团队特有的常用文档任务。

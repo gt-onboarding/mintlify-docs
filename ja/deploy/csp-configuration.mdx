@@ -1,0 +1,156 @@
+---
+title: "Content Security Policy (CSP) の設定"
+sidebarTitle: "CSP の設定"
+description: "厳格なセキュリティポリシーを適用するリバースプロキシ、ファイアウォール、ネットワーク向けのドメイン許可リストとヘッダー設定"
+---
+
+Content Security Policy (CSP) は、ウェブページが読み込むことのできるリソースを制御することで、クロスサイトスクリプティング（XSS）攻撃を防ぐためのセキュリティ標準です。Mintlify では、多くのサイトを保護するデフォルトの CSP を提供しています。ドキュメントをリバースプロキシやファイアウォールの背後でホストしており、それによってデフォルトの CSP が上書きされている場合は、機能を正常に動作させるために CSP ヘッダーを設定する必要があります。
+
+<div id="csp-directives">
+  ## CSP ディレクティブ
+</div>
+
+次の CSP ディレクティブは、どのリソースを読み込めるかを制御します：
+
+- `script-src`: 実行可能なスクリプトを制御します
+- `style-src`: 読み込めるスタイルシートを制御します
+- `font-src`: 読み込めるフォントを制御します
+- `img-src`: 読み込める画像、アイコン、ロゴを制御します
+- `connect-src`: API 呼び出しや WebSocket 接続で接続できる URL を制御します
+- `frame-src`: フレームや iframe に埋め込み可能な URL を制御します
+- `default-src`: 明示的に設定されていない場合の他のディレクティブのフォールバック
+
+<div id="domain-whitelist">
+  ## ドメイン許可リスト
+</div>
+
+| ドメイン | 目的 | CSP ディレクティブ | 必須 |
+|:-------|:--------|:--------------|:-------|
+| `d4tuoctqmanu0.cloudfront.net` | KaTeX の CSS・フォント | `style-src`, `font-src` | 必須 |
+| `*.mintlify.dev` | ドキュメントコンテンツ | `connect-src`, `frame-src` | 必須 |
+| `*.mintlify.com` | ダッシュボード、API、インサイトのプロキシ | `connect-src` | 必須 |
+| `leaves.mintlify.com` | アシスタント API | `connect-src` | 必須 |
+| `d3gk2c5xim1je2.cloudfront.net` | アイコン、画像、ロゴ | `img-src` | 必須 |
+| `d1ctpt7j8wusba.cloudfront.net` | Mint のバージョンおよびリリースファイル | `connect-src` | 必須 |
+| `mintcdn.com` | 画像、ファビコン | `img-src`, `connect-src` | 必須 |
+| `*.mintcdn.com` | 画像、ファビコン | `img-src`, `connect-src` | 必須 |
+| `api.mintlifytrieve.com` | 検索 API | `connect-src` | 必須 |
+| `cdn.jsdelivr.net` | OG 画像用の絵文字アセット | `script-src`, `img-src` | 必須 |
+| `fonts.googleapis.com` | Google Fonts | `style-src`, `font-src` | 任意 |
+| `www.googletagmanager.com` | Google アナリティクス / GTM | `script-src`, `connect-src` | 任意 |
+| `cdn.segment.com` | Segment 分析 | `script-src`, `connect-src` | 任意 |
+| `plausible.io` | Plausible 分析 | `script-src`, `connect-src` | 任意 |
+| `us.posthog.com` | PostHog 分析 | `connect-src` | 任意 |
+| `tag.clearbitscripts.com` | Clearbit トラッキング | `script-src` | 任意 |
+| `cdn.heapanalytics.com` | Heap 分析 | `script-src` | 任意 |
+| `chat.cdn-plain.com` | Plain チャットウィジェット | `script-src` | 任意 |
+| `chat-assets.frontapp.com` | Front チャットウィジェット | `script-src` | 任意 |
+| `browser.sentry-cdn.com` | Sentry エラートラッキング | `script-src`, `connect-src` | 任意 |
+| `js.sentry-cdn.com` | Sentry JavaScript SDK | `script-src` | 任意 |
+
+<div id="example-csp-configuration">
+  ## CSP の設定例
+</div>
+
+<Note>
+  利用しているサービスのドメインだけを含めてください。ドキュメントで設定していないアナリティクス用ドメインは削除してください。
+</Note>
+
+```text wrap
+Content-Security-Policy:
+default-src 'self';
+script-src 'self' 'unsafe-inline' 'unsafe-eval' cdn.jsdelivr.net www.googletagmanager.com cdn.segment.com plausible.io
+us.posthog.com tag.clearbitscripts.com cdn.heapanalytics.com chat.cdn-plain.com chat-assets.frontapp.com
+browser.sentry-cdn.com js.sentry-cdn.com;
+style-src 'self' 'unsafe-inline' d4tuoctqmanu0.cloudfront.net fonts.googleapis.com;
+font-src 'self' d4tuoctqmanu0.cloudfront.net fonts.googleapis.com;
+img-src 'self' data: blob: d3gk2c5xim1je2.cloudfront.net mintcdn.com *.mintcdn.com cdn.jsdelivr.net;
+connect-src 'self' *.mintlify.dev *.mintlify.com d1ctpt7j8wusba.cloudfront.net mintcdn.com *.mintcdn.com
+api.mintlifytrieve.com www.googletagmanager.com cdn.segment.com plausible.io us.posthog.com browser.sentry-cdn.com;
+frame-src 'self' *.mintlify.dev;
+```
+
+
+<div id="common-configurations-by-proxy-type">
+  ## プロキシタイプ別の一般的な設定
+</div>
+
+ほとんどのリバースプロキシはカスタムヘッダーの追加をサポートしています。
+
+<div id="cloudflare-configuration">
+  ### Cloudflare の設定
+</div>
+
+Response Header Transform Rule を作成します:
+
+1. Cloudflare ダッシュボードで **Rules > Overview** に移動します。
+2. **Create rule > Response Header Transform Rule** を選択します。 
+3. ルールを構成します:
+
+- **Modify response header**: Set static
+  - **Header name**: `Content-Security-Policy`
+  - **Header value**:
+    ```text wrap
+    default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' d4tuoctqmanu0.cloudfront.net fonts.googleapis.com; font-src 'self' d4tuoctqmanu0.cloudfront.net fonts.googleapis.com; img-src 'self' data: blob: d3gk2c5xim1je2.cloudfront.net mintcdn.com *.mintcdn.com cdn.jsdelivr.net; connect-src 'self' *.mintlify.dev *.mintlify.com d1ctpt7j8wusba.cloudfront.net mintcdn.com *.mintcdn.com api.mintlifytrieve.com; frame-src 'self' *.mintlify.dev;
+    ```
+
+4. ルールをデプロイします。
+
+<div id="aws-cloudfront-configuration">
+  ### AWS CloudFront の設定
+</div>
+
+CloudFront にレスポンスヘッダー・ポリシーを追加します:
+
+```json
+{
+"ResponseHeadersPolicy": {
+    "Name": "MintlifyCSP",
+    "Config": {
+    "SecurityHeadersConfig": {
+        "ContentSecurityPolicy": {
+        "ContentSecurityPolicy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' d4tuoctqmanu0.cloudfront.net fonts.googleapis.com; font-src 'self' d4tuoctqmanu0.cloudfront.net fonts.googleapis.com; img-src 'self' data: blob: d3gk2c5xim1je2.cloudfront.net mintcdn.com *.mintcdn.com cdn.jsdelivr.net; connect-src 'self' *.mintlify.dev *.mintlify.com d1ctpt7j8wusba.cloudfront.net mintcdn.com *.mintcdn.com api.mintlifytrieve.com; frame-src 'self' *.mintlify.dev;",
+        "Override": true
+        }
+      }
+    }
+  }
+}
+```
+
+
+<div id="vercel-configuration">
+  ### Vercel の構成
+</div>
+
+`vercel.json` に次を追加します:
+
+```json
+{
+"headers": [
+    {
+    "source": "/(.*)",
+    "headers": [
+        {
+        "key": "Content-Security-Policy",
+        "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' d4tuoctqmanu0.cloudfront.net fonts.googleapis.com; font-src 'self' d4tuoctqmanu0.cloudfront.net fonts.googleapis.com; img-src 'self' data: blob: d3gk2c5xim1je2.cloudfront.net mintcdn.com *.mintcdn.com cdn.jsdelivr.net; connect-src 'self' *.mintlify.dev *.mintlify.com d1ctpt7j8wusba.cloudfront.net mintcdn.com *.mintcdn.com api.mintlifytrieve.com; frame-src 'self' *.mintlify.dev;"
+        }
+      ]
+    }
+  ]
+}
+```
+
+
+<div id="troubleshooting">
+  ## トラブルシューティング
+</div>
+
+ブラウザのコンソールで CSP 違反を特定します:
+
+1. ブラウザの開発者ツールを開きます。
+2. **Console** タブを開きます。
+3. 次のようなエラーを探します:
+    - `Content Security Policy: The page's settings blocked the loading of a resource`
+    - `Refused to load the script/stylesheet because it violates the following Content Security Policy directive`
+    - `Refused to connect to because it violates the following Content Security Policy directive`

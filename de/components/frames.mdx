@@ -1,0 +1,43 @@
+---
+title: "Rahmen"
+description: "Bilder oder andere Komponenten in einem Container einbetten"
+---
+
+Verwenden Sie Rahmen, um Bilder, Diagramme oder andere visuelle Inhalte mit einheitlichem Stil und optionalen Bildunterschriften darzustellen. Rahmen zentrieren Inhalte und schaffen eine visuelle Trennung zum umgebenden Text.
+
+<Frame>
+  <img src="https://mintlify-assets.b-cdn.net/yellowstone.jpeg" alt="Foto eines von Bäumen umgebenen Sees mit Bergen in der Ferne im Yellowstone-Nationalpark." />
+</Frame>
+
+<div id="captions">
+  ## Bildunterschriften
+</div>
+
+Sie können einem Bild mit der optionalen `caption`-Prop zusätzlichen Kontext geben.
+
+<Frame caption="Den Yosemite-Nationalpark besuchen jedes Jahr über 3,5 Millionen Menschen">
+  <img src="https://mintlify-assets.b-cdn.net/yosemite.jpg" alt="Foto des Yosemite-Tals." />
+</Frame>
+
+<div id="properties">
+  ## Eigenschaften
+</div>
+
+<ResponseField name="caption" type="string">
+  Optionaler Bildunterschriftentext, der zentriert unter Ihrer Komponente angezeigt wird.
+</ResponseField>
+
+<CodeGroup>
+
+```mdx Frame
+<Frame>
+  <img src="/path/image.jpg" alt="Beschreibender Alternativtext" />
+</Frame>
+```
+
+```mdx Frame with a caption
+<Frame caption="Bildunterschrift">
+  <img src="/path/image.jpg" alt="Beschreibender Alternativtext" />
+</Frame>
+```
+</CodeGroup>

@@ -1,0 +1,208 @@
+---
+title: "Cloudflare"
+description: "Dokumentation mithilfe von Cloudflare Workers unter einem benutzerdefinierten Unterpfad hosten"
+---
+
+import Propagating from "/snippets/de/custom-subpath-propagating.mdx";
+
+Um Ihre Dokumentation unter einem benutzerdefinierten Unterpfad wie `yoursite.com/docs` mit Cloudflare zu hosten, müssen Sie einen Cloudflare Worker erstellen und konfigurieren.
+
+<Info>
+  Bevor Sie beginnen, benötigen Sie ein Cloudflare-Konto und eine Domain (kann bei Cloudflare oder extern verwaltet werden).
+</Info>
+
+
+<div id="repository-structure">
+  ## Repository-Struktur
+</div>
+
+Ihre Dokumentationsdateien müssen in Ihrem Repository so organisiert sein, dass sie der von Ihnen gewählten Subpfadstruktur entsprechen. Wenn Sie Ihre Dokumentation beispielsweise unter `yoursite.com/docs` bereitstellen möchten, erstellen Sie ein Verzeichnis `docs/` mit allen Dokumentationsdateien.
+
+<div id="set-up-a-cloudflare-worker">
+  ## Einen Cloudflare Worker einrichten
+</div>
+
+Erstellen Sie einen Cloudflare Worker, indem Sie der [Cloudflare Workers-Einstiegsanleitung](https://developers.cloudflare.com/workers/get-started/dashboard/) folgen, falls Sie dies noch nicht getan haben.
+
+<Warning>
+  Wenn Ihr DNS-Anbieter Cloudflare ist, verwenden Sie für den CNAME-Eintrag keine Proxy-Funktion.
+</Warning>
+
+<div id="proxies-with-vercel-deployments">
+  ### Proxys mit Vercel-Bereitstellungen
+</div>
+
+Wenn du Cloudflare als Proxy mit Vercel-Bereitstellungen verwendest, musst du die Konfiguration korrekt vornehmen, um Konflikte mit der Domainverifizierung von Vercel und der Ausstellung von SSL-Zertifikaten zu vermeiden.
+
+Eine fehlerhafte Proxy-Konfiguration kann verhindern, dass Vercel SSL-Zertifikate von Let’s Encrypt ausstellt, und zu Fehlern bei der Domainverifizierung führen.
+
+<div id="required-path-allowlist">
+  #### Erforderliche Pfad-Allowlist
+</div>
+
+Ihr Cloudflare-Worker muss den Datenverkehr zu diesen spezifischen Pfaden zulassen, ohne ihn zu blockieren oder weiterzuleiten:
+
+- `/.well-known/acme-challenge/*` – erforderlich für die Zertifikatsprüfung von Let's Encrypt
+- `/.well-known/vercel/*` – erforderlich für die Domain-Verifizierung von Vercel
+
+Obwohl Cloudflare viele Prüfregeln automatisch handhabt, können zusätzliche benutzerdefinierte Regeln diesen kritischen Datenverkehr unbeabsichtigt blockieren.
+
+<div id="header-forwarding-requirements">
+  #### Anforderungen an die Weiterleitung von Headern
+</div>
+
+Stellen Sie sicher, dass der `HOST`-Header in Ihrer Worker-Konfiguration korrekt weitergeleitet wird. Eine nicht ordnungsgemäße Weiterleitung von Headern führt dazu, dass Verifizierungsanfragen fehlschlagen.
+
+<div id="configure-routing">
+  ### Routing konfigurieren
+</div>
+
+Wähle in deinem Cloudflare-Dashboard **Edit Code** und füge das folgende Skript in den Code deines Workers ein. Weitere Informationen zum Bearbeiten eines Workers findest du in der [Cloudflare-Dokumentation](https://developers.cloudflare.com/workers-ai/get-started/dashboard/#development).
+
+<Tip>
+  Ersetze `[SUBDOMAIN]` durch deine eindeutige Subdomain, `[YOUR_DOMAIN]` durch die Basis-URL deiner Website und `/docs` durch den gewünschten Unterpfad, falls abweichend.
+</Tip>
+
+```javascript
+addEventListener("fetch", (event) => {
+  event.respondWith(handleRequest(event.request));
+});
+
+async function handleRequest(request) {
+  try {
+    const urlObject = new URL(request.url);
+    
+    // Wenn die Anfrage an einen Vercel-Verifizierungspfad geht, durchlassen
+    if (urlObject.pathname.startsWith('/.well-known/')) {
+      return await fetch(request);
+    }
+    
+    // Wenn die Anfrage an das docs-Unterverzeichnis geht
+    if (/^\/docs/.test(urlObject.pathname)) {
+      // Dann Proxy zu Mintlify
+      const DOCS_URL = "[SUBDOMAIN].mintlify.dev";
+      const CUSTOM_URL = "[YOUR_DOMAIN]";
+
+      let url = new URL(request.url);
+      url.hostname = DOCS_URL;
+
+      let proxyRequest = new Request(url, request);
+
+      proxyRequest.headers.set("Host", DOCS_URL);
+      proxyRequest.headers.set("X-Forwarded-Host", CUSTOM_URL);
+      proxyRequest.headers.set("X-Forwarded-Proto", "https");
+      // Bei Bereitstellung auf Vercel Client-IP beibehalten
+      proxyRequest.headers.set("CF-Connecting-IP", request.headers.get("CF-Connecting-IP"));
+
+      return await fetch(proxyRequest);
+    }
+  } catch (error) {
+    // Wenn keine Aktion gefunden wurde, reguläre Anfrage ausführen
+    return await fetch(request);
+  }
+}
+```
+
+Wähle **Deploy** und warte, bis die Änderungen übernommen wurden.
+
+<Propagating />
+
+
+<div id="test-your-worker">
+  ### Testen Sie Ihren Worker
+</div>
+
+Nachdem Ihr Code bereitgestellt wurde, testen Sie Ihren Worker, um sicherzustellen, dass er zu Ihrer Mintlify-Dokumentation weiterleitet.
+
+1. Testen Sie über die Vorschau-URL des Workers: `your-worker.your-subdomain.workers.dev/docs`
+2. Überprüfen Sie, ob der Worker zu Ihrer Mintlify-Dokumentation und Ihrer Website weiterleitet.
+
+<div id="add-custom-domain">
+  ### Eigene Domain hinzufügen
+</div>
+
+1. Navigiere in deinem [Cloudflare-Dashboard](https://dash.cloudflare.com/) zu deinem Worker.
+2. Gehe zu **Settings > Domains & Routes > Add > Custom Domain**.
+3. Füge deine Domain hinzu. 
+
+<Tip>
+  Wir empfehlen, deine Domain sowohl mit als auch ohne vorangestelltes `www.` hinzuzufügen.
+</Tip>
+
+Weitere Informationen findest du in der Cloudflare-Dokumentation unter [Add a custom domain](https://developers.cloudflare.com/workers/configuration/routing/custom-domains/#add-a-custom-domain). 
+
+<div id="resolve-dns-conflicts">
+  ### DNS-Konflikte beheben
+</div>
+
+Wenn Ihre Domain bereits auf einen anderen Dienst zeigt, müssen Sie den vorhandenen DNS-Eintrag entfernen. Ihr Cloudflare-Worker muss so konfiguriert sein, dass er den gesamten Datenverkehr für Ihre Domain steuert.
+
+1. Löschen Sie den vorhandenen DNS-Eintrag für Ihre Domain. Weitere Informationen finden Sie in der Cloudflare-Dokumentation unter [Delete DNS records](https://developers.cloudflare.com/dns/manage-dns-records/how-to/create-dns-records/#delete-dns-records).
+2. Kehren Sie zu Ihrem Worker zurück und fügen Sie Ihre eigene Domain hinzu.
+
+<div id="webflow-custom-routing">
+  ## Benutzerdefiniertes Routing mit Webflow
+</div>
+
+Wenn du Webflow für deine Hauptsite nutzt und Mintlify-Dokumentation unter `/docs` auf derselben Domain ausliefern möchtest, musst du über Cloudflare Workers ein benutzerdefiniertes Routing konfigurieren, das sämtlichen Nicht-Docs-Traffic an deine Hauptsite proxyt.
+
+<Warning>
+  Stelle sicher, dass deine Hauptsite vor der Bereitstellung dieses Workers auf einer Landingpage eingerichtet ist, sonst sehen Besucher deiner Hauptsite Fehler.
+</Warning>
+
+1. Richte in Webflow eine Landingpage für deine Hauptsite ein, z. B. `landing.yoursite.com`. Diese Seite sehen Besucher, wenn sie deine Site aufrufen.
+2. Veröffentliche deine Hauptsite auf der Landingpage. So bleibt deine Hauptsite erreichbar, während du den Worker konfigurierst.
+3. Aktualisiere zur Vermeidung von Konflikten alle absoluten URLs in deiner Hauptsite auf relative.
+4. Wähle in Cloudflare **Edit Code** und füge das folgende Skript in den Code deines Workers ein.
+
+<Tip> Ersetze `[SUBDOMAIN]` durch deine eindeutige Subdomain, `[YOUR_DOMAIN]` durch die Basis-URL deiner Website, `[LANDING_DOMAIN]` durch die URL deiner Landingpage und `/docs` durch deinen gewünschten Unterpfad, falls abweichend. </Tip>
+
+```javascript
+  addEventListener("fetch", (event) => {
+  event.respondWith(handleRequest(event.request));
+  });
+  async function handleRequest(request) {
+  try {
+    const urlObject = new URL(request.url);
+    
+    // Wenn die Anfrage an einen Vercel-Verifizierungspfad gerichtet ist, durchlassen
+    if (urlObject.pathname.startsWith('/.well-known/')) {
+      return await fetch(request);
+    }
+    
+    // Wenn die Anfrage an das docs-Unterverzeichnis gerichtet ist
+    if (/^\/docs/.test(urlObject.pathname)) {
+      // Proxy zu Mintlify
+      const DOCS_URL = "[SUBDOMAIN].mintlify.dev";
+      const CUSTOM_URL = "[YOUR_DOMAIN]";
+      let url = new URL(request.url);
+      url.hostname = DOCS_URL;
+      let proxyRequest = new Request(url, request);
+      proxyRequest.headers.set("Host", DOCS_URL);
+      proxyRequest.headers.set("X-Forwarded-Host", CUSTOM_URL);
+      proxyRequest.headers.set("X-Forwarded-Proto", "https");
+      // Bei Bereitstellung auf Vercel die Client-IP beibehalten
+      proxyRequest.headers.set("CF-Connecting-IP", request.headers.get("CF-Connecting-IP"));
+      return await fetch(proxyRequest);
+    }
+    // Alle anderen Anfragen zur Hauptseite weiterleiten
+    const MAIN_SITE_URL = "[LANDING_DOMAIN]";
+    if (MAIN_SITE_URL && MAIN_SITE_URL !== "[LANDING_DOMAIN]") {
+      let mainSiteUrl = new URL(request.url);
+      mainSiteUrl.hostname = MAIN_SITE_URL;
+      return await fetch(mainSiteUrl, {
+        method: request.method,
+        headers: request.headers,
+        body: request.body
+      });
+    }
+  } catch (error) {
+    // Wenn keine Aktion gefunden wurde, die reguläre Anfrage bedienen
+    return await fetch(request);
+  }
+  }
+```
+
+5. Wählen Sie **Deploy** und warten Sie, bis die Änderungen übernommen wurden.
+
+<Propagating />

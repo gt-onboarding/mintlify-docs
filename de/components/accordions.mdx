@@ -1,0 +1,108 @@
+---
+title: "Akkordeons"
+description: "Auf- und zuklappbare Komponenten zum Ein- und Ausblenden von Inhalten"
+---
+
+import IconsOptional from "/snippets/de/icons-optional.mdx";
+
+Accordion-Elemente ermöglichen es Nutzern, Inhaltsabschnitte ein- und auszuklappen. Verwenden Sie Accordion-Elemente für progressive Offenlegung und zur Strukturierung von Informationen.
+
+
+<div id="single-accordion">
+  ## Einzelnes Accordion
+</div>
+
+<Accordion title="Ich bin ein Accordion.">
+  Du kannst hier beliebige Inhalte einfügen, einschließlich anderer Komponenten wie Code:
+   ```java HelloWorld.java
+    class HelloWorld {
+        public static void main(String[] args) {
+            System.out.println("Hello, World!");
+        }
+    }
+    ```
+</Accordion>
+
+````mdx Accordion example
+<Accordion title="Ich bin ein Accordion.">
+  Du kannst hier beliebige Inhalte einfügen, einschließlich anderer Komponenten wie Code:
+
+   ```java HelloWorld.java
+    class HelloWorld {
+        public static void main(String[] args) {
+            System.out.println("Hello, World!");
+        }
+    }
+  ```
+</Accordion>
+````
+
+<div id="accordion-groups">
+  ## Akkordeon-Gruppen
+</div>
+
+Gruppieren Sie verwandte Akkordeons mit `<AccordionGroup>`. So entsteht ein zusammenhängender Abschnitt mit Akkordeons, die sich jeweils einzeln aus- oder einklappen lassen.
+
+<AccordionGroup>
+  <Accordion title="Erste Schritte">
+    In Akkordeons können Sie auch andere Komponenten verwenden.
+
+    ```java HelloWorld.java
+    class HelloWorld {
+        public static void main(String[] args) {
+            System.out.println("Hello, World!");
+        }
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="Erweiterte Funktionen" icon="bot">
+    Fügen Sie Icons hinzu, um Akkordeons visuell unterscheidbarer und leichter erfassbar zu machen.
+  </Accordion>
+  
+  <Accordion title="Fehlerbehebung">
+    Halten Sie zusammengehörige Inhalte in Gruppen organisiert.
+  </Accordion>
+</AccordionGroup>
+
+````mdx Accordion Group Example
+<AccordionGroup>
+  <Accordion title="Getting started">
+    You can put other components inside Accordions.
+
+    ```java HelloWorld.java
+    class HelloWorld {
+        public static void main(String[] args) {
+            System.out.println("Hello, World!");
+        }
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="Advanced features" icon="alien-8bit">
+    Add icons to make accordions more visually distinct and scannable.
+  </Accordion>
+
+  <Accordion title="Troubleshooting">
+    Keep related content organized into groups.
+  </Accordion>
+</AccordionGroup>
+````
+
+<div id="properties">
+  ## Eigenschaften
+</div>
+
+<ResponseField name="title" type="string" required>
+  Titel in der Akkordeon-Vorschau.
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  Detail unter dem Titel in der Akkordeon-Vorschau.
+</ResponseField>
+
+<ResponseField name="defaultOpen" type="boolean" default="false">
+  Ob das Akkordeon standardmäßig geöffnet ist.
+</ResponseField>
+
+<IconsOptional />

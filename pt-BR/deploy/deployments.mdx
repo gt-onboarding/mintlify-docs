@@ -1,0 +1,30 @@
+---
+title: "Implantações"
+description: "Solucione problemas nas suas implantações"
+---
+
+Seu site de documentação é implantado automaticamente quando você faz push de alterações para o repositório conectado. Isso requer que o aplicativo Mintlify para GitHub esteja corretamente instalado e conectado.
+
+Se as alterações mais recentes não estiverem aparecendo no site em produção, primeiro verifique se o aplicativo do GitHub está instalado na conta ou organização proprietária do repositório de documentação. Consulte [solução de problemas do GitHub](/pt-BR/deploy/github#troubleshooting) para mais informações.
+
+Se o aplicativo do GitHub estiver conectado, mas as alterações ainda não estiverem sendo implantadas, você pode acionar manualmente uma nova build pelo seu painel.
+
+<div id="manually-triggering-a-deployment">
+  ## Acionando uma implantação manualmente
+</div>
+
+<Steps>
+  <Step title="Verifique se seu commit mais recente foi concluído com sucesso.">
+    Confirme que seu commit mais recente aparece no repositório da sua documentação e que não houve nenhum erro.
+  </Step>
+
+  <Step title="Acione uma implantação manualmente.">
+    Acesse o seu [dashboard](https://dashboard.mintlify.com) e selecione o botão de deploy.
+
+    <Frame>
+      <img src="/images/deployments/manual-update-light.png" alt="O botão de atualização manual destacado com um retângulo laranja." className="block dark:hidden" />
+
+      <img src="/images/deployments/manual-update-dark.png" alt="O botão de atualização manual destacado com um retângulo laranja." className="hidden dark:block" />
+    </Frame>
+  </Step>
+</Steps>

@@ -1,0 +1,121 @@
+---
+title: "File"
+description: "Distribuisci asset statici dalla tua documentazione"
+---
+
+Mintlify distribuisce automaticamente gli asset statici dal repository della tua documentazione nel percorso appropriato sul tuo dominio. Ad esempio, se nel tuo repo è presente `/images/my-logo.png`, il file immagine sarà disponibile all’indirizzo `https://docs.your-project.com/images/my-logo.png`.
+
+Puoi mettere a disposizione degli utenti qualsiasi tipo di file supportato, incluse le specifiche OpenAPI, immagini, video e altro.
+
+Le dimensioni dei file devono essere inferiori a 20 MB per le immagini e 100 MB per gli altri tipi di file.
+
+<div id="supported-file-types">
+  ## Formati di file supportati
+</div>
+
+<div id="image-formats">
+  ### Formati di immagine
+</div>
+
+- `.jpeg`, `.jpg`, `.jfif`, `.pjpeg`, `.pjp`
+- `.png`
+- `.svg`, `.svgz`
+- `.ico`
+- `.webp`
+- `.gif`, `.apng`
+- `.avif`
+- `.bmp`
+- `.tiff`, `.tif`
+
+<div id="video-formats">
+  ### Formati video
+</div>
+
+- `.mp4`
+- `.webm`
+- `.ogg`
+- `.avi`
+- `.mov`
+- `.wmv`
+- `.flv`
+- `.mkv`
+- `.m4v`
+
+<div id="audio-formats">
+  ### Formati audio
+</div>
+
+- `.mp3`
+- `.wav`
+- `.flac`
+- `.aac`
+- `.ogg`
+- `.wma`
+- `.m4a`
+
+<div id="font-formats">
+  ### Formati dei caratteri
+</div>
+
+- `.woff`
+- `.woff2`
+- `.ttf`
+- `.otf`
+- `.eot`
+
+<div id="document-formats">
+  ### Formati di documenti
+</div>
+
+<Note>I formati di documenti sono disponibili solo nei piani Enterprise.</Note>
+
+- `.pdf`
+- `.txt`
+- `.doc`, `.docx`
+- `.xls`, `.xlsx`
+- `.ppt`, `.pptx`
+- `.rtf`
+- `.odt`, `.ods`, `.odp`
+
+<div id="data-formats">
+  ### Formati di dati
+</div>
+
+<Note>I formati di dati sono disponibili solo nei piani Enterprise.</Note>
+
+- `.csv`
+- `.tsv`
+- `.xml`
+
+<div id="archive-formats">
+  ### Formati di archiviazione
+</div>
+
+<Note>I formati di archiviazione sono disponibili solo nei piani Enterprise.</Note>
+
+- `.zip`
+- `.rar`
+- `.7z`
+- `.tar`
+- `.gz`
+- `.bz2`
+
+<div id="file-organization">
+  ## Organizzazione dei file
+</div>
+
+Organizza i file in cartelle per mantenere il repository facile da esplorare:
+
+```text
+/your-project
+  |- docs.json
+  |- images/
+    |- logo.png
+    |- screenshots/
+      |- dashboard.png
+  |- assets/
+    |- whitepaper.pdf
+    |- demo-video.mp4
+```
+
+I file vengono serviti dalla radice del tuo dominio, quindi la struttura del repository corrisponde direttamente alla struttura degli URL. Nell’esempio precedente, `assets/whitepaper.pdf` sarebbe disponibile all’indirizzo `https://docs.your-project.com/assets/whitepaper.pdf`.

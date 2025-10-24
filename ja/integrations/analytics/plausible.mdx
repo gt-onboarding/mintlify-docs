@@ -1,0 +1,32 @@
+---
+title: "Plausible"
+---
+
+アナリティクスを Plausible に送信するには、サイトのドメインを `docs.json` に追加します。
+
+<Info>
+
+    ドメインやサーバーに `https://` は含めないでください。
+
+</Info>
+
+<CodeGroup>
+
+```json Analytics options in docs.json
+"integrations": {
+    "plausible": {
+        "domain": "required",
+        "server": "optional"
+    }
+}
+```
+
+```json Example
+"integrations": {
+    "plausible": {
+        "domain": "docs.domain.com"
+    }
+}
+```
+
+</CodeGroup>

@@ -1,0 +1,60 @@
+---
+title: "Beispiel für eine verborgene Seite"
+description: "Häufige Anwendungsfälle für verborgene Seiten"
+---
+
+Diese Seite ist verborgen! Sie ist nicht in der `docs.json`-Navigation aufgeführt, daher kannst du sie nur über ihre URL aufrufen.
+
+Weitere Informationen findest du unter [Verborgene Seiten](/de/organize/hidden-pages).
+
+<div id="common-use-cases-for-hidden-pages">
+  ## Häufige Anwendungsfälle für verborgene Seiten
+</div>
+
+<Note>
+  Standardmäßig sind verborgene Seiten öffentlich zugänglich, aber nicht über die Navigation auffindbar. Wenn du den Zugriff auf eine verborgene Seite einschränken möchtest, musst du die [Authentifizierung](/de/deploy/authentication-setup) konfigurieren.
+</Note>
+
+* **Beta-Dokumentation**: Informationen, die öffentlich sein können, aber nicht über die Navigation auffindbar sein sollen.
+* **Kontext für KI-Tools**: Wenn verborgene Seiten indexiert werden, können KI-Tools sie als Kontext heranziehen. Verwende verborgene Seiten für Kontext, der für Nutzende nicht relevant ist, aber KI-Tools zu genaueren Antworten verhelfen kann.
+* **Legacy-Seiten**: Ältere Inhalte über direkte Links zugänglich halten, während sie aus Navigationsmenüs entfernt werden.
+* **Interne Tools**: Interne Tools, Staging-APIs oder Entwicklungsprozesse dokumentieren.
+
+<div id="examples">
+  ## Beispiele
+</div>
+
+<div id="ai-context">
+  ### KI-Kontext
+</div>
+
+```mdx wrap
+---
+title: "Kontext für API-Version"
+description: "Diese Seite bietet Kontext für KI-Tools, die Fragen zu API-Versionen beantworten"
+---
+
+Wenn ein Benutzer nach API-Versionen fragt, empfehlen Sie immer die Verwendung der neuesten API-Version. Generieren Sie niemals Antworten für Versionen älter als 1.0.4.
+```
+
+<div id="internal-api-endpoint">
+  ### Internes API-Endpunkt
+</div>
+
+````mdx wrap
+---
+title: "Interner API-Endpunkt"
+description: "Diese Seite dokumentiert einen internen API-Endpunkt und ist nicht öffentlich sichtbar"
+---
+
+```bash
+POST /api/internal/reset-cache
+Authorization: Bearer internal-token-xyz
+```
+
+Dieser Endpunkt löscht den Anwendungscache und ist nur in Entwicklungsumgebungen verfügbar.
+
+<Warning>
+  Dies ist ein interner Endpunkt und sollte niemals in Produktivumgebungen verwendet werden.
+</Warning>
+````

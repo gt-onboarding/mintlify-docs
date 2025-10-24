@@ -1,0 +1,87 @@
+---
+title: "Pagine nascoste"
+description: "Escludi pagine dalla navigazione"
+---
+
+Le pagine nascoste vengono rimosse dalla navigazione del tuo sito ma restano pubblicamente accessibili a chi conosce il relativo URL.
+
+Usa le pagine nascoste per contenuti che vuoi siano accessibili sul tuo sito o utilizzati come contesto per strumenti di IA, ma non individuabili tramite la navigazione.
+
+Per i contenuti che richiedono un controllo degli accessi rigoroso, configura l&#39;[autenticazione](/it/deploy/authentication-setup).
+
+Se vuoi nascondere pagine per specifici gruppi di utenti, usa la personalizzazione per controllare la [visibilità delle pagine](/it/authentication-personalization/overview#page-visibility).
+
+<div id="hiding-a-page">
+  ## Nascondere una pagina
+</div>
+
+Una pagina è considerata nascosta se non è inclusa nella navigazione del tuo `docs.json`. Per nascondere una pagina, rimuovila dalla struttura di navigazione.
+
+Le pagine nascoste utilizzano la stessa struttura URL delle pagine normali, in base al loro percorso file. Ad esempio, `guides/hidden-page.mdx` sarà accessibile all’indirizzo `docs.yoursite.com/guides/hidden-page`.
+
+Consulta un [esempio di pagina nascosta](/it/organize/hidden-page-example).
+
+<Note>
+  Alcuni elementi di navigazione, come sidebar, menu a discesa e tab, potrebbero apparire vuoti o subire spostamenti del layout nelle pagine nascoste.
+</Note>
+
+<div id="hiding-a-group-of-pages">
+  ## Nascondere un gruppo di pagine
+</div>
+
+Un gruppo di pagine viene nascosto se la proprietà `hidden` è impostata su `true` nel file `docs.json`:
+
+```json highlight={4}
+"groups": [
+  {
+    "group": "Inizia da qui",
+    "hidden": true,
+    "pages": [
+      "index",
+      "quickstart"
+    ]
+  },
+  {
+    "group": "Guide",
+    "pages": [
+      "guides/hidden-page.mdx",
+      "guides/hidden-groups.mdx"
+    ]
+  }
+]
+```
+
+In questo esempio, il gruppo `Getting started` è nascosto, mentre il gruppo `Guides` è visibile.
+
+<div id="hiding-a-tab">
+  ### Nascondere una scheda
+</div>
+
+Puoi anche nascondere una scheda aggiungendo la proprietà `hidden` al file `docs.json`:
+
+```json highlight={4}
+"tabs": [
+  {
+    "tab": "Home",
+    "hidden": true,
+    "pages": [
+      "index",
+      "quickstart"
+    ]
+  }
+]
+```
+
+<div id="search-seo-and-ai-indexing">
+  ## Ricerca, SEO e indicizzazione AI
+</div>
+
+Per impostazione predefinita, le Pagine nascoste sono escluse dall’indicizzazione per i motori di ricerca, dalla ricerca interna nella documentazione e dall’uso come contesto per l’Assistente. Per includere le Pagine nascoste nei risultati di ricerca e come contesto per l’Assistente, aggiungi la proprietà `seo` al file `docs.json`:
+
+```json
+"seo": {
+    "indexing": "all"
+}
+```
+
+Per escludere una pagina specifica, aggiungi `noindex: true` al suo front matter.

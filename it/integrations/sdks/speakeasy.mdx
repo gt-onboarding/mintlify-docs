@@ -1,0 +1,82 @@
+---
+title: "Speakeasy"
+description: "Automatizza gli snippet di utilizzo dell’SDK nell’API playground"
+---
+
+Gli snippet di codice generati automaticamente dagli SDK di Speakeasy possono essere integrati direttamente nella documentazione di riferimento API di Mintlify. Gli snippet di utilizzo dell’SDK vengono mostrati nel [playground interattivo](/it/api-playground/overview) dei siti di documentazione basati su Mintlify.
+
+<Frame>
+  ![Un API playground di Mintlify con snippet di codice Speakeasy.](/images/speakeasy/mintlify-with-speakeasy-openapi.png)
+</Frame>
+
+<div id="prerequisites">
+  ## Prerequisiti
+</div>
+
+Per integrare Mintlify con Speakeasy, ti serviranno:
+
+* Un [repository della documentazione Mintlify](/it/quickstart#creating-the-repository).
+  * Un SDK generato da Speakeasy con un [URL per esempi di codice automatizzati](https://www.speakeasy.com/docs/code-samples/automated-code-sample-urls) configurato.
+
+## Configurare l&#39;integrazione
+
+Per integrare Speakeasy con Mintlify, devi recuperare dall’apposito registry l’URL pubblico della specifica combinata dell’API e aggiornare il file di configurazione `docs.json`.
+
+<div id="get-the-apis-combined-spec-public-url-from-the-registry">
+  ### Ottieni l’URL pubblico della specifica combinata dell’API dal registro
+</div>
+
+Vai alla tua [Dashboard di Speakeasy](https://app.speakeasy.com) e apri la scheda **API Registry**. Apri la voce `*-with-code-samples` dell’API.
+
+<Frame>
+  ![Screenshot della pagina Speakeasy API Registry. La scheda API Registry è evidenziata con un riquadro rosso e il numero 1 e la voce dell’API è evidenziata con un riquadro rosso e il numero 2.](/images/speakeasy/openapi-registry-and-combined-spec.png)
+</Frame>
+
+<Note>
+  Se la voce non è etichettata **Combined Spec**, assicurati che per l’API sia configurato un [URL automatico per gli esempi di codice](https://www.speakeasy.com/docs/code-samples/automated-code-sample-urls).
+</Note>
+
+Dalla pagina della voce nel registro, copia l’URL pubblico fornito.
+
+<Frame>
+  ![Screenshot che mostra la voce del registro della specifica combinata con la funzione di copia dell’URL evidenziata con un riquadro rosso.](/images/speakeasy/copy-combined-spec-url.png)
+</Frame>
+
+<div id="update-your-docsjson-configuration-file">
+  ### Aggiorna il file di configurazione `docs.json`
+</div>
+
+Aggiungi l’URL della specifica combinata a una sezione **Anchors** o **Tabs** nel file `docs.json`.
+
+Per aggiungere l’URL della specifica combinata a un anchor, aggiorna il campo `anchor` nel file `docs.json` come segue:
+
+```json docs.json
+{
+  "anchors": [
+    {
+      "name": "API Reference",
+      // !mark
+      "openapi": "SPEAKEASY_COMBINED_SPEC_URL",
+      "url": "api-reference",
+      "icon": "square-terminal"
+    }
+  ]
+}
+```
+
+Per aggiungere l’URL della specifica combinata a una tab, aggiorna il campo `tab` nel file `docs.json` come segue:
+
+```json docs.json
+{
+  "tabs": [
+    {
+      "name": "API Reference",
+      "url": "api-reference",
+      // !mark
+      "openapi": "SPEAKEASY_COMBINED_SPEC_URL"
+    }
+  ]
+}
+```
+
+Gli snippet di codice generati da Speakeasy sono ora visibili nella documentazione API e interattivi nell’API playground.
