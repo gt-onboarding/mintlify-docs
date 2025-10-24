@@ -1,0 +1,254 @@
+---
+title: "React"
+description: "React コンポーネントでインタラクティブで再利用可能な要素を構築する"
+---
+
+import { ColorGenerator } from "/snippets/color-generator.jsx";
+
+[React コンポーネント](https://react.dev) は、ドキュメント内でインタラクティブかつ再利用可能な要素を作成するための強力な手段です。
+
+<div id="using-react-components">
+  ## React コンポーネントの利用
+</div>
+
+[React Hooks](https://react.dev/reference/react/hooks) を使って、`MDX` ファイル内で直接 React コンポーネントを作成できます。
+
+<div id="example">
+  ### 例
+</div>
+
+この例では、`Counter` コンポーネントを宣言し、続いて `<Counter />` として使用します。
+
+```mdx
+export const Counter = () => {
+  const [count, setCount] = useState(0)
+
+  const increment = () => setCount(count + 1)
+  const decrement = () => setCount(count - 1)
+
+  return (
+  <div className="flex items-center justify-center">
+      <div className="flex items-center rounded-xl overflow-hidden border border-zinc-950/20 dark:border-white/20">
+        <button
+          onClick={decrement}
+          className="flex items-center justify-center h-8 w-8 text-zinc-950/80 dark:text-white/80 border-r border-zinc-950/20 dark:border-white/20"
+          aria-label="減らす"
+        >
+          -
+        </button>
+
+        <div className="flex text-sm items-center justify-center h-8 px-6 text-zinc-950/80 dark:text-white/80 font-medium min-w-[4rem] text-center">
+          {count}
+        </div>
+
+        <button
+          onClick={increment}
+          className="flex items-center justify-center h-8 w-8 text-zinc-950/80 dark:text-white/80 border-l border-zinc-950/20 dark:border-white/20"
+          aria-label="増やす"
+        >
+          +
+        </button>
+      </div>
+    </div>
+  )
+}
+
+<Counter />
+```
+
+export const Counter = () => {
+  const [count, setCount] = useState(0)
+
+  const increment = () => setCount(count + 1)
+  const decrement = () => setCount(count - 1)
+
+  return (
+  <div className="flex items-center justify-center">
+      <div className="flex items-center rounded-xl overflow-hidden border border-zinc-950/20 dark:border-white/20">
+        <button
+          onClick={decrement}
+          className="flex items-center justify-center h-8 w-8 text-zinc-950/80 dark:text-white/80 border-r border-zinc-950/20 dark:border-white/20"
+          aria-label="減少"
+        >
+          -
+        </button>
+
+        <div className="flex text-sm items-center justify-center h-8 px-6 text-zinc-950/80 dark:text-white/80 font-medium min-w-[4rem] text-center">
+          {count}
+        </div>
+
+        <button
+          onClick={increment}
+          className="flex items-center justify-center h-8 w-8 text-zinc-950/80 dark:text-white/80 border-l border-zinc-950/20 dark:border-white/20"
+          aria-label="増加"
+        >
+          +
+        </button>
+      </div>
+    </div>
+  )
+}
+
+カウンターは対話型の React コンポーネントとしてレンダリングされます。
+
+<Counter />
+
+<div id="importing-components">
+  ## コンポーネントのインポート
+</div>
+
+`MDX` ファイルで React コンポーネントをインポートするには、コンポーネントのファイルを `snippets` フォルダに配置する必要があります。配置後は、ドキュメンテーション内の任意の `MDX` ページでインポートできます。詳しくは[再利用可能なスニペット](/ja/create/reusable-snippets)をご覧ください。
+
+<div id="example">
+  ### 例
+</div>
+
+この例では、複数の React フックを使う `ColorGenerator` コンポーネントを定義し、`MDX` ファイル内で使用します。
+
+`snippets` フォルダに `color-generator.jsx` ファイルを作成します：
+
+```mdx /snippets/color-generator.jsx [expandable]
+export const ColorGenerator = () => {
+  const [hue, setHue] = useState(180)
+  const [saturation, setSaturation] = useState(50)
+  const [lightness, setLightness] = useState(50)
+  const [colors, setColors] = useState([])
+
+  useEffect(() => {
+    const newColors = []
+    for (let i = 0; i < 5; i++) {
+      const l = Math.max(10, Math.min(90, lightness - 20 + i * 10))
+      newColors.push(`hsl(${hue}, ${saturation}%, ${l}%)`)
+    }
+    setColors(newColors)
+  }, [hue, saturation, lightness])
+
+  const copyToClipboard = (color) => {
+    navigator.clipboard
+      .writeText(color)
+      .then(() => {
+        console.log(`${color}をクリップボードにコピーしました`)
+      })
+      .catch((err) => {
+        console.error("コピーに失敗しました: ", err)
+      })
+  }
+
+  return (
+    <div className="p-4 border dark:border-zinc-950/80 rounded-xl not-prose">
+      <div className="space-y-4">
+        <div className="space-y-2">
+          <label className="block text-sm text-zinc-950/70 dark:text-white/70">
+            色相: {hue}°
+            <input
+              type="range"
+              min="0"
+              max="360"
+              value={hue}
+              onChange={(e) => setHue(Number.parseInt(e.target.value))}
+              className="w-full h-2 bg-zinc-950/20 rounded-lg appearance-none cursor-pointer dark:bg-white/20 mt-1"
+              style={{
+                background: `linear-gradient(to right, 
+                  hsl(0, ${saturation}%, ${lightness}%), 
+                  hsl(60, ${saturation}%, ${lightness}%), 
+                  hsl(120, ${saturation}%, ${lightness}%), 
+                  hsl(180, ${saturation}%, ${lightness}%), 
+                  hsl(240, ${saturation}%, ${lightness}%), 
+                  hsl(300, ${saturation}%, ${lightness}%), 
+                  hsl(360, ${saturation}%, ${lightness}%))`,
+              }}
+            />
+          </label>
+
+          <label className="block text-sm text-zinc-950/70 dark:text-white/70">
+            彩度: {saturation}%
+            <input
+              type="range"
+              min="0"
+              max="100"
+              value={saturation}
+              onChange={(e) => setSaturation(Number.parseInt(e.target.value))}
+              className="w-full h-2 bg-zinc-950/20 rounded-lg appearance-none cursor-pointer dark:bg-white/20 mt-1"
+              style={{
+                background: `linear-gradient(to right, 
+                  hsl(${hue}, 0%, ${lightness}%), 
+                  hsl(${hue}, 50%, ${lightness}%), 
+                  hsl(${hue}, 100%, ${lightness}%))`,
+              }}
+            />
+          </label>
+
+          <label className="block text-sm text-zinc-950/70 dark:text-white/70">
+            明度: {lightness}%
+            <input
+              type="range"
+              min="0"
+              max="100"
+              value={lightness}
+              onChange={(e) => setLightness(Number.parseInt(e.target.value))}
+              className="w-full h-2 bg-zinc-950/20 rounded-lg appearance-none cursor-pointer dark:bg-white/20 mt-1"
+              style={{
+                background: `linear-gradient(to right, 
+                  hsl(${hue}, ${saturation}%, 0%), 
+                  hsl(${hue}, ${saturation}%, 50%), 
+                  hsl(${hue}, ${saturation}%, 100%))`,
+              }}
+            />
+          </label>
+        </div>
+
+        <div className="flex space-x-1">
+          {colors.map((color, idx) => (
+            <div
+              key={idx}
+              className="h-16 rounded flex-1 cursor-pointer transition-transform hover:scale-105"
+              style={{ backgroundColor: color }}
+              title={`クリックしてコピー: ${color}`}
+              onClick={() => copyToClipboard(color)}
+            />
+          ))}
+        </div>
+
+        <div className="text-sm font-mono text-zinc-950/70 dark:text-white/70">
+          <p>
+            基本色: hsl({hue}, {saturation}%, {lightness}%)
+          </p>
+        </div>
+      </div>
+    </div>
+  )
+}
+```
+
+`ColorGenerator` コンポーネントをインポートし、`MDX` ファイルで使用します。
+
+```mdx
+import { ColorGenerator } from "/snippets/color-generator.jsx"
+
+<ColorGenerator />
+```
+
+カラージェネレーターはインタラクティブな React コンポーネントとしてレンダリングされます。
+
+<ColorGenerator />
+
+<div id="considerations">
+  ## 検討事項
+</div>
+
+<AccordionGroup>
+  <Accordion title="クライアントサイドレンダリングの影響">
+    Reactフックを使ったコンポーネントはクライアント側でレンダリングされ、次のような影響があります：
+
+    * **SEO**: 検索エンジンが動的コンテンツを完全にクロール・インデックスできない場合があります。
+    * **初回ロード**: コンポーネントが描画される前に、読み込み中の一瞬のちらつきが発生することがあります。
+    * **アクセシビリティ**: 動的なコンテンツ変更がスクリーンリーダーに適切に通知されるようにしてください。
+  </Accordion>
+
+  <Accordion title="パフォーマンスのベストプラクティス">
+    * **依存配列の最適化**: `useEffect` の依存配列には必要最小限の依存関係のみを含めます。
+    * **複雑な計算のメモ化**: 負荷の高い処理には `useMemo` や `useCallback` を使用します。
+    * **再レンダーの抑制**: 大きなコンポーネントは小さく分割して、連鎖的な再レンダーを防ぎます。
+    * **遅延読み込み**: 初回ページロード時間の短縮のため、複雑なコンポーネントは遅延読み込みを検討します。
+  </Accordion>
+</AccordionGroup>

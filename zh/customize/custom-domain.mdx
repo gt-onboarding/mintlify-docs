@@ -1,0 +1,81 @@
+---
+title: "自定义域名"
+description: "将文档托管在你网站的自定义域名下"
+og:description: "将文档托管在你网站的自定义域名下"
+---
+
+要在自定义域名上托管文档，请在 Mintlify 设置中填写所需的自定义域名，并在你的域名服务商处配置相应的 DNS 记录。
+
+<Info>
+  想设置类似 `mintlify.com/docs` 的自定义子路径？请查看[自定义子路径](/zh/deploy/cloudflare)文档。
+</Info>
+
+<div id="dashboard-settings">
+  ## 仪表盘设置
+</div>
+
+1. 前往你的 [仪表盘](https://dashboard.mintlify.com)。
+2. 选择 **Settings**。
+3. 选择 **Domain Setup**。
+4. 输入你要使用的自定义域名，例如 `docs.mintlify.com`。
+
+<Frame>
+  <img alt="自定义域名设置页面，高亮显示了“Enter your domain URL”字段。" className="block dark:hidden" src="/images/add-custom-domain-light.png" />
+
+  <img alt="自定义域名设置页面，高亮显示了“Enter your domain URL”字段。" className="hidden dark:block" src="/images/add-custom-domain-dark.png" />
+</Frame>
+
+<div id="configure-your-dns">
+  ## 配置 DNS
+</div>
+
+1. 前往域名注册商网站，打开该域名的 DNS 设置。
+2. 新增一条 DNS 记录，并填写以下值：
+
+```bash
+CNAME | docs | cname.vercel-dns.com.
+```
+
+<Frame>
+  <img alt="在 Vercel 上托管的自定义域的 CNAME 设置示例。" src="https://mintlify-assets.b-cdn.net/mintlify-dns.png" />
+</Frame>
+
+<div id="provider-specific-settings">
+  ## 按提供商进行设置
+</div>
+
+<AccordionGroup>
+  <Accordion title="Vercel 验证">
+    如果 Vercel 是你的域名提供商，你需要添加一个用于验证的 `TXT` 记录。提交自定义域名后，该信息会显示在你的控制台中，并同时通过电子邮件发送给你。
+  </Accordion>
+
+  <Accordion title="Cloudflare 安全设置">
+    如果 Cloudflare 是你的 DNS 提供商，你需要在 HTTPS 设置中启用“完全严格（full strict）”安全选项。
+  </Accordion>
+</AccordionGroup>
+
+<div id="set-a-canonical-url">
+  ## 设置规范 URL
+</div>
+
+在配置 DNS 之后，设置规范 URL，以确保搜索引擎索引你首选的域名。规范 URL 会告知搜索引擎你的文档哪个版本是权威版本。当文档可通过多个 URL 访问时，这有助于提升 SEO，并避免重复内容问题。
+
+在你的 `docs.json` 中添加 `canonical` 元标签：
+
+```json
+"seo": {
+    "metatags": {
+        "canonical": "https://www.your-custom-domain-here.com"
+    }
+}
+```
+
+将 `https://www.your-custom-domain-here.com` 替换为你的实际自定义域名。例如，如果你的自定义域名是 `docs.mintlify.com`，则应使用：
+
+```json
+"seo": {
+    "metatags": {
+        "canonical": "https://docs.mintlify.com"
+    }
+}
+```

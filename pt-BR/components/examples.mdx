@@ -1,0 +1,63 @@
+---
+title: "Exemplos"
+description: "Exibir blocos de código na barra lateral direita em computadores"
+---
+
+Os componentes `<RequestExample>` e `<ResponseExample>` exibem blocos de código na barra lateral direita para criar um layout em duas colunas que mantém os exemplos visíveis enquanto os usuários percorrem o seu conteúdo. Esses componentes foram projetados para documentação de APIs, mas funcionam em todas as páginas.
+
+Casos de uso comuns:
+
+* Documentação de endpoints de API com exemplos de requisição e resposta
+* Exemplos de configuração acompanhados de texto explicativo
+* Trechos de código que os usuários consultam enquanto seguem instruções
+* Exemplos de antes e depois em tutoriais
+
+Em dispositivos móveis, os componentes `<RequestExample>` e `<ResponseExample>` são exibidos como blocos de código comuns e podem ser percorridos.
+
+<RequestExample>
+  ```bash Request
+    curl --request POST \
+      --url https://dog-api.kinduff.com/api/facts
+  ```
+</RequestExample>
+
+<ResponseExample>
+  ```json Response
+  { "status": "success" }
+  ```
+</ResponseExample>
+
+<div id="requestexample">
+  ## RequestExample
+</div>
+
+Use `<RequestExample>` para fixar exemplos de código na barra lateral direita. Este componente funciona de forma similar ao componente [CodeGroup](/pt-BR/components/code-groups), mas exibe o código na barra lateral em vez de incorporado no texto.
+
+Você pode incluir vários blocos de código dentro de um único `<RequestExample>`. Cada bloco de código deve ter um atributo title.
+
+````mdx RequestExample
+<RequestExample>
+
+```bash Request
+  curl --request POST \
+    --url https://dog-api.kinduff.com/api/facts
+```
+
+</RequestExample>
+````
+
+<div id="responseexample">
+  ## ResponseExample
+</div>
+
+O componente `<ResponseExample>` fixa exemplos de código na barra lateral direita, abaixo de qualquer conteúdo `<RequestExample>` na mesma página.
+
+````mdx ResponseExample
+<ResponseExample>
+
+```json Response
+{ "status": "success" }
+```
+
+</ResponseExample>
+````

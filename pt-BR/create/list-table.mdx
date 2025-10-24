@@ -1,0 +1,91 @@
+---
+title: "Listas e tabelas"
+description: "Apresente informações em listas e tabelas"
+---
+
+<div id="lists">
+  ## Listas
+</div>
+
+As listas seguem a [sintaxe oficial do Markdown](https://www.markdownguide.org/basic-syntax/#lists-1).
+
+<div id="ordered-list">
+  ### Lista ordenada
+</div>
+
+Para criar uma lista ordenada, adicione números seguidos de ponto antes dos itens da lista.
+
+1. Primeiro item
+2. Segundo item
+3. Terceiro item
+4. Quarto item
+
+```mdx
+1. Primeiro item
+2. Segundo item
+3. Terceiro item
+4. Quarto item
+```
+
+
+<div id="unordered-list">
+  ### Lista não ordenada
+</div>
+
+Para criar uma lista não ordenada, adicione hífens (`-`), asteriscos (`*`) ou sinais de mais (`+`) antes dos itens.
+
+* Primeiro item
+* Segundo item
+* Terceiro item
+* Quarto item
+
+```mdx
+- Primeiro item
+- Segundo item
+- Terceiro item
+- Quarto item
+```
+
+
+<div id="nested-list">
+  ### Lista aninhada
+</div>
+
+Recuar os itens da lista para aninhá-los.
+
+* Primeiro item
+* Segundo item
+  * Item adicional
+  * Item adicional
+* Terceiro item
+
+```mdx
+- Primeiro item
+- Segundo item
+  - Item adicional
+  - Item adicional
+- Terceiro item
+```
+
+
+<div id="tables">
+  ## Tabelas
+</div>
+
+As tabelas seguem a [sintaxe oficial do Markdown](https://www.markdownguide.org/extended-syntax/#tables).
+
+Para adicionar uma tabela, use três ou mais hifens (`---`) para criar o cabeçalho de cada coluna e use barras verticais (`|`) para separar cada coluna. Por compatibilidade, você também deve adicionar uma barra vertical em cada extremidade da linha.
+
+| Propriedade | Descrição                         |
+| ----------- | --------------------------------- |
+| Name        | Nome completo do usuário          |
+| Age         | Idade declarada                   |
+| Joined      | Se o usuário entrou na comunidade |
+
+```mdx
+| Propriedade | Descrição                                  |
+| ----------- | ------------------------------------------ |
+| Name        | Nome completo do usuário                   |
+| Age         | Idade informada                            |
+| Joined      | Se o usuário ingressou na comunidade       |
+```

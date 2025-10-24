@@ -1,0 +1,43 @@
+---
+title: "Cornici"
+description: "Incapsula immagini o altri componenti in un contenitore"
+---
+
+Usa le cornici per mostrare immagini, diagrammi o altri contenuti visivi con uno stile uniforme e didascalie opzionali. Le cornici centrano il contenuto e lo separano visivamente dal testo circostante.
+
+<Frame>
+  <img src="https://mintlify-assets.b-cdn.net/yellowstone.jpeg" alt="Foto di un lago circondato da alberi, con montagne sullo sfondo nel Parco Nazionale di Yellowstone." />
+</Frame>
+
+<div id="captions">
+  ## Didascalie
+</div>
+
+Puoi aggiungere ulteriore contesto a un’immagine utilizzando la prop opzionale `caption`.
+
+<Frame caption="Il Parco nazionale di Yosemite è visitato da oltre 3,5 milioni di persone ogni anno">
+  <img src="https://mintlify-assets.b-cdn.net/yosemite.jpg" alt="Fotografia della Yosemite Valley." />
+</Frame>
+
+<div id="properties">
+  ## Proprietà
+</div>
+
+<ResponseField name="caption" type="string">
+  Testo didascalia opzionale da mostrare centrato sotto il componente.
+</ResponseField>
+
+<CodeGroup>
+
+```mdx Frame
+<Frame>
+  <img src="/path/image.jpg" alt="Testo alternativo descrittivo" />
+</Frame>
+```
+
+```mdx Frame with a caption
+<Frame caption="Testo della didascalia">
+  <img src="/path/image.jpg" alt="Testo alternativo descrittivo" />
+</Frame>
+```
+</CodeGroup>

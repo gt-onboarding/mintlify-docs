@@ -1,0 +1,212 @@
+---
+title: "Assistente"
+description: "Ajude os usuários a ter sucesso com o seu produto e a encontrar respostas mais rapidamente"
+---
+
+<Info>
+  O Assistente é habilitado automaticamente nos [planos Pro e Custom](https://mintlify.com/pricing?ref=assistant).
+</Info>
+
+<div id="about-the-assistant">
+  ## Sobre o Assistente
+</div>
+
+O Assistente responde a perguntas sobre sua documentação por meio de consultas em linguagem natural. Ele é incorporado diretamente ao seu site de documentação, oferecendo aos usuários acesso imediato a ajuda contextual.
+
+O Assistente usa RAG agente (geração aumentada por recuperação) com chamadas de ferramentas, com tecnologia do Claude Sonnet 4. Quando os usuários fazem perguntas, o Assistente:
+
+* **Pesquisa e recupera** conteúdo relevante da sua documentação para fornecer respostas precisas.
+* **Cita fontes** e fornece links navegáveis para levar os usuários diretamente às páginas referenciadas.
+* **Gera exemplos de código copiáveis** para ajudar os usuários a implementar soluções a partir da sua documentação.
+
+Cada mensagem enviada ao Assistente conta para a franquia de mensagens do seu plano. Se você exceder a franquia, mensagens adicionais geram cobranças por excedente. Você pode definir limites de gastos ou desativar o Assistente ao atingir sua franquia de mensagens.
+
+Você pode visualizar o uso do Assistente no seu painel para entender o comportamento dos usuários e a eficácia da documentação. Exporte e analise os dados das consultas para ajudar a identificar:
+
+* Perguntas frequentes que podem precisar de melhor cobertura.
+* Lacunas de conteúdo em que os usuários têm dificuldade em encontrar respostas.
+* Tópicos populares que podem se beneficiar de conteúdo adicional.
+
+<div id="configuring-the-assistant">
+  ## Configurando o Assistente
+</div>
+
+O Assistente vem ativado por padrão nos planos Pro e Custom.
+
+Gerencie o Assistente pelo seu [dashboard](https://dashboard.mintlify.com/products/assistant/settings). Clique em **Configuration** para ativar ou desativar o Assistente, configurar o tratamento das respostas, adicionar perguntas padrão e definir um limite de gastos.
+
+<Frame>
+  <img src="/images/assistant/configuration-light.png" alt="A barra de ferramentas do Assistente no dashboard. O botão Configuration está destacado com um retângulo laranja." className="block dark:hidden" />
+
+  <img src="/images/assistant/configuration-dark.png" alt="A barra de ferramentas do Assistente no dashboard. O botão Configuration está destacado com um retângulo laranja." className="hidden dark:block" />
+</Frame>
+
+<div id="enable-or-disable-the-assistant">
+  ### Ativar ou desativar o Assistente
+</div>
+
+Altere o status do Assistente para ativá-lo ou desativá-lo no seu site de documentação.
+
+<Frame>
+  <img src="/images/assistant/status-light.png" alt="O controle de status do Assistente no painel." className="block dark:hidden" />
+
+  <img src="/images/assistant/status-dark.png" alt="O controle de status do Assistente no painel." className="hidden dark:block" />
+</Frame>
+
+<div id="set-deflection-email">
+  ### Definir email de desvio
+</div>
+
+Na seção de tratamento de respostas, habilite o Assistente para redirecionar perguntas sem resposta para sua equipe de suporte. Especifique um endereço de email que o Assistente fornecerá aos usuários que fizerem perguntas às quais ele não consegue responder.
+
+<Frame>
+  <img src="/images/assistant/deflection-light.png" alt="O painel de desvio do Assistente no dashboard. O desvio do Assistente está ativado e support@mintlify.com está definido como o email de desvio." className="block dark:hidden" />
+
+  <img src="/images/assistant/deflection-dark.png" alt="O painel de desvio do Assistente no dashboard. O desvio do Assistente está ativado e support@mintlify.com está definido como o email de desvio." className="hidden dark:block" />
+</Frame>
+
+<div id="search-sites">
+  ### Pesquisa em sites
+</div>
+
+<Note>
+  A busca no site está em beta. Para ativá-la no seu site de documentação, [entre em contato com nossa equipe de vendas](mailto:gtm@mintlify.com).
+</Note>
+
+Na seção de tratamento de respostas, configure os sites que o Assistente pode pesquisar para obter contexto adicional ao responder perguntas.
+
+* Os sites devem ser publicamente acessíveis.
+* Sites que exigem JavaScript para carregar não são compatíveis.
+
+<Frame>
+  <img src="/images/assistant/search-sites-light.png" alt="O painel de pesquisa em sites do Assistente no dashboard. O Assistente está configurado para pesquisar os domínios mintlify.com e mintlify.com/blog." className="block dark:hidden" />
+
+  <img src="/images/assistant/search-sites-dark.png" alt="O painel de pesquisa em sites do Assistente no dashboard. O Assistente está configurado para pesquisar os domínios mintlify.com e mintlify.com/blog." className="hidden dark:block" />
+</Frame>
+
+Use a seguinte sintaxe de filtragem para controlar com mais precisão o que o Assistente pode pesquisar:
+
+* **Filtragem por domínio**
+  * `example.com`: Pesquisar apenas o domínio `example.com`
+  * `docs.example.com`: Pesquisar apenas o subdomínio `docs.example.com`
+  * `*.example.com`: Pesquisar todos os subdomínios de `example.com`
+* **Filtragem por caminho**
+  * `docs.example.com/api`: Pesquisar todas as páginas no subcaminho `/api`
+* **Múltiplos padrões**
+  * Adicione várias entradas para segmentar diferentes seções dos sites
+
+<div id="add-sample-questions">
+  ### Adicionar perguntas de exemplo
+</div>
+
+Ajude seus usuários a começarem a interagir com o Assistente adicionando perguntas de exemplo. Na seção de sugestões de pesquisa, adicione até três perguntas de exemplo.
+
+<Frame>
+  <img src="/images/assistant/search-suggestions-light.png" alt="O painel de sugestões de pesquisa no painel. What is an OpenAPI spec? está configurado como uma pergunta de exemplo." className="block dark:hidden" />
+
+  <img src="/images/assistant/search-suggestions-dark.png" alt="O painel de sugestões de pesquisa no painel. What is an OpenAPI spec? está configurado como uma pergunta de exemplo." className="hidden dark:block" />
+</Frame>
+
+<div id="set-a-spend-limit">
+  ### Definir um limite de gastos
+</div>
+
+Defina um limite de gastos para controlar o que acontece se você atingir sua cota de mensagens. Por padrão, o Assistente continua respondendo às perguntas dos usuários após você atingir sua cota de mensagens, o que gera cobranças excedentes.
+
+Quando você atinge seu limite de gastos, o Assistente é desativado até que sua cota de mensagens seja reiniciada.
+
+1. Selecione a guia **Billing**.
+
+<Frame>
+  <img src="/images/assistant/billing-light.png" alt="A guia Billing na página Assistant Configurations. A guia Billing está destacada com um retângulo laranja." className="block dark:hidden" style={{ width: '268px', height: 'auto' }} />
+
+  <img src="/images/assistant/billing-dark.png" alt="A guia Billing na página Assistant Configurations. A guia Billing está destacada com um retângulo laranja." className="hidden dark:block" style={{ width: '268px', height: 'auto' }} />
+</Frame>
+
+2. Defina um limite de gastos para mensagens do Assistente além da sua cota.
+3. Configure alertas de uso para receber um e-mail quando atingir uma determinada porcentagem do seu limite de gastos.
+
+<div id="using-the-assistant">
+  ## Usando o Assistente
+</div>
+
+Os usuários podem acessar o Assistente de três maneiras:
+
+* **Atalho de teclado**: <kbd>Command</kbd> + <kbd>I</kbd> (<kbd>Ctrl</kbd> + <kbd>I</kbd> no Windows)
+* **Botão do Assistente** ao lado da barra de pesquisa
+  <img
+    src="/images/assistant/assistant-button-light.png"
+    className="block dark:hidden rounded-2xl border border-gray-100 shadow-lg"
+    style={{
+    width: '268px',
+    height: 'auto',
+  }}
+    alt="Barra de pesquisa e botão do Assistente no modo claro."
+  />
+  <img
+    src="/images/assistant/assistant-button-dark.png"
+    className="hidden dark:block rounded-2xl border border-white/10 shadow-lg"
+    style={{
+    width: '268px',
+    height: 'auto',
+  }}
+    alt="Barra de pesquisa e botão do Assistente no modo escuro."
+  />
+* **URLs** com `?assistant=open` anexado abrem o Assistente quando a página é carregada. Por exemplo, [https://mintlify.com/docs?assistant=open](https://mintlify.com/docs?assistant=open).
+
+Cada método abre um painel de chat no lado direito da sua documentação. Os usuários podem fazer qualquer pergunta, e o Assistente pesquisa na sua documentação por uma resposta. Se nenhuma informação relevante for encontrada, o Assistente responderá que não pode responder à pergunta.
+
+<div id="making-content-ai-ingestible">
+  ## Tornando o conteúdo apropriado para ingestão por IA
+</div>
+
+Estruture sua documentação para ajudar o Assistente a fornecer respostas precisas e relevantes. Uma organização clara e um contexto abrangente beneficiam tanto leitores humanos quanto a compreensão da IA.
+
+<Card title="Estrutura e organização">
+  * Use marcação semântica.
+  * Escreva títulos descritivos para as seções.
+  * Crie uma hierarquia lógica de informações.
+  * Use formatação consistente em toda a sua documentação.
+  * Inclua metadados completos no frontmatter da página.
+  * Divida blocos longos de texto em parágrafos mais curtos.
+</Card>
+
+<Card title="Contexto">
+  * Defina termos e siglas específicos quando forem apresentados pela primeira vez.
+  * Forneça conteúdo conceitual suficiente sobre recursos e procedimentos.
+  * Inclua exemplos e casos de uso.
+  * Faça referência cruzada a tópicos relacionados.
+  * Adicione [Páginas ocultas](/pt-BR/organize/hidden-pages) com contexto adicional que os usuários não precisam, mas que o Assistente pode consultar.
+</Card>
+
+<div id="exporting-and-analyzing-queries">
+  ## Exportando e analisando consultas
+</div>
+
+Revise e exporte consultas do seu dashboard para entender como as pessoas interagem com sua documentação e identificar oportunidades de melhoria. Algumas formas pelas quais a análise de consultas pode ajudar você a aprimorar sua documentação:
+
+* Identifique lacunas de conteúdo em que consultas frequentes recebem respostas insuficientes.
+* Descubra padrões de comportamento dos usuários e necessidades de informação comuns a partir de temas e padrões nas consultas.
+* Priorize páginas com alto tráfego para melhorias de precisão e qualidade.
+
+Você pode explorar consultas no seu [dashboard](https://dashboard.mintlify.com/products/assistant), mas, para obter insights mais robustos, recomendamos exportar um arquivo `CSV` com suas consultas, respostas e fontes para analisar na sua ferramenta de IA preferida.
+
+1. Acesse a [página do Assistente](https://dashboard.mintlify.com/products/assistant) no seu dashboard.
+2. Selecione **Export to CSV**.
+3. Analise os dados exportados usando sua ferramenta preferida.
+
+<Card title="Exemplos de prompts de análise">
+  * Resuma os temas mais comuns das consultas.
+  * Liste quaisquer consultas que não tenham fontes citadas.
+  * Encontre padrões em interações malsucedidas.
+</Card>
+
+<div id="troubleshooting">
+  ## Solução de problemas
+</div>
+
+<Accordion title="Barra de chat do Assistente não visível">
+  Se a interface do Assistente não estiver visível em determinados navegadores, talvez seja necessário enviar um relatório de falso positivo para a [EasyList](https://easylist.to). Navegadores que usam a EasyList Cookies List, como Brave e Comet, às vezes bloqueiam o Assistente ou outros elementos da interface. A EasyList Cookies List inclui uma regra específica de domínio que oculta elementos fixos em certos domínios para bloquear banners de cookies. Essa regra afeta inadvertidamente componentes legítimos da interface.
+
+  Envie um relatório de falso positivo para a [EasyList](https://github.com/easylist/easylist) solicitando a remoção da regra. Isso resolve o problema para todos os usuários assim que a lista de filtros for atualizada.
+</Accordion>

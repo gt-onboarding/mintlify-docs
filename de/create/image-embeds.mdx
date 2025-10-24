@@ -1,0 +1,205 @@
+---
+title: "Bilder und Embeds"
+description: "Bilder, Videos und iframes hinzufügen"
+---
+
+Fügen Sie Ihrer Dokumentation Bilder hinzu, betten Sie Videos ein und binden Sie interaktive Inhalte per iframe ein.
+
+<Frame>
+  <img className="rounded-xl" src="https://mintlify-assets.b-cdn.net/bigbend.jpg" alt="Foto einer malerischen Landschaft mit violetten Blumen im Vordergrund, Bergen im Hintergrund und einem blauen Himmel mit vereinzelten Wolken." />
+</Frame>
+
+<div id="images">
+  ## Bilder
+</div>
+
+Fügen Sie Bilder hinzu, um Ihrer Dokumentation visuellen Kontext, Beispiele oder dekorative Elemente hinzuzufügen.
+
+<div id="basic-image-syntax">
+  ### Grundlegende Bildsyntax
+</div>
+
+Verwende die [Markdown-Syntax](https://www.markdownguide.org/basic-syntax/#images), um deiner Dokumentation Bilder hinzuzufügen:
+
+```mdx
+![Alternativtext zur Bildbeschreibung](/path/to/image.png)
+```
+
+<Tip>
+  Fügen Sie stets aussagekräftigen Alt-Text hinzu, um Barrierefreiheit und SEO zu verbessern. Der Alt-Text sollte klar beschreiben, was auf dem Bild zu sehen ist.
+</Tip>
+
+Bilddateien dürfen maximal 20 MB groß sein. Größere Dateien sollten Sie auf einem CDN-Dienst wie [Amazon S3](https://aws.amazon.com/s3) oder [Cloudinary](https://cloudinary.com) hosten.
+
+<div id="html-image-embeds">
+  ### HTML-Bildeinbettungen
+</div>
+
+Für mehr Kontrolle über die Bilddarstellung verwenden Sie HTML-`<img>`-Tags:
+
+```jsx
+<img 
+  src="/images/dashboard.png" 
+  alt="Haupt-Dashboard-Oberfläche"
+  style={{height: "300px", width: "400px"}}
+  className="rounded-lg"
+/>
+```
+
+<div id="resize-images-with-inline-styles">
+  #### Bilder mit Inline-Styles skalieren
+</div>
+
+Verwenden Sie JSX-Inline-Styles mit dem Attribut `style`, um Bilder zu skalieren:
+
+```jsx
+<img
+  src="/images/architecture.png"
+  style={{width: "450px", height: "auto"}}
+  alt="Diagramm der Systemarchitektur"
+/>
+```
+
+<div id="disable-zoom-functionality">
+  #### Zoomfunktion deaktivieren
+</div>
+
+Um das standardmäßige Zoomen bei Klick auf Bilder zu deaktivieren, fügen Sie die Eigenschaft `noZoom` hinzu:
+
+```html highlight="4"
+<img 
+  src="/images/screenshot.png" 
+  alt="Beschreibender Alternativtext"
+  noZoom
+/>
+```
+
+<div id="link-images">
+  #### Bilder verlinken
+</div>
+
+Um ein Bild klickbar zu machen, umschließe es mit einem Anchor-Tag und füge die Eigenschaft `noZoom` hinzu:
+
+```html
+<a href="https://mintlify.com" target="_blank">
+  <img 
+    src="/images/logo.png" 
+    alt="Mintlify-Logo"
+    noZoom
+  />
+</a>
+```
+
+<Note>
+  Bilder innerhalb von Anchor-Tags zeigen automatisch einen Zeiger-Cursor, um anzuzeigen, dass sie anklickbar sind.
+</Note>
+
+<div id="light-and-dark-mode-images">
+  #### Bilder für Light- und Dark-Mode
+</div>
+
+Um unterschiedliche Bilder für helle und dunkle Designs anzuzeigen, verwende Tailwind-CSS-Klassen:
+
+```html
+<!-- Light-Mode-Bild -->
+<img 
+  className="block dark:hidden" 
+  src="/images/light-mode.png" 
+  alt="Light-Mode-Oberfläche"
+/>
+
+<!-- Dark-Mode-Bild -->
+<img 
+  className="hidden dark:block" 
+  src="/images/dark-mode.png" 
+  alt="Dark-Mode-Oberfläche"
+/>
+```
+
+<div id="videos">
+  ## Videos
+</div>
+
+Mintlify unterstützt [HTML-Tags in Markdown](https://www.markdownguide.org/basic-syntax/#html) und gibt Ihnen die Flexibilität, ansprechende Inhalte zu erstellen.
+
+<Tip>
+  Fügen Sie immer Fallback-Text innerhalb von Videoelementen ein, für Browser, die keine Videowiedergabe unterstützen.
+</Tip>
+
+<div id="youtube-embeds">
+  ### YouTube-Einbettungen
+</div>
+
+Betten Sie YouTube-Videos mithilfe von iframe-Elementen ein:
+
+```html
+<iframe
+  className="w-full aspect-video rounded-xl"
+  src="https://www.youtube.com/embed/4KzFe50RQkQ"
+  title="YouTube-Videoplayer"
+  frameBorder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+></iframe>
+```
+
+<Frame>
+  <iframe className="w-full aspect-video rounded-xl" src="https://www.youtube.com/embed/4KzFe50RQkQ" title="YouTube-Videoplayer" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
+</Frame>
+
+<div id="self-hosted-videos">
+  ### Selbstgehostete Videos
+</div>
+
+Verwenden Sie das HTML-Element `<video>` für selbstgehostete Videoinhalte:
+
+```html
+<video
+  controls
+  className="w-full aspect-video rounded-xl"
+  src="link-zu-ihrem-video.com"
+></video>
+```
+
+<div id="autoplay-videos">
+  ### Videos automatisch abspielen
+</div>
+
+Um ein Video automatisch abzuspielen, verwende:
+
+```html
+<video
+  autoPlay
+  muted
+  loop
+  playsInline
+  className="w-full aspect-video rounded-xl"
+  src="/videos/demo.mp4"
+></video>
+```
+
+<Note>
+  Bei der Verwendung der JSX‑Syntax schreibe mehrteilige Attribute in camelCase: `autoPlay`, `playsInline`, `allowFullScreen`.
+</Note>
+
+<div id="iframes">
+  ## iframes
+</div>
+
+Bette externe Inhalte mithilfe von iframe-Elementen ein:
+
+```html
+<iframe 
+  src="https://example.com/embed" 
+  title="Eingebetteter Inhalt"
+  className="w-full h-96 rounded-xl"
+></iframe>
+```
+
+<div id="related-resources">
+  ## Verwandte Ressourcen
+</div>
+
+<Card title="Referenz zur Frame-Komponente" icon="frame" horizontal href="/de/components/frames">
+  Erfahren Sie, wie Sie die Frame-Komponente zum Präsentieren von Bildern verwenden.
+</Card>

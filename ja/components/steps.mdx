@@ -1,0 +1,71 @@
+---
+title: "ステップ"
+description: "Steps コンポーネントでコンテンツを手順化する"
+---
+
+import IconsOptional from "/snippets/ja/icons-optional.mdx";
+
+一連の手順やイベントを順を追って表示するには、Steps を使用します。ステップは必要なだけ追加できます。
+
+<Steps>
+  <Step title="最初のステップ">
+    これは最初のステップにのみ該当する手順やコンテンツです。
+  </Step>
+
+  <Step title="2番目のステップ">
+    これは2番目のステップにのみ該当する手順やコンテンツです。
+  </Step>
+
+  <Step title="3番目のステップ">
+    これは3番目のステップにのみ該当する手順やコンテンツです。
+  </Step>
+</Steps>
+
+```mdx Steps example
+<Steps>
+  <Step title="ステップ1">
+    ステップ1に関する手順またはコンテンツです。
+  </Step>
+  <Step title="ステップ2">
+    ステップ2に関する手順またはコンテンツです。
+  </Step>
+  <Step title="ステップ3">
+    ステップ3に関する手順またはコンテンツです。
+  </Step>
+</Steps>
+```
+
+
+<div id="steps-properties">
+  ## Steps のプロパティ
+</div>
+
+<ResponseField name="children" type="ReactElement<StepProps>[]" required>
+  `Step` コンポーネントの配列。
+</ResponseField>
+
+<ResponseField name="titleSize" type="string" default="p">
+  ステップタイトルのサイズ。`p`、`h2`、`h3` のいずれか。
+</ResponseField>
+
+<div id="individual-step-properties">
+  ## 各ステップのプロパティ
+</div>
+
+<ResponseField name="children" type="string | ReactNode" required>
+  ステップの内容。プレーンテキストまたはコンポーネントとして指定できます。
+</ResponseField>
+
+<IconsOptional />
+
+<ResponseField name="title" type="string">
+  ステップのメインテキストで、インジケーターの横に表示されます。
+</ResponseField>
+
+<ResponseField name="stepNumber" type="number">
+  ステップ番号。
+</ResponseField>
+
+<ResponseField name="titleSize" type="string" default="p">
+  ステップタイトルのサイズ。`p`、`h2`、`h3` のいずれか。
+</ResponseField>

@@ -1,0 +1,45 @@
+---
+title: "Sezioni espandibili"
+description: "Attiva/disattiva per mostrare proprietà annidate"
+---
+
+Usa le sezioni espandibili per mostrare o nascondere contenuti annidati all&#39;interno dei campi di risposta. Le sezioni espandibili sono particolarmente utili per visualizzare proprietà di oggetti complesse nella documentazione delle API.
+
+<ResponseField name="user" type="User Object">
+  <Expandable title="properties">
+    <ResponseField name="full_name" type="string">
+      Il nome completo dell&#39;utente
+    </ResponseField>
+
+    <ResponseField name="is_over_21" type="boolean">
+      Indica se l&#39;utente ha più di 21 anni
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+```mdx Expandable example
+<ResponseField name="user" type="User Object">
+  <Expandable title="properties">
+    <ResponseField name="full_name" type="string">
+      Il nome completo dell'utente
+    </ResponseField>
+
+    <ResponseField name="is_over_21" type="boolean">
+      Indica se l'utente ha più di 21 anni
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+```
+
+
+<div id="properties">
+  ## Proprietà
+</div>
+
+<ResponseField name="title" type="string">
+  Il nome dell'oggetto che viene mostrato.
+</ResponseField>
+
+<ResponseField name="defaultOpen" type="boolean" default="false">
+  Imposta su `true` per aprire l’elemento espandibile al caricamento della pagina
+</ResponseField>

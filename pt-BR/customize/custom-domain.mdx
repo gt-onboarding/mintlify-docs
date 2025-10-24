@@ -1,0 +1,81 @@
+---
+title: "Domínio personalizado"
+description: "Hospede sua documentação no domínio personalizado do seu site"
+og:description: "Hospede sua documentação no domínio personalizado do seu site"
+---
+
+Para hospedar sua documentação em um domínio personalizado, defina o domínio desejado nas configurações do Mintlify e ajuste as configurações de DNS no seu provedor de domínio.
+
+<Info>
+  Quer configurar um subdiretório personalizado como `mintlify.com/docs`? Consulte a documentação de [subdiretórios personalizados](/pt-BR/deploy/cloudflare).
+</Info>
+
+<div id="dashboard-settings">
+  ## Configurações do painel
+</div>
+
+1. Acesse seu [painel](https://dashboard.mintlify.com).
+2. Selecione **Settings**.
+3. Selecione **Domain Setup**.
+4. Insira o domínio personalizado desejado. Por exemplo, `docs.mintlify.com`.
+
+<Frame>
+  <img alt="A página de configuração de Custom Domain, com o campo Enter your domain URL destacado." className="block dark:hidden" src="/images/add-custom-domain-light.png" />
+
+  <img alt="A página de configuração de Custom Domain, com o campo Enter your domain URL destacado." className="hidden dark:block" src="/images/add-custom-domain-dark.png" />
+</Frame>
+
+<div id="configure-your-dns">
+  ## Configure seu DNS
+</div>
+
+1. Acesse as configurações de DNS do seu domínio no site do seu provedor de domínio.
+2. Crie um novo registro DNS com os seguintes valores:
+
+```bash
+CNAME | docs | cname.vercel-dns.com.
+```
+
+<Frame>
+  <img alt="Exemplo de configurações de CNAME para um domínio customizado hospedado na Vercel." src="https://mintlify-assets.b-cdn.net/mintlify-dns.png" />
+</Frame>
+
+<div id="provider-specific-settings">
+  ## Configurações específicas do provedor
+</div>
+
+<AccordionGroup>
+  <Accordion title="Verificação da Vercel">
+    Se a Vercel for seu provedor de domínio, você deve adicionar um registro `TXT` de verificação. Essas informações aparecem no seu painel após enviar seu domínio personalizado e também são enviadas por e-mail.
+  </Accordion>
+
+  <Accordion title="Configurações de segurança do Cloudflare">
+    Se o Cloudflare for seu provedor de DNS, você deve ativar a opção de segurança &quot;full strict&quot; na configuração de HTTPS.
+  </Accordion>
+</AccordionGroup>
+
+<div id="set-a-canonical-url">
+  ## Defina uma URL canônica
+</div>
+
+Após configurar o DNS, defina uma URL canônica para garantir que os mecanismos de pesquisa indexem seu domínio preferido. A URL canônica informa aos mecanismos de pesquisa qual versão da sua documentação é a principal. Isso melhora o SEO quando sua documentação está acessível por várias URLs e evita problemas de conteúdo duplicado.
+
+Adicione a meta tag `canonical` ao `docs.json`:
+
+```json
+"seo": {
+    "metatags": {
+        "canonical": "https://www.seu-dominio-customizado-aqui.com"
+    }
+}
+```
+
+Substitua `https://www.your-custom-domain-here.com` pelo seu domínio personalizado real. Por exemplo, se seu domínio personalizado for `docs.mintlify.com`, você usaria:
+
+```json
+"seo": {
+    "metatags": {
+        "canonical": "https://docs.mintlify.com"
+    }
+}
+```

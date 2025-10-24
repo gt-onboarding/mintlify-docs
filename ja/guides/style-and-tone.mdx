@@ -1,0 +1,39 @@
+---
+title: "文体とトーン"
+description: "効果的な技術ドキュメントを書くための原則"
+---
+
+<Tip>
+  このページでは、技術ドキュメント執筆における文体の選択、よくある間違い、実践のヒントを解説します。
+</Tip>
+
+<div id="writing-principles">
+  ## 執筆原則
+</div>
+
+* **簡潔に。** 読者は目的を達成するためにドキュメントを読みます。素早く要点にたどり着きましょう。
+* **巧妙さより明快さ。** シンプルで率直に書き、専門用語や複雑な文構造は避けましょう。
+* **能動態を使う。** 「A configuration file should be created」ではなく「Create a configuration file.」のように書きましょう。
+* **流し読みしやすく。** 見出しで読者の現在地を示し、長い段落は分割します。箇条書きやリストでスキャンしやすくしましょう。
+* **二人称で書く。** 読者に直接語りかけることで手順が追いやすくなり、ドキュメントがより親しみやすく感じられます。
+
+<div id="common-writing-mistakes">
+  ## よくある執筆ミス
+</div>
+
+* **スペルや文法の誤り。** ドキュメントにわずかな誤りがあるだけでも、信頼性が下がり読みづらくなります。
+* **用語の不統一。** ある段落では“API key”、次の段落では“API token”と呼ぶと、読者は追いづらくなります。
+* **製品中心の用語。** ユーザーはあなたの製品の全体像や文脈を把握していません。ユーザーに馴染みのある言葉を使いましょう。
+* **口語表現。** とくにローカリゼーションでは、口語表現は明確さを損ないます。
+
+<div id="tips-for-enforcing-style">
+  ## スタイルを徹底するためのヒント
+</div>
+
+既存のスタイルガイドを活用して、ドキュメントを標準化しましょう:
+
+* [Microsoft Style Guide](https://learn.microsoft.com/en-us/style-guide/welcome/)
+* [Splunk Style Guide](https://docs.splunk.com/Documentation/StyleGuide/current/StyleGuide/Howtouse)
+* [Google Developer Documentation Style Guide](https://developers.google.com/style)
+
+適用する執筆原則が決まったら、可能な限り自動化しましょう。[CI チェック](/ja/deploy/ci) や [Vale](https://vale.sh) のようなリンターを利用できます。

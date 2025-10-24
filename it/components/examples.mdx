@@ -1,0 +1,63 @@
+---
+title: "Esempi"
+description: "Mostra i blocchi di codice nella barra laterale destra sui dispositivi desktop"
+---
+
+I componenti `<RequestExample>` e `<ResponseExample>` mostrano blocchi di codice nella barra laterale destra per creare un layout a due colonne che mantiene gli esempi visibili mentre gli utenti scorrono i contenuti. Questi componenti sono pensati per la documentazione delle API, ma funzionano su tutte le pagine.
+
+Casi d&#39;uso comuni:
+
+* Documentazione degli endpoint API con esempi di richiesta e risposta
+* Esempi di configurazione affiancati a testo esplicativo
+* Esempi di codice a cui gli utenti fanno riferimento mentre seguono le istruzioni
+* Esempi di “prima e dopo” nei tutorial
+
+Sui dispositivi mobili, i componenti `<RequestExample>` e `<ResponseExample>` vengono visualizzati come normali blocchi di codice e possono essere scorsi oltre.
+
+<RequestExample>
+  ```bash Request
+    curl --request POST \
+      --url https://dog-api.kinduff.com/api/facts
+  ```
+</RequestExample>
+
+<ResponseExample>
+  ```json Response
+  { "status": "success" }
+  ```
+</ResponseExample>
+
+<div id="requestexample">
+  ## RequestExample
+</div>
+
+Usa `<RequestExample>` per ancorare esempi di codice nella barra laterale destra. Questo componente funziona in modo simile a [CodeGroup](/it/components/code-groups), ma mostra il codice nella barra laterale invece che in linea.
+
+Puoi includere più blocchi di codice all&#39;interno di un singolo `<RequestExample>`. Ogni blocco di codice deve avere un attributo title.
+
+````mdx RequestExample
+<RequestExample>
+
+```bash Request
+  curl --request POST \
+    --url https://dog-api.kinduff.com/api/facts
+```
+
+</RequestExample>
+````
+
+<div id="responseexample">
+  ## ResponseExample
+</div>
+
+Il componente `<ResponseExample>` blocca gli esempi di codice nella barra laterale destra, al di sotto di qualsiasi contenuto `<RequestExample>` presente nella stessa pagina.
+
+````mdx ResponseExample
+<ResponseExample>
+
+```json Response
+{ "status": "success" }
+```
+
+</ResponseExample>
+````

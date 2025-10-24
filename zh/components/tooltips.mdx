@@ -1,0 +1,28 @@
+---
+title: "工具提示"
+description: "当鼠标悬停在文本上时显示定义"
+---
+
+使用工具提示在用户将鼠标悬停在一段文本上时提供额外的上下文或定义。工具提示可以包含可选的行动链接。
+
+**示例**：<Tooltip tip="Application Programming Interface：一组用于使软件应用程序彼此通信的协议。" cta="阅读我们的 API 指南" href="/zh/api-reference">API</Tooltip> 文档可帮助开发者了解如何与您的服务集成。
+
+```mdx Tooltip example wrap
+<Tooltip tip="应用程序编程接口：一组用于软件应用程序通信的协议。" cta="阅读我们的 API 指南" href="/api-reference">API</Tooltip> 文档帮助开发者了解如何集成您的服务。
+```
+
+<div id="properties">
+  ## 属性
+</div>
+
+<ResponseField name="tip" type="string" required>
+  工具提示中显示的文本。
+</ResponseField>
+
+<ResponseField name="cta" type="string">
+  工具提示内链接的号召性用语文本。
+</ResponseField>
+
+<ResponseField name="href" type="string">
+  号召性用语链接的 URL。使用 `cta` 时必填。
+</ResponseField>

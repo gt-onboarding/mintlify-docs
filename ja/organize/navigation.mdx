@@ -1,0 +1,676 @@
+---
+title: "ナビゲーション"
+description: "ドキュメントのナビゲーション階層を構築・カスタマイズする"
+---
+
+`docs.json` の [navigation](organize/settings#param-navigation) プロパティは、ドキュメントの構造と情報階層を管理します。
+
+適切にナビゲーションを設定すれば、ユーザーが目的の情報を的確に見つけられるようにコンテンツを整理できます。
+
+<div id="pages">
+  ## ページ
+</div>
+
+ページは最も基本的なナビゲーションコンポーネントです。ページは、ドキュメントを構成する MDX ファイルに対応します。
+
+<img className="block dark:hidden pointer-events-none" src="/images/navigation/pages-light.png" alt="ページの装飾用グラフィック。" />
+
+<img className="hidden dark:block pointer-events-none" src="/images/navigation/pages-dark.png" alt="ページの装飾用グラフィック。" />
+
+`navigation` オブジェクトでは、`pages` は配列で、各要素は[ページファイル](organize/pages)へのパスを参照する必要があります。
+
+```json
+{
+  "navigation": {
+    "pages": [
+      "settings",
+      "pages",
+      "navigation",
+      "themes",
+      "custom-domain"
+    ]
+  }
+}
+```
+
+<div id="groups">
+  ## グループ
+</div>
+
+グループを使って、サイドバーのナビゲーションをセクションごとに整理します。グループは入れ子にでき、タグを付けたり、アイコンでスタイルを指定したりできます。
+
+<img className="block dark:hidden pointer-events-none" src="/images/navigation/groups-light.png" alt="グループの装飾的なグラフィック。" />
+
+<img className="hidden dark:block pointer-events-none" src="/images/navigation/groups-dark.png" alt="グループの装飾的なグラフィック。" />
+
+`navigation` オブジェクトでは、`groups` は各要素が `group` フィールドと `pages` フィールドを必須とするオブジェクトの配列です。`icon`、`tag`、`expanded` フィールドは任意です。
+
+```json
+{
+  "navigation": {
+    "groups": [
+      {
+        "group": "はじめに",
+        "icon": "play",
+        "expanded": false,
+        "pages": [
+          "quickstart",
+          {
+            "group": "編集",
+            "icon": "pencil",
+            "pages": [
+              "installation",
+              "editor"
+            ]
+          }
+        ]
+      },
+      {
+        "group": "コンテンツを書く",
+        "icon": "notebook-text",
+        "tag": "NEW",
+        "pages": [
+          "writing-content/page",
+          "writing-content/text"
+        ]
+      }
+    ]
+  }
+}
+```
+
+<div id="default-expanded-state">
+  ### 既定の展開状態
+</div>
+
+ナビゲーションサイドバーで既定で展開された状態にするには、グループに `expanded: true` を設定します。これは、重要なセクションを目立たせたり、主要なコンテンツの見つけやすさを高めるのに役立ちます。
+
+```json
+{
+  "group": "はじめに",
+  "expanded": true,
+  "pages": ["quickstart", "installation"]
+}
+```
+
+<div id="tabs">
+  ## タブ
+</div>
+
+タブは、ドキュメント内に別々の URL パスを持つ明確なセクションを作成します。ドキュメント上部に横並びのナビゲーションバーを表示し、ユーザーがセクション間を切り替えられるようにします。
+
+<img className="block dark:hidden pointer-events-none" src="/images/navigation/tabs-light.png" alt="タブ型ナビゲーションの装飾的なグラフィック" />
+
+<img className="hidden dark:block pointer-events-none" src="/images/navigation/tabs-dark.png" alt="タブ型ナビゲーションの装飾的なグラフィック" />
+
+`navigation` オブジェクトでは、`tabs` は配列で、各要素は必須の `tab` フィールドを持つオブジェクトです。グループ、ページ、アイコン、外部ページへのリンクなど、他のナビゲーションフィールドも含められます。
+
+```json
+{
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "APIリファレンス",
+        "icon": "square-terminal",
+        "pages": [
+          "api-reference/get",
+          "api-reference/post",
+          "api-reference/delete"
+        ]
+      },
+      {
+        "tab": "SDK",
+        "icon": "code",
+        "pages": [
+          "sdk/fetch",
+          "sdk/create",
+          "sdk/delete"
+        ]
+      },
+      {
+        "tab": "ブログ",
+        "icon": "newspaper",
+        "href": "https://external-link.com/blog"
+      }
+    ]
+  }
+}
+```
+
+<div id="menus">
+  ### メニュー
+</div>
+
+メニューはタブにドロップダウンのナビゲーション項目を追加します。メニューを使うと、ユーザーはタブ内の特定のページに直接移動できます。
+
+`navigation` オブジェクトでは、`menu` は配列で、各要素は `item` フィールドが必須のオブジェクトです。さらに、グループ、ページ、アイコン、外部ページへのリンクなどのほかのナビゲーション用フィールドを含めることができます。
+
+```json
+{
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "開発者ツール",
+        "icon": "square-terminal",
+        "menu": [
+          {
+            "item": "APIリファレンス",
+            "icon": "rocket",
+            "groups": [
+              {
+                "group": "コアエンドポイント",
+                "icon": "square-terminal",
+                "pages": [
+                  "api-reference/get",
+                  "api-reference/post",
+                  "api-reference/delete"
+                ]
+              }
+            ]
+          },
+          {
+            "item": "SDK",
+            "icon": "code",
+            "description": "APIとの連携に使用するSDK",
+            "pages": [
+              "sdk/fetch",
+              "sdk/create",
+              "sdk/delete"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+<div id="anchors">
+  ## アンカー
+</div>
+
+アンカーは、サイドバー上部に常時表示されるナビゲーション項目を追加します。コンテンツを区切ったり、外部リソースへすばやくアクセスできるようにしたり、目立つCTA（行動喚起）を配置するために利用できます。
+
+<img className="block dark:hidden pointer-events-none" src="/images/navigation/anchors-light.png" alt="アンカー型ナビゲーションの装飾的なグラフィック。" />
+
+<img className="hidden dark:block pointer-events-none" src="/images/navigation/anchors-dark.png" alt="アンカー型ナビゲーションの装飾的なグラフィック。" />
+
+`navigation` オブジェクトでは、`anchors` は配列で、各要素は `anchor` フィールドを必須とするオブジェクトです。さらに、グループ、ページ、アイコン、外部ページへのリンクなどのほかのナビゲーション項目を含めることができます。
+
+```json
+{
+  "navigation": {
+    "anchors": [
+      {
+        "anchor": "ドキュメント",
+        "icon": "book-open",
+        "pages": [
+          "quickstart",
+          "development",
+          "navigation"
+        ]
+      },
+      {
+        "anchor": "APIリファレンス",
+        "icon": "square-terminal",
+        "pages": [
+          "api-reference/get",
+          "api-reference/post",
+          "api-reference/delete"
+        ]
+      },
+      {
+        "anchor": "ブログ",
+        "href": "https://external-link.com/blog"
+      }
+    ]
+  }
+}
+```
+
+外部リンクのみに遷移するアンカーには `global` キーワードを使用します。`global` オブジェクト内のアンカーには `href` フィールドが必須で、相対パスを指すことはできません。
+
+グローバルアンカーは、ドキュメントには含まれないものの、ブログやサポートポータルなど、ユーザーがすぐにアクセスできるべきリソースへのリンクに特に有用です。
+
+```json
+{
+  "navigation": {
+    "global":  {
+      "anchors": [
+        {
+          "anchor": "コミュニティ",
+          "icon": "house",
+          "href": "https://slack.com"
+        },
+        {
+          "anchor": "ブログ",
+          "icon": "pencil",
+          "href": "https://mintlify.com/blog"
+        }
+      ]
+    },
+    "tabs": /*...*/
+  }
+}
+```
+
+<div id="dropdowns">
+  ## ドロップダウン
+</div>
+
+ドロップダウンは、サイドバー ナビゲーションの上部にある展開式メニューに含まれます。ドロップダウン内の各項目は、ドキュメント内の各セクションへ移動します。
+
+<img className="block dark:hidden pointer-events-none" src="/images/navigation/dropdowns-light.png" alt="ドロップダウン ナビゲーションの装飾的なグラフィック。" />
+
+<img className="hidden dark:block pointer-events-none" src="/images/navigation/dropdowns-dark.png" alt="ドロップダウン ナビゲーションの装飾的なグラフィック。" />
+
+`navigation` オブジェクトでは、`dropdowns` は配列で、各要素は `dropdown` フィールドが必須であり、グループ、ページ、アイコン、外部ページへのリンクなどの他のナビゲーションフィールドも含められます。
+
+```json
+{
+  "navigation": {
+    "dropdowns": [
+      {
+        "dropdown": "ドキュメント",
+        "icon": "book-open",
+        "pages": [
+          "quickstart",
+          "development",
+          "navigation"
+        ]
+      },
+      {
+        "dropdown": "APIリファレンス",
+        "icon": "square-terminal",
+        "pages": [
+          "api-reference/get",
+          "api-reference/post",
+          "api-reference/delete"
+        ]
+      },
+      {
+        "dropdown": "ブログ",
+        "href": "https://external-link.com/blog"
+      }
+    ]
+  }
+}
+```
+
+<div id="products">
+  ## Products
+</div>
+
+<img className="block dark:hidden pointer-events-none" src="/images/navigation/product-switcher-light.png" alt="プロダクトスイッチャーの装飾用グラフィック。" />
+
+<img className="hidden dark:block pointer-events-none" src="/images/navigation/product-switcher-dark.png" alt="プロダクトスイッチャーの装飾用グラフィック。" />
+
+Products は、プロダクト別ドキュメントを整理するための専用のナビゲーション領域を作成します。ドキュメント内で、提供製品やサービス、主要な機能セットを分ける際に Products を使用します。
+
+`navigation` オブジェクトでは、`products` は配列で、各要素は必須の `product` フィールドを持ち、さらに groups、pages、icons、外部ページへの links などの他のナビゲーションフィールドを含めることができます。
+
+```json
+{
+  "navigation": {
+    "products": [
+      {
+        "product": "Core API",
+        "description": "Core APIの概要",    
+        "icon": "api",
+        "groups": [
+          {
+            "group": "はじめに",
+            "pages": [
+              "core-api/quickstart",
+              "core-api/authentication"
+            ]
+          },
+          {
+            "group": "エンドポイント",
+            "pages": [
+              "core-api/users",
+              "core-api/orders"
+            ]
+          }
+        ]
+      },
+      {
+        "product": "Analytics Platform",
+        "description": "Analytics Platformの概要",
+        "icon": "chart-bar",
+        "pages": [
+          "analytics/overview",
+          "analytics/dashboard",
+          "analytics/reports"
+        ]
+      },
+      {
+        "product": "Mobile SDK",
+        "description": "Mobile SDKの概要",
+        "icon": "smartphone",
+        "href": "https://mobile-sdk-docs.example.com"
+      }
+    ]
+  }
+}
+```
+
+<div id="openapi">
+  ## OpenAPI
+</div>
+
+OpenAPI 仕様をナビゲーション構造に直接組み込み、API ドキュメントを自動生成します。専用の API セクションを作成するか、エンドポイントページを他のナビゲーション要素内に配置できます。
+
+ナビゲーション階層の任意のレベルでデフォルトの OpenAPI 仕様を設定できます。子要素は独自の仕様を定義しない限り、その仕様を継承します。
+
+```json
+{
+  "navigation": {
+    "groups": [
+      {
+        "group": "APIリファレンス",
+        "openapi": "/path/to/openapi-v1.json",
+        "pages": [
+          "概要",
+          "認証",
+          "GET /users",
+          "POST /users",
+          {
+            "group": "プロダクト",
+            "openapi": "/path/to/openapi-v2.json",
+            "pages": [
+              "GET /products",
+              "POST /products"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+ドキュメントで OpenAPI エンドポイントを参照する方法については、[OpenAPI セットアップ](/ja/api-playground/openapi-setup)を参照してください。
+
+<div id="versions">
+  ## バージョン
+</div>
+
+ナビゲーションをバージョンごとに分割できます。バージョンはドロップダウンメニューから選択可能です。
+
+<img className="block dark:hidden pointer-events-none" src="/images/navigation/versions-light.png" alt="バージョン切り替えの装飾用グラフィック。" />
+
+<img className="hidden dark:block pointer-events-none" src="/images/navigation/versions-dark.png" alt="バージョン切り替えの装飾用グラフィック。" />
+
+`navigation` オブジェクトでは、`versions` は配列で、各要素は `version` フィールドを必須とするオブジェクトで、他の任意のナビゲーション用フィールドも含められます。
+
+```json
+{
+  "navigation": {
+    "versions": [
+      {
+        "version": "1.0.0",
+        "groups": [
+          {
+            "group": "はじめに",
+            "pages": ["v1/overview", "v1/quickstart", "v1/development"]
+          }
+        ]
+      },
+      {
+        "version": "2.0.0",
+        "groups": [
+          {
+            "group": "はじめに",
+            "pages": ["v2/overview", "v2/quickstart", "v2/development"]
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+<div id="languages">
+  ## 言語
+</div>
+
+ナビゲーションを言語ごとに分割できます。言語はドロップダウンメニューから選択します。
+
+<img className="block dark:hidden pointer-events-none" src="/images/navigation/languages-light.png" alt="言語切り替えの装飾的なグラフィック。" />
+
+<img className="hidden dark:block pointer-events-none" src="/images/navigation/languages-dark.png" alt="言語切り替えの装飾的なグラフィック。" />
+
+`navigation` オブジェクトでは、`languages` は配列で、各要素は必須の `language` フィールドを持つオブジェクトです。他の任意のナビゲーション用フィールドも含められます。
+
+現在、以下の言語でローカライズに対応しています:
+
+<CardGroup cols={2}>
+  <Card title="Arabic (ar)" icon={<img src="https://mintlify.s3.us-west-1.amazonaws.com/mintlify/images/navigation/languages/ar.png" className="w-6 h-6 my-0" />} horizontal />
+
+  <Card title="Chinese (cn)" icon={<img src="https://mintlify.s3.us-west-1.amazonaws.com/mintlify/images/navigation/languages/cn.png" className="w-6 h-6 my-0" />} horizontal />
+
+  <Card title="Chinese (zh-Hant)" icon={<img src="https://mintlify.s3.us-west-1.amazonaws.com/mintlify/images/navigation/languages/cn.png" className="w-6 h-6 my-0" />} horizontal />
+
+  <Card title="English (en)" icon={<img src="https://mintlify.s3.us-west-1.amazonaws.com/mintlify/images/navigation/languages/en.png" className="w-6 h-6 my-0" />} horizontal />
+
+  <Card title="French (fr)" icon={<img src="https://mintlify.s3.us-west-1.amazonaws.com/mintlify/images/navigation/languages/fr.png" className="w-6 h-6 my-0" />} horizontal />
+
+  <Card title="German (de)" icon={<img src="https://mintlify.s3.us-west-1.amazonaws.com/mintlify/images/navigation/languages/de.png" className="w-6 h-6 my-0" />} horizontal />
+
+  <Card title="Indonesian (id)" icon={<img src="https://mintlify.s3.us-west-1.amazonaws.com/mintlify/images/navigation/languages/id.png" className="w-6 h-6 my-0" />} horizontal />
+
+  <Card title="Italian (it)" icon={<img src="https://mintlify.s3.us-west-1.amazonaws.com/mintlify/images/navigation/languages/it.png" className="w-6 h-6 my-0" />} horizontal />
+
+  <Card title="Japanese (jp)" icon={<img src="https://mintlify.s3.us-west-1.amazonaws.com/mintlify/images/navigation/languages/jp.png" className="w-6 h-6 my-0" />} horizontal />
+
+  <Card title="Korean (ko)" icon={<img src="https://mintlify.s3.us-west-1.amazonaws.com/mintlify/images/navigation/languages/ko.png" className="w-6 h-6 my-0" />} horizontal />
+
+  <Card title="Portuguese (pt-BR)" icon={<img src="https://mintlify.s3.us-west-1.amazonaws.com/mintlify/images/navigation/languages/pt-br.png" className="w-6 h-6 my-0" />} horizontal />
+
+  <Card title="Russian (ru)" icon={<img src="https://mintlify.s3.us-west-1.amazonaws.com/mintlify/images/navigation/languages/ru.png" className="w-6 h-6 my-0" />} horizontal />
+
+  <Card title="Spanish (es)" icon={<img src="https://mintlify.s3.us-west-1.amazonaws.com/mintlify/images/navigation/languages/es.png" className="w-6 h-6 my-0" />} horizontal />
+
+  <Card title="Turkish (tr)" icon={<img src="https://mintlify.s3.us-west-1.amazonaws.com/mintlify/images/navigation/languages/tr.png" className="w-6 h-6 my-0" />} horizontal />
+</CardGroup>
+
+```json
+{
+  "navigation": {
+    "languages": [
+      {
+        "language": "en",
+        "groups": [
+          {
+            "group": "はじめに",
+            "pages": ["en/overview", "en/quickstart", "en/development"]
+          }
+        ]
+      },
+      {
+        "language": "es",
+        "groups": [
+          {
+            "group": "はじめに",
+            "pages": ["es/overview", "es/quickstart", "es/development"]
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+自動翻訳については、ソリューションのご相談のために[営業チームまでお問い合わせください](mailto:gtm@mintlify.com)。
+
+<div id="nesting">
+  ## ネスト
+</div>
+
+アンカー、タブ、ドロップダウン、プロダクトは任意の組み合わせで使用できます。コンポーネント同士は自由に入れ子にでき、目的のナビゲーション構造を作成できます。
+
+<CodeGroup>
+  ```json Anchors
+  {
+    "navigation": {
+      "anchors": [
+        {
+          "anchor": "Anchor 1",
+          "groups": [
+            {
+              "group": "Group 1",
+              "pages": [
+                "some-folder/file-1",
+                "another-folder/file-2",
+                "just-a-file"
+              ]
+            }
+          ]
+        },
+        {
+          "anchor": "Anchor 2",
+          "groups": [
+            {
+              "group": "Group 2",
+              "pages": [
+                "some-other-folder/file-1",
+                "various-different-folders/file-2",
+                "another-file"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+  ```
+
+  ```json Tabs
+  {
+    "navigation": {
+      "tabs": [
+        {
+          "tab": "Tab 1",
+          "groups": [
+            {
+              "group": "Group 1",
+              "pages": [
+                "some-folder/file-1",
+                "another-folder/file-2",
+                "just-a-file"
+              ]
+            }
+          ]
+        },
+        {
+          "tab": "Tab 2",
+          "groups": [
+            {
+              "group": "Group 2",
+              "pages": [
+                "some-other-folder/file-1",
+                "various-different-folders/file-2",
+                "another-file"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+  ```
+
+  ```json Tabs with external anchor
+  {
+    "navigation": {
+      "global": {
+        "anchors": [
+          {
+            "anchor": "Anchor 1",
+            "href": "https://mintlify.com/docs"
+          }
+        ]
+      },
+      "tabs": [
+        {
+          "tab": "Tab 1",
+          "groups": [
+            {
+              "group": "Group 1",
+              "pages": [
+                "some-folder/file-1",
+                "another-folder/file-2",
+                "just-a-file"
+              ]
+            }
+          ]
+        },
+        {
+          "tab": "Tab 2",
+          "groups": [
+            {
+              "group": "Group 2",
+              "pages": [
+                "some-other-folder/file-1",
+                "various-different-folders/file-2",
+                "another-file"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+  ```
+</CodeGroup>
+
+<div id="breadcrumbs">
+  ## パンくずリスト
+</div>
+
+パンくずリストは、ページ上部にナビゲーションの全パスを表示します。テーマによってはデフォルトで有効なものもあれば、無効なものもあります。サイトでパンくずリストを有効にするかどうかは、`docs.json` の `styling` プロパティで制御できます。
+
+<CodeGroup>
+  ```json Display full breadcrumbs
+  "styling": {
+    "eyebrows": "breadcrumbs"
+  }
+  ```
+
+  ```json Display parent section only
+  "styling": {
+    "eyebrows": "section"
+  }
+  ```
+</CodeGroup>
+
+<div id="interaction-configuration">
+  ## インタラクションの設定
+</div>
+
+`docs.json` の `interaction` プロパティで、ユーザーによるナビゲーション要素とのインタラクション方法を制御します。
+
+<div id="enable-auto-navigation-for-groups">
+  ### グループの自動ナビゲーションを有効にする
+</div>
+
+ユーザーがナビゲーショングループを展開すると、テーマによっては自動的にグループ内の最初のページへ移動します。`drilldown` オプションでテーマの既定の動作を上書きできます。
+
+* `true` にすると、ナビゲーショングループが選択された際に最初のページへ自動的に移動します。
+* `false` にすると、移動せず、選択時はグループの展開・折りたたみのみを行います。
+* 未設定の場合は、テーマの既定の動作が適用されます。
+
+<CodeGroup>
+  ```json Force navigation
+  "interaction": {
+    "drilldown": true  // ユーザーがドロップダウンを展開したときに最初のページへの遷移を強制
+  }
+  ```
+
+  ```json Prevent navigation
+  "interaction": {
+    "drilldown": false // 遷移は行わず、グループの展開・折りたたみのみを実行
+  }
+  ```
+</CodeGroup>

@@ -1,0 +1,103 @@
+---
+title: "身份验证"
+description: "你可以设置身份验证参数，让用户使用他们的真实 API 密钥。"
+---
+
+<div id="enabling-authentication">
+  ## 启用身份验证
+</div>
+
+你可以在 `docs.json` 中添加一种身份验证方式，以在所有页面上全局启用；也可以为每个页面单独配置。
+
+如果同时设置了全局方式和页面级方式，则页面的身份验证方式将覆盖全局设置。
+
+<div id="bearer-token">
+  ### Bearer 令牌
+</div>
+
+<CodeGroup>
+
+```json docs.json
+"api": {
+    "mdx": {
+      "auth": {
+        "method": "bearer"
+      }
+    }
+}
+```
+
+```mdx Page Metadata
+---
+title: "Your page title"
+authMethod: "bearer"
+---
+```
+
+</CodeGroup>
+
+<div id="basic-authentication">
+  ### 基本身份验证
+</div>
+
+<CodeGroup>
+
+```json docs.json
+"api": {
+    "mdx": {
+      "auth": {
+        "method": "basic"
+      }
+    }
+}
+```
+
+```mdx Page Metadata
+---
+title: "页面标题"
+authMethod: "basic"
+---
+```
+
+</CodeGroup>
+
+<div id="api-key">
+  ### API 密钥
+</div>
+
+<CodeGroup>
+
+```json docs.json
+"api": {
+    "mdx": {
+      "auth": {
+        "method": "key",
+        "name": "x-api-key"
+      }
+    }
+}
+```
+
+```mdx 页面元数据
+---
+title: "Your page title"
+authMethod: "key"
+---
+```
+
+</CodeGroup>
+
+<div id="none">
+  ### None
+</div>
+
+在 docs.json 中设置默认身份验证方式后，可通过使用 "none" 身份验证方法来对特定端点禁用身份验证。
+
+<CodeGroup>
+```mdx Page Metadata
+---
+title: "Your page title"
+authMethod: "none"
+---
+```
+</CodeGroup>

@@ -1,0 +1,66 @@
+---
+title: "Git-Konzepte"
+description: "Git-Grundlagen für den Docs-as-Code-Workflow"
+---
+
+Git ist ein Versionskontrollsystem, mit dem Sie Änderungen an Ihrer Dokumentation nachverfolgen und mit Teammitgliedern zusammenarbeiten können. Mit Git können Sie für jede Datei in Ihrem Projekt sehen, was sich geändert hat, wann und warum. Git erleichtert zudem das Zurücksetzen auf frühere Dateiversionen, falls Sie dies einmal benötigen.
+
+Der Web-Editor führt im Hintergrund einige Git-Operationen aus. Das Verständnis dieser Konzepte hilft Ihnen, effektiver mit dem Web-Editor zu arbeiten und mit Teammitgliedern zusammenzuarbeiten, die in ihren lokalen Entwicklungsumgebungen arbeiten.
+
+<div id="core-git-concepts">
+  ## Zentrale Git-Konzepte
+</div>
+
+<AccordionGroup>
+  <Accordion title="Repository">
+    Die Quelle Ihrer Dokumentation, in der alle Dateien und deren Verlauf gespeichert sind. Der Web-Editor verbindet sich mit Ihrem Repository, um auf Inhalte zuzugreifen und diese zu bearbeiten.
+  </Accordion>
+
+  <Accordion title="Commit">
+    Eine gespeicherte Momentaufnahme Ihrer Änderungen zu einem bestimmten Zeitpunkt. Jeder Commit enthält eine Nachricht, die beschreibt, was geändert wurde, und erstellt einen permanenten Eintrag in der Projekthistorie.
+  </Accordion>
+
+  <Accordion title="Branch">
+    Ein Branch verweist auf einen bestimmten Commit in Ihrem Repository. Ihre Live-Dokumentation wird aus einem Deployment-Branch erstellt. Sie können beliebig viele weitere Branches haben, deren Änderungen noch nicht in Ihrer Live-Dokumentation veröffentlicht sind. Wenn Sie Änderungen aus einem Branch in Ihre Live-Dokumentation übernehmen möchten, können Sie den Branch per Pull Request in Ihren Deployment-Branch mergen.
+
+    Verwenden Sie Branches, um an Änderungen zu arbeiten, ohne Ihre Live-Dokumentation zu beeinflussen, neue Funktionen sicher auszuprobieren und vor der Veröffentlichung Reviews einzuholen.
+  </Accordion>
+
+  <Accordion title="Deployment branch">
+    Der primäre Branch Ihres Projekts, aus dem der Inhalt Ihrer Live-Dokumentation erstellt wird. Änderungen an diesem Branch werden automatisch auf Ihrer Dokumentationsseite veröffentlicht. Häufig main genannt, aber Sie können jeden Branch als Deployment-Branch festlegen.
+  </Accordion>
+
+  <Accordion title="Pull request">
+    Eine Möglichkeit, das Zusammenführen Ihrer Änderungen aus einem Branch in Ihre Live-Dokumentation vorzuschlagen. Ermöglicht Review und Diskussion, bevor Änderungen live gehen. Häufig PR genannt; in GitLab auch Merge Request.
+  </Accordion>
+
+  <Accordion title="Diff">
+    Ein Diff (oder Unterschied) zeigt die Änderungen zwischen zwei Versionen einer Datei. Beim Review von Pull Requests heben Diffs hervor, was hinzugefügt, entfernt oder geändert wurde, sodass leicht erkennbar ist, was sich verändert hat.
+  </Accordion>
+</AccordionGroup>
+
+<div id="how-the-web-editor-uses-git">
+  ## Wie der Web-Editor Git verwendet
+</div>
+
+Der Web-Editor verbindet sich über die [GitHub-App](/de/deploy/github) oder die [GitLab-Integration](/de/deploy/gitlab) mit deinem Git-Repository und automatisiert gängige Git-Operationen.
+
+Wenn du:
+
+* **eine Datei öffnest**: Der Editor holt die neueste Version aus deinem Repository, sodass du stets mit aktuellen Inhalten arbeitest.
+* **Änderungen vornimmst**: Der Editor verfolgt deine Änderungen als Entwurf, der zu einem Commit werden kann, wenn du bereit bist, deine Arbeit zu speichern.
+* **Änderungen speicherst**: Der Editor erstellt einen Commit mit deinen Änderungen und bewahrt deine Arbeit in der Projekt-Historie auf.
+* **einen Branch erstellst**: Der Editor erstellt einen neuen Branch in deinem Repository, den alle mit Zugriff auf das Repository nutzen können, um zusammenzuarbeiten und Änderungen zu überprüfen.
+* **auf deinem Deployment-Branch veröffentlichst**: Der Editor committed und pusht direkt auf deinen Deployment-Branch, wodurch deine Änderungen sofort veröffentlicht werden.
+* **auf anderen Branches veröffentlichst**: Der Editor erstellt eine Pull-Request, über die du Feedback von anderen einholen kannst, bevor du deine Änderungen in deinen Deployment-Branch mergest.
+
+<div id="git-best-practices">
+  ## Git-Best Practices
+</div>
+
+Jedes Team entwickelt eigene Workflows und Präferenzen, aber hier sind einige allgemeine Best Practices für den Einstieg.
+
+* **Aussagekräftige Commit-Messages schreiben**: Sei konkret, was geändert wurde, und verwende aktive Formulierungen.
+* **Aussagekräftige Branchnamen verwenden**: Branchnamen sollten die anstehende Arbeit beschreiben und für alle, die sich die Branches im Repository ansehen, klar verständlich sein.
+* **Branches fokussiert halten**: Beschränke die Änderungen in einem Branch auf eine konkrete Aufgabe oder ein Projekt.
+* **Branches nach dem Mergen löschen**: Lösche Branches, wenn du sie nicht mehr brauchst, um dein Repository übersichtlich zu halten.

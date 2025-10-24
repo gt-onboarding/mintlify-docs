@@ -1,0 +1,135 @@
+---
+title: "シングルサインオン（SSO）"
+description: "チームの管理ダッシュボードへのログイン方法をカスタマイズする"
+---
+
+<Info>
+  SSO 機能は [Enterprise プラン](https://mintlify.com/pricing?ref=sso)でご利用いただけます。
+</Info>
+
+SAML と OIDC を用いてダッシュボードにシングルサインオンできます。Okta、Google Workspace、Microsoft Entra をお使いの場合は、各プロバイダー向けの設定手順をご用意しています。その他のプロバイダーをご利用の場合は、[こちらからお問い合わせください](mailto:support@mintlify.com)。
+
+<div id="okta">
+  ## Okta
+</div>
+
+<Tabs>
+    <Tab title="SAML">
+        <Steps>
+            <Step title="アプリケーションを作成する">
+                `Applications` で、SAML 2.0 を使用した新しいアプリ統合を作成します。
+            </Step>
+            <Step title="統合を構成する">
+                次を入力します：
+                * シングルサインオン URL（Mintlify 提供）
+                * Audience URI（Mintlify 提供）
+                * Name ID Format：`EmailAddress`
+                * Attribute Statements：
+                    | Name | Name format | Value
+                    | ---- | ----------- | -----
+                    | `firstName` | Basic | `user.firstName` |
+                    | `lastName` | Basic | `user.lastName` |
+            </Step>
+            <Step title="IdP 情報を送信する">
+                アプリケーションの設定が完了したら、Sign-On タブに移動し、メタデータ URL をお送りください。
+                こちらでこの情報を使用して接続を有効化します。
+            </Step>
+        </Steps>
+    </Tab>
+    <Tab title="OIDC">
+        <Steps>
+            <Step title="アプリケーションを作成する">
+                `Applications` で、OIDC を使用した新しいアプリ統合を作成します。
+                アプリケーションタイプは `Web Application` を選択してください。
+            </Step>
+            <Step title="統合を構成する">
+                Authorization Code グラントタイプを選択し、Mintlify が提供する Redirect URI を入力します。
+            </Step>
+            <Step title="IdP 情報を送信する">
+                アプリケーションの設定が完了したら、General タブに移動して client ID と client secret を確認します。
+                これらに加えて、Okta インスタンスの URL（例：`<your-tenant-name>.okta.com`）を安全な方法でご提供ください。1Password や SendSafely などのサービスで送信できます。
+            </Step>
+        </Steps>
+    </Tab>
+</Tabs>
+
+<div id="google-workspace">
+  ## Google Workspace
+</div>
+
+<Tabs>
+    <Tab title="SAML">
+        <Steps>
+            <Step title="アプリケーションを作成する">
+                Web and mobile apps のセクションで、Add app のドロップダウンから Add custom SAML app を選択します。  
+                <Frame>
+                    ![Google Workspace の SAML アプリ作成ページで「Add custom SAML app」メニュー項目が強調表示されているスクリーンショット](/images/gsuite-add-custom-saml-app.png)
+                </Frame>              
+            </Step>
+            <Step title="IdP 情報を送信する">
+                表示される SSO URL、Entity ID、x509 証明書をコピーして、Mintlify チームに送付してください。
+                <Frame>
+                    ![Google Workspace の SAML アプリページで SSO URL、Entity ID、x509 証明書が強調表示されているスクリーンショット。各項目の具体的な値はぼかされています。](/images/gsuite-saml-metadata.png)                    
+                </Frame>
+            </Step>
+            <Step title="連携を設定する">
+                Service provider details ページで、次を入力します:
+                * ACS URL（Mintlify 提供）
+                * Entity ID（Mintlify 提供）
+                * Name ID format: `EMAIL`
+                * Name ID: `Basic Information > Primary email`
+
+                <Frame>
+                    ![Service provider details ページで ACS URL と Entity ID の入力フィールドが強調表示されているスクリーンショット](/images/gsuite-sp-details.png)
+                </Frame>
+
+                次のページで、以下の属性ステートメントを入力します:
+                | Google Directory Attribute | App Attribute |
+                | -------------------------- | ------------- |
+                | `First name` | `firstName`  |
+                | `Last name` | `lastName` |
+
+                この手順が完了し、ユーザーをアプリケーションに割り当てたら、チームまでご連絡ください。お客様のアカウントで SSO を有効にします。
+            </Step>
+        </Steps>
+    </Tab>
+</Tabs>
+
+<div id="microsoft-entra">
+  ## Microsoft Entra
+</div>
+
+<Tabs>
+    <Tab title="SAML">
+        <Steps>
+            <Step title="アプリケーションを作成する">
+                1. 「Enterprise applications」で **New application** を選択します。
+                2. **Create your own application** を選択し、「Integrate any other application you don't find in the gallery (Non-gallery)」を選びます。
+            </Step>
+            <Step title="SAML を構成する">
+                Single Sign-On のセットアップページに移動し、**SAML** を選択します。「Basic SAML Configuration」で次を入力します:
+                * Identifier (Entity ID): Mintlify が提供する Audience URI
+                * Reply URL (Assertion Consumer Service URL): Mintlify が提供する ACS URL
+                
+                それ以外の値は空欄のままにして、**Save** を選択します。
+            </Step>
+            <Step title="Attributes & Claims を構成する">
+                Attributes & Claims セクションを編集します:
+                1. 「Required Claim」で **Unique User Identifier (Name ID)** を選択します。
+                2. Source attribute を `user.primaryauthoritativeemail` に変更します。
+                3. 「Additional claims」で次のクレームを作成します:
+                    | Name | Value |
+                    | ---- | ----- |
+                    | `firstName` | `user.givenname` |
+                    | `lastName` | `user.surname` |
+            </Step>
+            <Step title="Mintlify に IdP 情報を送信する">
+                アプリケーションの設定が完了したら、「SAML Certificates」セクションに移動し、App Federation Metadata URL を送信してください。
+                この情報を基に、こちらで接続を有効化します。
+            </Step>
+            <Step title="ユーザーを割り当てる">
+                Entra アプリケーションの「Users and groups」に移動し、ダッシュボードへのアクセス権を付与するユーザーを追加します。
+            </Step>
+        </Steps>
+    </Tab>
+</Tabs>

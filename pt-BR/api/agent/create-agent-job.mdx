@@ -1,0 +1,21 @@
+---
+openapi: POST /agent/{projectId}/job
+---
+
+Este endpoint cria um job de agente com base nas mensagens fornecidas e nas informações da branch. O job é executado de forma assíncrona e retorna uma resposta em streaming com os detalhes da execução e os resultados.
+
+Se a branch não existir, o agente criará uma. Se os arquivos forem editados com sucesso, um pull request em rascunho será criado automaticamente ao final do job.
+
+<div id="rate-limits">
+  ## Limites de taxa
+</div>
+
+A API de agente tem os seguintes limites:
+
+- 100 usos por projeto da Mintlify por hora
+
+<div id="suggested-usage">
+  ## Uso recomendado
+</div>
+
+Para obter os melhores resultados, use o [hook useChat do ai-sdk](https://ai-sdk.dev/docs/reference/ai-sdk-ui/use-chat#usechat) para enviar solicitações e tratar as respostas.

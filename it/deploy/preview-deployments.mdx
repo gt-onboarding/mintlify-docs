@@ -1,0 +1,63 @@
+---
+title: "Deployment di anteprima"
+description: "Visualizza in anteprima le modifiche alla documentazione in un deployment live"
+---
+
+<Info>
+  I deployment di anteprima sono disponibili nei [piani Pro ed Enterprise](https://mintlify.com/pricing?ref=preview-deployments).
+</Info>
+
+I deployment di anteprima consentono di vedere come appariranno le modifiche alla documentazione prima del merge in produzione. Ogni anteprima genera un URL condivisibile che si aggiorna automaticamente quando effettui il push di nuove modifiche.
+
+<div id="creating-preview-deployments">
+  ## Creazione dei Deployment di anteprima
+</div>
+
+I Deployment di anteprima vengono creati automaticamente tramite pull request o manualmente dalla tua dashboard.
+
+<div id="automatic-previews">
+  ### Anteprime automatiche
+</div>
+
+Quando apri una pull request, il bot di Mintlify aggiunge automaticamente un link per visualizzare la distribuzione di anteprima nella pull request. L’anteprima si aggiorna ogni volta che esegui il push di nuovi commit sul branch.
+
+<Frame>
+  <img src="/images/previews/preview-deployment-light.png" alt="Link per visualizzare la distribuzione nella timeline della pull request" className="block dark:hidden" />
+
+  <img src="/images/previews/preview-deployment-dark.png" alt="Link per visualizzare la distribuzione nella timeline della pull request" className="hidden dark:block" />
+</Frame>
+
+<div id="manual-previews">
+  ### Anteprime manuali
+</div>
+
+Puoi creare manualmente un’anteprima per qualsiasi branch.
+
+1. Vai alla tua [dashboard](https://dashboard.mintlify.com/).
+2. Seleziona **Previews**.
+3. Seleziona **Create preview**.
+4. Inserisci il nome del tuo branch.
+5. Seleziona **Create deployment**.
+
+## Ridistribuzione di un&#39;anteprima
+
+Ridistribuisci un&#39;anteprima per aggiornare i contenuti o riprovare dopo un deployment non riuscito.
+
+1. Seleziona l&#39;anteprima dalla tua [dashboard](https://dashboard.mintlify.com/).
+2. Seleziona **Ridistribuisci**.
+
+<Frame>
+  <img src="/images/previews/redeploy-preview-light.png" alt="Il menu Previews con il pulsante di deploy evidenziato da un rettangolo arancione." className="block dark:hidden" />
+
+  <img src="/images/previews/redeploy-preview-dark.png" alt="Il menu Previews con il pulsante di deploy evidenziato da un rettangolo arancione." className="hidden dark:block" />
+</Frame>
+
+<div id="sharing-preview-deployments">
+  ## Condivisione dei Deployment di anteprima
+</div>
+
+I Deployment di anteprima possono essere pubblicamente accessibili o limitati agli utenti autenticati.
+
+**Accesso pubblico**: Gli URL di anteprima sono visibili pubblicamente per impostazione predefinita. Condividi un link di anteprima con chiunque debba rivedere le modifiche.
+
+**Accesso limitato**: Abilita l’autenticazione dei Deployment di anteprima per limitare l’accesso ai soli utenti Mintlify autenticati. Consulta [Configurazione dell’autenticazione](/it/deploy/authentication-setup) per ulteriori informazioni.

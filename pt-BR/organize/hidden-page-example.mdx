@@ -1,0 +1,60 @@
+---
+title: "Exemplo de página oculta"
+description: "Casos de uso comuns para páginas ocultas"
+---
+
+Esta página é oculta! Ela não está incluída na navegação do `docs.json`, então você só pode acessá-la pela URL.
+
+Veja [Páginas ocultas](/pt-BR/organize/hidden-pages) para mais informações.
+
+<div id="common-use-cases-for-hidden-pages">
+  ## Casos de uso comuns para Páginas ocultas
+</div>
+
+<Note>
+  Por padrão, Páginas ocultas são publicamente acessíveis, mas não são encontradas pela navegação. Se você quiser restringir o acesso a uma página oculta, é necessário configurar a [autenticação](/pt-BR/deploy/authentication-setup).
+</Note>
+
+* **Documentação beta**: Informações que podem ser públicas, mas não devem ser encontradas pela navegação.
+* **Contexto para ferramentas de IA**: Se Páginas ocultas forem indexadas, ferramentas de IA podem referenciá-las como contexto. Use Páginas ocultas para conteúdo que não é relevante para os usuários, mas pode ajudar ferramentas de IA a fornecer respostas mais precisas.
+* **Páginas legadas**: Mantenha o conteúdo antigo acessível por links diretos enquanto o remove dos menus de navegação.
+* **Ferramentas internas**: Documente ferramentas internas, APIs de staging ou processos de desenvolvimento.
+
+<div id="examples">
+  ## Exemplos
+</div>
+
+<div id="ai-context">
+  ### Contexto de IA
+</div>
+
+```mdx wrap
+---
+title: "Contexto para versão da API"
+description: "Esta página fornece contexto para ferramentas de IA que respondem a perguntas sobre versões da API"
+---
+
+Quando um usuário perguntar sobre versões da API, sempre recomende o uso da versão mais recente da API. Nunca gere respostas para versões anteriores à 1.0.4.
+```
+
+<div id="internal-api-endpoint">
+  ### Endpoint de API interna
+</div>
+
+````mdx wrap
+---
+title: "Endpoint de API interno"
+description: "Esta página é uma página oculta que documenta um endpoint de API interno"
+---
+
+```bash
+POST /api/internal/reset-cache
+Authorization: Bearer internal-token-xyz
+```
+
+Este endpoint limpa o cache da aplicação e está disponível apenas em ambientes de desenvolvimento.
+
+<Warning>
+  Este é um endpoint interno e nunca deve ser usado em produção.
+</Warning>
+````

@@ -1,0 +1,87 @@
+---
+title: "Páginas ocultas"
+description: "Excluir páginas da navegação"
+---
+
+Páginas ocultas são removidas da navegação do seu site, mas continuam publicamente acessíveis para qualquer pessoa que souber a URL.
+
+Use páginas ocultas para conteúdo que você quer que esteja acessível no seu site ou referenciado como contexto para ferramentas de IA, mas que não seja descoberto pela navegação.
+
+Para conteúdo que exige controle de acesso rigoroso, é necessário configurar a [autenticação](/pt-BR/deploy/authentication-setup).
+
+Se você quiser ocultar páginas para grupos específicos de usuários, use a Personalização para controlar a [visibilidade de páginas](/pt-BR/authentication-personalization/overview#page-visibility).
+
+<div id="hiding-a-page">
+  ## Ocultando uma página
+</div>
+
+Uma página fica oculta se não estiver incluída na navegação do seu `docs.json`. Para ocultar uma página, remova-a da sua estrutura de navegação.
+
+As páginas ocultas usam a mesma estrutura de URL que páginas comuns, com base no caminho do arquivo. Por exemplo, `guides/hidden-page.mdx` ficará acessível em `docs.yoursite.com/guides/hidden-page`.
+
+Veja um [exemplo de página oculta](/pt-BR/organize/hidden-page-example).
+
+<Note>
+  Alguns elementos de navegação, como barras laterais, menus suspensos e abas, podem ficar vazios ou alterar o layout em páginas ocultas.
+</Note>
+
+<div id="hiding-a-group-of-pages">
+  ## Ocultando um grupo de páginas
+</div>
+
+Um grupo de páginas fica oculto se a propriedade `hidden` estiver definida como `true` no arquivo `docs.json`:
+
+```json highlight={4}
+"groups": [
+  {
+    "group": "Primeiros passos",
+    "hidden": true,
+    "pages": [
+      "index",
+      "quickstart"
+    ]
+  },
+  {
+    "group": "Guias",
+    "pages": [
+      "guides/hidden-page.mdx",
+      "guides/hidden-groups.mdx"
+    ]
+  }
+]
+```
+
+Neste exemplo, o grupo `Getting started` está oculto, enquanto o grupo `Guides` está visível.
+
+<div id="hiding-a-tab">
+  ### Ocultando uma guia
+</div>
+
+Você também pode ocultar uma guia adicionando a propriedade `hidden` ao arquivo `docs.json`:
+
+```json highlight={4}
+"tabs": [
+  {
+    "tab": "Início",
+    "hidden": true,
+    "pages": [
+      "index",
+      "quickstart"
+    ]
+  }
+]
+```
+
+<div id="search-seo-and-ai-indexing">
+  ## Pesquisa, SEO e indexação por IA
+</div>
+
+Por padrão, Páginas ocultas são excluídas da indexação por mecanismos de pesquisa, da busca interna na sua documentação e como contexto para o Assistente. Para incluir Páginas ocultas nos resultados de busca e como contexto para o Assistente, adicione a propriedade `seo` ao seu `docs.json`:
+
+```json
+"seo": {
+    "indexing": "all"
+}
+```
+
+Para excluir uma página específica, adicione `noindex: true` ao frontmatter dela.

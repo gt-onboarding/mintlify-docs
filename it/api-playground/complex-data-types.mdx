@@ -1,0 +1,104 @@
+---
+title: "Tipi di dati complessi"
+description: "Descrivi API con schemi flessibili, proprietà opzionali e più formati di dati usando le parole chiave `oneOf`, `anyOf` e `allOf`"
+---
+
+Quando la tua API accetta più formati di dati, include campi condizionali o utilizza modelli di ereditarietà, le parole chiave di composizione degli schemi di OpenAPI aiutano a documentare queste strutture flessibili. Con `oneOf`, `anyOf` e `allOf` puoi descrivere API che gestiscono diversi tipi di input o combinano più schemi in modelli di dati completi.
+
+<div id="oneof-anyof-allof-keywords">
+  ## Parole chiave `oneOf`, `anyOf`, `allOf`
+</div>
+
+Per i tipi di dati complessi, OpenAPI fornisce parole chiave per combinare gli schemi:
+
+- `allOf`: combina più schemi (come unire oggetti o estendere uno schema di base). Funziona come un operatore `and`. 
+- `anyOf`: accetta dati che soddisfano uno qualsiasi degli schemi forniti. Funziona come un operatore `or`.
+- `oneOf`: accetta dati che soddisfano esattamente uno degli schemi forniti. Funziona come un operatore `exclusive-or`.
+
+<Warning>Mintlify tratta `oneOf` e `anyOf` allo stesso modo, poiché la differenza pratica raramente incide sull’utilizzo dell’API.</Warning>
+
+Per le specifiche dettagliate di queste parole chiave, consulta la [documentazione OpenAPI](https://swagger.io/docs/specification/data-models/oneof-anyof-allof-not/).
+
+<Info>La parola chiave `not` non è attualmente supportata.</Info>
+
+<div id="combining-schemas-with-allof">
+  ### Combinare gli schemi con `allOf`
+</div>
+
+Quando utilizzi `allOf`, Mintlify esegue del pre-processing sul tuo documento OpenAPI per mostrare combinazioni complesse in modo leggibile. Ad esempio, quando combini due schemi di oggetto con `allOf`, Mintlify unisce le proprietà di entrambi in un unico oggetto. Questo è particolarmente utile quando si sfruttano i [componenti](https://swagger.io/docs/specification/components/) riutilizzabili di OpenAPI.
+
+```yaml
+org_with_users:
+  allOf:
+    - $ref: '#/components/schemas/Org'
+    - type: object
+      properties:
+        users:
+          type: array
+          description: Un array contenente tutti gli utenti dell'organizzazione
+# ...
+components:
+  schemas:
+    Org:
+      type: object
+      properties:
+        id:
+          type: string
+          description: L'ID dell'organizzazione
+```
+
+<ParamField body="org_with_users" type="object">
+  <Expandable>
+    <ParamField body="id" type="string">
+      L&#39;ID dell&#39;organizzazione
+    </ParamField>
+
+    <ParamField body="users" type="object[]">
+      Un array che contiene tutti gli utenti dell&#39;organizzazione
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+
+<div id="providing-options-with-oneof-and-anyof">
+  ### Fornire opzioni con `oneOf` e `anyOf`
+</div>
+
+Quando utilizzi `oneOf` o `anyOf`, le opzioni vengono mostrate in un contenitore a schede. Specifica un campo `title` in ciascun sottoschema per dare un nome alle opzioni. Ad esempio, ecco come potresti mostrare due tipi diversi di indirizzi di consegna:
+
+```yaml
+delivery_address:
+  oneOf:
+    - title: StreetAddress
+      type: object
+      properties:
+        address_line_1:
+          type: string
+          description: L'indirizzo del destinatario
+        # ...
+    - title: POBox
+      type: object
+      properties:
+        box_number:
+          type: string
+          description: Il numero della casella postale
+        # ...
+```
+
+<ParamField body="delivery_address" type="object">
+  <div className="mt-4 rounded-xl border border-gray-100 px-4 pb-4 pt-2 dark:border-white/10">
+    <Tabs>
+      <Tab title="StreetAddress">
+        <ParamField body="address_line_1" type="string">
+          L’indirizzo dell’abitazione
+        </ParamField>
+      </Tab>
+
+      <Tab title="POBox">
+        <ParamField body="box_number" type="string">
+          Il numero della casella postale
+        </ParamField>
+      </Tab>
+    </Tabs>
+  </div>
+</ParamField>

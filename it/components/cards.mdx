@@ -1,0 +1,145 @@
+---
+title: "Schede"
+description: "Evidenzia punti chiave o collegamenti con layout e icone personalizzabili"
+---
+
+import IconsOptional from "/snippets/it/icons-optional.mdx";
+
+Usa le schede per creare contenitori visivi per i contenuti. Le schede sono contenitori flessibili che possono includere testo, icone, immagini e link.
+
+<div id="basic-card">
+  ## Scheda di base
+</div>
+
+<Card title="Titolo scheda" icon="text" href="/it/components/columns">
+  Ecco come usare una scheda con un&#39;icona e un link. Cliccando su questa scheda
+  si viene indirizzati alla pagina Columns.
+</Card>
+
+```mdx Card example
+<Card title="Card title" icon="text" href="/components/columns">
+  This is how you use a card with an icon and a link. Clicking on this card
+  brings you to the Columns page.
+</Card>
+```
+
+<div id="card-variations">
+  ## Varianti di schede
+</div>
+
+Le schede offrono diverse opzioni di layout e di stile per adattarsi a esigenze di contenuto differenti.
+
+<div id="horizontal-layout">
+  ### Layout orizzontale
+</div>
+
+Aggiungi la proprietà `horizontal` per visualizzare le card in un layout orizzontale più compatto.
+
+<Card title="Card orizzontale" icon="text" horizontal>
+  Questo è un esempio di card orizzontale.
+</Card>
+
+```mdx Horizontal card example
+<Card title="Horizontal card" icon="text" horizontal>
+  This is an example of a horizontal card.
+</Card>
+```
+
+<div id="image-cards">
+  ### Schede con immagine
+</div>
+
+Aggiungi la proprietà `img` per visualizzare un’immagine nella parte superiore della scheda.
+
+<Card title="Scheda con immagine" img="https://mintlify-assets.b-cdn.net/yosemite.jpg">
+  Questo è un esempio di scheda con un’immagine.
+</Card>
+
+```mdx Esempio di scheda con immagine
+<Card title="Scheda con immagine" img="/images/card-with-image.png">
+  Questo è un esempio di scheda con un’immagine.
+</Card>
+```
+
+<div id="link-cards-with-custom-ctas">
+  ### Schede link con CTA personalizzate
+</div>
+
+Puoi personalizzare il testo della call-to-action e decidere se mostrare una freccia. Per impostazione predefinita, le frecce compaiono solo per i link esterni.
+
+<Card title="Link card" icon="link" href="/it/components/columns" arrow="true" cta="Click here">
+  Questo è un esempio di scheda con un’icona e un link. Facendo clic su questa scheda, verrai reindirizzato alla pagina Columns.
+</Card>
+
+```mdx Link card example
+<Card
+  title="Link card"
+  icon="link"
+  href="/components/columns"
+  arrow="true"
+  cta="Click here"
+>
+  This is an example of a card with an icon and a link. Clicking on this card brings you to the Columns page.
+</Card>
+```
+
+<div id="grouping-cards">
+  ## Raggruppare le card
+</div>
+
+Usa il [componente Columns](/it/components/columns) per disporre più card una accanto all’altra.
+
+<Columns cols={2}>
+  <Card title="First card" icon="panel-left-close">
+    Questa è la prima card.
+  </Card>
+
+  <Card title="Second card" icon="panel-right-close">
+    Questa è la seconda card.
+  </Card>
+</Columns>
+
+```mdx Columns example
+<Columns cols={2}>
+  <Card title="First card" icon="panel-left-close">
+    Questa è la prima card.
+  </Card>
+  <Card title="Second card" icon="panel-right-close">
+    Questa è la seconda card.
+  </Card>
+</Columns>
+```
+
+<div id="properties">
+  ## Proprietà
+</div>
+
+<ResponseField name="title" type="string" required>
+  Titolo visualizzato sulla scheda.
+</ResponseField>
+
+<IconsOptional />
+
+<ResponseField name="color" type="string">
+  Colore dell’icona come codice esadecimale (ad esempio “#FF6B6B”).
+</ResponseField>
+
+<ResponseField name="href" type="string">
+  URL a cui accedere quando si fa clic sulla scheda.
+</ResponseField>
+
+<ResponseField name="horizontal" type="boolean">
+  Visualizza la scheda in un layout orizzontale compatto.
+</ResponseField>
+
+<ResponseField name="img" type="string">
+  URL o percorso locale di un’immagine mostrata nella parte superiore della scheda.
+</ResponseField>
+
+<ResponseField name="cta" type="string">
+  Testo personalizzato per il pulsante di azione.
+</ResponseField>
+
+<ResponseField name="arrow" type="boolean">
+  Mostra o nasconde l’icona della freccia del link.
+</ResponseField>

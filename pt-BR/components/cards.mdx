@@ -1,0 +1,145 @@
+---
+title: "Cards"
+description: "Destaque pontos principais ou links com layouts e ícones personalizáveis"
+---
+
+import IconsOptional from "/snippets/pt-BR/icons-optional.mdx";
+
+Use cards para criar contêineres visuais de conteúdo. Os cards são contêineres flexíveis que podem incluir texto, ícones, imagens e links.
+
+<div id="basic-card">
+  ## Cartão básico
+</div>
+
+<Card title="Card title" icon="text" href="/pt-BR/components/columns">
+  Veja como usar um cartão com ícone e link. Ao clicar neste cartão,
+  você será levado à página Columns.
+</Card>
+
+```mdx Card example
+<Card title="Card title" icon="text" href="/components/columns">
+  Veja como usar um cartão com ícone e link. Ao clicar neste cartão,
+  você será levado à página Columns.
+</Card>
+```
+
+<div id="card-variations">
+  ## Variações de cards
+</div>
+
+Os cards oferecem diversas opções de layout e estilo para atender a diferentes necessidades de conteúdo.
+
+<div id="horizontal-layout">
+  ### Layout horizontal
+</div>
+
+Adicione a propriedade `horizontal` para exibir cards em um layout horizontal mais compacto.
+
+<Card title="Card horizontal" icon="text" horizontal>
+  Este é um exemplo de card horizontal.
+</Card>
+
+```mdx Exemplo de card horizontal
+<Card title="Card horizontal" icon="text" horizontal>
+  Este é um exemplo de card horizontal.
+</Card>
+```
+
+<div id="image-cards">
+  ### Cartões com imagem
+</div>
+
+Adicione a propriedade `img` para exibir uma imagem na parte superior do cartão.
+
+<Card title="Cartão com imagem" img="https://mintlify-assets.b-cdn.net/yosemite.jpg">
+  Este é um exemplo de cartão com imagem.
+</Card>
+
+```mdx Image card example
+<Card title="Cartão com imagem" img="/images/card-with-image.png">
+  Este é um exemplo de cartão com imagem.
+</Card>
+```
+
+<div id="link-cards-with-custom-ctas">
+  ### Cartões de link com CTAs personalizados
+</div>
+
+Você pode personalizar o texto do call to action e controlar se uma seta aparece. Por padrão, as setas só são exibidas para links externos.
+
+<Card title="Link card" icon="link" href="/pt-BR/components/columns" arrow="true" cta="Click here">
+  Este é um exemplo de cartão com ícone e link. Ao clicar neste cartão, você será direcionado para a página Columns.
+</Card>
+
+```mdx Link card example
+<Card
+  title="Link card"
+  icon="link"
+  href="/components/columns"
+  arrow="true"
+  cta="Click here"
+>
+  This is an example of a card with an icon and a link. Clicking on this card brings you to the Columns page.
+</Card>
+```
+
+<div id="grouping-cards">
+  ## Agrupando cards
+</div>
+
+Use o [componente Columns](/pt-BR/components/columns) para organizar vários cards lado a lado.
+
+<Columns cols={2}>
+  <Card title="Primeiro card" icon="panel-left-close">
+    Este é o primeiro card.
+  </Card>
+
+  <Card title="Segundo card" icon="panel-right-close">
+    Este é o segundo card.
+  </Card>
+</Columns>
+
+```mdx Columns example
+<Columns cols={2}>
+  <Card title="Primeiro card" icon="panel-left-close">
+    Este é o primeiro card.
+  </Card>
+  <Card title="Segundo card" icon="panel-right-close">
+    Este é o segundo card.
+  </Card>
+</Columns>
+```
+
+<div id="properties">
+  ## Propriedades
+</div>
+
+<ResponseField name="title" type="string" required>
+  O título exibido no card
+</ResponseField>
+
+<IconsOptional />
+
+<ResponseField name="color" type="string">
+  Cor do ícone em código hexadecimal (por exemplo, `#FF6B6B`).
+</ResponseField>
+
+<ResponseField name="href" type="string">
+  URL para a qual navegar quando o card for clicado.
+</ResponseField>
+
+<ResponseField name="horizontal" type="boolean">
+  Exibe o card em um layout horizontal compacto.
+</ResponseField>
+
+<ResponseField name="img" type="string">
+  URL ou caminho local para uma imagem exibida na parte superior do card.
+</ResponseField>
+
+<ResponseField name="cta" type="string">
+  Texto personalizado do botão de ação.
+</ResponseField>
+
+<ResponseField name="arrow" type="boolean">
+  Mostrar ou ocultar o ícone de seta do link.
+</ResponseField>

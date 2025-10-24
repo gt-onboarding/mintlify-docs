@@ -1,0 +1,59 @@
+---
+title: "llms.txt"
+description: "コンテンツを LLM が読み取り・インデックス化しやすくする"
+---
+
+import { PreviewButton } from "/snippets/previewbutton.jsx"
+
+[llms.txt ファイル](https://llmstxt.org) は、サイトマップが検索エンジンを支援するのと同様に、LLM がコンテンツをより効率的にインデックス化できるようにする業界標準です。AI ツールはこのファイルを用いてドキュメントの構造を把握し、ユーザーの問い合わせに関連するコンテンツを見つけられます。
+
+Mintlify は、プロジェクトのルートに `llms.txt` ファイルを自動でホストし、ドキュメント内の利用可能なページをすべて列挙します。このファイルは常に最新で、メンテナンスは不要です。必要に応じて、カスタムの `llms.txt` をプロジェクトのルートに追加することもできます。
+
+ドキュメントサイトの URL の末尾に `/llms.txt` を付けると、`llms.txt` を表示できます。
+
+<PreviewButton href="https://mintlify.com/docs/llms.txt">このサイトの llms.txt を開く</PreviewButton>
+
+
+<div id="llmstxt-structure">
+  ## llms.txt の構造
+</div>
+
+`llms.txt` ファイルは、次の内容を含むプレーンな Markdown ファイルです。
+
+* H1 見出しの**サイトタイトル**
+* ドキュメント内の各ページへのリンクと、そのページごとの説明を含む**構造化されたコンテンツセクション**
+
+ページは、リポジトリのルートディレクトリから、リポジトリ上の表示順に従ってアルファベット順で列挙されます。
+
+各ページの説明は、そのフロントマターの `description` フィールドから取得されます。`description` フィールドがないページは、`llms.txt` には説明なしで記載されます。
+
+```mdx Example llms.txt
+# サイトタイトル
+
+## ドキュメント
+
+- [API](https://example.com/docs/api): エンドポイント一覧と使用方法
+- [Install](https://example.com/docs/install): セットアップ手順
+- [Getting started](https://example.com/docs/start): はじめに
+```
+
+この構造化アプローチにより、LLM がドキュメントを俯瞰的に効率よく処理し、ユーザーの問い合わせに関連するコンテンツを特定できるため、AI 支援のドキュメント検索の精度と速度が向上します。
+
+
+<div id="llms-fulltxt">
+  ## llms-full.txt
+</div>
+
+`llms-full.txt` ファイルは、AI ツール向けのコンテキストとしてドキュメントサイト全体を1つのファイルにまとめ、LLM のクロール/アクセスによってインデックス化されます。
+
+Mintlify は、プロジェクトのルートに `llms-full.txt` を自動でホストします。ドキュメントサイトの URL の末尾に `/llms-full.txt` を付けると、`llms-full.txt` を閲覧できます。
+
+<PreviewButton href="https://mintlify.com/docs/llms-full.txt">このサイトの llms-full.txt を開く</PreviewButton>
+
+<div id="custom-files">
+  ## カスタムファイル
+</div>
+
+カスタムの `llms.txt` または `llms-full.txt` を追加するには、プロジェクトのルートに `llms.txt` もしくは `llms-full.txt` を作成します。カスタムファイルを追加すると、同名の自動生成ファイルは上書きされます。カスタムファイルを削除すると、デフォルトのファイルが再び使用されます。
+
+カスタムの `llms.txt` または `llms-full.txt` には、サイトタイトルを H1 見出しとして含める必要があります。その他の内容は任意です。任意セクションやベストプラクティスの詳細は、`llms.txt` 仕様の [Format](https://llmstxt.org/#format) を参照してください。

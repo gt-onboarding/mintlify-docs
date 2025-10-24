@@ -1,0 +1,148 @@
+---
+title: "Agent"
+description: "Agent 可帮助你撰写和维护文档"
+---
+
+<Info>
+  Agent 面向所有可访问你仪表盘的用户开放，提供于 [Pro 和 Custom 套餐](https://mintlify.com/pricing?ref=agent)。
+</Info>
+
+Agent 会根据你的提示生成文档变更建议，并创建 pull request。你向 Agent 发送请求后，它会参考你的文档、已连接的代码库以及 Slack 消息，生成符合技术写作最佳实践并遵循 Mintlify 架构的内容。你可以在 Slack 工作区中使用 Agent，或通过 API 将其嵌入自定义应用。
+
+使用 Agent 你可以：
+
+* 基于你的提示、指向 pull request 的链接或 Slack 线程撰写新内容
+* 修订过时的代码示例和 API 参考
+* 搜索并更新现有内容
+* 回答有关你的文档和技术写作主题的问题
+
+开始使用前，将 Agent 添加到你的 Slack 工作区，并在频道中使用 `@mintlify` 提及它。
+
+<div id="add-the-agent-to-your-slack-workspace">
+  ## 将 Agent 添加到你的 Slack 工作区
+</div>
+
+<Note>
+  如果你的 Slack 工作区所有者要求安装应用需管理员批准，请在连接前请他们先批准 Mintlify 应用。
+</Note>
+
+1. 前往仪表板的 [agent](https://dashboard.mintlify.com/products/agent) 页面。
+2. 选择 **Connect** 按钮。
+3. 按照 Slack 的提示将 `mintlify` 应用添加到你的工作区。
+4. 按照 Slack 的提示将你的 Mintlify 账号与 Slack 工作区关联。
+5. 测试 Agent 是否正常工作并在以下情况下响应：
+   * 向它发送一条私信。
+   * 在频道中使用 `@mintlify` 提及它。
+
+<div id="connect-repositories-as-context">
+  ## 将仓库用作上下文
+</div>
+
+代理只能访问你通过 Mintlify GitHub 应用连接的仓库。可在 [GitHub 应用设置](https://github.com/apps/mintlify/installations/new) 中修改代理的可访问仓库。
+
+<div id="embed-the-agent-via-api">
+  ## 通过 API 集成 Agent
+</div>
+
+使用 Agent 的端点来[创建任务](/zh/api-reference/agent/create-agent-job)、[获取指定任务](/zh/api-reference/agent/get-agent-job)以及[获取所有任务](/zh/api-reference/agent/get-all-jobs)。
+
+<div id="write-effective-prompts">
+  ## 编写有效的提示词
+</div>
+
+把代理视为一个需要你引导来完成任务的有用助手。提供清晰的指令与上下文。任务越聚焦越容易完成，因此将复杂项目拆分为更小的步骤。
+
+让提示词具体且以结果为导向。像 `@mintlify Improve the onboarding page` 这样的通用提示会应用一般性的最佳实践，但可能无法按你设想的方式精准改进内容。
+
+围绕你希望用户达成的结果或他们遇到的问题来设计提示词。例如：
+
+* `@mintlify 许多用户在安装 CLI 时遇到困难。请审阅 onboarding 页面并更新文档，让用户可以轻松安装 CLI`
+* `@mintlify 开发者在按照我们的 authentication 指南操作时频繁遇到 401 错误。请审阅 auth 文档，并添加更清晰的示例，展示如何正确格式化 API key`
+
+对于一般性的内容维护（如修复错别字、更新重定向，或在整站文档中重命名某个功能），使用更宽泛的提示词。例如：
+
+* `@mintlify 查找并修复文档中的所有拼写错误`
+* `@mintlify 将所有无序列表的项目符号从 - 改为 *`
+
+<div id="specify-a-subdomain">
+  ## 指定子域名
+</div>
+
+如果你有多个各自对应子域名的文档站点，请在消息中包含 `subdomain` 参数，以指定代理应处理的子域名。
+
+使用 `@mintlify subdomain=<your-subdomain> <your-prompt>` 的格式来指示代理在特定子域名上工作。
+
+示例：
+
+* `@mintlify subdomain=public-docs Add a new section to the quickstart about inviting collaborators based on this PR`：指示代理仅在 `public-docs` 子域名上更新快速开始（quickstart）。
+* `@mintlify subdomain=customer-docs Update the auth docs for the new authentication method`：指示代理仅在 `customer-docs` 子域名上更新认证（auth）文档。
+
+<div id="agent-workflows">
+  ## Agent 工作流
+</div>
+
+Agent 可协助处理多种文档任务。以下工作流展示了将 Agent 集成到文档流程中的多种方式。选择与团队当前工作方式契合的方法，并根据你的具体需求进行调整。
+
+<div id="iterate-on-a-prompt-in-a-slack-thread">
+  ### 在 Slack 线程中迭代优化提示词
+</div>
+
+先向代理发出提示，然后在同一线程中继续用 `@mintlify` 提及它，以完善并迭代其创建的 pull request。
+
+例如：`@mintlify 我们的快速开始页面需要新增一个“邀请协作者”的章节`。接着：`@mintlify 新章节应命名为“邀请协作者”`。然后按需继续进一步迭代。
+
+<div id="start-with-the-agent-finish-manually">
+  ### 由代理启动，手动收尾
+</div>
+
+先让代理启动一个项目，然后检出它创建的分支，在本地环境或网页编辑器中完成任务。代理可以帮助你起步，之后由你接手收尾。
+
+例如：`@mintlify Update the quickstart page to include information about inviting collaborators`，随后检出该分支，按你偏好的方式继续进行其他修改。
+
+<div id="update-docs-when-merging-feature-changes">
+  ### 合并功能变更时更新文档
+</div>
+
+当你合并一个功能型 pull request 时，将该 PR 链接分享给代理（agent），以便更新相关文档。
+
+例如：`@mintlify 此 PR 新增了一种身份验证方法。请更新文档以包含新的认证流程：[PR link]`。
+
+<div id="generate-release-notes-from-a-pull-request">
+  ### 从拉取请求生成发布说明
+</div>
+
+向代理提供指定的拉取请求，让其根据提交历史生成发布说明或更新变更日志。
+
+例如：`@mintlify Generate release notes for this PR: [PR link]`。
+
+<div id="generate-code-examples">
+  ### 生成代码示例
+</div>
+
+让代理在你的文档各处或特定页面为功能生成代码示例。
+
+例如：`@mintlify 生成一个代码示例，以便更容易理解认证方法`。
+
+<div id="review-existing-content">
+  ### 审查现有内容
+</div>
+
+让代理检查现有内容的技术准确性、风格、语法等问题。
+
+例如：`@mintlify Review the API rate limiting section. We changed limits last month`.
+
+<div id="respond-to-user-feedback">
+  ### 响应用户反馈
+</div>
+
+将用户反馈作为提示提供给智能体，以便对文档进行有针对性的更新。
+
+例如：`@mintlify 有用户对设置指南的第 3 步感到困惑。可能是什么原因导致不清楚？`。
+
+<div id="automate-with-the-api">
+  ### 使用 API 实现自动化
+</div>
+
+将代理集成到你现有的自动化工具中，在代码变更时自动更新文档、触发内容评审，或在多个代码库间同步文档更新。
+
+具体步骤请参见教程：[代码合并后自动更新文档](/zh/guides/automate-agent)。

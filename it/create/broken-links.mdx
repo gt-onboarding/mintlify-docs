@@ -1,0 +1,46 @@
+---
+title: "Reindirizzamenti e link interrotti"
+description: "Strumenti per prevenire i link non validi"
+---
+
+Quando modifichi il percorso di un file nella cartella docs, cambia anche il percorso dell’URL di quella pagina. Questo può succedere quando riorganizzi la documentazione o cambi il titolo nella barra laterale.
+
+<div id="broken-links">
+  ## Link non funzionanti
+</div>
+
+Individua i link non funzionanti con la nostra CLI. [Installa la CLI](/it/installation) ed esegui il comando:
+
+```bash
+mint broken-links
+```
+
+La CLI individua eventuali link relativi inesistenti nella tua documentazione.
+
+<div id="redirects">
+  ## Reindirizzamenti
+</div>
+
+Configura i reindirizzamenti 301 aggiungendo il campo `redirects` nel file `docs.json`.
+
+```json
+"redirects": [
+  {
+    "source": "/percorso/origine",
+    "destination": "/percorso/destinazione"
+  }
+]
+```
+
+Questo imposta un reindirizzamento permanente da `/source/path` a `/destination/path`, così da non perdere il posizionamento SEO già ottenuto per la pagina originale.
+
+Per abbinare un percorso con carattere jolly, usa `*` dopo un parametro. In questo esempio, `/beta/:slug*` abbina `/beta/introduction` e lo reindirizza a `/v2/introduction`.
+
+```json
+"redirects": [
+  {
+    "source": "/beta/:slug*",
+    "destination": "/v2/:slug*"
+  }
+]
+```

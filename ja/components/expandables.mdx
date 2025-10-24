@@ -1,0 +1,45 @@
+---
+title: "展開パネル"
+description: "ネストされたプロパティの表示を切り替える"
+---
+
+レスポンスフィールド内のネストされたコンテンツを表示・非表示にするには展開パネルを使用します。展開パネルは、APIドキュメントで複雑なオブジェクトのプロパティを表示する際に特に有用です。
+
+<ResponseField name="user" type="User Object">
+  <Expandable title="properties">
+    <ResponseField name="full_name" type="string">
+      ユーザーのフルネーム
+    </ResponseField>
+
+    <ResponseField name="is_over_21" type="boolean">
+      ユーザーが21歳以上かどうか
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+```mdx Expandable example
+<ResponseField name="user" type="User Object">
+  <Expandable title="properties">
+    <ResponseField name="full_name" type="string">
+      ユーザーの氏名
+    </ResponseField>
+
+    <ResponseField name="is_over_21" type="boolean">
+      ユーザーが21歳以上であるかどうか
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+```
+
+
+<div id="properties">
+  ## プロパティ
+</div>
+
+<ResponseField name="title" type="string">
+  表示するオブジェクトの名称。
+</ResponseField>
+
+<ResponseField name="defaultOpen" type="boolean" default="false">
+  ページ読み込み時にセクションを展開した状態にするには、`true` を設定します
+</ResponseField>

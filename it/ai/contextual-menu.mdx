@@ -1,0 +1,158 @@
+---
+title: "Menu contestuale"
+description: "Aggiungi integrazioni AI con un clic alla tua documentazione"
+---
+
+import { PreviewButton } from "/snippets/previewbutton.jsx"
+import IconsRequired from "/snippets/it/icons-required.mdx";
+
+Il menu contestuale offre accesso rapido a contenuti ottimizzati per l’IA e integrazioni dirette con i principali strumenti di IA. Quando gli utenti aprono il menu contestuale in qualsiasi pagina, possono copiare i contenuti come contesto per gli strumenti di IA oppure avviare conversazioni in ChatGPT, Claude, Perplexity o in uno strumento personalizzato a scelta, con la tua documentazione già caricata come contesto.
+
+
+<div id="menu-options">
+  ## Opzioni del menu
+</div>
+
+Il menu contestuale include diverse opzioni predefinite che puoi abilitare aggiungendo il loro identificatore alla configurazione.
+
+| Opzione | Identificatore | Descrizione |
+|:--------|:--------------|:------------|
+| **Copia pagina** | `copy` | Copia la pagina corrente in Markdown per incollarla come contesto negli strumenti di IA |
+| **Visualizza come Markdown** | `view` | Apre la pagina corrente in Markdown |
+| **Apri in ChatGPT** | `chatgpt` | Crea una conversazione in ChatGPT con la pagina corrente come contesto |
+| **Apri in Claude** | `claude` | Crea una conversazione in Claude con la pagina corrente come contesto |
+| **Apri in Perplexity** | `perplexity` | Crea una conversazione in Perplexity con la pagina corrente come contesto |
+| **Copia URL del server MCP** | `mcp` | Copia l’URL del tuo server MCP negli appunti |
+| **Connetti a Cursor** | `cursor` | Installa il tuo server MCP ospitato in Cursor |
+| **Connetti a VS Code** | `vscode` | Installa il tuo server MCP ospitato in VS Code |
+
+<Frame>
+    <img 
+    src="/images/contextual-menu/contextual-menu.png" 
+    alt="Il menu contestuale espanso che mostra le voci Copia pagina, Visualizza come Markdown, Apri in ChatGPT e Apri in Claude." 
+  />
+</Frame>
+
+<div id="enabling-the-contextual-menu">
+  ## Abilitare il menu contestuale
+</div>
+
+Aggiungi il campo `contextual` al file `docs.json` e specifica le opzioni che vuoi includere.
+
+```json
+{
+ "contextual": {
+   "options": [
+     "copy",
+     "view",
+     "chatgpt",
+     "claude",
+     "perplexity",
+     "mcp",
+     "cursor",
+     "vscode"
+   ]
+ }
+}
+```
+
+<div id="adding-custom-options">
+  ## Aggiungere opzioni personalizzate
+</div>
+
+Crea opzioni personalizzate nel menu contestuale aggiungendo un oggetto all’array `options`. Ogni opzione personalizzata richiede queste proprietà:
+
+<ResponseField name="title" type="string" required>
+  Il titolo dell’opzione.
+</ResponseField>
+
+<ResponseField name="description" type="string" required>
+  La descrizione dell’opzione. Mostrata sotto il titolo quando il menu contestuale è espanso.
+</ResponseField>
+
+<IconsRequired />
+
+<ResponseField name="href" type="string | object" required>
+  L’href dell’opzione. Usa una stringa per i link semplici o un oggetto per i link dinamici con parametri di query.
+  
+  <Expandable title="href object">
+    <ResponseField name="base" type="string" required>
+      L’URL di base dell’opzione.
+    </ResponseField>
+
+    <ResponseField name="query" type="object" required>
+      I parametri di query dell’opzione.
+
+      <Expandable title="query object">
+        <ResponseField name="key" type="string" required>
+          La chiave del parametro di query.
+        </ResponseField>
+
+        <ResponseField name="value" type="string" required>
+          Il valore del parametro di query. Sostituiremo i segnaposto seguenti con i valori corrispondenti:
+          - Usa `$page` per inserire il contenuto della pagina corrente in Markdown.
+          - Usa `$path` per inserire il percorso della pagina corrente.
+          - Usa `$mcp` per inserire l’URL del server MCP ospitato.
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+Esempio di opzione personalizzata:
+
+```json {9-14} wrap
+{
+    "contextual": {
+        "options": [
+            "copy",
+            "view",
+            "chatgpt",
+            "claude",
+            "perplexity",
+            {
+                "title": "Request a feature",
+                "description": "Join the discussion on GitHub to request a new feature",
+                "icon": "plus",
+                "href": "https://github.com/orgs/mintlify/discussions/categories/feature-requests"
+            }
+        ]
+    }
+}
+```
+
+<div id="custom-option-examples">
+  ### Esempi di opzioni personalizzate
+</div>
+
+<AccordionGroup>
+<Accordion title="Link semplice">
+```json
+{
+  "title": "Richiedi una funzionalità",
+  "description": "Partecipa alla discussione su GitHub",
+  "icon": "plus",
+  "href": "https://github.com/orgs/mintlify/discussions/categories/feature-requests"
+}
+```
+</Accordion>
+
+<Accordion title="Link dinamico con contenuto della pagina">
+```json
+{
+  "title": "Condividi su X",
+  "description": "Condividi questa pagina su X",
+  "icon": "x",
+  "href": {
+    "base": "https://x.com/intent/tweet",
+    "query": [
+      {
+      "key": "text",
+      "value": "Dai un’occhiata a questa documentazione: $page"
+      }
+    ]
+  }
+}
+```
+</Accordion>
+</AccordionGroup>

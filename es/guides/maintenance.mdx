@@ -1,0 +1,45 @@
+---
+title: "Mantenimiento"
+description: "Consejos para mantener la documentación actualizada"
+---
+
+<Tip>
+  Esta página presenta estrategias para conservar la precisión y el valor de tu documentación a lo largo del tiempo, desde comprobaciones automatizadas hasta la gestión del ciclo de vida del contenido.
+</Tip>
+
+<div id="automate-what-you-can">
+  ## Automatiza lo que puedas
+</div>
+
+Introduce automatizaciones donde tenga sentido, como:
+
+* **Detecta contenido obsoleto:** Ejecuta un script para señalar documentos importantes que no se han actualizado en los últimos tres meses. ¿Siguen siendo correctos?
+* **Automatiza las actualizaciones de la documentación:** Crea un flujo de trabajo para actualizar automáticamente la documentación cuando se combine código con la [Agent API](/es/guides/automate-agent).
+* **Haz cumplir estándares con linters:** Usa [Vale](http://Vale.sh) o [checks de CI](/es/deploy/ci) para detectar automáticamente problemas de formato, desviaciones de estilo o metadatos faltantes en cada pull request.
+
+<div id="set-up-a-review-process">
+  ## Configura un proceso de revisión
+</div>
+
+La documentación quizá nunca sea perfecta, y está bien. Define un umbral de aceptación en el que la documentación sea funcional y útil.
+
+Equilibra eficiencia y calidad:
+
+* **Enfócate en la documentación de mayor impacto.** No todas las páginas requieren actualizaciones frecuentes. Asegúrate de que las páginas más importantes se revisen regularmente para garantizar su precisión y relevancia.
+* **Apóyate en tu comunidad.** Si tu documentación es de código abierto, permite que los usuarios reporten problemas o envíen correcciones mediante pull requests. Esto genera confianza y mantiene el contenido actualizado.
+
+<div id="know-when-to-rewrite">
+  ## Sepa cuándo reescribir
+</div>
+
+Con el tiempo, la documentación tiende a acumular advertencias y soluciones provisionales. Cuando los arreglos incrementales generan más confusión que claridad, una revisión completa puede ser la mejor opción.
+
+* **Planifique restablecimientos periódicos.** Una limpieza a fondo, especialmente si las prácticas recomendadas o el producto han evolucionado significativamente, ahorra tiempo a su equipo y a sus usuarios.
+* **Comience con una auditoría estructurada.** Entrevístese con los equipos de soporte, analice los comentarios de los usuarios y documente lo que falta, induce a error o es redundante antes de reescribir.
+* **Haga reescrituras completas en sprints enfocados.** Una revisión total no tiene por qué ocurrir de una sola vez. Priorice las secciones con mayor impacto.
+
+<div id="wrong-docs-can-be-worse-than-no-docs">
+  ## Una mala documentación puede ser peor que no tener ninguna
+</div>
+
+La documentación desactualizada o engañosa les hace perder tiempo a los usuarios y erosiona la confianza. Cuando una página es completamente incorrecta y no se puede corregir a corto plazo, a menudo es mejor eliminarla por completo. Los usuarios preferirán tener menos información a tener información errónea.

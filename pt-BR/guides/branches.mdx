@@ -1,0 +1,42 @@
+---
+title: "Trabalhando com branches"
+description: "Use branches para fazer e revisar alterações sem afetar sua documentação em produção"
+---
+
+Branches são um recurso de controle de versão que apontam para commits específicos no seu repositório. Sua branch de deploy, geralmente chamada de `main`, representa o conteúdo usado para construir sua documentação em produção. Todas as outras branches são independentes da sua documentação publicada, a menos que você opte por mesclá-las na branch de deploy.
+
+As branches permitem criar instâncias separadas da sua documentação para fazer alterações, receber revisões e testar novas abordagens antes de publicar. Sua equipe pode trabalhar em branches para atualizar diferentes partes da documentação ao mesmo tempo, sem afetar o que os usuários veem no site em produção até que você publique as alterações.
+
+Recomendamos sempre trabalhar a partir de branches ao atualizar a documentação para manter o site em produção estável e viabilizar fluxos de revisão.
+
+<Tip>
+  - Dê nomes claros às branches para que os colegas entendam no que você está trabalhando.
+  - Exclua as branches após mesclar para manter seu repositório organizado.
+  - Avise sua equipe quando estiver trabalhando em alterações importantes que possam afetar o trabalho deles.
+</Tip>
+
+<div id="creating-a-branch">
+  ## Criando uma branch
+</div>
+
+1. Selecione o nome da branch na barra de ferramentas do editor (geralmente `main` por padrão).
+2. Selecione **New Branch**.
+3. Digite um nome descritivo para a sua branch, como `update-getting-started` ou `fix-api-examples`.
+4. Selecione **Create Branch**.
+
+<div id="saving-changes-on-a-branch">
+  ## Salvando alterações em um branch
+</div>
+
+Para salvar suas alterações em um branch, selecione o botão **Save Changes** no canto superior direito do editor. Isso cria um commit e envia seu trabalho para o branch.
+
+<div id="switching-branches">
+  ## Alternando de branch
+</div>
+
+1. Selecione o nome da branch na barra de ferramentas do editor.
+2. No menu suspenso, escolha a branch para a qual deseja alternar.
+
+<Tip>
+  Alterações não salvas serão perdidas ao alternar de branch. Certifique-se de salvar ou publicar seu trabalho antes de mudar de branch.
+</Tip>

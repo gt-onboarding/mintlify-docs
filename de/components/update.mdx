@@ -1,0 +1,50 @@
+---
+title: "Update"
+description: "Änderungen und Updates nachverfolgen"
+---
+
+Verwenden Sie die `Update`-Komponente, um Changelog-Einträge, Versionsupdates und Release Notes einheitlich formatiert anzuzeigen.
+
+<Update label="Beispiel" description="v0.1.1">
+  ## Beispiel-Update
+
+  Sie können hier alles hinzufügen, z. B. einen Screenshot, einen Codeausschnitt oder eine Liste von Änderungen.
+
+  <Frame>
+    <img className="block" src="https://mintlify-assets.b-cdn.net/hero-light.png" alt="Screenshot der PearsDB-Einführungsseite als Beispiel für ein Bild in einer Update-Komponente." />
+  </Frame>
+
+  ### Features
+
+  * Responsives Design
+  * Anker für jedes Update
+  * Generierter RSS-Feed-Eintrag für jedes Update
+</Update>
+
+<div id="how-to-use">
+  ## Verwendung
+</div>
+
+```mdx Update example
+<Update label="2024-10-11" description="v0.1.0" tags={["Mintlify"]}>
+  Dies ist eine Aktualisierung mit einem Label, einer Beschreibung und einem Tag.
+</Update>
+```
+
+Verwenden Sie mehrere `Update`-Komponenten, um [Changelogs](/de/create/changelogs) zu erstellen.
+
+<div id="props">
+  ## Props
+</div>
+
+<ResponseField name="label" type="string" required>
+  Bezeichnung für das Update. Wird links neben dem Update angezeigt und erzeugt einen Ankerlink. Bezeichnungen sollten eindeutig sein.
+</ResponseField>
+
+<ResponseField name="tags" type="string[]">
+  Tags für das Update. Werden als Filter im rechten Seitenbereich angezeigt.
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  Beschreibung des Updates. Wird unter der Bezeichnung und den Tags angezeigt.
+</ResponseField>

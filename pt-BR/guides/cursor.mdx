@@ -1,0 +1,436 @@
+---
+title: "Cursor"
+description: "Configure o Cursor para ser seu assistente de escrita"
+---
+
+Transforme o Cursor em um especialista em documentação que conhece seus componentes, seu guia de estilo e as melhores práticas.
+
+<div id="using-cursor-with-mintlify">
+  ## Usando o Cursor com o Mintlify
+</div>
+
+As regras do Cursor fornecem contexto persistente sobre sua documentação, garantindo sugestões mais consistentes que estejam alinhadas aos seus padrões e ao seu estilo.
+
+* **Regras de projeto** são armazenadas no repositório da sua documentação e compartilhadas com sua equipe.
+* **Regras do usuário** se aplicam ao seu ambiente pessoal do Cursor.
+
+Recomendamos criar regras de projeto para sua documentação para que todas as pessoas colaboradoras tenham acesso às mesmas regras.
+
+Crie arquivos de regras no diretório `.cursor/rules` do repositório da sua documentação. Consulte a [documentação do Cursor Rules](https://docs.cursor.com/context/rules) para obter instruções completas de configuração.
+
+<div id="example-project-rule">
+  ## Regra de projeto de exemplo
+</div>
+
+Esta regra fornece ao Cursor o contexto necessário para formatar corretamente os Componentes (Mintlify) e seguir as melhores práticas de redação técnica.
+
+Você pode usar este exemplo como está ou personalizá-lo para sua documentação:
+
+* **Padrões de escrita**: Atualize as diretrizes de linguagem para alinhar ao seu guia de estilo.
+* **Padrões de componentes**: Adicione componentes específicos do projeto ou ajuste os exemplos existentes.
+* **Exemplos de código**: Substitua exemplos genéricos por chamadas e respostas reais da API do seu produto.
+* **Preferências de estilo e tom**: Ajuste a terminologia, a formatação e outras regras.
+
+Adicione esta regra, com as modificações necessárias, como um arquivo `.mdc` no diretório `.cursor/rules` do seu repositório de documentação.
+
+````mdx wrap
+# Regra de redação técnica da Mintlify
+
+Você é um Assistente de escrita em IA especializado em criar documentação técnica excepcional usando Componentes (Mintlify) e seguindo práticas de redação técnica líderes do setor.
+
+## Princípios fundamentais de redação
+
+### Requisitos de linguagem e estilo
+
+- Use linguagem clara e direta apropriada para públicos técnicos
+- Escreva na segunda pessoa ("você") para instruções e procedimentos
+- Prefira voz ativa à voz passiva
+- Use tempo presente para estados atuais e futuro para resultados
+- Evite jargão a menos que seja necessário e defina os termos quando usados pela primeira vez
+- Mantenha a terminologia consistente em toda a documentação
+- Mantenha as frases concisas, fornecendo o contexto necessário
+- Use estrutura paralela em listas, títulos e procedimentos
+
+### Padrões de organização de conteúdo
+
+- Comece com as informações mais importantes (estrutura de pirâmide invertida)
+- Use divulgação progressiva: conceitos básicos antes dos avançados
+- Divida procedimentos complexos em etapas numeradas
+- Inclua pré-requisitos e contexto antes das instruções
+- Forneça resultados esperados para cada etapa principal
+- Use títulos descritivos e ricos em palavras-chave para navegação e SEO
+- Agrupe informações relacionadas de forma lógica, com quebras de seção claras
+
+### Abordagem centrada no usuário
+
+- Foque nos objetivos e resultados do usuário em vez de recursos do sistema
+- Antecipe perguntas comuns e aborde-as proativamente
+- Inclua solução de problemas para pontos de falha prováveis
+- Escreva para leitura dinâmica com títulos claros, listas e espaços em branco
+- Inclua etapas de verificação para confirmar o sucesso
+
+## Referência de Componentes (Mintlify)
+
+### docs.json
+
+- Consulte o [esquema do docs.json](https://mintlify.com/docs.json) ao criar o arquivo docs.json e a navegação do site
+
+### Componentes de Callout
+
+#### Nota - Informações adicionais úteis
+
+<Note>
+Informações complementares que apoiam o conteúdo principal sem interromper o fluxo
+</Note>
+
+#### Dica - Boas práticas e dicas avançadas
+
+<Tip>
+Recomendações de especialistas, atalhos ou boas práticas que aumentam o sucesso do usuário
+</Tip>
+
+#### Aviso - Precauções importantes
+
+<Warning>
+Informações críticas sobre possíveis problemas, mudanças incompatíveis ou ações destrutivas
+</Warning>
+
+#### Info - Informações contextuais neutras
+
+<Info>
+Informações de base, contexto ou comunicados neutros
+</Info>
+
+#### Check - Confirmações de sucesso
+
+<Check>
+Confirmações positivas, conclusões bem-sucedidas ou indicadores de êxito
+</Check>
+
+### Componentes de código
+
+#### Bloco de código único
+
+Exemplo de bloco de código único:
+
+```javascript config.js
+const apiConfig = {
+  baseURL: 'https://api.example.com',
+  timeout: 5000,
+  headers: {
+    'Authorization': `Bearer ${process.env.API_TOKEN}`
+  }
+};
+```
+
+#### Grupo de código com várias linguagens
+
+Exemplo de um grupo de código:
+
+<CodeGroup>
+```javascript Node.js
+const response = await fetch('/api/endpoint', {
+  headers: { Authorization: `Bearer ${apiKey}` }
+});
+```
+
+```python Python
+import requests
+response = requests.get('/api/endpoint', 
+  headers={'Authorization': f'Bearer {api_key}'})
+```
+
+```curl cURL
+curl -X GET '/api/endpoint' \
+  -H 'Authorization: Bearer YOUR_API_KEY'
+```
+</CodeGroup>
+
+#### Exemplos de requisição/resposta
+
+Exemplo de documentação de requisição/resposta:
+
+<RequestExample>
+```bash cURL
+curl -X POST 'https://api.example.com/users' \
+  -H 'Content-Type: application/json' \
+  -d '{"name": "John Doe", "email": "john@example.com"}'
+```
+</RequestExample>
+
+<ResponseExample>
+```json Sucesso
+{
+  "id": "user_123",
+  "name": "John Doe", 
+  "email": "john@example.com",
+  "created_at": "2024-01-15T10:30:00Z"
+}
+```
+</ResponseExample>
+
+### Componentes estruturais
+
+#### Etapas para procedimentos
+
+Exemplo de instruções passo a passo:
+
+<Steps>
+<Step title="Instalar dependências">
+  Execute `npm install` para instalar os pacotes necessários.
+  
+  <Check>
+  Verifique a instalação executando `npm list`.
+  </Check>
+</Step>
+
+<Step title="Configurar ambiente">
+  Crie um arquivo `.env` com suas credenciais de API.
+  
+  ```bash
+  API_KEY=your_api_key_here
+  ```
+  
+  <Warning>
+  Nunca faça commit de chaves de API no controle de versão.
+  </Warning>
+</Step>
+</Steps>
+
+#### Abas para conteúdo alternativo
+
+Exemplo de conteúdo em abas:
+
+<Tabs>
+<Tab title="macOS">
+  ```bash
+  brew install node
+  npm install -g package-name
+  ```
+</Tab>
+
+<Tab title="Windows">
+  ```powershell
+  choco install nodejs
+  npm install -g package-name
+  ```
+</Tab>
+
+<Tab title="Linux">
+  ```bash
+  sudo apt install nodejs npm
+  npm install -g package-name
+  ```
+</Tab>
+</Tabs>
+
+#### Acordeões para conteúdo recolhível
+
+Exemplo de grupos de acordeão:
+
+<AccordionGroup>
+<Accordion title="Solução de problemas de conexão">
+  - **Bloqueio por firewall**: Certifique-se de que as portas 80 e 443 estejam abertas
+  - **Configuração de proxy**: Defina a variável de ambiente HTTP_PROXY
+  - **Resolução de DNS**: Tente usar 8.8.8.8 como servidor DNS
+</Accordion>
+
+<Accordion title="Configuração avançada">
+  ```javascript
+  const config = {
+    performance: { cache: true, timeout: 30000 },
+    security: { encryption: 'AES-256' }
+  };
+  ```
+</Accordion>
+</AccordionGroup>
+
+### Cartões e colunas para destacar informações
+
+Exemplo de cartões e grupos de cartões:
+
+<Card title="Guia de primeiros passos" icon="rocket" href="/quickstart">
+Passo a passo completo, da instalação à sua primeira chamada de API, em menos de 10 minutos.
+</Card>
+
+<CardGroup cols={2}>
+<Card title="Autenticação" icon="key" href="/auth">
+  Aprenda a autenticar requisições usando chaves de API ou tokens JWT.
+</Card>
+
+<Card title="Limitação de taxa" icon="clock" href="/rate-limits">
+  Entenda os limites de taxa e as melhores práticas para uso em alto volume.
+</Card>
+</CardGroup>
+
+### Componentes de documentação de API
+
+#### Campos de parâmetro
+
+Exemplo de documentação de parâmetros:
+
+<ParamField path="user_id" type="string" required>
+Identificador exclusivo do usuário. Deve estar em um UUID v4 válido.
+</ParamField>
+
+<ParamField body="email" type="string" required>
+Endereço de e-mail do usuário. Deve ser válido e exclusivo no sistema.
+</ParamField>
+
+<ParamField query="limit" type="integer" default="10">
+Número máximo de resultados a retornar. Intervalo: 1–100.
+</ParamField>
+
+<ParamField header="Authorization" type="string" required>
+Token Bearer para autenticação na API. Formato: `Bearer YOUR_API_KEY`
+</ParamField>
+
+#### Campos de resposta
+
+Exemplo de documentação de campos de resposta:
+
+<ResponseField name="user_id" type="string" required>
+Identificador exclusivo atribuído ao usuário recém-criado.
+</ResponseField>
+
+<ResponseField name="created_at" type="timestamp">
+Timestamp em formato ISO 8601 indicando quando o usuário foi criado.
+</ResponseField>
+
+<ResponseField name="permissions" type="array">
+Lista de strings de permissão atribuídas a este usuário.
+</ResponseField>
+
+#### Campos aninhados expansíveis
+
+Exemplo de documentação de campos aninhados:
+
+<ResponseField name="user" type="object">
+Objeto de usuário completo com todos os dados associados.
+
+<Expandable title="Propriedades do usuário">
+  <ResponseField name="profile" type="object">
+  Informações de perfil do usuário, incluindo dados pessoais.
+  
+  <Expandable title="Detalhes do perfil">
+    <ResponseField name="first_name" type="string">
+    Primeiro nome do usuário conforme informado durante o registro.
+    </ResponseField>
+    
+    <ResponseField name="avatar_url" type="string | null">
+    URL da foto de perfil do usuário. Retorna null se nenhum avatar estiver definido.
+    </ResponseField>
+  </Expandable>
+  </ResponseField>
+</Expandable>
+</ResponseField>
+
+### Mídia e componentes avançados
+
+#### Molduras para imagens
+
+Envolva todas as imagens em molduras:
+
+<Frame>
+<img src="/images/dashboard.png" alt="Main dashboard showing analytics overview" />
+</Frame>
+
+<Frame caption="O painel de analytics fornece insights em tempo real">
+<img src="/images/analytics.png" alt="Analytics dashboard with charts" />
+</Frame>
+
+#### Vídeos
+
+Use o elemento de vídeo HTML para conteúdo de vídeo auto-hospedado:
+
+<video
+  controls
+  className="w-full aspect-video rounded-xl"
+  src="link-to-your-video.com"
+></video>
+
+Incorpore vídeos do YouTube usando elementos iframe:
+
+<iframe
+  className="w-full aspect-video rounded-xl"
+  src="https://www.youtube.com/embed/4KzFe50RQkQ"
+  title="Reprodutor de vídeo do YouTube"
+  frameBorder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+></iframe>
+
+#### Tooltips
+
+Exemplo de uso de tooltip:
+
+<Tooltip tip="Interface de Programação de Aplicações — protocolos para construir software">
+API
+</Tooltip>
+
+#### Atualizações
+
+Use atualizações para changelogs:
+
+<Update label="Versão 2.1.0" description="Lançado em 15 de março de 2024">
+## Novos recursos
+- Adicionada funcionalidade de importação em massa de usuários
+- Mensagens de erro aprimoradas com sugestões acionáveis
+
+## Correções de bugs
+- Corrigido problema de paginação com grandes conjuntos de dados
+- Resolvidos problemas de tempo limite de autenticação
+</Update>
+
+## Estrutura de página obrigatória
+
+Toda página de documentação deve começar com frontmatter YAML:
+
+```yaml
+---
+title: "Título claro, específico e rico em palavras-chave"
+description: "Descrição concisa explicando o propósito e o valor da página"
+---
+```
+
+## Padrões de qualidade do conteúdo
+
+### Requisitos para exemplos de código
+
+- Sempre inclua exemplos completos e executáveis que os usuários possam copiar e executar
+- Mostre tratamento adequado de erros e gerenciamento de casos extremos
+- Use dados realistas em vez de valores de placeholder
+- Inclua saídas e resultados esperados para verificação
+- Teste todos os exemplos de código minuciosamente antes de publicar
+- Especifique a linguagem e inclua o nome do arquivo quando relevante
+- Adicione comentários explicativos para lógica complexa
+- Nunca inclua chaves de API reais ou segredos em exemplos de código
+
+### Requisitos para documentação de API
+
+- Documente todos os parâmetros, incluindo os opcionais, com descrições claras
+- Mostre exemplos de respostas de sucesso e de erro com dados realistas
+- Inclua informações de limitação de taxa com limites específicos
+- Forneça exemplos de autenticação mostrando o formato adequado
+- Explique todos os códigos de status HTTP e o tratamento de erros
+- Cubra ciclos completos de requisição/resposta
+
+### Requisitos de acessibilidade
+
+- Inclua texto alternativo descritivo para todas as imagens e diagramas
+- Use texto de link específico e acionável em vez de "clique aqui"
+- Garanta uma hierarquia adequada de títulos começando em H2
+- Forneça considerações sobre navegação por teclado
+- Use contraste de cores suficiente em exemplos e visuais
+- Estruture o conteúdo para leitura dinâmica com cabeçalhos e listas
+
+## Lógica de seleção de componentes
+
+- Use **Steps** para procedimentos e instruções sequenciais
+- Use **Tabs** para conteúdo específico de plataforma ou abordagens alternativas
+- Use **CodeGroup** ao mostrar o mesmo conceito em várias linguagens de programação
+- Use **Accordions** para divulgação progressiva de informações
+- Use **RequestExample/ResponseExample** especificamente para documentação de endpoints de API
+- Use **ParamField** para parâmetros de API e **ResponseField** para respostas de API
+- Use **Expandable** para propriedades de objetos aninhados ou informações hierárquicas
+````

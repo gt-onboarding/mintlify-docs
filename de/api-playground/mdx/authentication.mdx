@@ -1,0 +1,103 @@
+---
+title: "Authentifizierung"
+description: "Sie können Authentifizierungsparameter festlegen, damit Benutzer ihre echten API-Schlüssel verwenden können."
+---
+
+<div id="enabling-authentication">
+  ## Authentifizierung aktivieren
+</div>
+
+Sie können in Ihrer `docs.json` eine Authentifizierungsmethode hinzufügen, um sie global auf allen Seiten zu aktivieren, oder sie für einzelne Seiten festlegen.
+
+Die Authentifizierungsmethode einer Seite überschreibt die globale Methode, wenn beide definiert sind.
+
+<div id="bearer-token">
+  ### Bearer-Token
+</div>
+
+<CodeGroup>
+
+```json docs.json
+"api": {
+    "mdx": {
+      "auth": {
+        "method": "bearer"
+      }
+    }
+}
+```
+
+```mdx Page Metadata
+---
+title: "Seitentitel"
+authMethod: "bearer"
+---
+```
+
+</CodeGroup>
+
+<div id="basic-authentication">
+  ### Basic-Authentifizierung
+</div>
+
+<CodeGroup>
+
+```json docs.json
+"api": {
+    "mdx": {
+      "auth": {
+        "method": "basic"
+      }
+    }
+}
+```
+
+```mdx Page Metadata
+---
+title: "Ihr Seitentitel"
+authMethod: "basic"
+---
+```
+
+</CodeGroup>
+
+<div id="api-key">
+  ### API-Schlüssel
+</div>
+
+<CodeGroup>
+
+```json docs.json
+"api": {
+    "mdx": {
+      "auth": {
+        "method": "key",
+        "name": "x-api-key"
+      }
+    }
+}
+```
+
+```mdx Page Metadata
+---
+title: "Seitentitel"
+authMethod: "key"
+---
+```
+
+</CodeGroup>
+
+<div id="none">
+  ### None
+</div>
+
+Die Authentifizierungsmethode „none“ ist hilfreich, um die Authentifizierung für einen bestimmten Endpunkt zu deaktivieren, nachdem ein Standardwert in docs.json festgelegt wurde.
+
+<CodeGroup>
+```mdx Page Metadata
+---
+title: "Your page title"
+authMethod: "none"
+---
+```
+</CodeGroup>

@@ -1,0 +1,105 @@
+---
+title: "GitHub"
+description: "将文档与 GitHub 仓库同步"
+---
+
+Mintlify 使用 GitHub 应用自动将文档与 GitHub 仓库同步。
+
+<div id="installing-the-github-app">
+  ## 安装 GitHub 应用
+</div>
+
+在托管你文档仓库的 GitHub 个人账户或组织中安装 Mintlify GitHub 应用。你需要具备组织拥有者权限，或在该仓库中具有管理员权限，才能安装此应用。如果权限不足，需要由仓库所有者批准安装请求。
+
+通过你的[控制台](https://dashboard.mintlify.com/settings/organization/github-app)安装 Mintlify GitHub 应用。
+
+<Tip>
+我们建议只授予承载你文档的那个仓库的访问权限。
+</Tip>
+
+<Frame>
+  <img className="h-80" alt="Mintlify GitHub 应用安装页面，已选择“Only select repositories”选项。" src="/images/github/select-repos.png" />
+</Frame>
+
+<div id="permissions">
+  ## 权限
+</div>
+
+安装 GitHub 应用时，你会被提示授予以下权限：
+
+读取权限：
+
+* `metadata`: 基本仓库信息
+
+读写权限：
+
+* `checks`: 在拉取请求上创建状态检查
+* `code`: 在你向文档分支提交时读取文件更改
+* `deployments`: 为拉取请求生成预览部署
+* `pull requests`: 通过网页编辑器创建分支和拉取请求
+* `workflows`: 管理用于文档部署的 GitHub Actions
+
+<Info>
+该应用仅会访问你明确授权的仓库。若你启用了分支保护规则，应用无法直接推送到受保护分支。
+</Info>
+
+<div id="managing-repository-access">
+  ## 管理仓库访问
+</div>
+
+安装我们的 GitHub 应用时，您可以为所有仓库或指定仓库授予访问权限。我们建议仅对存放文档的仓库授予访问权限。您可随时在 [GitHub 应用设置](https://github.com/apps/mintlify/installations/new) 中修改此选择。
+
+<div id="configuring-docs-source">
+  ## 配置文档源
+</div>
+
+在仪表板的 [Git Settings](https://dashboard.mintlify.com/settings/deployment/git-settings) 部分，修改用于构建文档的组织、代码库或分支。
+
+<div id="troubleshooting">
+  ## 故障排除
+</div>
+
+<div id="github-app-connection-issues">
+  ### GitHub 应用连接问题
+</div>
+
+如果你在使用 GitHub 应用时遇到问题，重置连接通常可以解决大多数情况。
+
+<Steps>
+  <Step title="通过 GitHub 卸载 Mintlify 应用">
+    1. 在 GitHub 中，前往 [installations](https://github.com/settings/installations)，在 Mintlify 应用旁选择 **Configure**。向下滚动并选择 **Uninstall**。
+    2. 前往 [Authorized GitHub Apps](https://github.com/settings/apps/authorizations)，在 Mintlify 应用旁选择 **Revoke**。
+  </Step>
+  <Step title="重新安装 Mintlify 应用">
+    1. 在 Mintlify 仪表盘中，前往 [Git Settings](https://dashboard.mintlify.com/settings/deployment/git-settings) 并安装 GitHub 应用。
+    2. 在仪表盘的 [My Profile](https://dashboard.mintlify.com/settings/account) 中授权你的账号。
+  </Step>
+</Steps>
+
+<div id="feedback-add-ons-are-unavailable">
+  ### 反馈插件不可用
+</div>
+
+如果你无法在控制台中启用“编辑建议”或“提交问题”选项，且你的仓库为公开，请重新验证你的 Git 设置。
+
+<Steps>
+  <Step title="前往 Git 设置">
+    在控制台打开 [Git Settings](https://dashboard.mintlify.com/settings/deployment/git-settings)。
+  </Step>
+  <Step title="重新验证设置">
+    点击 Git 设置卡片角落的绿色勾号以重新验证仓库设置。这将强制更新仓库设置，以准确反映仓库是公开还是私有。
+
+    <Frame>
+      <img
+        src="/images/github/revalidate-settings-light.png"
+        alt="Mintlify 控制台中的 Git 设置页面。橙色箭头指向用于重新验证仓库设置的绿色勾号。"
+        className="block dark:hidden"
+      />
+      <img
+        src="/images/github/revalidate-settings-dark.png"
+        alt="Mintlify 控制台中的 Git 设置页面。橙色箭头指向用于重新验证仓库设置的绿色勾号。"
+        className="hidden dark:block"
+      />
+    </Frame>
+  </Step>
+</Steps>

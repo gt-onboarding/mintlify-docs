@@ -1,0 +1,392 @@
+---
+title: "ビジュアルエディター"
+description: "ブラウザでドキュメントを作成・管理・公開"
+---
+
+<img className="block dark:hidden my-0 pointer-events-none" src="/images/editor/editor-light.png" alt="ライトモードの Mintlify ビジュアルエディターのインターフェース" />
+
+<img className="hidden dark:block my-0 pointer-events-none" src="/images/editor/editor-dark.png" alt="ダークモードの Mintlify ビジュアルエディターのインターフェース" />
+
+[ダッシュボード](https://dashboard.mintlify.com/editor) からビジュアルエディターにアクセスし、ブラウザ上で直接ドキュメントを管理できます。
+
+* **WYSIWYG 編集**: 公開時の見た目をそのまま確認できる WYSIWYG（見たまま編集）エディターでドキュメントを編集できます。
+* **Git 連携**: すべての変更はバージョン管理のために Git リポジトリへ自動的に同期されます。
+* **チームコラボレーション**: 複数人で同時にドキュメントを編集できます。
+* **コンポーネントの追加**: スラッシュコマンドでコールアウト、コードブロック、その他のコンポーネントを追加できます。
+* **セットアップ不要**: ダッシュボードからすぐに書き始められます。
+
+<div id="overview">
+  ## 概要
+</div>
+
+ビジュアルエディタでの一般的な作業フローは次のとおりです:
+
+<Steps>
+  <Step title="ブランチを選択する">
+    新しいブランチを作成するか、デプロイ用のブランチに直接変更を加えます。変更を公開前にプレビューできるよう、ブランチの作成を推奨します。
+  </Step>
+
+  <Step title="ファイルを開く">
+    サイドバーで既存のファイルに移動するか、ファイルエクスプローラーで新規ファイルを作成します。
+  </Step>
+
+  <Step title="コンテンツを編集する">
+    ビジュアルエディタで編集します。コンポーネントメニューを開くには <kbd>/</kbd> を押します。
+  </Step>
+
+  <Step title="変更をプレビューする">
+    ビジュアルモードでは、変更が本番サイトでどのように表示されるかを確認できます。見た目や動作に問題がないかの確認に使ってください。
+  </Step>
+
+  <Step title="変更を公開する">
+    デプロイブランチで作業している場合は、ビジュアルエディタから直接公開できます。その他のブランチでは、公開前にレビュー用のプルリクエストを作成します。
+  </Step>
+</Steps>
+
+<div id="editor-modes">
+  ## エディターモード
+</div>
+
+ビジュアルエディターには、編集の好みや用途に合わせて使える「ビジュアルモード」と「Markdownモード」の2つのモードがあります。
+
+エディターのツールバーにあるモード切り替え（トグル）でモードを変更できます。
+
+<Frame>
+  <img src="/images/editor/mode-toggle-light.png" alt="ビジュアルエディターでモード切り替えアイコンが強調表示されています。" className="block dark:hidden" />
+
+  <img src="/images/editor/mode-toggle-dark.png" alt="ビジュアルエディターでモード切り替えアイコンが強調表示されています。" className="hidden dark:block" />
+</Frame>
+
+<div id="visual-mode">
+  ### ビジュアルモード
+</div>
+
+ビジュアルモードは、エディタでの変更が公開時のドキュメントの見た目にそのまま反映される、WYSIWYG の編集体験を提供します。変更結果をリアルタイムで確認したいときに最適なモードです。
+
+<Frame>
+  <img src="/images/editor/visual-mode-light.png" alt="Mintlify のビジュアルエディタのビジュアル編集モード" className="block dark:hidden" />
+
+  <img src="/images/editor/visual-mode-dark.png" alt="Mintlify のビジュアルエディタのビジュアル編集モード" className="hidden dark:block" />
+</Frame>
+
+<div id="markdown-mode">
+  ### Markdown モード
+</div>
+
+Markdown モードでは、ドキュメントの基盤となる `MDX` コードに直接アクセスできます。コンポーネントのプロパティを細かく制御したい場合や、Markdown 構文で記述することを好む場合に最適です。
+
+<Frame>
+  <img src="/images/editor/markdown-mode-light.png" alt="Mintlify のビジュアルエディタにおける Markdown モード" className="block dark:hidden" />
+
+  <img src="/images/editor/markdown-mode-dark.png" alt="Mintlify のビジュアルエディタにおける Markdown モード" className="hidden dark:block" />
+</Frame>
+
+<div id="manage-content">
+  ## コンテンツを管理する
+</div>
+
+<div id="navigate-your-files">
+  ### ファイルを移動する
+</div>
+
+サイドバーのファイルエクスプローラーでドキュメントを閲覧します。任意のファイルをクリックすると、エディターで開きます。
+
+macOS は <kbd>Command</kbd> + <kbd>P</kbd>、Windows は <kbd>Ctrl</kbd> + <kbd>P</kbd> で、ファイル名検索を行えます。
+
+<div id="create-new-pages">
+  ### 新しいページを作成
+</div>
+
+ファイルエクスプローラーのサイドバーで、**Create a new file** アイコンを選択します。
+
+<Frame>
+  <img
+    src="/images/editor/files-menu-light.png"
+    className="block dark:hidden rounded-2xl border border-gray-100 shadow-lg"
+    style={{
+  width: '400px',
+  height: 'auto',
+}}
+    alt="ビジュアルエディターのファイルメニュー"
+  />
+
+  <img
+    src="/images/editor/files-menu-dark.png"
+    className="hidden dark:block rounded-2xl border border-white/10 shadow-lg"
+    style={{
+  width: '400px',
+  height: 'auto',
+}}
+    alt="ダークモードのビジュアルエディターのファイルメニュー"
+  />
+</Frame>
+
+ファイル名には自動的に `.mdx` 拡張子が付与されます。ファイルタイプを変更するには、拡張子をクリックします。ドロップダウンメニューから目的のファイルタイプを選択します。
+
+<Frame>
+  <img
+    src="/images/editor/file-type-light.png"
+    className="block dark:hidden"
+    style={{
+  width: 'auto',
+  height: '400px',
+}}
+    alt="ビジュアルエディターのファイル拡張子メニュー"
+  />
+
+  <img
+    src="/images/editor/file-type-dark.png"
+    className="hidden dark:block"
+    style={{
+  width: 'auto',
+  height: '400px',
+}}
+    alt="ダークモードのビジュアルエディターのファイル拡張子メニュー"
+  />
+</Frame>
+
+<div id="rename-pages">
+  ### ページ名の変更
+</div>
+
+ページ名を変更するには、対象ファイルのケバブメニューアイコンをクリックし、ドロップダウンメニューから**Rename**を選択します。
+
+<Frame>
+  <img src="/images/editor/rename-light.png" className="block dark:hidden" alt="ビジュアルエディタでページ名を変更する" />
+
+  <img src="/images/editor/rename-dark.png" className="hidden dark:block" alt="ダークモードのビジュアルエディタでページ名を変更する" />
+</Frame>
+
+<div id="delete-pages">
+  ### ページの削除
+</div>
+
+ページを削除するには、対象ファイルのケバブメニューアイコンをクリックし、ドロップダウンメニューから **Delete** を選択します。
+
+<Frame>
+  <img src="/images/editor/delete-page-light.png" className="block dark:hidden" alt="ビジュアルエディターでページを削除する操作。" />
+
+  <img src="/images/editor/delete-page-dark.png" className="hidden dark:block" alt="ダークモードのビジュアルエディターでページを削除する操作。" />
+</Frame>
+
+<div id="organize-your-navigation">
+  ### ナビゲーションを整理する
+</div>
+
+サイトのナビゲーションに新しいページを追加したり、削除したページを取り除いたりするには、`docs.json` ファイルを編集します。ページの整理方法については、[Navigation](/ja/organize/navigation) を参照してください。
+
+**例: Profile グループに Themes ページを追加する**
+
+この例では、Themes という新しいページを作成し、ドキュメント内の Profile グループに追加したいとします。サイトのナビゲーションに表示されるように、`docs.json` ファイルの `Profile` グループ内にある `pages` 配列へ新しいページのパスを追加します。
+
+```json title="Adding a Themes page to the Profile group" highlight="18"
+{
+    "navigation": {
+        "groups": [
+            {
+                "group": "はじめに",
+                "pages": [
+                    "index",
+                    "quickstart",
+                    "installation"
+                ]
+            },
+            {
+                "group": "プロフィール",
+                "pages": [
+                    "settings",
+                    "account-types",
+                    "dashboard",
+                    "themes"
+                ]
+            }
+        ]
+    }
+}
+```
+
+<div id="edit-content">
+  ### コンテンツを編集する
+</div>
+
+エディタのビジュアルモードまたはMarkdownモードでページを編集します。
+
+ビジュアルモードでは、<kbd>/</kbd> を押してコンポーネントメニューを開きます。コンテンツブロック、コールアウト、コードブロックなどのコンポーネントを追加して、ドキュメントをカスタマイズできます。
+
+<Frame>
+  <img src="/images/editor/component-menu-light.png" alt="Mintlifyのビジュアルエディタで展開されたコンポーネントメニューが強調表示されています" className="block dark:hidden" />
+
+  <img src="/images/editor/component-menu-dark.png" alt="Mintlifyのビジュアルエディタで展開されたコンポーネントメニューが強調表示されています" className="hidden dark:block" />
+</Frame>
+
+Markdownモードでは、ページの `MDX` を直接編集します。次のような場合に役立ちます：
+
+* 特定のコンポーネントのプロパティを設定する
+* 複雑なネスト構造のコンポーネントを扱う
+* 他のソースから `MDX` コンテンツをコピー＆ペーストする
+
+Markdown構文での記述方法については、[テキストの書式設定](/ja/create/text) と [コードの書式設定](/ja/create/code) を参照してください。
+
+<div id="publish-your-changes">
+  ## 変更を公開する
+</div>
+
+作業中のブランチによって、エディタが変更をどのように公開するかが異なります。
+
+* **デプロイ用ブランチ**: 公開すると、ライブサイトが即時に更新されます。
+* **その他のブランチ**: 公開するとプルリクエストが作成され、本番環境へデプロイする前に変更内容をレビューできます。
+
+<Frame>
+  <img src="/images/editor/publish-flow-light.png" alt="Mintlify のビジュアルエディタで強調表示された公開ボタン" className="block dark:hidden" />
+
+  <img src="/images/editor/publish-flow-dark.png" alt="Mintlify のビジュアルエディタで強調表示された公開ボタン" className="hidden dark:block" />
+</Frame>
+
+<div id="pull-requests-and-reviewing-changes">
+  ### プルリクエストと変更のレビュー
+</div>
+
+プルリクエストを使うと、ブランチでの変更を提案し、本番のドキュメントにマージする前に他のメンバーにレビューしてもらえます。これにより、変更の正確性を確保し、チームがコンテンツに共同で取り組む機会が生まれます。
+
+<Tip>
+  たとえ単独で作業していても、プルリクエストは変更のプレビューや更新履歴の明確化に役立ちます。
+</Tip>
+
+<div id="create-a-pull-request">
+  #### プルリクエストを作成する
+</div>
+
+<Steps>
+  <Step title="作業内容を保存する">
+    ブランチ上の変更をすべて保存するには、**Save Changes** を選択します。
+  </Step>
+
+  <Step title="プルリクエストを作成する">
+    エディターのツールバーから **Publish Pull Request** を選択します。
+  </Step>
+
+  <Step title="タイトルと説明を追加する">
+    次の内容を説明する、わかりやすいタイトルと説明を書きます：
+
+    * 行った変更
+    * その理由
+    * レビューしてほしい箇所
+  </Step>
+
+  <Step title="作成して共有する">
+    **Publish Pull Request** を選択します。エディターにプルリクエストを表示するためのリンクが表示されます。
+
+    <Frame>
+      <img src="/images/editor/pull-request-light.png" alt="Mintlify のビジュアルエディターで強調表示された「Publish Pull Request」ボタン" className="block dark:hidden" />
+
+      <img src="/images/editor/pull-request-dark.png" alt="Mintlify のビジュアルエディターで強調表示された「Publish Pull Request」ボタン" className="hidden dark:block" />
+    </Frame>
+  </Step>
+</Steps>
+
+<div id="review-pull-requests">
+  #### プルリクエストをレビューする
+</div>
+
+プルリクエストを作成したら、次の手順を実行します。
+
+1. **変更をレビュー**: あなたやチームメンバーは、GitHub や GitLab などの Git プロバイダーでプルリクエストを確認できます。
+2. **フィードバックを残す**: コメントを追加するか、変更をリクエストします。
+3. **追加の変更を行う**: ビジュアルエディターで追加の変更を加えます。変更を保存すると、エディターがプルリクエストにプッシュします。
+4. **承認**: 変更内容に問題がなければ、プルリクエストを承認します。
+5. **マージ**: 本番環境へ変更をデプロイする準備ができたら、プルリクエストをマージします。
+
+<div id="keyboard-shortcuts">
+  ## キーボードショートカット
+</div>
+
+ビジュアルエディタは、コピー、貼り付け、取り消し、すべて選択などの一般的なキーボードショートカットに加え、次のショートカットをサポートしています：
+
+| コマンド | macOS | Windows |
+|:--------|:------|:--------|
+| **ファイルを検索** | <kbd>Cmd</kbd> + <kbd>P</kbd> | <kbd>Control</kbd> + <kbd>P</kbd> |
+| **選択テキストにリンクを追加** | <kbd>Cmd</kbd> + <kbd>K</kbd> | <kbd>Control</kbd> + <kbd>K</kbd> |
+| **改行を挿入** | <kbd>Cmd</kbd> + <kbd>Enter</kbd> | <kbd>Control</kbd> + <kbd>Enter</kbd> |
+| **太字** | <kbd>Cmd</kbd> + <kbd>B</kbd> | <kbd>Control</kbd> + <kbd>B</kbd> |
+| **斜体** | <kbd>Cmd</kbd> + <kbd>I</kbd> | <kbd>Control</kbd> + <kbd>I</kbd> |
+| **下線** | <kbd>Cmd</kbd> + <kbd>U</kbd> | <kbd>Control</kbd> + <kbd>U</kbd> |
+| **取り消し線** | <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd> | <kbd>Control</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd> |
+| **コード** | <kbd>Cmd</kbd> + <kbd>E</kbd> | <kbd>Control</kbd> + <kbd>E</kbd> |
+| **標準テキスト** | <kbd>Cmd</kbd> + <kbd>Alt</kbd> + <kbd>0</kbd> | <kbd>Control</kbd> + <kbd>Alt</kbd> + <kbd>0</kbd> |
+| **見出し 1** | <kbd>Cmd</kbd> + <kbd>Alt</kbd> + <kbd>1</kbd> | <kbd>Control</kbd> + <kbd>Alt</kbd> + <kbd>1</kbd> |
+| **見出し 2** | <kbd>Cmd</kbd> + <kbd>Alt</kbd> + <kbd>2</kbd> | <kbd>Control</kbd> + <kbd>Alt</kbd> + <kbd>2</kbd> |
+| **見出し 3** | <kbd>Cmd</kbd> + <kbd>Alt</kbd> + <kbd>3</kbd> | <kbd>Control</kbd> + <kbd>Alt</kbd> + <kbd>3</kbd> |
+| **見出し 4** | <kbd>Cmd</kbd> + <kbd>Alt</kbd> + <kbd>4</kbd> | <kbd>Control</kbd> + <kbd>Alt</kbd> + <kbd>4</kbd> |
+| **番号付きリスト** | <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>7</kbd> | <kbd>Control</kbd> + <kbd>Shift</kbd> + <kbd>7</kbd> |
+| **箇条書きリスト** | <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>8</kbd> | <kbd>Control</kbd> + <kbd>Shift</kbd> + <kbd>8</kbd> |
+| **引用ブロック** | <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>B</kbd> | <kbd>Control</kbd> + <kbd>Shift</kbd> + <kbd>B</kbd> |
+| **下付き** | <kbd>Cmd</kbd> + <kbd>,</kbd> | <kbd>Control</kbd> + <kbd>,</kbd> |
+| **上付き** | <kbd>Cmd</kbd> + <kbd>.</kbd> | <kbd>Control</kbd> + <kbd>.</kbd> |
+
+<div id="troubleshooting">
+  ## トラブルシューティング
+</div>
+
+ビジュアルエディタの利用時によく発生する問題の解決策をご案内します。
+
+<AccordionGroup>
+  <Accordion title="公開後に変更が反映されない">
+    **考えられる原因:**
+
+    * デプロイがまだ進行中
+    * ブラウザのキャッシュによる問題
+    * ビルドまたはデプロイのエラー
+
+    **解決策:**
+
+    1. ダッシュボードでデプロイの状況を確認します。
+    2. ブラウザをハードリロードします（<kbd>Ctrl</kbd> + <kbd>F5</kbd> または <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>R</kbd>）
+    3. ブラウザのキャッシュをクリアします。
+  </Accordion>
+
+  <Accordion title="公開時に権限エラーが発生する">
+    **考えられる原因:**
+
+    * Git リポジトリに対する権限不足
+    * 利用中の Git プロバイダーでの認証問題
+
+    **解決策:**
+
+    1. リポジトリへの適切なアクセス権があるか確認します。
+    2. Git 連携が正しく構成されているか確認します。
+    3. [Editor Permissions](/ja/dashboard/permissions) のドキュメントを参照してください。
+  </Accordion>
+
+  <Accordion title="エディタの読み込みに問題がある">
+    **考えられる原因:**
+
+    * ネットワーク接続の問題
+    * 大規模なドキュメントリポジトリ
+
+    **解決策:**
+
+    1. インターネット接続を確認します。
+    2. ページを再読み込みします。
+    3. 解決しない場合はサポートにお問い合わせください。
+  </Accordion>
+
+  <Accordion title="ファイルが読み込まれない、またはエラーが表示される">
+    **考えられる原因:**
+
+    * ファイル内の MDX 構文が無効
+    * ファイルの欠落または破損
+    * 大きなファイルサイズによるタイムアウト
+
+    **解決策:**
+
+    1. ファイルの構文に MDX のフォーマットエラーがないか確認します。
+    2. リポジトリ内にファイルが存在するか確認します。
+  </Accordion>
+</AccordionGroup>
+
+<div id="next-steps">
+  ## 次のステップ
+</div>
+
+* [Git の基本概念](/ja/guides/git-concepts)を学ぶ
+* [ブランチ](/ja/guides/branches)を用いたコラボレーションのベストプラクティスを学ぶ

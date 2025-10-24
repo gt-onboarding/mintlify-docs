@@ -1,0 +1,45 @@
+---
+title: "Manutenzione"
+description: "Suggerimenti per mantenere la documentazione aggiornata"
+---
+
+<Tip>
+  Questa pagina illustra strategie per mantenere la documentazione accurata e utile nel tempo, dai controlli automatizzati ai cicli di vita dei contenuti.
+</Tip>
+
+<div id="automate-what-you-can">
+  ## Automatizza ciò che puoi
+</div>
+
+Introduci automazioni dove possibile, ad esempio:
+
+* **Monitora i contenuti obsoleti:** Esegui uno script per contrassegnare le pagine/documenti importanti che non sono stati aggiornati negli ultimi tre mesi. Sono ancora accurati?
+* **Automatizza gli aggiornamenti della documentazione:** Crea un workflow per aggiornare automaticamente la documentazione quando il codice viene mergiato con l&#39;[agent API](/it/guides/automate-agent).
+* **Fai rispettare gli standard con i linter:** Usa [Vale](http://Vale.sh) o i [controlli CI](/it/deploy/ci) per rilevare automaticamente problemi di formattazione, deviazioni dallo stile di scrittura o metadati mancanti in ogni pull request.
+
+<div id="set-up-a-review-process">
+  ## Imposta un processo di revisione
+</div>
+
+La documentazione potrebbe non essere mai perfetta, e va bene così. Dovresti definire una soglia di accettazione in cui la documentazione è funzionale e utile.
+
+Bilancia efficienza e qualità:
+
+* **Concentrati sulla documentazione a maggior impatto.** Non tutte le pagine richiedono aggiornamenti regolari. Assicurati che le più importanti vengano sottoposte a revisione periodica per accuratezza e rilevanza.
+* **Coinvolgi la tua community.** Se la documentazione è open source, permetti agli utenti di segnalare problemi o inviare correzioni tramite pull request. Questo crea fiducia e mantiene i contenuti aggiornati.
+
+<div id="know-when-to-rewrite">
+  ## Sapere quando riscrivere
+</div>
+
+Con il tempo, la documentazione finisce per accumulare avvertenze ed escamotage. Quando le correzioni incrementali creano più confusione che chiarezza, una revisione completa può essere l’opzione migliore.
+
+* **Pianifica azzeramenti periodici.** Una grande operazione di pulizia, soprattutto se le best practice o il prodotto sono cambiati in modo significativo, fa risparmiare tempo al tuo team e ai tuoi utenti.
+* **Inizia con una verifica strutturata.** Intervista i team di supporto, analizza il feedback degli utenti e documenta ciò che manca, trae in inganno o è ridondante prima di riscrivere.
+* **Conduci le riscritture in sprint mirati.** Una revisione completa non deve avvenire tutta in una volta. Dai priorità alle sezioni con l’impatto maggiore.
+
+<div id="wrong-docs-can-be-worse-than-no-docs">
+  ## Una documentazione sbagliata può essere peggiore di nessuna documentazione
+</div>
+
+Una documentazione obsoleta o fuorviante fa perdere tempo agli utenti e mina la fiducia. Nei casi in cui una pagina sia completamente inesatta e non correggibile nel breve periodo, spesso è meglio rimuoverla del tutto. Gli utenti preferiranno avere meno informazioni piuttosto che informazioni sbagliate.

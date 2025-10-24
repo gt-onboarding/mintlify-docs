@@ -1,0 +1,195 @@
+---
+title: "页面"
+description: "页面是文档的基本构成单元"
+keywords: ["tags", "tag"]
+---
+
+每个页面都是一个 MDX 文件，它将 Markdown 内容与 React 组件结合起来，帮助你创建丰富、交互性强的文档。
+
+<div id="page-metadata">
+  ## 页面元数据
+</div>
+
+每个页面都以 frontmatter 开头，即文件开头由 `---` 包裹的 YAML 元数据。该元数据决定页面的呈现与行为。
+
+使用 frontmatter 可控制：
+
+* 页面标题和描述
+* 侧边栏标题、图标和标签
+* 页面布局
+* SEO 元标签
+* 自定义元数据
+
+<ResponseField name="title" type="string" required>
+  显示在导航和浏览器标签中的页面标题。
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  对本页面内容的简要说明。显示在标题下方并有助于提升 SEO。
+</ResponseField>
+
+<ResponseField name="sidebarTitle" type="string">
+  显示在侧边栏导航中的简短标题。
+</ResponseField>
+
+<ResponseField name="icon" type="string">
+  要显示的图标。
+
+  选项：
+
+  * [Font Awesome 图标](https://fontawesome.com/icons) 的名称
+  * [Lucide 图标](https://lucide.dev/icons) 的名称
+  * 外部托管图标的 URL
+  * 项目中图标文件的路径
+</ResponseField>
+
+<ResponseField name="iconType" type="string">
+  [Font Awesome](https://fontawesome.com/icons) 的图标样式。仅用于 Font Awesome 图标。
+
+  选项：`regular`、`solid`、`light`、`thin`、`sharp-solid`、`duotone`、`brands`。
+</ResponseField>
+
+<ResponseField name="tag" type="string">
+  显示在侧边栏中页面标题旁的标签。
+</ResponseField>
+
+<ResponseField name="<custom>" type="string">
+  任意有效的 YAML frontmatter。例如：`product: "API"` 或 `version: "1.0.0"`。
+</ResponseField>
+
+```yaml Example YAML frontmatter wrap
+---
+title: "关于 frontmatter"
+description: "Frontmatter 是控制页面外观和行为的元数据"
+sidebarTitle: "Frontmatter"
+icon: "book"
+tag: "NEW"
+---
+```
+
+<div id="page-mode">
+  ## 页面模式
+</div>
+
+使用 `mode` 设置来控制页面的显示方式。
+
+<div id="default">
+  ### 默认
+</div>
+
+若未指定模式，将采用带有侧边导航和目录的标准布局。
+
+```yaml
+---
+title: "默认页面标题"
+---
+```
+
+<div id="wide">
+  ### 宽屏
+</div>
+
+宽屏模式会隐藏目录。这对于没有任何标题的页面，或当你希望利用更多横向空间时很有用。宽屏模式适用于所有主题。
+
+```yaml
+---
+title: "宽页面标题"
+mode: "wide"
+---
+```
+
+<div id="custom">
+  ### 自定义
+</div>
+
+自定义模式提供极简布局，除顶部导航栏外移除所有元素。它是一块空白画布，可用于创建落地页或任何其他希望将导航元素降到最低的独特布局。自定义模式适用于所有主题。
+
+```yaml
+---
+title: "自定义页面标题"
+mode: "custom"
+---
+```
+
+<div id="frame">
+  ### Frame
+</div>
+
+Frame 模式提供与自定义模式相似的布局，但会保留侧边栏导航。该页面模式在保持默认导航体验的同时，支持使用自定义 HTML 和组件。Frame 模式仅适用于 Aspen 和 Almond 主题。
+
+```yaml
+---
+title: "Frame page title"
+mode: "frame"
+---
+```
+
+<div id="center">
+  ### 居中
+</div>
+
+居中模式会移除侧边栏和目录，并将内容居中显示。它适用于更新日志或其他需要突出内容的页面。Mint 和 Linden 主题均支持居中模式。
+
+```yaml
+---
+title: "居中页面标题"
+mode: "center"
+---
+```
+
+<div id="api-pages">
+  ## API 页面
+</div>
+
+在 frontmatter 中添加 API 规范（`api` 或 `openapi`）即可创建交互式 API 操作台。
+
+```yaml
+---
+openapi: "GET /endpoint"
+---
+```
+
+了解如何构建 [API 文档](/zh/api-playground/overview)。
+
+<div id="external-links">
+  ## 外部链接
+</div>
+
+在导航中使用 `url` 元数据直接链接到外部网站。
+
+```yaml
+---
+title: "npm 包"
+url: "https://www.npmjs.com/package/mint"
+---
+```
+
+<div id="search-engine-optimization">
+  ## 搜索引擎优化
+</div>
+
+大多数 SEO 元标签会自动生成。你也可以手动设置 SEO 元标签，以提升站点的 SEO、社交分享效果和浏览器兼容性。
+
+<Note>
+  带有冒号的元标签必须用引号括起来。
+</Note>
+
+```yaml
+---
+"twitter:image": "/images/social-preview.jpg"
+---
+```
+
+有关完整的 SEO 元数据选项，请参见 [SEO](/zh/optimize/seo)。
+
+<div id="internal-search-keywords">
+  ## 内部搜索关键词
+</div>
+
+在元数据中添加 `keywords`，可提升特定页面在内置搜索中的可发现性。这些关键词不会作为页面内容展示，也不会直接出现在搜索结果中，但当用户搜索这些关键词时，该页面会作为结果显示。
+
+```yaml
+---
+keywords: ['配置', '设置', '快速开始']
+---
+```

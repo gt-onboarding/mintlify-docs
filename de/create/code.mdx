@@ -1,0 +1,460 @@
+---
+title: "Code formatieren"
+description: "Inline-Code und Codeblöcke darstellen"
+---
+
+<div id="adding-code-samples">
+  ## Codebeispiele hinzufügen
+</div>
+
+Sie können Inline-Code-Snippets oder Codeblöcke hinzufügen. Codeblöcke unterstützen Metaoptionen für Syntaxhervorhebung, Titel, Zeilenhervorhebung, Icons und mehr.
+
+<div id="inline-code">
+  ### Inline-Code
+</div>
+
+Um ein `Wort` oder eine `Wortgruppe` als Code zu kennzeichnen, schließe es in Backticks (`) ein.
+
+```mdx
+Um ein `Wort` oder eine `Phrase` als Code zu kennzeichnen, schließen Sie es in Backticks (`) ein.
+```
+
+<div id="code-blocks">
+  ### Codeblöcke
+</div>
+
+Verwenden Sie [abgegrenzte Codeblöcke](https://www.markdownguide.org/extended-syntax/#fenced-code-blocks), indem Sie Code in drei Backticks einschließen. Codeblöcke lassen sich kopieren, und wenn der Assistent aktiviert ist, können Nutzer die KI bitten, den Code zu erklären.
+
+Geben Sie die Programmiersprache für die Syntaxhervorhebung an und um Metaoptionen zu aktivieren. Fügen Sie nach der Sprache beliebige Metaoptionen wie einen Titel oder ein Icon hinzu.
+
+<CodeGroup>
+  ```java HelloWorld.java example lines icon="java"
+  class HelloWorld {
+      public static void main(String[] args) {
+          System.out.println("Hello, World!");
+      }
+  }
+  ```
+
+  ````mdx Format
+  ```java HelloWorld.java lines icon="java"
+  class HelloWorld {
+      public static void main(String[] args) {
+          System.out.println("Hello, World!");
+      }
+  }
+  ```
+  ````
+</CodeGroup>
+
+<div id="code-block-options">
+  ## Optionen für Codeblöcke
+</div>
+
+Sie können Ihren Codeblöcken Metaoptionen hinzufügen, um deren Darstellung anzupassen.
+
+<Note>
+  Sie müssen für einen Codeblock zuerst eine Programmiersprache angeben, bevor Sie andere Metaoptionen hinzufügen.
+</Note>
+
+<div id="option-syntax">
+  ### Optionen-Syntax
+</div>
+
+* **String- und boolesche Optionen**: Mit `""`, `''` oder ohne Anführungszeichen umschließen.
+* **Ausdrucksoptionen**: Mit `{}`, `""` oder `''` umschließen.
+
+<div id="syntax-highlighting">
+  ### Syntaxhervorhebung
+</div>
+
+Aktivieren Sie die Syntaxhervorhebung, indem Sie die Programmiersprache direkt nach den öffnenden Backticks eines Codeblocks angeben.
+
+Wir verwenden [Shiki](https://shiki.style/) für die Syntaxhervorhebung und unterstützen alle verfügbaren Sprachen. Die vollständige Liste der [Sprachen](https://shiki.style/languages) finden Sie in der Shiki-Dokumentation.
+
+Passen Sie Codeblock-Themes global über `styling.codeblocks` in Ihrer `docs.json`-Datei an. Legen Sie einfache Themes wie `system` oder `dark` fest, oder konfigurieren Sie benutzerdefinierte [Shiki-Themes](https://shiki.style/themes) für helle und dunkle Modi. Siehe [Settings](/de/organize/settings#styling) für Konfigurationsoptionen.
+
+<Accordion title="Benutzerdefiniertes Syntaxhervorhebungs-Theme">
+  Für benutzerdefinierte Themes setzen Sie Ihr Theme in `docs.json` auf `"css-variables"` und überschreiben die Farben der Syntaxhervorhebung mit CSS-Variablen mit dem Präfix `--mint-`.
+
+  Die folgenden Variablen sind verfügbar:
+
+  **Grundfarben**
+
+  * `--mint-color-text`: Standardtextfarbe
+  * `--mint-color-background`: Hintergrundfarbe
+
+  **Token-Farben**
+
+  * `--mint-token-constant`: Konstanten und Literale
+  * `--mint-token-string`: Zeichenketten
+  * `--mint-token-comment`: Kommentare
+  * `--mint-token-keyword`: Schlüsselwörter
+  * `--mint-token-parameter`: Funktionsparameter
+  * `--mint-token-function`: Funktionsnamen
+  * `--mint-token-string-expression`: Zeichenkettenausdrücke
+  * `--mint-token-punctuation`: Satzzeichen
+  * `--mint-token-link`: Links
+
+  **ANSI-Farben**
+
+  * `--mint-ansi-black`, `--mint-ansi-black-dim`
+  * `--mint-ansi-red`, `--mint-ansi-red-dim`
+  * `--mint-ansi-green`, `--mint-ansi-green-dim`
+  * `--mint-ansi-yellow`, `--mint-ansi-yellow-dim`
+  * `--mint-ansi-blue`, `--mint-ansi-blue-dim`
+  * `--mint-ansi-magenta`, `--mint-ansi-magenta-dim`
+  * `--mint-ansi-cyan`, `--mint-ansi-cyan-dim`
+  * `--mint-ansi-white`, `--mint-ansi-white-dim`
+  * `--mint-ansi-bright-black`, `--mint-ansi-bright-black-dim`
+  * `--mint-ansi-bright-red`, `--mint-ansi-bright-red-dim`
+  * `--mint-ansi-bright-green`, `--mint-ansi-bright-green-dim`
+  * `--mint-ansi-bright-yellow`, `--mint-ansi-bright-yellow-dim`
+  * `--mint-ansi-bright-blue`, `--mint-ansi-bright-blue-dim`
+  * `--mint-ansi-bright-magenta`, `--mint-ansi-bright-magenta-dim`
+  * `--mint-ansi-bright-cyan`, `--mint-ansi-bright-cyan-dim`
+  * `--mint-ansi-bright-white`, `--mint-ansi-bright-white-dim`
+</Accordion>
+
+<CodeGroup>
+  ```java Beispiel für Syntaxhervorhebung
+  class HelloWorld {
+      public static void main(String[] args) {
+          System.out.println("Hello, World!");
+      }
+  }
+  ```
+
+  ````mdx Format
+  ```java
+  class HelloWorld {
+      public static void main(String[] args) {
+          System.out.println("Hello, World!");
+      }
+  }
+  ```
+  ````
+</CodeGroup>
+
+<div id="twoslash">
+  ### Twoslash
+</div>
+
+In JavaScript- und TypeScript-Codeblöcken kannst du `twoslash` verwenden, um interaktive Typinformationen zu aktivieren. Nutzer können über Variablen, Funktionen und Parameter fahren, um wie in einer IDE Typen und Fehler anzuzeigen.
+
+<CodeGroup>
+  ```ts twoslash Twoslash example
+  type Pet = "cat" | "dog" | "hamster";
+
+  function adoptPet(name: string, type: Pet) {
+  return `${name} the ${type} is now adopted!`;
+  }
+
+  // Zum Anzeigen der abgeleiteten Typen darüberfahren
+  const message = adoptPet("Mintie", "cat");
+
+  ```
+
+  ````mdx Format
+  ```ts twoslash
+  type Pet = "cat" | "dog" | "hamster";
+
+  function adoptPet(name: string, type: Pet) {
+    return `${name} the ${type} is now adopted!`;
+  }
+
+  // Zum Anzeigen der abgeleiteten Typen darüberfahren
+  const message = adoptPet("Mintie", "cat");
+  ````
+
+  `````
+  </CodeGroup>
+
+  ### Titel
+
+  Füge einen Titel hinzu, um dein Codebeispiel zu beschriften. Verwende `title="Your title"` oder eine einzeilige Zeichenfolge.
+
+  <CodeGroup>
+  ```javascript Title example
+  const hello = "world";
+  ```
+
+  ````mdx Format
+  ```javascript Title example
+  const hello = "world";
+  ```
+  `````
+</CodeGroup>
+
+<div id="icon">
+  ### Icon
+</div>
+
+Fügen Sie Ihrem Codeblock mit der Eigenschaft `icon` ein Symbol hinzu. Alle verfügbaren Optionen finden Sie unter [Icons](/de/components/icons).
+
+<CodeGroup>
+  ```javascript Icon-Beispiel icon="square-js"
+  const hello = "world";
+  ```
+
+  ````mdx Format
+  ```javascript icon="square-js"
+  const hello = "world";
+  ```
+  ````
+</CodeGroup>
+
+<div id="line-highlighting">
+  ### Zeilenhervorhebung
+</div>
+
+Hebe bestimmte Zeilen in deinen Codeblöcken hervor, indem du `highlight` mit den gewünschten Zeilennummern oder -bereichen verwendest.
+
+<CodeGroup>
+  ```javascript Line highlighting example highlight= {1-2,5}
+  const greeting = "Hello, World!";
+  function sayHello() {
+    console.log(greeting);
+  }
+  sayHello();
+  ```
+
+  ````mdx Format
+  ```javascript highlight={1-2,5}
+  const greeting = "Hello, World!";
+  function sayHello() {
+    console.log(greeting);
+  }
+  sayHello();
+  ```
+  ````
+</CodeGroup>
+
+<div id="line-focusing">
+  ### Zeilen hervorheben
+</div>
+
+Hebe bestimmte Zeilen in deinen Codeblöcken mit `focus` und Zeilennummern oder -bereichen hervor.
+
+<CodeGroup>
+  ```javascript Line focus example focus= {2,4-5}
+  const greeting = "Hello, World!";
+  function sayHello() {
+    console.log(greeting);
+  }
+  sayHello();
+  ```
+
+  ````mdx Format
+  ```javascript focus={2,4-5}
+  const greeting = "Hello, World!";
+  function sayHello() {
+    console.log(greeting);
+  }
+  sayHello();
+  ```
+  ````
+</CodeGroup>
+
+<div id="show-line-numbers">
+  ### Zeilennummern anzeigen
+</div>
+
+Zeilennummern auf der linken Seite deines Codeblocks mit `lines` anzeigen.
+
+<CodeGroup>
+  ```javascript Beispiel für Zeilennummern lines
+  const greeting = "Hello, World!";
+  function sayHello() {
+    console.log(greeting);
+  }
+  sayHello();
+  ```
+
+  ````mdx Format
+  ```javascript lines
+  const greeting = "Hello, World!";
+  function sayHello() {
+    console.log(greeting);
+  }
+  sayHello();
+  ```
+  ````
+</CodeGroup>
+
+<div id="expandable">
+  ### Ausklappbar
+</div>
+
+Ermöglichen Sie Nutzer:innen, lange Codeblöcke mit `expandable` ein- und auszuklappen.
+
+<CodeGroup>
+  ```python Expandable example expandable
+  from datetime import datetime, timedelta
+  from typing import Dict, List, Optional
+  from dataclasses import dataclass
+
+  @dataclass
+  class Book:
+  title: str
+  author: str
+  isbn: str
+  checked_out: bool = False
+  due_date: Optional[datetime] = None
+
+  class Library:
+  def **init**(self):
+  self.books: Dict[str, Book] = {}
+  self.checkouts: Dict[str, List[str]] = {} # patron -> list of ISBNs
+
+      def add_book(self, book: Book) -> None:
+          if book.isbn in self.books:
+              raise ValueError(f"Book with ISBN {book.isbn} already exists")
+          self.books[book.isbn] = book
+
+      def checkout_book(self, isbn: str, patron: str, days: int = 14) -> None:
+          if patron not in self.checkouts:
+              self.checkouts[patron] = []
+
+          book = self.books.get(isbn)
+          if not book:
+              raise ValueError("Book not found")
+
+          if book.checked_out:
+              raise ValueError("Book is already checked out")
+
+          if len(self.checkouts[patron]) >= 3:
+              raise ValueError("Patron has reached checkout limit")
+
+          book.checked_out = True
+          book.due_date = datetime.now() + timedelta(days=days)
+          self.checkouts[patron].append(isbn)
+
+      def return_book(self, isbn: str) -> float:
+          book = self.books.get(isbn)
+          if not book or not book.checked_out:
+              raise ValueError("Book not found or not checked out")
+
+          late_fee = 0.0
+          if datetime.now() > book.due_date:
+              days_late = (datetime.now() - book.due_date).days
+              late_fee = days_late * 0.50
+
+          book.checked_out = False
+          book.due_date = None
+
+          # Remove from patron's checkouts
+          for patron, books in self.checkouts.items():
+              if isbn in books:
+                  books.remove(isbn)
+                  break
+
+          return late_fee
+
+      def search(self, query: str) -> List[Book]:
+          query = query.lower()
+          return [
+              book for book in self.books.values()
+              if query in book.title.lower() or query in book.author.lower()
+          ]
+
+  def main():
+  library = Library()
+
+      # Add some books
+      books = [
+          Book("The Hobbit", "J.R.R. Tolkien", "978-0-261-10295-4"),
+          Book("1984", "George Orwell", "978-0-452-28423-4"),
+      ]
+
+      for book in books:
+          library.add_book(book)
+
+      # Checkout and return example
+      library.checkout_book("978-0-261-10295-4", "patron123")
+      late_fee = library.return_book("978-0-261-10295-4")
+      print(f"Late fee: ${late_fee:.2f}")
+
+  if **name** == "**main**":
+  main()
+
+  ```
+
+  ````text Format
+  ```python expandable
+  from datetime import datetime, timedelta
+  from typing import Dict, List, Optional
+  from dataclasses import dataclass
+
+  # ...
+
+  if __name__ == "__main__":
+      main()
+  ````
+
+  `````
+  </CodeGroup>
+
+  ### Zeilenumbruch
+
+  Aktivieren Sie den Zeilenumbruch für lange Zeilen mit `wrap`. Das verhindert horizontales Scrollen und macht lange Zeilen leichter lesbar.
+
+  <CodeGroup>
+  ```javascript Wrap example wrap
+  const greeting = "Hello, World! I am a long line of text that will wrap to the next line.";
+  function sayHello() {
+    console.log(greeting);
+  }
+  sayHello();
+  ```
+
+  ````mdx Format
+  ```javascript wrap
+  const greeting = "Hello, World! I am a long line of text that will wrap to the next line.";
+  function sayHello() {
+    console.log(greeting);
+  }
+  sayHello();
+  ```
+  `````
+</CodeGroup>
+
+<div id="diff">
+  ### Diff
+</div>
+
+Zeige einen visuellen Diff von hinzugefügten oder entfernten Zeilen in deinen Codeblöcken. Hinzugefügte Zeilen werden grün hervorgehoben, entfernte Zeilen rot.
+
+Um Diffs zu erstellen, füge diese speziellen Kommentare am Zeilenende in deinem Codeblock hinzu:
+
+* `// [!code ++]`: Markiert eine Zeile als hinzugefügt (grüne Hervorhebung).
+* `// [!code --]`: Markiert eine Zeile als entfernt (rote Hervorhebung).
+
+Für mehrere aufeinanderfolgende Zeilen gib die Anzahl der Zeilen nach einem Doppelpunkt an:
+
+* `// [!code ++:3]`: Markiert die aktuelle Zeile plus die nächsten zwei Zeilen als hinzugefügt.
+* `// [!code --:5]`: Markiert die aktuelle Zeile plus die nächsten vier Zeilen als entfernt.
+
+Die Kommentarsyntax muss zu deiner Programmiersprache passen (zum Beispiel `//` für JavaScript oder `#` für Python).
+
+<CodeGroup>
+  ```js Diff example lines
+  const greeting = "Hello, World!"; // [!code ++]
+  function sayHello() {
+    console.log("Hello, World!"); // [!code --]
+    console.log(greeting); // [!code ++]
+  }
+  sayHello();
+  ```
+
+  ````text Format
+  ```js lines
+  const greeting = "Hello, World!"; // [!code ++]
+  function sayHello() {
+    console.log("Hello, World!"); // [!code --]
+    console.log(greeting); // [!code ++]
+  }
+  sayHello();
+  ```
+  ````
+</CodeGroup>

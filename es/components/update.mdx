@@ -1,0 +1,50 @@
+---
+title: "Actualización"
+description: "Lleva un registro de cambios y actualizaciones"
+---
+
+Usa el componente `Update` para mostrar entradas del registro de cambios, actualizaciones de versión y notas de lanzamiento con un formato uniforme.
+
+<Update label="Ejemplo" description="v0.1.1">
+  ## Actualización de ejemplo
+
+  Aquí puedes añadir cualquier contenido, como una captura de pantalla, un fragmento de código o una lista de cambios.
+
+  <Frame>
+    <img className="block" src="https://mintlify-assets.b-cdn.net/hero-light.png" alt="Captura de pantalla de la página de introducción de PearsDB como ejemplo de una imagen en un componente Update." />
+  </Frame>
+
+  ### Características
+
+  * Diseño adaptable
+  * Ancla para cada actualización
+  * Entrada del feed RSS generada para cada actualización
+</Update>
+
+<div id="how-to-use">
+  ## Cómo usarlo
+</div>
+
+```mdx Update example
+<Update label="2024-10-11" description="v0.1.0" tags={["Mintlify"]}>
+  Esta es una actualización con una etiqueta, descripción y etiqueta.
+</Update>
+```
+
+Usa varios componentes `Update` para crear [registros de cambios](/es/create/changelogs).
+
+<div id="props">
+  ## Props
+</div>
+
+<ResponseField name="label" type="string" required>
+  Etiqueta de la actualización. Aparece a la izquierda de la actualización y crea un enlace ancla. Las etiquetas deben ser únicas.
+</ResponseField>
+
+<ResponseField name="tags" type="string[]">
+  Etiquetas de la actualización. Se muestran como filtros en el panel derecho.
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  Descripción de la actualización. Aparece debajo de la etiqueta y las etiquetas.
+</ResponseField>

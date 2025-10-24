@@ -1,0 +1,107 @@
+---
+title: "Campi"
+description: "Configura i parametri per i riferimenti API o SDK"
+---
+
+Usa i campi per documentare i parametri e le risposte delle API. Esistono due tipi di campi: campi dei parametri e campi delle risposte.
+
+<div id="parameter-field">
+  ## Campo parametro
+</div>
+
+Il componente `<ParamField>` viene utilizzato per definire i parametri delle tue API o dei tuoi SDK. L’aggiunta di un `ParamField` aggiunge automaticamente un [API playground](/it/api-playground/overview).
+
+<ParamField path="param" type="string" required>
+  Un esempio di campo parametro
+</ParamField>
+
+```mdx
+<ParamField path="param" type="string" required>
+  Un esempio di campo parametro
+</ParamField>
+```
+
+<div id="properties">
+  ### Proprietà
+</div>
+
+<ParamField body="query, path, body, or header" type="string">
+  Specifica se il parametro è una query, un path, un body o un header. Seguito dal
+  nome del parametro.
+</ParamField>
+
+<ParamField body="type" type="string">
+  Tipo previsto per il valore del parametro.
+
+  Supporta `number`, `string`, `boolean`, `object`.
+
+  Gli array possono essere definiti usando il suffisso `[]`. Ad esempio `string[]`.
+</ParamField>
+
+<ParamField body="required" type="boolean">
+  Indica se il parametro è obbligatorio.
+</ParamField>
+
+<ParamField body="deprecated" type="boolean">
+  Indica se il parametro è obsoleto.
+</ParamField>
+
+<ParamField body="default" type="any">
+  Valore predefinito utilizzato quando il valore della richiesta è vuoto
+</ParamField>
+
+<ParamField body="placeholder" type="string">
+  Testo segnaposto per l’input nel playground.
+</ParamField>
+
+<ParamField body="children" type="string">
+  Descrizione del parametro (supporta Markdown).
+</ParamField>
+
+<div id="response-field">
+  ## Campo di risposta
+</div>
+
+Il componente `<ResponseField>` definisce i valori restituiti da un&#39;API.
+
+<ResponseField name="response" type="string" required>
+  Un esempio di campo di risposta
+</ResponseField>
+
+```mdx
+<ResponseField name="response" type="string" required>
+  Un esempio di campo di risposta
+</ResponseField>
+```
+
+<div id="properties">
+  ### Proprietà
+</div>
+
+<ResponseField name="name" type="string" required>
+  Il nome del valore di risposta.
+</ResponseField>
+
+<ResponseField name="type" type="string" required>
+  Tipo atteso del valore di risposta. Può essere qualsiasi stringa arbitraria.
+</ResponseField>
+
+<ResponseField name="default" type="string">
+  Il valore predefinito.
+</ResponseField>
+
+<ResponseField name="required" type="boolean">
+  Indica se la risposta è obbligatoria.
+</ResponseField>
+
+<ResponseField name="deprecated" type="boolean">
+  Indica se un campo è obsoleto.
+</ResponseField>
+
+<ResponseField name="pre" type="string[]">
+  Etichette visualizzate prima del nome del campo.
+</ResponseField>
+
+<ResponseField name="post" type="string[]">
+  Etichette visualizzate dopo il nome del campo.
+</ResponseField>

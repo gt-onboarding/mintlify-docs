@@ -1,0 +1,160 @@
+---
+title: "Reverse proxy"
+description: "Configura un reverse proxy personalizzato per distribuire la tua documentazione"
+---
+
+<Note>
+  Le configurazioni di reverse proxy sono supportate solo nei [piani Custom](https://mintlify.com/pricing?ref=reverse-proxy).
+</Note>
+
+Per distribuire la tua documentazione tramite un reverse proxy personalizzato, devi configurare regole di instradamento, criteri di caching e l’inoltro degli header.
+
+Quando implementi un reverse proxy, monitora potenziali problemi relativi a verifica del dominio, provisioning dei certificati SSL, flussi di autenticazione, prestazioni e tracciamento delle analytics.
+
+<div id="routing-configuration">
+  ## Configurazione del routing
+</div>
+
+Instrada questi percorsi verso il tuo sottodominio Mintlify con le seguenti politiche di caching:
+
+| Path | Destination | Caching |
+|------|-------------|---------|
+| `/.well-known/acme-challenge/*` | `<your-subdomain>.mintlify.app` | Nessun caching |
+| `/.well-known/vercel/*` | `<your-subdomain>.mintlify.app` | Nessun caching |
+| `/mintlify-assets/_next/static/*` | `<your-subdomain>.mintlify.app` | Caching abilitato |
+| `/_mintlify/*` | `<your-subdomain>.mintlify.app` | Nessun caching |
+| `/*` | `<your-subdomain>.mintlify.app` | Nessun caching |
+| `/` | `<your-subdomain>.mintlify.app` | Nessun caching |
+
+<div id="required-header-configuration">
+  ## Configurazione richiesta delle intestazioni
+</div>
+
+Configura il tuo reverse proxy con questi requisiti per le intestazioni:
+
+- **Origin**: Contiene il sottodominio di destinazione `<your-subdomain>.mintlify.app`
+- **X-Forwarded-For**: Preserva le informazioni sull'IP del client
+- **X-Forwarded-Proto**: Preserva il protocollo originale (HTTP/HTTPS)
+- **X-Real-IP**: Inoltra il reale indirizzo IP del client
+- **User-Agent**: Inoltra lo user agent
+
+<Warning>
+  Assicurati che l'intestazione `Host` non venga inoltrata
+</Warning>
+
+<div id="example-nginx-configuration">
+  ## Esempio di configurazione di nginx
+</div>
+
+```nginx
+server {
+    listen 80;
+    server_name <your-domain>.com;
+
+    # Percorsi di verifica Let's Encrypt
+    location ~ ^/\.well-known/acme-challenge/ {
+        proxy_pass https://<your-subdomain>.mintlify.app;
+        proxy_set_header Origin <your-subdomain>.mintlify.app;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header User-Agent $http_user_agent;
+
+        # Disabilita la cache per i percorsi di verifica
+        add_header Cache-Control "no-cache, no-store, must-revalidate";
+    }
+
+    # Percorsi di verifica Vercel
+    location ~ ^/\.well-known/vercel/ {
+        proxy_pass https://<your-subdomain>.mintlify.app;
+        proxy_set_header Origin <your-subdomain>.mintlify.app;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header User-Agent $http_user_agent;
+
+        # Disabilita la cache per i percorsi di verifica
+        add_header Cache-Control "no-cache, no-store, must-revalidate";
+    }
+
+    # Risorse statiche con caching
+    location ~ ^/mintlify-assets/_next/static/ {
+        proxy_pass https://<your-subdomain>.mintlify.app;
+        proxy_set_header Origin <your-subdomain>.mintlify.app;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header User-Agent $http_user_agent;
+
+        # Abilita la cache per le risorse statiche
+        add_header Cache-Control "public, max-age=86400";
+    }
+
+    # Percorsi specifici di Mintlify
+    location ~ ^/_mintlify/ {
+        proxy_pass https://<your-subdomain>.mintlify.app;
+        proxy_set_header Origin <your-subdomain>.mintlify.app;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header User-Agent $http_user_agent;
+
+        # Disabilita la cache per i percorsi Mintlify
+        add_header Cache-Control "no-cache, no-store, must-revalidate";
+    }
+
+    # Percorso root
+    location = / {
+        proxy_pass https://<your-subdomain>.mintlify.app;
+        proxy_set_header Origin <your-subdomain>.mintlify.app;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header User-Agent $http_user_agent;
+
+        # Disabilita la cache per i contenuti dinamici
+        add_header Cache-Control "no-cache, no-store, must-revalidate";
+    }
+
+    # Tutti gli altri percorsi della documentazione
+    location / {
+        proxy_pass https://<your-subdomain>.mintlify.app;
+        proxy_set_header Origin <your-subdomain>.mintlify.app;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header User-Agent $http_user_agent;
+
+        # Disabilita la cache per i contenuti dinamici
+        add_header Cache-Control "no-cache, no-store, must-revalidate";
+    }
+}
+```
+
+
+<div id="troubleshooting">
+  ## Risoluzione dei problemi
+</div>
+
+<div id="404-error">
+  ### Errore 404
+</div>
+
+**Sintomi**: La documentazione si carica, ma alcune funzionalità non funzionano. Le chiamate API non vanno a buon fine.
+
+**Causa**: L’header `Host` viene inoltrato oppure l’header `Origin` è assente.
+
+**Soluzione**:
+
+- Disabilita l’inoltro dell’header `Host`
+- Imposta l’header `Origin` su `<your-subdomain>.mintlify.app`
+
+<div id="performance-issues">
+  ### Problemi di performance
+</div>
+
+**Sintomi**: Pagine lente a caricarsi e spostamenti del layout.
+
+**Causa**: Configurazione della cache errata.
+
+**Soluzione**: Abilita la cache solo per i percorsi `/mintlify-assets/_next/static/*`.

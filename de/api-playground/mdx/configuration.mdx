@@ -1,0 +1,170 @@
+---
+title: "MDX-Einrichtung"
+description: "Erzeugen Sie Dokumentationsseiten für Ihre API-Endpunkte mit `MDX`"
+---
+
+Sie können API-Endpunkte manuell in einzelnen `MDX`-Dateien definieren, anstatt eine OpenAPI-Spezifikation zu verwenden. Diese Methode bietet Flexibilität für individuelle Inhalte. Für die meisten Projekte empfehlen wir jedoch, die API-Dokumentation aus einer OpenAPI-Spezifikationsdatei zu generieren, da sie leichter zu warten ist und mehr Funktionen bietet. Das Erstellen von `MDX`-Seiten für eine API kann dennoch hilfreich sein, um kleine APIs zu dokumentieren oder für Prototypen.
+
+Um Seiten für API-Endpunkte mit `MDX` zu erzeugen, konfigurieren Sie Ihre API-Einstellungen in `docs.json`, erstellen Sie einzelne `MDX`-Dateien für jeden Endpunkt und verwenden Sie Komponenten wie `<ParamFields />`, um Parameter zu definieren. Aus diesen Definitionen generiert Mintlify interaktive API-Spielwiesen, Beispielanfragen und Beispielantworten.
+
+<Steps>
+  <Step title="Konfigurieren Sie Ihre API">
+    Legen Sie in Ihrer `docs.json`-Datei die Basis-URL und die Authentifizierungsmethode fest:
+
+    ```json
+     "api": {
+      "mdx": {
+        "server": "https://mintlify.com/api", // string array for multiple base URLs
+        "auth": {
+          "method": "key",
+          "name": "x-api-key" // options: bearer, basic, key.
+        }
+      }
+    }
+    ```
+
+    Wenn Sie die API-Spielwiese ausblenden möchten, verwenden Sie das Feld `display`. Sie müssen keine Authentifizierungsmethode angeben, wenn Sie die Spielwiese ausblenden.
+
+    ```json
+    "api": {
+      "playground": {
+        "display": "none"
+      }
+    }
+    ```
+
+    Eine vollständige Liste der API-Konfigurationen finden Sie unter [Settings](/de/organize/settings#api-configurations).
+  </Step>
+
+  <Step title="Erstellen Sie Ihre Endpunktseiten">
+    Jede API-Endpunktseite sollte eine entsprechende `MDX`-Datei haben. Definieren Sie oben in jeder Datei `title` und `api`:
+
+    ```mdx
+    ---
+    title: 'Create new user'
+    api: 'POST https://api.mintlify.com/user'
+    ---
+    ```
+
+    Sie können Pfadparameter angeben, indem Sie den Parameternamen in den Pfad einfügen und mit `{}` umschließen:
+
+    ```bash
+    https://api.example.com/v1/endpoint/{userId}
+    ```
+
+    <Note>
+      Wenn Sie ein `server`-Feld in `docs.json` konfiguriert haben, können Sie relative Pfade wie `/v1/endpoint` verwenden.
+    </Note>
+
+    Sie können den global definierten Anzeigemodus für die API-Spielwiese seitenweise überschreiben, indem Sie `playground` zum Frontmatter hinzufügen:
+
+    ```mdx
+    ---
+    title: 'Create new user'
+    api: 'POST https://api.mintlify.com/user'
+    playground: 'none'
+    ---
+    ```
+
+    * `playground: 'interactive'` - Die interaktive Spielwiese anzeigen.
+    * `playground: 'simple'` - Einen kopierbaren Endpunkt ohne Spielwiese anzeigen.
+    * `playground: 'none'` - Die Spielwiese ausblenden.
+  </Step>
+
+  <Step title="Fügen Sie Ihre Endpunkte Ihrer Dokumentation hinzu">
+    Fügen Sie Ihre Endpunktseiten der Seitenleiste hinzu, indem Sie die Pfade dem Feld `navigation` in Ihrer `docs.json` hinzufügen. Weitere Informationen zur Strukturierung Ihrer Dokumentation finden Sie unter [Navigation](/de/organize/navigation).
+  </Step>
+</Steps>
+
+<div id="enabling-authentication">
+  ## Authentifizierung aktivieren
+</div>
+
+Sie können Ihrer `docs.json` eine Authentifizierungsmethode hinzufügen, um sie global für alle Seiten zu aktivieren, oder sie pro Seite festlegen.
+
+Die Authentifizierungsmethode einer Seite überschreibt die globale Methode, wenn beide definiert sind.
+
+<div id="bearer-token">
+  ### Bearer-Token
+</div>
+
+<CodeGroup>
+  ```json docs.json
+  "api": {
+      "mdx": {
+        "auth": {
+          "method": "bearer"
+        }
+      }
+  }
+  ```
+
+  ```mdx Page Metadata
+  ---
+  title: "Seitentitel"
+  authMethod: "bearer"
+  ---
+  ```
+</CodeGroup>
+
+<div id="basic-authentication">
+  ### Einfache Authentifizierung
+</div>
+
+<CodeGroup>
+  ```json docs.json
+  "api": {
+      "mdx": {
+        "auth": {
+          "method": "basic"
+        }
+      }
+  }
+  ```
+
+  ```mdx Page Metadata
+  ---
+  title: "Titel deiner Seite"
+  authMethod: "basic"
+  ---
+  ```
+</CodeGroup>
+
+<div id="api-key">
+  ### API-Schlüssel
+</div>
+
+<CodeGroup>
+  ```json docs.json
+  "api": {
+      "mdx": {
+        "auth": {
+          "method": "key",
+          "name": "x-api-key"
+        }
+      }
+  }
+  ```
+
+  ```mdx Page Metadata
+  ---
+  title: "Seitentitel"
+  authMethod: "key"
+  ---
+  ```
+</CodeGroup>
+
+<div id="none">
+  ### None
+</div>
+
+Die Authentifizierungsmethode `none` ist hilfreich, um die Authentifizierung für einen bestimmten Endpunkt zu deaktivieren, nachdem in der docs.json ein Standard festgelegt wurde.
+
+<CodeGroup>
+  ```mdx Page Metadata
+  ---
+  title: "Your page title"
+  authMethod: "none"
+  ---
+  ```
+</CodeGroup>

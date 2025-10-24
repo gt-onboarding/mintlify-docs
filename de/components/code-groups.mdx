@@ -1,0 +1,99 @@
+---
+title: "Code-Gruppen"
+description: "Mehrere Codebeispiele in einer Komponente anzeigen"
+---
+
+Verwenden Sie die Komponente `CodeGroup`, um mehrere Codeblöcke in einer Registerkartenoberfläche anzuzeigen. So können Nutzer Implementierungen in verschiedenen Programmiersprachen vergleichen oder alternative Ansätze für dieselbe Aufgabe betrachten.
+
+<CodeGroup>
+  ```javascript helloWorld.js
+  console.log("Hello World");
+  ```
+
+  ```python hello_world.py
+  print('Hello World!')
+  ```
+
+  ```java HelloWorld.java
+  class HelloWorld {
+      public static void main(String[] args) {
+          System.out.println("Hello, World!");
+      }
+  }
+  ```
+</CodeGroup>
+
+Code-Gruppen übernehmen globale Stile aus Ihrer `docs.json`-Datei. Passen Sie Ihr Theme über `styling.codeblocks` an. Weitere Konfigurationsoptionen finden Sie unter [Settings](/de/organize/settings#styling).
+
+<div id="creating-code-groups">
+  ## Code-Gruppen erstellen
+</div>
+
+Um eine Code-Gruppe zu erstellen, umschließe mehrere Codeblöcke mit `<CodeGroup>`-Tags. Jeder Codeblock muss einen Titel enthalten, der als Tab-Beschriftung verwendet wird.
+
+````mdx
+<CodeGroup>
+
+```javascript helloWorld.js
+console.log("Hello World");
+```
+
+```python hello_world.py
+print('Hello World!')
+```
+
+```java HelloWorld.java
+class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+```
+
+</CodeGroup>
+````
+
+<div id="language-dropdown">
+  ## Sprachauswahl
+</div>
+
+Sie können die Tabs in einer Codegruppe durch ein Dropdown-Menü ersetzen, um mit dem `dropdown`-Prop zwischen Sprachen zu wechseln.
+
+<CodeGroup dropdown>
+  ```javascript helloWorld.js
+  console.log("Hello World");
+  ```
+
+  ```python hello_world.py
+  print('Hello World!')
+  ```
+
+  ```java HelloWorld.java
+  class HelloWorld {
+      public static void main(String[] args) {
+          System.out.println("Hello, World!");
+      }
+  }
+  ```
+</CodeGroup>
+
+````mdx highlight=1
+<CodeGroup dropdown>
+
+```javascript helloWorld.js
+console.log("Hello World");
+```
+
+```python hello_world.py
+print('Hello World!')
+```
+
+```java HelloWorld.java
+class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+```
+</CodeGroup>
+````

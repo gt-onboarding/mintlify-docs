@@ -1,0 +1,99 @@
+---
+title: "Grupos de código"
+description: "Exiba vários exemplos de código em um único componente"
+---
+
+Use o componente `CodeGroup` para exibir vários blocos de código em uma interface com abas, permitindo que os usuários comparem implementações em diferentes linguagens de programação ou vejam abordagens alternativas para a mesma tarefa.
+
+<CodeGroup>
+  ```javascript helloWorld.js
+  console.log("Hello World");
+  ```
+
+  ```python hello_world.py
+  print('Hello World!')
+  ```
+
+  ```java HelloWorld.java
+  class HelloWorld {
+      public static void main(String[] args) {
+          System.out.println("Hello, World!");
+      }
+  }
+  ```
+</CodeGroup>
+
+Os grupos de código herdam o estilo global do arquivo `docs.json`. Personalize o tema usando `styling.codeblocks`. Consulte [Configurações](/pt-BR/organize/settings#styling) para opções de configuração.
+
+<div id="creating-code-groups">
+  ## Criando grupos de código
+</div>
+
+Para criar um grupo de código, envolva vários blocos de código com as tags `<CodeGroup>`. Cada bloco de código deve incluir um título, que se tornará o rótulo da aba.
+
+````mdx
+<CodeGroup>
+
+```javascript helloWorld.js
+console.log("Hello World");
+```
+
+```python hello_world.py
+print('Hello World!')
+```
+
+```java HelloWorld.java
+class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+```
+
+</CodeGroup>
+````
+
+<div id="language-dropdown">
+  ## Menu suspenso de idioma
+</div>
+
+Você pode substituir as abas de um grupo de código por um menu suspenso para alternar entre linguagens usando a prop `dropdown`.
+
+<CodeGroup dropdown>
+  ```javascript helloWorld.js
+  console.log("Hello World");
+  ```
+
+  ```python hello_world.py
+  print('Hello World!')
+  ```
+
+  ```java HelloWorld.java
+  class HelloWorld {
+      public static void main(String[] args) {
+          System.out.println("Hello, World!");
+      }
+  }
+  ```
+</CodeGroup>
+
+````mdx highlight=1
+<CodeGroup dropdown>
+
+```javascript helloWorld.js
+console.log("Hello World");
+```
+
+```python hello_world.py
+print('Hello World!')
+```
+
+```java HelloWorld.java
+class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+```
+</CodeGroup>
+````

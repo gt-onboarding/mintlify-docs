@@ -1,0 +1,195 @@
+---
+title: "Pagine"
+description: "Le pagine sono i blocchi fondamentali della tua documentazione"
+keywords: ["tags", "tag"]
+---
+
+Ogni pagina è un file MDX, che combina contenuti Markdown con componenti React per consentirti di creare documentazione ricca e interattiva.
+
+<div id="page-metadata">
+  ## Metadati della pagina
+</div>
+
+Ogni pagina inizia con il frontmatter, i metadati YAML racchiusi tra `---` all&#39;inizio del file. Questi metadati determinano l’aspetto e il comportamento della pagina.
+
+Usa il frontmatter per controllare:
+
+* Titoli e descrizioni della pagina
+* Titoli, icone e tag della barra laterale
+* Layout della pagina
+* Meta tag SEO
+* Metadati personalizzati
+
+<ResponseField name="title" type="string" required>
+  Il titolo della pagina che appare nella navigazione e nelle schede del browser.
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  Una breve descrizione dei contenuti della pagina. Appare sotto il titolo e migliora la SEO.
+</ResponseField>
+
+<ResponseField name="sidebarTitle" type="string">
+  Un titolo breve che viene visualizzato nella navigazione della barra laterale.
+</ResponseField>
+
+<ResponseField name="icon" type="string">
+  L&#39;icona da visualizzare.
+
+  Opzioni:
+
+  * Nome dell&#39;icona [Font Awesome](https://fontawesome.com/icons)
+  * Nome dell&#39;icona [Lucide](https://lucide.dev/icons)
+  * URL di un&#39;icona ospitata esternamente
+  * Percorso di un file icona nel tuo progetto
+</ResponseField>
+
+<ResponseField name="iconType" type="string">
+  Lo stile dell&#39;icona [Font Awesome](https://fontawesome.com/icons). Usato solo con le icone Font Awesome.
+
+  Opzioni: `regular`, `solid`, `light`, `thin`, `sharp-solid`, `duotone`, `brands`.
+</ResponseField>
+
+<ResponseField name="tag" type="string">
+  Un tag che appare accanto al titolo della pagina nella barra laterale.
+</ResponseField>
+
+<ResponseField name="<custom>" type="string">
+  Qualsiasi frontmatter YAML valido. Ad esempio, `product: "API"` o `version: "1.0.0"`.
+</ResponseField>
+
+```yaml Example YAML frontmatter wrap
+---
+title: "Informazioni sul frontmatter"
+description: "Il frontmatter è il metadato che controlla l'aspetto e il comportamento della tua pagina"
+sidebarTitle: "Frontmatter"
+icon: "book"
+tag: "NEW"
+---
+```
+
+<div id="page-mode">
+  ## Modalità pagina
+</div>
+
+Controlla la visualizzazione della pagina con l&#39;impostazione `mode`.
+
+<div id="default">
+  ### Predefinito
+</div>
+
+Se non è definita alcuna modalità, viene applicato un layout standard con navigazione nella barra laterale e indice dei contenuti.
+
+```yaml
+---
+title: "Titolo predefinito della pagina"
+---
+```
+
+<div id="wide">
+  ### Ampio
+</div>
+
+La modalità ampia nasconde il sommario. È utile per le pagine senza titoli oppure se preferisci sfruttare lo spazio orizzontale aggiuntivo. La modalità ampia è disponibile con tutti i temi.
+
+```yaml
+---
+title: "Titolo pagina wide"
+mode: "wide"
+---
+```
+
+<div id="custom">
+  ### Personalizzato
+</div>
+
+La modalità Personalizzato offre un layout minimalista che rimuove tutti gli elementi tranne la barra di navigazione superiore. È una tela bianca per creare landing page o altri layout personalizzati in cui desideri mantenere la navigazione al minimo. La modalità Personalizzato è disponibile per tutti i temi.
+
+```yaml
+---
+title: "Titolo pagina personalizzato"
+mode: "custom"
+---
+```
+
+<div id="frame">
+  ### Frame
+</div>
+
+La modalità Frame offre un layout simile alla modalità personalizzata, ma mantiene la navigazione nella sidebar. Questa modalità di pagina consente HTML e componenti personalizzati, preservando l’esperienza di navigazione predefinita. La modalità Frame è disponibile solo con i temi Aspen e Almond.
+
+```yaml
+---
+title: "Titolo della pagina frame"
+mode: "frame"
+---
+```
+
+<div id="center">
+  ### Centra
+</div>
+
+La modalità Centra rimuove la barra laterale e l’indice, posizionando il contenuto al centro. È utile per i changelog o altre pagine in cui vuoi mettere in risalto il contenuto. La modalità Centra è disponibile per i temi Mint e Linden.
+
+```yaml
+---
+title: "Centra il titolo della pagina"
+mode: "center"
+---
+```
+
+<div id="api-pages">
+  ## Pagine API
+</div>
+
+Crea API playground interattivi aggiungendo una specifica API al frontmatter, `api` o `openapi`.
+
+```yaml
+---
+openapi: "GET /endpoint"
+---
+```
+
+Scopri di più su come creare la [documentazione API](/it/api-playground/overview).
+
+<div id="external-links">
+  ## Link esterni
+</div>
+
+Collega siti esterni direttamente dalla tua navigazione usando i metadati `url`.
+
+```yaml
+---
+title: "Pacchetto npm"
+url: "https://www.npmjs.com/package/mint"
+---
+```
+
+<div id="search-engine-optimization">
+  ## Ottimizzazione per i motori di ricerca
+</div>
+
+La maggior parte dei meta tag SEO viene generata automaticamente. Puoi impostare manualmente i meta tag per migliorare il posizionamento del sito, la condivisione sui social e la compatibilità con i browser.
+
+<Note>
+  I meta tag che contengono i due punti devono essere racchiusi tra virgolette.
+</Note>
+
+```yaml
+---
+"twitter:image": "/images/social-preview.jpg"
+---
+```
+
+Consulta [SEO](/it/optimize/seo) per tutte le opzioni dei metadati SEO.
+
+<div id="internal-search-keywords">
+  ## Parole chiave per la ricerca interna
+</div>
+
+Migliora la reperibilità di una pagina specifica nella ricerca integrata aggiungendo `keywords` ai metadati. Queste parole chiave non verranno visualizzate nel contenuto della pagina né nei risultati di ricerca, ma gli utenti che le cercano vedranno comunque la pagina tra i risultati.
+
+```yaml
+---
+keywords: ['configurazione', 'impostazione', 'primi passi']
+---
+```

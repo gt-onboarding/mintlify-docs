@@ -1,0 +1,263 @@
+---
+title: "チュートリアル：コードのマージ時にドキュメントを自動更新する"
+sidebarTitle: "ドキュメント更新の自動化"
+description: "Agent API と n8n のワークフローを使って、プルリクエストのマージ後にドキュメントを自動更新する"
+---
+
+<div id="what-you-will-build">
+  ## 作成するもの
+</div>
+
+Pull request がマージされた際にドキュメントを更新する自動化ワークフローです。ワークフローは GitHub リポジトリでマージ済みの PR を監視し、Agent API を呼び出して別リポジトリのドキュメントを更新します。
+
+このワークフローは、2 つの独立したリポジトリを連携します。
+
+- **コードリポジトリ**: アプリケーションコードを保存する場所。このリポジトリに GitHub の Webhook を設定します。例: バックエンド API、フロントエンドアプリ、SDK、CLI ツールなど。
+- **ドキュメントリポジトリ**: ドキュメントを保存し、Mintlify プロジェクトに接続する場所。Agent がこのリポジトリにドキュメント更新の pull request を作成します。
+
+このチュートリアルでは、ドキュメントがアプリケーションコードと分離されていることを前提としています。monorepo の場合は、別リポジトリではなく、ドキュメントが格納されているディレクトリを対象にするようにワークフローを調整してください。
+
+<div id="workflow-overview">
+  ### ワークフローの概要
+</div>
+
+1. 誰かがコードリポジトリでプルリクエストをマージします。
+2. n8n が GitHub からの Webhook を受信します。
+3. n8n がプルリクエストのコンテキストをエージェント API に送信します。
+4. エージェントがドキュメントリポジトリにプルリクエストを作成します。
+
+<div id="prerequisites">
+  ## 前提条件
+</div>
+
+- n8n ワークスペース
+- Mintlify 管理者用 API キー
+- Mintlify の Pro または Custom プラン
+- コードおよびドキュメント用の GitHub リポジトリへの管理者権限
+- GitHub のパーソナルアクセストークン
+
+<div id="get-your-admin-api-key">
+  ### 管理者用 API キーを取得する
+</div>
+
+1. ダッシュボードの [API keys](https://dashboard.mintlify.com/settings/organization/api-keys) ページに移動します。
+2. **Create Admin API Key** を選択します。
+3. キーをコピーして安全に保管します。
+
+<div id="get-your-github-personal-access-token">
+  ### GitHub の個人用アクセス トークンを取得する
+</div>
+
+1. GitHub で **Settings** に移動します。
+2. **Developer settings** をクリックします。
+3. **Personal access tokens** をクリックします。
+4. **Tokens (classic)** をクリックします。
+5. **Generate new token (classic)** をクリックします。
+6. 次のスコープを選択します:
+    - `repo`（プライベートリポジトリの完全な制御）
+    - `admin:repo_hook`（n8n に Webhook を作成させたい場合）
+7. トークンを生成し、安全に保存します。
+
+詳細は、GitHub ドキュメントの「[Creating a personal access token (classic)](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens?versionId=free-pro-team%40latest&productId=account-and-profile#creating-a-personal-access-token-classic)」を参照してください。
+
+<div id="build-the-workflow">
+  ## ワークフローを作成する
+</div>
+
+<div id="create-the-webhook-trigger">
+  ### Webhook トリガーを作成する
+</div>
+
+1. n8nで新しいワークフローを作成します。
+2. Webhookノードを追加します。
+3. Webhookを次のように設定します:
+    - HTTPメソッド: `POST`
+    - パス: `auto-update-documentation`（任意の一意のパスでも可）
+    - 認証: なし
+    - レスポンス: 即時
+4. ワークフローを保存します。
+5. 本番用のWebhook URLをコピーします。例: `https://your-n8n-instance.app.n8n.cloud/webhook/auto-update-documentation`
+
+<Frame>
+    <img src="/images/guides/n8n/webhook-node.png" alt="Webhookノードの設定画面のスクリーンショット。" style={{
+      width: 'auto',
+      height: '700px',
+    }} />
+</Frame>
+
+<div id="set-up-the-github-webhook">
+  ### GitHub の Webhook を設定する
+</div>
+
+1. GitHub の対象リポジトリに移動します。
+2. **Settings** をクリックします。
+3. **Webhooks** をクリックします。
+4. **Add webhook** をクリックします。
+5. Webhook を設定します:
+    - Payload URL: n8n の Webhook URL を貼り付けます
+    - Content type: `application/json`
+    - Which events would you like to trigger this webhook?
+        - **Let me select individual events.** を選択
+        - **Pull requests** のみ選択
+    - **Active** を選択
+6. **Add webhook** をクリックします。
+
+<div id="filter-for-merged-pull-requests">
+  ### マージ済みプルリクエストのフィルタリング
+</div>
+
+Webhook の後にコードノードを追加し、マージ済みプルリクエストのみを抽出して関連情報を取り出します。
+
+1. コードノードを追加します。
+2. 名前を「Filter merged PRs」にします。
+3. モードを **Run Once for All Items** に設定します。
+4. 次の JavaScript を追加します:
+
+```javascript Filter merged PRs
+const webhookData = $input.first().json.body;
+
+// クローズされ、かつマージされたPRの場合のみ処理を続行
+if (webhookData.action !== "closed" || webhookData.pull_request?.merged !== true) {
+  return [];
+}
+
+// Extract information
+const pullRequest = webhookData.pull_request;
+const repository = webhookData.repository;
+const sender = webhookData.sender;
+
+// Build message for agent
+const agentMessage = `${repository.name}の変更内容に対してドキュメントを更新 **PR #${pullRequest.number}: ${pullRequest.title}** 必ずファイルを編集してプルリクエストを作成すること。`;
+
+return {
+  json: {
+    prTitle: pullRequest.title,
+    prBody: pullRequest.body || "説明なし",
+    prNumber: pullRequest.number,
+    prUrl: pullRequest.html_url,
+    prAuthor: sender.login,
+    codeRepoName: repository.full_name,
+    codeRepoShortName: repository.name,
+    branchName: pullRequest.head.ref,
+    filesChanged: pullRequest.changed_files,
+    agentMessage: agentMessage
+  }
+};
+```
+
+<Frame>
+  <img src="/images/guides/n8n/filter-merged-PRs-node.png" alt="「merged PRs をフィルタ」ノードの設定画面のスクリーンショット。" />
+</Frame>
+
+このコードは、Pull Request がマージされていない場合にワークフローを停止し、GitHub の Webhook から関連情報をすべて抽出して、Agent API 用のメッセージを作成します。
+
+
+<div id="call-the-agent-api">
+  ### エージェント API を呼び出す
+</div>
+
+ドキュメント作成ジョブを作成するために HTTP リクエストノードを追加します。
+
+1. HTTP リクエストノードを追加します。
+2. 名前を「Create agent job」にします。
+3. リクエストを設定します:
+    - Method: `POST`
+    - URL: `https://api.mintlify.com/v1/agent/YOUR_PROJECT_ID/job`（ダッシュボードの [API keys](https://dashboard.mintlify.com/settings/organization/api-keys) ページで取得したプロジェクト ID の `YOUR_PROJECT_ID` に置き換えてください）
+    - Authentication: Generic Credential Type → Header Auth
+        - 新しいクレデンシャルを作成:
+            - Name: `Authorization`
+            - Value: `Bearer mint_YOUR_API_KEY`（API キーに置き換えてください）
+    - Send Body: On
+    - Body Content Type: JSON
+    - Specify Body: Using JSON
+    - 次の JSON を追加します:
+
+    ```json
+    {
+    "branch": "docs-update-from-{{ $json.codeRepoShortName }}-pr-{{ $json.prNumber }}",
+    "messages": [
+        {
+        "role": "system",
+        "content": "{{ $json.agentMessage }}"
+        }
+    ]
+    }
+    ```
+
+<Frame>
+    <img src="/images/guides/n8n/create-agent-job-node.png" alt="Create agent job ノードの設定のスクリーンショット。" style={{
+      width: 'auto',
+      height: '700px',
+    }} />
+</Frame>
+
+エージェントは、ソースリポジトリ名とプルリクエスト番号を含む説明的なブランチ名を用いて、ドキュメントリポジトリにプルリクエストを作成します。
+
+<div id="activate-the-workflow">
+  ### ワークフローを有効化する
+</div>
+
+1. ワークフローを保存します。
+2. アクティブに設定します。
+
+これで、ワークフローがコードリポジトリでマージ済みのプルリクエストを監視するようになります。
+
+<Frame>
+    <img src="/images/guides/n8n/workflow.png" alt="n8n エディターの自動化ワークフローのスクリーンショット" />
+</Frame>
+
+<div id="test-the-automation">
+  ## 自動化をテストする
+</div>
+
+1. コードリポジトリでテスト用ブランチを作成します:
+   ```bash
+   git checkout -b test-docs-automation
+   ```
+
+2. 些細な変更を加えてコミットします:
+   ```bash
+   git add .
+   git commit -m "Test: trigger docs automation"
+   git push origin test-docs-automation
+   ```
+
+3. GitHubでプルリクエストを作成します。
+4. プルリクエストをマージします。
+
+<div id="verify-the-automation">
+  ### 自動化を検証する
+</div>
+
+ワークフローが正しく動作していることを確認するため、次をチェックしてください:
+
+- **n8n の実行**: すべてのノードが正常に完了した新しい実行が表示されるはずです。
+- **ドキュメント リポジトリ**: 1〜2分後、ドキュメントの更新を含む新しいブランチとプルリクエストが作成されているか確認します。
+
+<div id="troubleshooting">
+  ## トラブルシューティング
+</div>
+
+<div id="webhook-not-triggering">
+  ### Webhook がトリガーされない
+</div>
+
+- n8n でワークフローが有効になっていることを確認します。
+- GitHub リポジトリの Settings → Webhooks → Recent Deliveries でレスポンスコードを確認します。
+- Webhook の URL が n8n の Webhook URL と完全に一致していることを確認します。
+
+<div id="401-error-from-agent-api">
+  ### エージェント API の 401 エラー
+</div>
+
+- API キーが `mint_` で始まっていることを確認してください。
+- Authorization ヘッダーが `Bearer mint_yourkey` の形式になっていることを確認してください。
+- API キーが正しい Mintlify の組織用であることを確認してください。
+
+<div id="401-error-from-github">
+  ### GitHub の 401 エラー
+</div>
+
+- トークンに `repo` スコープが付与されていることを確認してください。
+- トークンの有効期限が切れていないことを確認してください。
+- GitHub リクエストに `User-Agent` ヘッダーを含めていることを確認してください。

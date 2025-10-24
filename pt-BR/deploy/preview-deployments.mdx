@@ -1,0 +1,65 @@
+---
+title: "Implantações de pré-visualização"
+description: "Pré-visualize alterações na sua documentação em uma implantação ao vivo"
+---
+
+<Info>
+  Implantações de pré-visualização estão disponíveis nos [planos Pro e Enterprise](https://mintlify.com/pricing?ref=preview-deployments).
+</Info>
+
+As implantações de pré-visualização permitem ver como as alterações na sua documentação ficarão antes de serem mescladas em produção. Cada pré-visualização cria uma URL compartilhável que é atualizada automaticamente conforme você envia novas alterações.
+
+<div id="creating-preview-deployments">
+  ## Criando implantações de pré-visualização
+</div>
+
+As implantações de pré-visualização são criadas automaticamente por meio de pull requests ou manualmente pelo seu dashboard.
+
+<div id="automatic-previews">
+  ### Pré-visualizações automáticas
+</div>
+
+Quando você cria um pull request, o bot da Mintlify adiciona automaticamente um link para visualizar a implantação de pré-visualização no seu pull request. A pré-visualização é atualizada sempre que você envia novos commits para a branch.
+
+<Frame>
+  <img src="/images/previews/preview-deployment-light.png" alt="Link para visualizar a implantação na linha do tempo do pull request" className="block dark:hidden" />
+
+  <img src="/images/previews/preview-deployment-dark.png" alt="Link para visualizar a implantação na linha do tempo do pull request" className="hidden dark:block" />
+</Frame>
+
+<div id="manual-previews">
+  ### Pré-visualizações manuais
+</div>
+
+Você pode criar manualmente uma pré-visualização para qualquer branch.
+
+1. Acesse o seu [dashboard](https://dashboard.mintlify.com/).
+2. Selecione **Previews**.
+3. Selecione **Create preview**.
+4. Insira o nome da sua branch.
+5. Selecione **Create deployment**.
+
+<div id="redeploying-a-preview">
+  ## Reimplantar uma prévia
+</div>
+
+Reimplante uma prévia para atualizar o conteúdo ou tentar novamente após uma implantação com falha.
+
+1. Selecione a prévia no seu [dashboard](https://dashboard.mintlify.com/).
+2. Selecione **Reimplantar**.
+
+<Frame>
+  <img src="/images/previews/redeploy-preview-light.png" alt="O menu Previews com o botão de implantação destacado por um retângulo laranja." className="block dark:hidden" />
+
+  <img src="/images/previews/redeploy-preview-dark.png" alt="O menu Previews com o botão de implantação destacado por um retângulo laranja." className="hidden dark:block" />
+</Frame>
+
+<div id="sharing-preview-deployments">
+  ## Compartilhamento de implantações de pré-visualização
+</div>
+
+As implantações de pré-visualização podem ser públicas ou restritas a usuários autenticados.
+
+**Acesso público**: As URLs de pré-visualização são públicas por padrão. Compartilhe o link de pré-visualização com qualquer pessoa que precise revisar suas alterações.
+
+**Acesso restrito**: Ative a autenticação nas implantações de pré-visualização para limitar o acesso apenas a usuários autenticados do Mintlify. Consulte [Configuração de autenticação](/pt-BR/deploy/authentication-setup) para mais informações.

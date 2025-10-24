@@ -1,0 +1,48 @@
+---
+title: "Einführung"
+description: "Updates auslösen, KI-Assistent einbetten und mehr"
+---
+
+Die Mintlify REST-API ermöglicht es Ihnen, programmgesteuert mit Ihrer Dokumentation zu arbeiten, Updates auszulösen und KI-gestützte Chat-Erlebnisse einzubetten.
+
+<div id="endpoints">
+  ## Endpunkte
+</div>
+
+* [Update auslösen](/de/api-reference/update/trigger): Lösen Sie bei Bedarf ein Update Ihrer Site aus.
+* [Update-Status abrufen](/de/api-reference/update/status): Rufen Sie den Status eines Updates und weitere Details zu Ihren Docs ab.
+* [Agent-Job erstellen](/de/api-reference/agent/create-agent-job): Erstellen Sie einen Agent-Job, um Ihre Dokumentation automatisch zu bearbeiten.
+* [Agent-Job abrufen](/de/api-reference/agent/get-agent-job): Rufen Sie Details und Status eines bestimmten Agent-Jobs ab.
+* [Alle Agent-Jobs abrufen](/de/api-reference/agent/get-all-jobs): Rufen Sie alle Agent-Jobs für eine Domain ab.
+* [Assistenten-Nachricht generieren](/de/api-reference/assistant/create-assistant-message): Betten Sie den Assistenten, der auf Ihren Docs trainiert ist, in eine beliebige Anwendung ein.
+* [Dokumentation durchsuchen](/de/api-reference/assistant/search): Durchsuchen Sie Ihre Dokumentation.
+
+<div id="authentication">
+  ## Authentifizierung
+</div>
+
+Sie können einen API-Schlüssel über [das Dashboard](https://dashboard.mintlify.com/settings/organization/api-keys) generieren. API-Schlüssel sind einer gesamten Organisation zugeordnet und können in mehreren Deployments verwendet werden.
+
+<div id="admin-api-key">
+  ### Admin-API-Schlüssel
+</div>
+
+Der Admin-API-Schlüssel wird für [Update auslösen](/de/api-reference/update/trigger), [Update-Status abrufen](/de/api-reference/update/status) und alle Agenten-Endpunkte verwendet.
+
+Admin-API-Schlüssel beginnen mit dem Präfix `mint_`. Bewahren Sie Ihre Admin-API-Schlüssel geheim auf.
+
+<div id="assistant-api-key">
+  ### Assistant-API-Schlüssel
+</div>
+
+Der Assistant-API-Schlüssel wird für die Endpunkte [Assistentennachricht erzeugen](/de/api-reference/assistant/create-assistant-message) und [Dokumentation durchsuchen](/de/api-reference/assistant/search) verwendet.
+
+Assistant-API-Schlüssel beginnen mit dem Präfix `mint_dsc_`.
+
+Der Assistant-API-**Schlüssel** ist ein serverseitiges Token, das geheim gehalten werden sollte.
+
+Das Assistant-API-**Token** ist ein öffentliches Token, das in Ihrem Frontend-Code referenziert werden kann.
+
+<Note>
+  Aufrufe mit dem Assistant-API-Token können Kosten verursachen – entweder durch die Nutzung Ihrer Assistent-Guthaben oder durch Überschreitungen.
+</Note>

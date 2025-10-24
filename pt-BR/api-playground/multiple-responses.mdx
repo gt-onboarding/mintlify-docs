@@ -1,0 +1,31 @@
+---
+title: "Múltiplas respostas"
+description: "Exibir variações de resposta para o mesmo endpoint"
+---
+
+Se sua API retornar respostas diferentes com base em parâmetros de entrada, contexto do usuário ou outras condições da requisição, você pode documentar vários exemplos de resposta com a propriedade `examples`.
+
+Essa propriedade pode ser adicionada a qualquer resposta e segue o seguinte esquema.
+
+```yaml
+responses:
+  "200":
+    description: Resposta bem-sucedida
+    content:
+      application/json:
+        schema:
+          $ref: "#/components/schemas/YourResponseSchema"
+        examples:
+          us:
+            summary: Resposta para os Estados Unidos
+            value:
+              countryCode: "US"
+              currencyCode: "USD"
+              taxRate: 0.0825
+          gb:
+            summary: Resposta para o Reino Unido
+            value:
+              countryCode: "GB"
+              currencyCode: "GBP"
+              taxRate: 0.20
+```

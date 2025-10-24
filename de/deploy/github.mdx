@@ -1,0 +1,105 @@
+---
+title: "GitHub"
+description: "Synchronisieren Sie Ihre Doku mit einem GitHub-Repository"
+---
+
+Mintlify verwendet eine GitHub-App, um Ihre Doku automatisch mit Ihrem GitHub-Repository zu synchronisieren.
+
+<div id="installing-the-github-app">
+  ## Installation der GitHub-App
+</div>
+
+Installieren Sie die Mintlify GitHub App im GitHub-Konto oder in der Organisation, die Ihr Docs-Repository besitzt. Sie benötigen Organisationsinhaberrechte oder Administratorberechtigungen in einem Repository, um die App zu installieren. Wenn Ihnen die erforderlichen Berechtigungen fehlen, muss der Repository-Inhaber die Installationsanfrage genehmigen.
+
+Installieren Sie die Mintlify GitHub App über Ihr [Dashboard](https://dashboard.mintlify.com/settings/organization/github-app).
+
+<Tip>
+Wir empfehlen, nur dem Repository Zugriff zu gewähren, in dem Ihre Dokumentation gehostet wird.
+</Tip>
+
+<Frame>
+  <img className="h-80" alt="Installationsseite der Mintlify GitHub App mit der Option „Only select repositories“ ausgewählt." src="/images/github/select-repos.png" />
+</Frame>
+
+<div id="permissions">
+  ## Berechtigungen
+</div>
+
+Wenn du die GitHub-App installierst, wirst du aufgefordert, die folgenden Berechtigungen zu gewähren:
+
+Leseberechtigungen:
+
+* `metadata`: Grundlegende Repository-Informationen
+
+Lese- und Schreibberechtigungen:
+
+* `checks`: Statuschecks für Pull Requests erstellen
+* `code`: Dateiänderungen lesen, wenn du in deinen Docs-Branch committest
+* `deployments`: Vorschau-Bereitstellungen für Pull Requests erstellen
+* `pull requests`: Branches und Pull Requests aus dem Web-Editor erstellen
+* `workflows`: GitHub Actions für Docs-Bereitstellungen verwalten
+
+<Info>
+Die App greift nur auf Repositories zu, denen du ausdrücklich Zugriff gewährst. Wenn du Branch-Schutzregeln aktiviert hast, kann die App nicht direkt auf geschützte Branches pushen.
+</Info>
+
+<div id="managing-repository-access">
+  ## Verwalten des Repository-Zugriffs
+</div>
+
+Beim Installieren unserer GitHub-App können Sie den Zugriff auf alle oder nur auf bestimmte Repositories gewähren. Wir empfehlen, den Zugriff nur für die Repositories zu erteilen, in denen sich Ihre Dokumentation befindet. Sie können diese Auswahl jederzeit in Ihren [GitHub-App-Einstellungen](https://github.com/apps/mintlify/installations/new) ändern.
+
+<div id="configuring-docs-source">
+  ## Quelle der Dokumentation konfigurieren
+</div>
+
+Ändern Sie die Organisation, das Repository oder den Branch, aus dem Ihre Dokumentation erstellt wird, im Bereich [Git-Einstellungen](https://dashboard.mintlify.com/settings/deployment/git-settings) Ihres Dashboards.
+
+<div id="troubleshooting">
+  ## Problembehandlung
+</div>
+
+<div id="github-app-connection-issues">
+  ### Probleme mit der GitHub-App-Verbindung
+</div>
+
+Wenn Sie Probleme mit der GitHub-App haben, kann das Zurücksetzen der Verbindung die meisten davon beheben.
+
+<Steps>
+  <Step title="Deinstallieren Sie die Mintlify-App über GitHub.">
+    1. Gehen Sie in GitHub zu [Installations](https://github.com/settings/installations) und wählen Sie neben der Mintlify-App **Configure**. Scrollen Sie nach unten und wählen Sie **Uninstall**.
+    2. Gehen Sie zu [Authorized GitHub Apps](https://github.com/settings/apps/authorizations) und wählen Sie neben der Mintlify-App **Revoke**.
+  </Step>
+  <Step title="Installieren Sie die Mintlify-App erneut.">
+    1. Gehen Sie in Ihrem Mintlify-Dashboard zu [Git Settings](https://dashboard.mintlify.com/settings/deployment/git-settings) und installieren Sie die GitHub-App.
+    2. Autorisieren Sie Ihr Konto im Bereich [My Profile](https://dashboard.mintlify.com/settings/account) Ihres Dashboards.
+  </Step>
+</Steps>
+
+<div id="feedback-add-ons-are-unavailable">
+  ### Feedback-Add-ons sind nicht verfügbar
+</div>
+
+Wenn du die Optionen für Bearbeitungsvorschläge oder Issue-Meldungen in deinem Dashboard nicht aktivieren kannst und dein Repository öffentlich ist, überprüfe deine Git-Einstellungen erneut.
+
+<Steps>
+  <Step title="Zu Git Settings navigieren">
+    Gehe in deinem Dashboard zu [Git Settings](https://dashboard.mintlify.com/settings/deployment/git-settings).
+  </Step>
+  <Step title="Einstellungen erneut überprüfen">
+    Klicke auf das grüne Häkchen in der Ecke des Git-Einstellungsfelds, um die Repository-Einstellungen erneut zu überprüfen. Dadurch werden deine Repository-Einstellungen aktualisiert und spiegeln wider, ob dein Repository öffentlich oder privat ist.
+
+    <Frame>
+      <img
+        src="/images/github/revalidate-settings-light.png"
+        alt="Die Seite Git Settings im Mintlify-Dashboard. Ein orangefarbener Pfeil zeigt auf das grüne Häkchen, das die Repository-Einstellungen erneut überprüft."
+        className="block dark:hidden"
+      />
+      <img
+        src="/images/github/revalidate-settings-dark.png"
+        alt="Die Seite Git Settings im Mintlify-Dashboard. Ein orangefarbener Pfeil zeigt auf das grüne Häkchen, das die Repository-Einstellungen erneut überprüft."
+        className="hidden dark:block"
+      />
+    </Frame>
+  </Step>
+</Steps>

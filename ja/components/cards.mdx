@@ -1,0 +1,145 @@
+---
+title: "カード"
+description: "カスタマイズ可能なレイアウトとアイコンで主要なポイントやリンクを強調"
+---
+
+import IconsOptional from "/snippets/ja/icons-optional.mdx";
+
+カードを使ってコンテンツの視覚的なコンテナを作成します。カードは柔軟なコンテナで、テキスト、アイコン、画像、リンクを含められます。
+
+<div id="basic-card">
+  ## 基本のカード
+</div>
+
+<Card title="Card title" icon="text" href="/ja/components/columns">
+  アイコンとリンク付きのカードの使い方を示します。このカードをクリックすると
+  Columns ページに移動します。
+</Card>
+
+```mdx Card example
+<Card title="Card title" icon="text" href="/components/columns">
+  アイコンとリンク付きのカードの使い方を示します。このカードをクリックすると
+  Columns ページに移動します。
+</Card>
+```
+
+<div id="card-variations">
+  ## カードのバリエーション
+</div>
+
+カードは、さまざまなコンテンツのニーズに合わせて、多様なレイアウトやスタイルのオプションに対応しています。
+
+<div id="horizontal-layout">
+  ### 水平レイアウト
+</div>
+
+カードをよりコンパクトな水平レイアウトで表示するには、`horizontal` プロパティを追加します。
+
+<Card title="水平カード" icon="text" horizontal>
+  これは水平カードの例です。
+</Card>
+
+```mdx Horizontal card example
+<Card title="Horizontal card" icon="text" horizontal>
+  This is an example of a horizontal card.
+</Card>
+```
+
+<div id="image-cards">
+  ### 画像カード
+</div>
+
+カード上部に画像を表示するには、`img` プロパティを追加します。
+
+<Card title="Image card" img="https://mintlify-assets.b-cdn.net/yosemite.jpg">
+  これは画像付きカードの例です。
+</Card>
+
+```mdx Image card example
+<Card title="Image card" img="/images/card-with-image.png">
+  これは画像付きカードの例です。
+</Card>
+```
+
+<div id="link-cards-with-custom-ctas">
+  ### カスタムCTA付きのリンクカード
+</div>
+
+CTAテキストをカスタマイズし、矢印を表示するかどうかを制御できます。デフォルトでは、矢印は外部リンクにのみ表示されます。
+
+<Card title="Link card" icon="link" href="/ja/components/columns" arrow="true" cta="Click here">
+  これはアイコンとリンクを含むカードの例です。このカードをクリックすると、Columnsページに移動します。
+</Card>
+
+```mdx Link card example
+<Card
+  title="Link card"
+  icon="link"
+  href="/components/columns"
+  arrow="true"
+  cta="Click here"
+>
+  これはアイコンとリンクを含むカードの例です。このカードをクリックすると、Columnsページに移動します。
+</Card>
+```
+
+<div id="grouping-cards">
+  ## カードのグルーピング
+</div>
+
+複数のカードを横並びで整理するには、[Columns コンポーネント](/ja/components/columns)を使用します。
+
+<Columns cols={2}>
+  <Card title="First card" icon="panel-left-close">
+    これは最初のカードです。
+  </Card>
+
+  <Card title="Second card" icon="panel-right-close">
+    これは2番目のカードです。
+  </Card>
+</Columns>
+
+```mdx Columns example
+<Columns cols={2}>
+  <Card title="First card" icon="panel-left-close">
+    これは最初のカードです。
+  </Card>
+  <Card title="Second card" icon="panel-right-close">
+    これは2番目のカードです。
+  </Card>
+</Columns>
+```
+
+<div id="properties">
+  ## プロパティ
+</div>
+
+<ResponseField name="title" type="string" required>
+  カードに表示されるタイトル
+</ResponseField>
+
+<IconsOptional />
+
+<ResponseField name="color" type="string">
+  アイコンの色（16進数コード。例：`#FF6B6B`）
+</ResponseField>
+
+<ResponseField name="href" type="string">
+  カードをクリックしたときに遷移するURL
+</ResponseField>
+
+<ResponseField name="horizontal" type="boolean">
+  カードをコンパクトな横向きレイアウトで表示します
+</ResponseField>
+
+<ResponseField name="img" type="string">
+  カード上部に表示される画像のURLまたはローカルパス
+</ResponseField>
+
+<ResponseField name="cta" type="string">
+  アクションボタンのカスタムテキスト
+</ResponseField>
+
+<ResponseField name="arrow" type="boolean">
+  リンク矢印アイコンの表示／非表示を切り替えます
+</ResponseField>

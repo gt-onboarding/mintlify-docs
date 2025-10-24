@@ -1,0 +1,392 @@
+---
+title: "Visueller Editor"
+description: "Dokumentation im Browser erstellen, pflegen und veröffentlichen"
+---
+
+<img className="block dark:hidden my-0 pointer-events-none" src="/images/editor/editor-light.png" alt="Mintlify-Visual-Editor-Oberfläche im Hellmodus" />
+
+<img className="hidden dark:block my-0 pointer-events-none" src="/images/editor/editor-dark.png" alt="Mintlify-Visual-Editor-Oberfläche im Dunkelmodus" />
+
+Greifen Sie über Ihr [Dashboard](https://dashboard.mintlify.com/editor) auf den visuellen Editor zu, um Ihre Dokumentation direkt im Browser zu verwalten.
+
+* **WYSIWYG-Bearbeitung**: Nehmen Sie Änderungen an Ihrer Dokumentation mit einem What-you-see-is-what-you-get-(WYSIWYG)-Editor vor, der zeigt, wie Ihre Inhalte bei Veröffentlichung aussehen.
+* **Git-Synchronisierung**: Alle Änderungen werden automatisch mit Ihrem Git-Repository synchronisiert, um die Versionsverwaltung sicherzustellen.
+* **Zusammenarbeit im Team**: Mehrere Personen können gleichzeitig an der Dokumentation arbeiten.
+* **Komponentenintegration**: Fügen Sie mit Slash-Befehlen Callouts, Codeblöcke und andere Komponenten hinzu.
+* **Keine Einrichtung erforderlich**: Starten Sie sofort mit dem Schreiben über Ihr Dashboard.
+
+<div id="overview">
+  ## Übersicht
+</div>
+
+So arbeiten Sie in der Regel im visuellen Editor:
+
+<Steps>
+  <Step title="Wählen Sie Ihren Branch">
+    Erstellen Sie einen Branch oder nehmen Sie Änderungen direkt an Ihrem Deployment-Branch vor. Wir empfehlen, einen Branch zu erstellen, damit Sie Ihre Änderungen prüfen können, bevor sie live gehen.
+  </Step>
+
+  <Step title="Öffnen Sie Ihre Datei">
+    Navigieren Sie in der Seitenleiste zu einer bestehenden Datei oder erstellen Sie über den Dateiexplorer eine neue.
+  </Step>
+
+  <Step title="Bearbeiten Sie Ihren Inhalt">
+    Nehmen Sie Änderungen im visuellen Editor vor. Drücken Sie <kbd>/</kbd>, um das Komponentenmenü zu öffnen.
+  </Step>
+
+  <Step title="Änderungen in der Vorschau ansehen">
+    Der visuelle Modus zeigt, wie Ihre Änderungen auf Ihrer Live‑Site erscheinen. Nutzen Sie ihn, um zu prüfen, ob alles korrekt aussieht.
+  </Step>
+
+  <Step title="Veröffentlichen Sie Ihre Änderungen">
+    Wenn Sie in Ihrem Deployment-Branch arbeiten, veröffentlichen Sie Ihre Änderungen direkt aus dem visuellen Editor. In anderen Branches erstellen Sie vor der Veröffentlichung eine Pull-Request zur Überprüfung.
+  </Step>
+</Steps>
+
+<div id="editor-modes">
+  ## Editormodi
+</div>
+
+Der visuelle Editor bietet zwei Modi, um unterschiedlichen Bearbeitungspräferenzen und Anforderungen gerecht zu werden: den visuellen Modus und den Markdown-Modus.
+
+Verwende die Modus-Umschaltung in der Editor-Toolbar, um zwischen den Modi zu wechseln.
+
+<Frame>
+  <img src="/images/editor/mode-toggle-light.png" alt="Modus-Umschaltflächen im visuellen Editor hervorgehoben." className="block dark:hidden" />
+
+  <img src="/images/editor/mode-toggle-dark.png" alt="Modus-Umschaltflächen im visuellen Editor hervorgehoben." className="hidden dark:block" />
+</Frame>
+
+<div id="visual-mode">
+  ### Visueller Modus
+</div>
+
+Der visuelle Modus bietet ein WYSIWYG-Erlebnis, bei dem die im Editor vorgenommenen Änderungen direkt zeigen, wie Ihre veröffentlichte Dokumentation aussehen wird. Dieser Modus ist ideal, wenn Sie in Echtzeit sehen möchten, wie sich Ihre Änderungen auswirken.
+
+<Frame>
+  <img src="/images/editor/visual-mode-light.png" alt="Visueller Bearbeitungsmodus im visuellen Editor von Mintlify" className="block dark:hidden" />
+
+  <img src="/images/editor/visual-mode-dark.png" alt="Visueller Bearbeitungsmodus im visuellen Editor von Mintlify" className="hidden dark:block" />
+</Frame>
+
+<div id="markdown-mode">
+  ### Markdown-Modus
+</div>
+
+Der Markdown-Modus bietet direkten Zugriff auf den zugrunde liegenden `MDX`-Code Ihrer Dokumentation. Dieser Modus ist ideal, wenn Sie präzise Kontrolle über Komponenteneigenschaften benötigen oder lieber in Markdown-Syntax schreiben.
+
+<Frame>
+  <img src="/images/editor/markdown-mode-light.png" alt="Markdown-Modus im visuellen Editor von Mintlify" className="block dark:hidden" />
+
+  <img src="/images/editor/markdown-mode-dark.png" alt="Markdown-Modus im visuellen Editor von Mintlify" className="hidden dark:block" />
+</Frame>
+
+<div id="manage-content">
+  ## Inhalte verwalten
+</div>
+
+<div id="navigate-your-files">
+  ### Dateien navigieren
+</div>
+
+Nutzen Sie den Dateiexplorer in der Seitenleiste, um Ihre Dokumentationsdateien zu durchsuchen. Klicken Sie auf eine Datei, um sie im Editor zu öffnen.
+
+Drücken Sie <kbd>Command</kbd> + <kbd>P</kbd> auf macOS oder <kbd>Ctrl</kbd> + <kbd>P</kbd> unter Windows, um Dateien nach Namen zu suchen.
+
+<div id="create-new-pages">
+  ### Neue Seiten erstellen
+</div>
+
+Klicke in der Dateiexplorer-Seitenleiste auf das Symbol **Create a new file**.
+
+<Frame>
+  <img
+    src="/images/editor/files-menu-light.png"
+    className="block dark:hidden rounded-2xl border border-gray-100 shadow-lg"
+    style={{
+  width: '400px',
+  height: 'auto',
+}}
+    alt="Dateimenü im visuellen Editor"
+  />
+
+  <img
+    src="/images/editor/files-menu-dark.png"
+    className="hidden dark:block rounded-2xl border border-white/10 shadow-lg"
+    style={{
+  width: '400px',
+  height: 'auto',
+}}
+    alt="Dateimenü im visuellen Editor im Dunkelmodus"
+  />
+</Frame>
+
+Dateinamen erhalten automatisch die Erweiterung `.mdx`. Um den Dateityp zu ändern, klicke auf die Dateierweiterung. Wähle den gewünschten Dateityp aus dem Dropdown-Menü.
+
+<Frame>
+  <img
+    src="/images/editor/file-type-light.png"
+    className="block dark:hidden"
+    style={{
+  width: 'auto',
+  height: '400px',
+}}
+    alt="Menü für die Dateierweiterung im visuellen Editor."
+  />
+
+  <img
+    src="/images/editor/file-type-dark.png"
+    className="hidden dark:block"
+    style={{
+  width: 'auto',
+  height: '400px',
+}}
+    alt="Menü für die Dateierweiterung im visuellen Editor im Dunkelmodus."
+  />
+</Frame>
+
+<div id="rename-pages">
+  ### Seiten umbenennen
+</div>
+
+Um eine Seite umzubenennen, klicke auf das Kebab-Menüsymbol der betreffenden Datei. Wähle **Umbenennen** im Dropdown-Menü.
+
+<Frame>
+  <img src="/images/editor/rename-light.png" className="block dark:hidden" alt="Seite im visuellen Editor umbenennen." />
+
+  <img src="/images/editor/rename-dark.png" className="hidden dark:block" alt="Seite im visuellen Editor im Dark Mode umbenennen." />
+</Frame>
+
+<div id="delete-pages">
+  ### Seiten löschen
+</div>
+
+Um eine Seite zu löschen, klicke auf das Kebab-Menüsymbol der Datei, die du entfernen möchtest. Wähle **Delete** aus dem Dropdown-Menü.
+
+<Frame>
+  <img src="/images/editor/delete-page-light.png" className="block dark:hidden" alt="Seite im visuellen Editor löschen." />
+
+  <img src="/images/editor/delete-page-dark.png" className="hidden dark:block" alt="Seite im visuellen Editor im Dunkelmodus löschen." />
+</Frame>
+
+<div id="organize-your-navigation">
+  ### Navigation organisieren
+</div>
+
+Bearbeiten Sie Ihre `docs.json`, um neue Seiten hinzuzufügen und gelöschte Seiten aus der Navigation zu entfernen. Weitere Informationen zur Seitenstruktur finden Sie unter [Navigation](/de/organize/navigation).
+
+**Beispiel: Eine Seite „Themes“ zur Gruppe „Profile“ hinzufügen**
+
+In diesem Beispiel haben Sie eine neue Seite mit dem Titel „Themes“ erstellt und möchten sie der Gruppe „Profile“ in Ihrer Dokumentation hinzufügen. Fügen Sie den Pfad zur neuen Seite dem `pages`-Array der Gruppe `Profile` in Ihrer `docs.json` hinzu, damit sie in der Navigation Ihrer Site erscheint.
+
+```json title="Adding a Themes page to the Profile group" highlight="18"
+{
+    "navigation": {
+        "groups": [
+            {
+                "group": "Erste Schritte",
+                "pages": [
+                    "index",
+                    "quickstart",
+                    "installation"
+                ]
+            },
+            {
+                "group": "Profil",
+                "pages": [
+                    "settings",
+                    "account-types",
+                    "dashboard",
+                    "themes"
+                ]
+            }
+        ]
+    }
+}
+```
+
+<div id="edit-content">
+  ### Inhalte bearbeiten
+</div>
+
+Nehmen Sie Änderungen an Ihren Seiten im visuellen oder im Markdown-Modus des Editors vor.
+
+Drücken Sie im visuellen Modus <kbd>/</kbd>, um das Komponentenmenü zu öffnen. Fügen Sie Inhaltsblöcke, Hinweise, Codeblöcke und andere Komponenten hinzu, um Ihre Dokumentation zu gestalten.
+
+<Frame>
+  <img src="/images/editor/component-menu-light.png" alt="Das aufgeklappte Komponentenmenü im visuellen Editor von Mintlify" className="block dark:hidden" />
+
+  <img src="/images/editor/component-menu-dark.png" alt="Das aufgeklappte Komponentenmenü im visuellen Editor von Mintlify" className="hidden dark:block" />
+</Frame>
+
+Im Markdown-Modus bearbeiten Sie das `MDX` Ihrer Seiten direkt. Das ist hilfreich, wenn Sie:
+
+* spezifische Komponenten-Eigenschaften festlegen
+* mit komplex verschachtelten Komponenten arbeiten
+* `MDX`-Inhalte aus anderen Quellen kopieren und einfügen
+
+Siehe [Text formatieren](/de/create/text) und [Code formatieren](/de/create/code) für weitere Informationen zum Schreiben mit Markdown-Syntax.
+
+<div id="publish-your-changes">
+  ## Veröffentliche deine Änderungen
+</div>
+
+Der Branch, an dem du arbeitest, bestimmt, wie der Editor deine Änderungen veröffentlicht:
+
+* **Deployment-Branch**: Durch das Veröffentlichen wird deine Live‑Site sofort aktualisiert.
+* **Andere Branches**: Durch das Veröffentlichen wird ein Pull Request erstellt, damit du die Änderungen prüfen kannst, bevor du sie in die Produktion ausrollst.
+
+<Frame>
+  <img src="/images/editor/publish-flow-light.png" alt="Die Schaltfläche „Veröffentlichen“ im visuellen Editor von Mintlify hervorgehoben" className="block dark:hidden" />
+
+  <img src="/images/editor/publish-flow-dark.png" alt="Die Schaltfläche „Veröffentlichen“ im visuellen Editor von Mintlify hervorgehoben" className="hidden dark:block" />
+</Frame>
+
+<div id="pull-requests-and-reviewing-changes">
+  ### Pull Requests und Änderungen prüfen
+</div>
+
+Pull Requests ermöglichen es dir, Änderungen aus deinem Branch vorzuschlagen, damit andere sie prüfen können, bevor sie in deine Live-Dokumentation übernommen werden. Das hilft sicherzustellen, dass deine Änderungen korrekt sind, und gibt deinem Team die Möglichkeit, gemeinsam an Inhalten zu arbeiten.
+
+<Tip>
+  Auch wenn du allein arbeitest, sind Pull Requests hilfreich, um Änderungen vorab zu prüfen und eine klare Änderungs­historie zu bewahren.
+</Tip>
+
+<div id="create-a-pull-request">
+  #### Einen Pull Request erstellen
+</div>
+
+<Steps>
+  <Step title="Speichere deine Arbeit">
+    Wähle **Save Changes**, um alle Änderungen in deinem Branch zu speichern.
+  </Step>
+
+  <Step title="Erstelle den Pull Request">
+    Wähle **Publish Pull Request** in der Editor-Toolbar.
+  </Step>
+
+  <Step title="Titel und Beschreibung hinzufügen">
+    Schreibe einen klaren Titel und eine Beschreibung, die Folgendes erläutern:
+
+    * Welche Änderungen du vorgenommen hast
+    * Warum du sie vorgenommen hast
+    * Welche Bereiche besonders überprüft werden sollten
+  </Step>
+
+  <Step title="Erstellen und teilen">
+    Wähle **Publish Pull Request**. Der Editor stellt einen Link bereit, über den du deinen Pull Request ansehen kannst.
+
+    <Frame>
+      <img src="/images/editor/pull-request-light.png" alt="Schaltfläche „Publish Pull Request“ im visuellen Editor von Mintlify hervorgehoben" className="block dark:hidden" />
+
+      <img src="/images/editor/pull-request-dark.png" alt="Schaltfläche „Publish Pull Request“ im visuellen Editor von Mintlify hervorgehoben" className="hidden dark:block" />
+    </Frame>
+  </Step>
+</Steps>
+
+<div id="review-pull-requests">
+  #### Pull Requests überprüfen
+</div>
+
+Sobald Ihr Pull Request erstellt wurde:
+
+1. **Änderungen überprüfen**: Sie und Ihre Teammitglieder können Ihren Pull Request in Ihrem Git-Anbieter wie GitHub oder GitLab überprüfen.
+2. **Feedback hinterlassen**: Fügen Sie Kommentare hinzu oder fordern Sie Änderungen an.
+3. **Weitere Änderungen vornehmen**: Nehmen Sie zusätzliche Änderungen im visuellen Editor vor. Wenn Sie speichern, pusht der Editor diese in Ihren Pull Request.
+4. **Genehmigen**: Genehmigen Sie den Pull Request, wenn Sie mit den Änderungen zufrieden sind.
+5. **Merge**: Mergen Sie den Pull Request, wenn Sie bereit sind, Ihre Änderungen in der Produktion bereitzustellen.
+
+<div id="keyboard-shortcuts">
+  ## Tastenkürzel
+</div>
+
+Der visuelle Editor unterstützt alle gängigen Tastenkürzel wie Kopieren, Einfügen, Rückgängig und Alles auswählen sowie die folgenden:
+
+| Befehl | macOS | Windows |
+|:--------|:------|:--------|
+| **Dateien durchsuchen** | <kbd>Cmd</kbd> + <kbd>P</kbd> | <kbd>Control</kbd> + <kbd>P</kbd> |
+| **Link zum markierten Text hinzufügen** | <kbd>Cmd</kbd> + <kbd>K</kbd> | <kbd>Control</kbd> + <kbd>K</kbd> |
+| **Zeilenumbruch einfügen** | <kbd>Cmd</kbd> + <kbd>Enter</kbd> | <kbd>Control</kbd> + <kbd>Enter</kbd> |
+| **Fett** | <kbd>Cmd</kbd> + <kbd>B</kbd> | <kbd>Control</kbd> + <kbd>B</kbd> |
+| **Kursiv** | <kbd>Cmd</kbd> + <kbd>I</kbd> | <kbd>Control</kbd> + <kbd>I</kbd> |
+| **Unterstreichen** | <kbd>Cmd</kbd> + <kbd>U</kbd> | <kbd>Control</kbd> + <kbd>U</kbd> |
+| **Durchgestrichen** | <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd> | <kbd>Control</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd> |
+| **Code** | <kbd>Cmd</kbd> + <kbd>E</kbd> | <kbd>Control</kbd> + <kbd>E</kbd> |
+| **Normaler Text** | <kbd>Cmd</kbd> + <kbd>Alt</kbd> + <kbd>0</kbd> | <kbd>Control</kbd> + <kbd>Alt</kbd> + <kbd>0</kbd> |
+| **Überschrift 1** | <kbd>Cmd</kbd> + <kbd>Alt</kbd> + <kbd>1</kbd> | <kbd>Control</kbd> + <kbd>Alt</kbd> + <kbd>1</kbd> |
+| **Überschrift 2** | <kbd>Cmd</kbd> + <kbd>Alt</kbd> + <kbd>2</kbd> | <kbd>Control</kbd> + <kbd>Alt</kbd> + <kbd>2</kbd> |
+| **Überschrift 3** | <kbd>Cmd</kbd> + <kbd>Alt</kbd> + <kbd>3</kbd> | <kbd>Control</kbd> + <kbd>Alt</kbd> + <kbd>3</kbd> |
+| **Überschrift 4** | <kbd>Cmd</kbd> + <kbd>Alt</kbd> + <kbd>4</kbd> | <kbd>Control</kbd> + <kbd>Alt</kbd> + <kbd>4</kbd> |
+| **Nummerierte Liste** | <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>7</kbd> | <kbd>Control</kbd> + <kbd>Shift</kbd> + <kbd>7</kbd> |
+| **Aufzählungsliste** | <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>8</kbd> | <kbd>Control</kbd> + <kbd>Shift</kbd> + <kbd>8</kbd> |
+| **Zitatblock** | <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>B</kbd> | <kbd>Control</kbd> + <kbd>Shift</kbd> + <kbd>B</kbd> |
+| **Tiefgestellt** | <kbd>Cmd</kbd> + <kbd>,</kbd> | <kbd>Control</kbd> + <kbd>,</kbd> |
+| **Hochgestellt** | <kbd>Cmd</kbd> + <kbd>.</kbd> | <kbd>Control</kbd> + <kbd>.</kbd> |
+
+<div id="troubleshooting">
+  ## Fehlerbehebung
+</div>
+
+Finden Sie Lösungen für häufige Probleme, die bei der Nutzung des visuellen Editors auftreten können.
+
+<AccordionGroup>
+  <Accordion title="Änderungen werden nach der Veröffentlichung nicht angezeigt">
+    **Mögliche Ursachen:**
+
+    * Bereitstellung läuft noch
+    * Browser-Caching-Probleme
+    * Build- oder Bereitstellungsfehler
+
+    **Lösungen:**
+
+    1. Prüfen Sie den Bereitstellungsstatus in Ihrem Dashboard.
+    2. Führen Sie einen Hard-Refresh Ihres Browsers aus (<kbd>Ctrl</kbd> + <kbd>F5</kbd> oder <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>R</kbd>).
+    3. Leeren Sie den Browser-Cache.
+  </Accordion>
+
+  <Accordion title="Berechtigungsfehler beim Veröffentlichen">
+    **Mögliche Ursachen:**
+
+    * Unzureichende Berechtigungen für das Git-Repository
+    * Authentifizierungsprobleme mit Ihrem Git-Anbieter
+
+    **Lösungen:**
+
+    1. Stellen Sie sicher, dass Sie über die erforderlichen Zugriffsrechte für das Repository verfügen.
+    2. Überprüfen Sie, ob Ihre Git-Integration korrekt konfiguriert ist.
+    3. Lesen Sie die Dokumentation zu [Editor Permissions](/de/dashboard/permissions).
+  </Accordion>
+
+  <Accordion title="Probleme beim Laden des Editors">
+    **Mögliche Ursachen:**
+
+    * Netzwerkprobleme
+    * Große Dokumentations-Repositories
+
+    **Lösungen:**
+
+    1. Überprüfen Sie Ihre Internetverbindung.
+    2. Aktualisieren Sie die Seite.
+    3. Kontaktieren Sie den Support, wenn das Problem weiterhin besteht.
+  </Accordion>
+
+  <Accordion title="Dateien werden nicht geladen oder zeigen Fehler an">
+    **Mögliche Ursachen:**
+
+    * Ungültige MDX-Syntax in Dateien
+    * Fehlende oder beschädigte Dateien
+    * Große Dateien verursachen Timeouts
+
+    **Lösungen:**
+
+    1. Überprüfen Sie die Dateisyntax auf MDX-Formatierungsfehler.
+    2. Vergewissern Sie sich, dass die Datei in Ihrem Repository vorhanden ist.
+  </Accordion>
+</AccordionGroup>
+
+<div id="next-steps">
+  ## Nächste Schritte
+</div>
+
+* Grundlegende [Git-Konzepte](/de/guides/git-concepts) kennenlernen
+* Best Practices für die Zusammenarbeit mit [Branches](/de/guides/branches) kennenlernen

@@ -1,0 +1,89 @@
+---
+title: "Configuração do AsyncAPI"
+description: "Crie páginas de referência para WebSocket com AsyncAPI"
+---
+
+<div id="add-an-asyncapi-specification-file">
+  ## Adicionar um arquivo de especificação AsyncAPI
+</div>
+
+Para começar a criar páginas para seus WebSockets, certifique-se de ter um documento de esquema AsyncAPI válido, em formato JSON ou YAML, que siga a [especificação AsyncAPI](https://www.asyncapi.com/docs/reference/specification/v3.0.0). Seu esquema deve estar em conformidade com a especificação AsyncAPI 3.0+.
+
+<Tip>
+  Para verificar se seu esquema AsyncAPI é válido, você pode colá-lo no
+  [AsyncAPI Studio](https://studio.asyncapi.com/)
+</Tip>
+
+<div id="auto-populate-websockets-pages">
+  ## Preencher automaticamente páginas de WebSockets
+</div>
+
+Você pode adicionar um campo `asyncapi` a qualquer aba ou grupo na navegação do seu `docs.json`. Esse campo pode conter o caminho para um documento de esquema AsyncAPI no seu repositório de docs, a URL de um documento de esquema AsyncAPI hospedado ou um array de links para documentos de esquema AsyncAPI. O Mintlify gerará automaticamente uma página para cada canal WebSocket do AsyncAPI.
+
+**Exemplos com Tabs:**
+
+<CodeGroup>
+
+```json Local File {5}
+"navigation": {
+  "tabs": [
+    {
+        "tab": "API Reference",
+        "asyncapi": "/path/to/asyncapi.json"
+    }
+  ]
+}
+
+```
+
+```json Remote URL {5}
+"navigation": {
+  "tabs": [
+    {
+        "tab": "API Reference",
+        "asyncapi": "https://github.com/asyncapi/spec/blob/master/examples/simple-asyncapi.yml"
+    }
+  ]
+}
+```
+
+</CodeGroup>
+
+**Exemplos com Groups:**
+
+```json {8-11}
+"navigation": {
+  "tabs": [
+    {
+      "tab": "AsyncAPI",
+      "groups": [
+        {
+          "group": "Websockets",
+          "asyncapi": {
+            "source": "/path/to/asyncapi.json",
+            "directory": "api-reference"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+<Note>
+  O campo directory é opcional. Se não for especificado, os arquivos serão colocados na
+  pasta **api-reference** do repositório de docs.
+</Note>
+
+<div id="channel-page">
+  ## Página de canal
+</div>
+
+Se você quiser ter mais controle sobre a ordem dos seus canais ou apenas referenciar um único canal, crie um arquivo MDX com o campo `asyncapi` no frontmatter.
+
+```mdx
+---
+title: "Canal WebSocket"
+asyncapi: "/path/to/asyncapi.json channelName"
+---
+```

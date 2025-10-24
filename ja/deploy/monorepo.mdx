@@ -1,0 +1,46 @@
+---
+title: "Monorepo のセットアップ"
+description: "複数プロジェクトを含むリポジトリ内からドキュメントをデプロイする"
+---
+
+Monorepo 内の特定のディレクトリからドキュメントをデプロイするように Mintlify を設定します。この構成により、複数のプロジェクトやサービスを含むリポジトリで、コードと並行してドキュメントを管理できます。
+
+<div id="prerequisites">
+  ## 前提条件
+</div>
+
+* Mintlify プロジェクトの管理者権限。
+* モノレポ内の専用ディレクトリに整理されたドキュメントファイル。
+* ドキュメントディレクトリ内に有効な `docs.json`。
+
+<div id="configure-monorepo-deployment">
+  ## モノレポのデプロイを設定する
+</div>
+
+<Steps>
+<Step title="Git 設定にアクセスする">
+ダッシュボードで [Git Settings](https://dashboard.mintlify.com/settings/deployment/git-settings) に移動します。
+
+<Frame>
+<img
+  className="block dark:hidden my-0 pointer-events-none"
+  src="/images/monorepo-light.png"
+  alt="Git Settings メニューのプロジェクト設定パネル。「Set up as monorepo」のトグルが有効になっており、/docs ディレクトリへのパスが指定されています。"
+/>
+<img
+  className="hidden dark:block my-0 pointer-events-none"
+  src="/images/monorepo-dark.png"
+  alt="Git Settings メニューのプロジェクト設定パネル。「Set up as monorepo」のトグルが有効になっており、/docs ディレクトリへのパスが指定されています。"
+/>
+</Frame>
+
+</Step>
+<Step title="ドキュメントのパスを設定する">
+1. 「**Set up as monorepo**」のトグルをオンにします。
+2. ドキュメントディレクトリへの相対パスを入力します。たとえば、ドキュメントが `docs` ディレクトリにある場合は `/docs` を入力します。
+<Note>
+  パスの末尾にスラッシュを付けないでください。
+</Note>
+3. 「**Save changes**」を選択します。
+</Step>
+</Steps>

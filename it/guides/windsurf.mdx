@@ -1,0 +1,150 @@
+---
+title: "Windsurf"
+description: "Configura Windsurf come Assistente di scrittura"
+---
+
+Trasforma Windsurf in un esperto di documentazione che comprende la tua guida di stile, i componenti e il contesto del progetto grazie alle regole dello spazio di lavoro e alle memorie.
+
+<div id="using-windsurf-with-mintlify">
+  ## Utilizzo di Windsurf con Mintlify
+</div>
+
+L’Assistente AI Cascade di Windsurf può essere configurato per scrivere la documentazione secondo i tuoi standard utilizzando i Componenti (Mintlify). Le regole dello spazio di lavoro e le memorie forniscono un contesto persistente sul tuo progetto, garantendo suggerimenti più coerenti da parte di Cascade.
+
+* Le **regole dello spazio di lavoro** sono archiviate nel repository della documentazione e condivise con il team.
+* Le **memorie** forniscono un contesto individuale che si accumula nel tempo.
+
+Ti consigliamo di definire regole dello spazio di lavoro per standard di documentazione condivisi. Puoi far crescere le memorie mentre lavori, ma poiché non sono condivise, non risulteranno uniformi tra i membri del team.
+
+Crea le regole dello spazio di lavoro nella directory `.windsurf/rules` del repository della documentazione. Consulta la sezione [Memories & Rules](https://docs.windsurf.com/windsurf/cascade/memories) nella documentazione di Windsurf per ulteriori informazioni.
+
+<div id="example-workspace-rule">
+  ## Esempio di regola per l'area di lavoro
+</div>
+
+Questa regola fornisce a Cascade il contesto sui componenti di Mintlify e sulle buone pratiche generali di scrittura tecnica.
+
+Puoi usare questa regola di esempio così com’è oppure personalizzarla per la tua documentazione:
+
+* **Standard di scrittura**: aggiorna le linee guida linguistiche per allinearle al tuo style guide.
+* **Pattern dei componenti**: aggiungi componenti specifici del progetto o modifica gli esempi esistenti.
+* **Esempi di codice**: sostituisci gli esempi generici con chiamate e risposte API reali del tuo prodotto.
+* **Preferenze di stile e tono**: regola la terminologia, la formattazione e altre regole.
+
+Salva la tua regola come file `.md` nella directory `.windsurf/rules` del repository della documentazione.
+
+````mdx
+# Regola di scrittura tecnica per Mintlify
+
+## Contesto del progetto
+
+- Questo è un progetto di documentazione sulla piattaforma Mintlify
+- Usiamo file MDX con frontmatter YAML  
+- La navigazione è configurata in `docs.json`
+- Seguiamo le best practice di scrittura tecnica
+
+## Standard di scrittura
+
+- Usa la seconda persona (“tu”) per le istruzioni
+- Scrivi in forma attiva e al tempo presente
+- Inizia le procedure con i prerequisiti
+- Includi gli esiti attesi per i passaggi principali
+- Usa intestazioni descrittive e ricche di keyword
+- Mantieni frasi concise ma informative
+
+## Struttura obbligatoria della pagina
+
+Ogni pagina deve iniziare con il frontmatter:
+
+```yaml
+---
+title: "Titolo chiaro e specifico"
+description: "Descrizione concisa per SEO e navigazione"
+---
+```
+
+## Componenti Mintlify
+
+### docs.json
+
+- Fai riferimento allo [schema di docs.json](https://mintlify.com/docs.json) quando costruisci il file docs.json e la navigazione del sito
+
+### Callout
+
+- `<Note>` per informazioni supplementari utili
+- `<Warning>` per avvisi importanti e breaking change
+- `<Tip>` per best practice e consigli degli esperti  
+- `<Info>` per informazioni contestuali neutrali
+- `<Check>` per conferme di successo
+
+### Esempi di codice
+
+- Quando opportuno, includi esempi completi ed eseguibili
+- Usa `<CodeGroup>` per esempi in più linguaggi
+- Specifica i tag di linguaggio su tutti i blocchi di codice
+- Usa dati realistici, non segnaposto
+- Usa `<RequestExample>` e `<ResponseExample>` per la documentazione API
+
+### Procedure
+
+- Usa il componente `<Steps>` per istruzioni sequenziali
+- Includi step di verifica con i componenti `<Check>` quando rilevante
+- Suddividi le procedure complesse in passaggi più piccoli
+
+### Organizzazione dei contenuti
+
+- Usa `<Tabs>` per contenuti specifici per piattaforma
+- Usa `<Accordion>` per la disclosure progressiva
+- Usa `<Card>` e `<CardGroup>` per evidenziare contenuti
+- Incapsula le immagini in componenti `<Frame>` con testo alternativo descrittivo
+
+## Requisiti per la documentazione API
+
+- Documenta tutti i parametri con `<ParamField>` 
+- Mostra la struttura della risposta con `<ResponseField>`
+- Includi esempi sia di successo sia di errore
+- Usa `<Expandable>` per le proprietà di oggetti annidati
+- Includi sempre esempi di autenticazione
+
+## Standard di qualità
+
+- Testa tutti gli esempi di codice prima della pubblicazione
+- Usa percorsi relativi per i link interni
+- Includi testo alternativo per tutte le immagini
+- Assicura una gerarchia corretta delle intestazioni (parti da h2)
+- Controlla i pattern esistenti per coerenza
+````
+
+<div id="working-with-cascade">
+  ## Utilizzo di Cascade
+</div>
+
+Dopo aver configurato le regole, puoi usare Cascade per supportarti in diverse attività di documentazione. Per maggiori dettagli, consulta [Cascade](https://docs.windsurf.com/windsurf/cascade) nella documentazione di Windsurf.
+
+<div id="example-prompts">
+  ### Esempi di prompt
+</div>
+
+**Scrittura di nuovi contenuti**:
+
+```text wrap
+Crea una nuova pagina che spieghi come autenticarsi alla nostra API. Includi esempi di codice in JavaScript, Python e cURL.
+```
+
+**Miglioramento di contenuti esistenti**:
+
+```text wrap
+Rivedi questa pagina e suggerisci miglioramenti per la chiarezza e l’uso dei componenti. Concentrati nel rendere i passaggi più facili da seguire.
+```
+
+**Creazione di esempi di codice**:
+
+```text wrap
+Genera un esempio di codice completo che mostri la gestione degli errori per questo endpoint API. Usa dati realistici e includi le risposte previste.
+```
+
+**Mantenimento della coerenza**:
+
+```text wrap
+Verifica se questa nuova pagina segue i nostri standard di documentazione e suggerisci eventuali modifiche necessarie.
+```

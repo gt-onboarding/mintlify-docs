@@ -1,0 +1,117 @@
+---
+title: "Cloudflare 防火墙故障排查"
+description: "解决因 Cloudflare 阻止 Mintlify 资源而导致的 500 错误与页面导航变慢的问题"
+---
+
+如果你的文档站点在几秒后出现 500 错误，或页面导航变慢，可能是 Cloudflare 的防火墙拦截了对 Mintlify 资源的请求。
+
+<div id="symptoms">
+  ## 症状
+</div>
+
+- 文档页面最初能加载，但在 30–60 秒后崩溃并返回 500 错误
+- 页面间的客户端导航缓慢或无法正常工作
+- 浏览器控制台中对 `/mintlify-assets/*` 路径的请求出现 403 错误
+- Cloudflare 安全质询提示“malformed data”或“suspicious URL patterns”
+
+<div id="root-cause">
+  ## 根本原因
+</div>
+
+Cloudflare 的 Web 应用防火墙（WAF）和 Bot Fight Mode 可能会因以下原因将 Mintlify 的资产请求判定为可疑：
+
+- 编码的 URL 参数中包含多个“%”符号
+- 带有特殊字符的超长查询字符串
+- 来自空闲浏览器标签页的自动化请求
+
+<div id="solution">
+  ## 解决方案
+</div>
+
+创建一条 Cloudflare 防火墙规则，将 Mintlify 静态资源排除在安全检查之外。
+
+<div id="create-the-firewall-exception">
+  ### 创建防火墙例外
+</div>
+
+1. 登录你的 [Cloudflare 控制面板](https://dash.cloudflare.com/)
+2. 选择你的域名
+3. 前往 **Security > WAF**
+4. 选择 **Create rule**
+5. 按以下设置配置规则：
+
+**Rule name：** 允许 Mintlify 资源
+
+**When incoming requests match：**
+
+- Field: `Hostname`
+- Operator: `equals`
+- Value: `docs.yourdomain.com`（替换为你的实际文档域名）
+
+**And：**
+
+- Field: `URI Path`
+- Operator: `starts with`
+- Value: `/mintlify-assets/`
+
+**Then：**
+
+- Action: `Skip`
+- Select: `All remaining custom rules`、`Managed rules` 和 `Super Bot Fight Mode`
+
+6. 启用 **Log** 以跟踪匹配的请求
+7. 选择 **Deploy**
+
+<div id="verify-the-rule">
+  ### 验证规则
+</div>
+
+部署后：
+
+1. 在浏览器中打开文档站点
+2. 将页面闲置 2–3 分钟
+3. 在页面之间切换
+4. 查看浏览器控制台是否出现 403 错误
+
+如果问题仍然存在，请检查规则配置：
+
+- 确保主机名与文档域名完全一致
+- 确认 URI 路径使用 “starts with”（而非 “contains”）
+- 路径值中不要包含通配符（`*`）
+- 确认该规则已启用并完成部署
+
+<div id="common-mistakes">
+  ## 常见错误
+</div>
+
+- 将 `contains` 运算符用于 `/mintlify-assets/*` —— `*` 会被视为普通字符，而不是通配符
+- 在 URI Path 上使用 `equals` —— 这只会匹配精确路径 `/mintlify-assets/`，不匹配其子路径
+- 忘记跳过 Bot Fight Mode —— 必须在 skip 动作中显式配置
+- 主机名错误 —— 必须与实际的文档域名一致
+
+<div id="additional-troubleshooting">
+  ## 其他故障排除
+</div>
+
+如果添加防火墙例外后仍未解决问题：
+
+1. 在 Cloudflare 的 **Security > Events** 日志中检查被拦截的请求
+2. 确认你的 Cloudflare Worker（若使用自定义子路径）能正确转发 `Host` 头部
+3. 暂时将 Security Level 设置为 “Essentially Off”，以确认是否为 Cloudflare 所致
+4. 检查是否有自定义 Page Rules 覆盖了该防火墙例外
+
+<div id="example-working-configuration">
+  ## 可用配置示例
+</div>
+
+```
+规则:允许 Mintlify 资源
+状态:已启用
+
+当传入请求匹配时:
+  (http.host eq "docs.flashnet.xyz" and starts_with(http.request.uri.path, "/mintlify-assets/"))
+
+则:
+  跳过:所有剩余的自定义规则、托管规则、Super Bot Fight Mode
+  日志:已启用
+```

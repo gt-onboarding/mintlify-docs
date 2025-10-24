@@ -1,0 +1,42 @@
+---
+title: "Lavorare con i branch"
+description: "Usa i branch per apportare e rivedere modifiche senza influire sulla documentazione in produzione"
+---
+
+I branch sono una funzionalità del controllo versione che puntano a commit specifici nel repository. Il branch di distribuzione, di solito chiamato `main`, rappresenta il contenuto utilizzato per generare la documentazione in produzione. Tutti gli altri branch sono indipendenti dalla documentazione pubblica, a meno che tu non scelga di unirli al branch di distribuzione.
+
+I branch ti consentono di creare istanze separate della documentazione per apportare modifiche, ottenere revisioni e provare nuovi approcci prima della pubblicazione. Il team può lavorare su branch diversi per aggiornare parti differenti della documentazione in parallelo, senza influire su ciò che gli utenti vedono sul sito in produzione finché non pubblichi le modifiche.
+
+Consigliamo di lavorare sempre a partire da branch quando si aggiorna la documentazione, per mantenere stabile il sito in produzione e abilitare flussi di revisione.
+
+<Tip>
+  - Assegna ai branch nomi chiari, così i colleghi capiscono su cosa stai lavorando.
+  - Elimina i branch dopo l’unione (merge) per mantenere ordinato il repository.
+  - Avvisa il team quando stai lavorando a modifiche importanti che potrebbero influire sul loro lavoro.
+</Tip>
+
+<div id="creating-a-branch">
+  ## Creazione di un branch
+</div>
+
+1. Seleziona il nome del branch nella barra degli strumenti dell’editor (in genere `main`).
+2. Seleziona **New Branch**.
+3. Inserisci un nome descrittivo per il branch, ad esempio `update-getting-started` o `fix-api-examples`.
+4. Seleziona **Create Branch**.
+
+<div id="saving-changes-on-a-branch">
+  ## Salvataggio delle modifiche su un branch
+</div>
+
+Per salvare le modifiche su un branch, seleziona il pulsante **Save Changes** nell’angolo in alto a destra dell’editor. Verrà creato un commit e il lavoro verrà pushato sul branch.
+
+<div id="switching-branches">
+  ## Passare a un branch
+</div>
+
+1. Seleziona il nome del branch nella barra degli strumenti dell'editor.
+2. Dal menu a discesa, seleziona il branch a cui vuoi passare.
+
+<Tip>
+  Le modifiche non salvate andranno perse quando si passa a un altro branch. Assicurati di salvare o pubblicare il tuo lavoro prima di cambiare branch.
+</Tip>

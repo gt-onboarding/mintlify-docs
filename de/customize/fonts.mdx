@@ -1,0 +1,172 @@
+---
+title: "Schriften"
+description: "Eigene Schriften konfigurieren"
+---
+
+Legen Sie eine benutzerdefinierte Schriftart für Ihre gesamte Website oder getrennt für Überschriften und Fließtext fest. Verwenden Sie Google Fonts, lokale Schriftdateien oder extern gehostete Schriftarten. Die Standardschrift variiert je nach Theme.
+
+Die Schriften werden über die [fonts-Eigenschaft](/de/organize/settings#param-fonts) in Ihrer `docs.json` gesteuert.
+
+<div id="google-fonts">
+  ## Google Fonts
+</div>
+
+Mintlify lädt [Google Fonts](https://fonts.google.com) automatisch, wenn Sie in Ihrer `docs.json` einen Schriftfamiliennamen angeben.
+
+```json docs.json
+"fonts": {
+  "family": "Inter"
+}
+```
+
+<div id="local-fonts">
+  ## Lokale Schriftarten
+</div>
+
+Um lokale Schriftarten zu verwenden, legen Sie die Schriftdateien in Ihrem Projektverzeichnis ab und referenzieren Sie sie in Ihrer `docs.json`-Konfiguration.
+
+<div id="setting-up-local-fonts">
+  ### Lokale Schriftarten einrichten
+</div>
+
+<Steps>
+  <Step title="Schriftdateien zu deinem Projekt hinzufügen">
+    Erstelle beispielsweise ein Verzeichnis `fonts` und füge deine Schriftdateien hinzu:
+
+    ```text
+    your-project/
+    ├── fonts/
+    │   ├── InterDisplay-Regular.woff2
+    │   └── InterDisplay-Bold.woff2
+    ├── docs.json
+    └── ...
+    ```
+  </Step>
+
+  <Step title="Schriftarten in docs.json konfigurieren">
+    Beziehe dich auf deine lokalen Schriftarten mit relativen Pfaden ausgehend vom Projektstammverzeichnis:
+
+    ```json docs.json
+    {
+      "fonts": {
+        "family": "InterDisplay",
+        "source": "/fonts/InterDisplay-Regular.woff2",
+        "format": "woff2",
+        "weight": 400
+      }
+    }
+    ```
+  </Step>
+</Steps>
+
+<div id="local-fonts-for-headings-and-body">
+  ### Lokale Schriftarten für Überschriften und Text
+</div>
+
+Konfigurieren Sie separate lokale Schriftarten für Überschriften und Text in Ihrer `docs.json`:
+
+```json docs.json
+{
+  "fonts": {
+    "heading": {
+      "family": "InterDisplay",
+      "source": "/fonts/InterDisplay-Bold.woff2",
+      "format": "woff2",
+      "weight": 700
+    },
+    "body": {
+      "family": "InterDisplay",
+      "source": "/fonts/InterDisplay-Regular.woff2",
+      "format": "woff2",
+      "weight": 400
+    }
+  }
+}
+```
+
+<div id="externally-hosted-fonts">
+  ## Extern gehostete Schriftarten
+</div>
+
+Verwenden Sie extern gehostete Schriftarten, indem Sie in Ihrer `docs.json` die URL einer Schriftquelle angeben:
+
+```json docs.json
+{
+  "fonts": {
+    "family": "Hubot Sans",
+    "source": "https://mintlify-assets.b-cdn.net/fonts/Hubot-Sans.woff2",
+    "format": "woff2",
+    "weight": 400
+  }
+}
+```
+
+<div id="font-configuration-reference">
+  ## Referenz zur Schriftkonfiguration
+</div>
+
+<ResponseField name="fonts" type="object">
+  Schriftkonfiguration für Ihre Dokumentation.
+
+  <Expandable title="Schriften">
+    <ResponseField name="family" type="string" required>
+      Name der Schriftfamilie, z. B. „Inter“ oder „Playfair Display“.
+    </ResponseField>
+
+    <ResponseField name="weight" type="number">
+      Schriftstärke, z. B. 400 oder 700. Variable Fonts unterstützen genaue Stärken wie 550.
+    </ResponseField>
+
+    <ResponseField name="source" type="string (uri)">
+      URL zur Schriftquelle, z. B. `https://mintlify-assets.b-cdn.net/fonts/Hubot-Sans.woff2`, oder Pfad zur lokalen Schriftdatei, z. B. `/assets/fonts/InterDisplay.woff2`. Google Fonts werden automatisch geladen, wenn Sie einen Google-Font-„family“-Namen angeben, daher ist keine Quell-URL erforderlich.
+    </ResponseField>
+
+    <ResponseField name="format" type="'woff' | 'woff2'">
+      Schriftdateiformat. Erforderlich bei Verwendung des Felds `source`.
+    </ResponseField>
+
+    <ResponseField name="heading" type="object">
+      Überschreibt die Schrifteinstellungen speziell für Überschriften.
+
+      <Expandable title="Überschrift">
+        <ResponseField name="family" type="string" required>
+          Name der Schriftfamilie für Überschriften.
+        </ResponseField>
+
+        <ResponseField name="weight" type="number">
+          Schriftstärke für Überschriften.
+        </ResponseField>
+
+        <ResponseField name="source" type="string (uri)">
+          URL zur Schriftquelle, z. B. `https://mintlify-assets.b-cdn.net/fonts/Hubot-Sans.woff2`, oder Pfad zur lokalen Schriftdatei für Überschriften. Google Fonts werden automatisch geladen, wenn Sie einen Google-Font-„family“-Namen angeben, daher ist keine Quell-URL erforderlich.
+        </ResponseField>
+
+        <ResponseField name="format" type="'woff' | 'woff2'">
+          Schriftdateiformat für Überschriften. Erforderlich bei Verwendung des Felds `source`.
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="body" type="object">
+      Überschreibt die Schrifteinstellungen speziell für Fließtext.
+
+      <Expandable title="Fließtext">
+        <ResponseField name="family" type="string" required>
+          Name der Schriftfamilie für Fließtext.
+        </ResponseField>
+
+        <ResponseField name="weight" type="number">
+          Schriftstärke für Fließtext.
+        </ResponseField>
+
+        <ResponseField name="source" type="string (uri)">
+          URL zur Schriftquelle, z. B. `https://mintlify-assets.b-cdn.net/fonts/Hubot-Sans.woff2`, oder Pfad zur lokalen Schriftdatei für Fließtext. Google Fonts werden automatisch geladen, wenn Sie einen Google-Font-„family“-Namen angeben, daher ist keine Quell-URL erforderlich.
+        </ResponseField>
+
+        <ResponseField name="format" type="'woff' | 'woff2'">
+          Schriftdateiformat für Fließtext. Erforderlich bei Verwendung des Felds `source`.
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+  </Expandable>
+</ResponseField>

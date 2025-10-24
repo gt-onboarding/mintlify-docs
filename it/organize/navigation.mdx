@@ -1,0 +1,676 @@
+---
+title: "Navigazione"
+description: "Struttura e personalizza la gerarchia di navigazione della tua documentazione"
+---
+
+La proprietà [navigation](organize/settings#param-navigation) in `docs.json` controlla la struttura e la gerarchia delle informazioni della tua documentazione.
+
+Con una configurazione di navigazione adeguata, puoi organizzare i contenuti in modo che gli utenti trovino esattamente ciò che cercano.
+
+<div id="pages">
+  ## Pagine
+</div>
+
+Le pagine sono il componente di navigazione più fondamentale. Le pagine corrispondono ai file MDX che compongono la documentazione.
+
+<img className="block dark:hidden pointer-events-none" src="/images/navigation/pages-light.png" alt="Grafica decorativa delle pagine." />
+
+<img className="hidden dark:block pointer-events-none" src="/images/navigation/pages-dark.png" alt="Grafica decorativa delle pagine." />
+
+Nell&#39;oggetto `navigation`, `pages` è un array in cui ogni elemento deve fare riferimento al percorso di un [file pagina](organize/pages).
+
+```json
+{
+  "navigation": {
+    "pages": [
+      "settings",
+      "pages",
+      "navigation",
+      "themes",
+      "custom-domain"
+    ]
+  }
+}
+```
+
+<div id="groups">
+  ## Gruppi
+</div>
+
+Usa i gruppi per organizzare la navigazione della sidebar in sezioni. I gruppi possono essere nidificati, etichettati con tag e visualizzati con icone.
+
+<img className="block dark:hidden pointer-events-none" src="/images/navigation/groups-light.png" alt="Elemento grafico decorativo dei gruppi." />
+
+<img className="hidden dark:block pointer-events-none" src="/images/navigation/groups-dark.png" alt="Elemento grafico decorativo dei gruppi." />
+
+Nell’oggetto `navigation`, `groups` è un array in cui ogni elemento è un oggetto che richiede i campi `group` e `pages`. I campi `icon`, `tag` ed `expanded` sono opzionali.
+
+```json
+{
+  "navigation": {
+    "groups": [
+      {
+        "group": "Inizia da qui",
+        "icon": "play",
+        "expanded": false,
+        "pages": [
+          "quickstart",
+          {
+            "group": "Modifica",
+            "icon": "pencil",
+            "pages": [
+              "installation",
+              "editor"
+            ]
+          }
+        ]
+      },
+      {
+        "group": "Scrivere contenuti",
+        "icon": "notebook-text",
+        "tag": "NEW",
+        "pages": [
+          "writing-content/page",
+          "writing-content/text"
+        ]
+      }
+    ]
+  }
+}
+```
+
+<div id="default-expanded-state">
+  ### Stato espanso predefinito
+</div>
+
+Imposta `expanded: true` su un gruppo per visualizzarlo espanso per impostazione predefinita nella barra laterale di navigazione. È utile per mettere in evidenza sezioni importanti o migliorare la reperibilità dei contenuti chiave.
+
+```json
+{
+  "group": "Inizia da qui",
+  "expanded": true,
+  "pages": ["quickstart", "installation"]
+}
+```
+
+<div id="tabs">
+  ## Schede
+</div>
+
+Le schede creano sezioni distinte della documentazione con percorsi URL separati. Generano una barra di navigazione orizzontale nella parte superiore della documentazione che consente agli utenti di passare tra le sezioni.
+
+<img className="block dark:hidden pointer-events-none" src="/images/navigation/tabs-light.png" alt="Grafica decorativa di una navigazione a schede." />
+
+<img className="hidden dark:block pointer-events-none" src="/images/navigation/tabs-dark.png" alt="Grafica decorativa di una navigazione a schede." />
+
+Nell&#39;oggetto `navigation`, `tabs` è un array in cui ogni elemento è un oggetto che richiede il campo `tab` e può contenere altri campi di navigazione, come gruppi, pagine, icone o link a pagine esterne.
+
+```json
+{
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Riferimenti API",
+        "icon": "square-terminal",
+        "pages": [
+          "api-reference/get",
+          "api-reference/post",
+          "api-reference/delete"
+        ]
+      },
+      {
+        "tab": "SDK",
+        "icon": "code",
+        "pages": [
+          "sdk/fetch",
+          "sdk/create",
+          "sdk/delete"
+        ]
+      },
+      {
+        "tab": "Blog",
+        "icon": "newspaper",
+        "href": "https://external-link.com/blog"
+      }
+    ]
+  }
+}
+```
+
+<div id="menus">
+  ### Menu
+</div>
+
+I menu aggiungono elementi di navigazione a discesa a una scheda. Usa i menu per aiutare gli utenti a raggiungere direttamente pagine specifiche all&#39;interno di una scheda.
+
+Nell&#39;oggetto `navigation`, `menu` è un array in cui ogni elemento è un oggetto che richiede il campo `item` e può contenere altri campi di navigazione, come gruppi, pagine, icone o collegamenti a pagine esterne.
+
+```json
+{
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Strumenti per sviluppatori",
+        "icon": "square-terminal",
+        "menu": [
+          {
+            "item": "Riferimento API",
+            "icon": "rocket",
+            "groups": [
+              {
+                "group": "Endpoint principali",
+                "icon": "square-terminal",
+                "pages": [
+                  "api-reference/get",
+                  "api-reference/post",
+                  "api-reference/delete"
+                ]
+              }
+            ]
+          },
+          {
+            "item": "SDK",
+            "icon": "code",
+            "description": "Gli SDK sono utilizzati per interagire con l'API.",
+            "pages": [
+              "sdk/fetch",
+              "sdk/create",
+              "sdk/delete"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+<div id="anchors">
+  ## Ancore
+</div>
+
+Le ancore aggiungono elementi di navigazione persistenti nella parte superiore della sidebar. Usa le ancore per suddividere i contenuti, offrire accesso rapido a risorse esterne o creare inviti all’azione ben visibili.
+
+<img className="block dark:hidden pointer-events-none" src="/images/navigation/anchors-light.png" alt="Grafica decorativa di una navigazione ad ancora." />
+
+<img className="hidden dark:block pointer-events-none" src="/images/navigation/anchors-dark.png" alt="Grafica decorativa di una navigazione ad ancora." />
+
+Nell’oggetto `navigation`, `anchors` è un array in cui ogni elemento è un oggetto che richiede il campo `anchor` e può contenere altri campi di navigazione come gruppi, pagine, icone o link a pagine esterne.
+
+```json
+{
+  "navigation": {
+    "anchors": [
+      {
+        "anchor": "Documentazione",
+        "icon": "book-open",
+        "pages": [
+          "quickstart",
+          "development",
+          "navigation"
+        ]
+      },
+      {
+        "anchor": "Riferimenti API",
+        "icon": "square-terminal",
+        "pages": [
+          "api-reference/get",
+          "api-reference/post",
+          "api-reference/delete"
+        ]
+      },
+      {
+        "anchor": "Blog",
+        "href": "https://external-link.com/blog"
+      }
+    ]
+  }
+}
+```
+
+Per gli anchor che rimandano esclusivamente a link esterni, usa la keyword `global`. Gli anchor in un oggetto `global` devono avere un campo `href` e non possono puntare a un percorso relativo.
+
+Gli anchor globali sono particolarmente utili per collegare risorse che non fanno parte della tua documentazione ma dovrebbero essere facilmente accessibili agli utenti, come un blog o un portale di supporto.
+
+```json
+{
+  "navigation": {
+    "global":  {
+      "anchors": [
+        {
+          "anchor": "Community",
+          "icon": "house",
+          "href": "https://slack.com"
+        },
+        {
+          "anchor": "Blog",
+          "icon": "pencil",
+          "href": "https://mintlify.com/blog"
+        }
+      ]
+    },
+    "tabs": /*...*/
+  }
+}
+```
+
+<div id="dropdowns">
+  ## Menu a discesa
+</div>
+
+I menu a discesa sono inclusi in un menu espandibile nella parte superiore della barra laterale di navigazione. Ogni elemento del menu a discesa porta a una sezione della documentazione.
+
+<img className="block dark:hidden pointer-events-none" src="/images/navigation/dropdowns-light.png" alt="Grafica decorativa di una navigazione con menu a discesa." />
+
+<img className="hidden dark:block pointer-events-none" src="/images/navigation/dropdowns-dark.png" alt="Grafica decorativa di una navigazione con menu a discesa." />
+
+Nell’oggetto `navigation`, `dropdowns` è un array in cui ogni elemento è un oggetto che richiede il campo `dropdown` e può includere altri campi di navigazione come gruppi, pagine, icone o collegamenti a pagine esterne.
+
+```json
+{
+  "navigation": {
+    "dropdowns": [
+      {
+        "dropdown": "Documentazione",
+        "icon": "book-open",
+        "pages": [
+          "quickstart",
+          "development",
+          "navigation"
+        ]
+      },
+      {
+        "dropdown": "Riferimenti API",
+        "icon": "square-terminal",
+        "pages": [
+          "api-reference/get",
+          "api-reference/post",
+          "api-reference/delete"
+        ]
+      },
+      {
+        "dropdown": "Blog",
+        "href": "https://external-link.com/blog"
+      }
+    ]
+  }
+}
+```
+
+<div id="products">
+  ## Prodotti
+</div>
+
+<img className="block dark:hidden pointer-events-none" src="/images/navigation/product-switcher-light.png" alt="Grafica decorativa di un selettore di prodotti." />
+
+<img className="hidden dark:block pointer-events-none" src="/images/navigation/product-switcher-dark.png" alt="Grafica decorativa di un selettore di prodotti." />
+
+I prodotti creano una sezione di navigazione dedicata per organizzare la documentazione specifica di ciascun prodotto. Usa i prodotti per separare offerte, servizi o insiemi di funzionalità principali all’interno della documentazione.
+
+Nell’oggetto `navigation`, `products` è un array in cui ogni elemento è un oggetto che richiede il campo `product` e può includere altri campi di navigazione come gruppi, pagine, icone o link a pagine esterne.
+
+```json
+{
+  "navigation": {
+    "products": [
+      {
+        "product": "Core API",
+        "description": "Descrizione delle Core API",    
+        "icon": "api",
+        "groups": [
+          {
+            "group": "Primi passi",
+            "pages": [
+              "core-api/quickstart",
+              "core-api/authentication"
+            ]
+          },
+          {
+            "group": "Endpoint",
+            "pages": [
+              "core-api/users",
+              "core-api/orders"
+            ]
+          }
+        ]
+      },
+      {
+        "product": "Analytics Platform",
+        "description": "Descrizione della piattaforma Analytics",
+        "icon": "chart-bar",
+        "pages": [
+          "analytics/overview",
+          "analytics/dashboard",
+          "analytics/reports"
+        ]
+      },
+      {
+        "product": "Mobile SDK",
+        "description": "Descrizione dell'SDK Mobile",
+        "icon": "smartphone",
+        "href": "https://mobile-sdk-docs.example.com"
+      }
+    ]
+  }
+}
+```
+
+<div id="openapi">
+  ## OpenAPI
+</div>
+
+Integra le specifiche OpenAPI direttamente nella struttura di navigazione per generare automaticamente la documentazione delle API. Crea sezioni API dedicate oppure inserisci le pagine degli endpoint all’interno di altri elementi di navigazione.
+
+Imposta una specifica OpenAPI predefinita a qualsiasi livello della gerarchia di navigazione. Gli elementi subordinati erediteranno questa specifica, a meno che non ne definiscano una propria.
+
+```json
+{
+  "navigation": {
+    "groups": [
+      {
+        "group": "Riferimento API",
+        "openapi": "/path/to/openapi-v1.json",
+        "pages": [
+          "panoramica",
+          "autenticazione",
+          "GET /users",
+          "POST /users",
+          {
+            "group": "Prodotti",
+            "openapi": "/path/to/openapi-v2.json",
+            "pages": [
+              "GET /products",
+              "POST /products"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+Per ulteriori informazioni su come fare riferimento agli endpoint OpenAPI nella documentazione, consulta la [configurazione di OpenAPI](/it/api-playground/openapi-setup).
+
+<div id="versions">
+  ## Versioni
+</div>
+
+Suddividi la navigazione in versioni diverse. Le versioni sono selezionabili da un menu a discesa.
+
+<img className="block dark:hidden pointer-events-none" src="/images/navigation/versions-light.png" alt="Grafica decorativa di un selettore di versione." />
+
+<img className="hidden dark:block pointer-events-none" src="/images/navigation/versions-dark.png" alt="Grafica decorativa di un selettore di versione." />
+
+Nell&#39;oggetto `navigation`, `versions` è un array in cui ogni elemento è un oggetto che richiede il campo `version` e può contenere qualsiasi altro campo di navigazione.
+
+```json
+{
+  "navigation": {
+    "versions": [
+      {
+        "version": "1.0.0",
+        "groups": [
+          {
+            "group": "Primi passi",
+            "pages": ["v1/overview", "v1/quickstart", "v1/development"]
+          }
+        ]
+      },
+      {
+        "version": "2.0.0",
+        "groups": [
+          {
+            "group": "Primi passi",
+            "pages": ["v2/overview", "v2/quickstart", "v2/development"]
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+<div id="languages">
+  ## Lingue
+</div>
+
+Suddividi la navigazione in più lingue. Le lingue sono selezionabili da un menu a discesa.
+
+<img className="block dark:hidden pointer-events-none" src="/images/navigation/languages-light.png" alt="Grafica decorativa di un selettore della lingua." />
+
+<img className="hidden dark:block pointer-events-none" src="/images/navigation/languages-dark.png" alt="Grafica decorativa di un selettore della lingua." />
+
+Nell’oggetto `navigation`, `languages` è un array in cui ogni elemento è un oggetto che richiede il campo `language` e può includere qualsiasi altro campo di navigazione.
+
+Al momento supportiamo le seguenti lingue per la localizzazione:
+
+<CardGroup cols={2}>
+  <Card title="Arabic (ar)" icon={<img src="https://mintlify.s3.us-west-1.amazonaws.com/mintlify/images/navigation/languages/ar.png" className="w-6 h-6 my-0" />} horizontal />
+
+  <Card title="Chinese (cn)" icon={<img src="https://mintlify.s3.us-west-1.amazonaws.com/mintlify/images/navigation/languages/cn.png" className="w-6 h-6 my-0" />} horizontal />
+
+  <Card title="Chinese (zh-Hant)" icon={<img src="https://mintlify.s3.us-west-1.amazonaws.com/mintlify/images/navigation/languages/cn.png" className="w-6 h-6 my-0" />} horizontal />
+
+  <Card title="English (en)" icon={<img src="https://mintlify.s3.us-west-1.amazonaws.com/mintlify/images/navigation/languages/en.png" className="w-6 h-6 my-0" />} horizontal />
+
+  <Card title="French (fr)" icon={<img src="https://mintlify.s3.us-west-1.amazonaws.com/mintlify/images/navigation/languages/fr.png" className="w-6 h-6 my-0" />} horizontal />
+
+  <Card title="German (de)" icon={<img src="https://mintlify.s3.us-west-1.amazonaws.com/mintlify/images/navigation/languages/de.png" className="w-6 h-6 my-0" />} horizontal />
+
+  <Card title="Indonesian (id)" icon={<img src="https://mintlify.s3.us-west-1.amazonaws.com/mintlify/images/navigation/languages/id.png" className="w-6 h-6 my-0" />} horizontal />
+
+  <Card title="Italian (it)" icon={<img src="https://mintlify.s3.us-west-1.amazonaws.com/mintlify/images/navigation/languages/it.png" className="w-6 h-6 my-0" />} horizontal />
+
+  <Card title="Japanese (jp)" icon={<img src="https://mintlify.s3.us-west-1.amazonaws.com/mintlify/images/navigation/languages/jp.png" className="w-6 h-6 my-0" />} horizontal />
+
+  <Card title="Korean (ko)" icon={<img src="https://mintlify.s3.us-west-1.amazonaws.com/mintlify/images/navigation/languages/ko.png" className="w-6 h-6 my-0" />} horizontal />
+
+  <Card title="Portuguese (pt-BR)" icon={<img src="https://mintlify.s3.us-west-1.amazonaws.com/mintlify/images/navigation/languages/pt-br.png" className="w-6 h-6 my-0" />} horizontal />
+
+  <Card title="Russian (ru)" icon={<img src="https://mintlify.s3.us-west-1.amazonaws.com/mintlify/images/navigation/languages/ru.png" className="w-6 h-6 my-0" />} horizontal />
+
+  <Card title="Spanish (es)" icon={<img src="https://mintlify.s3.us-west-1.amazonaws.com/mintlify/images/navigation/languages/es.png" className="w-6 h-6 my-0" />} horizontal />
+
+  <Card title="Turkish (tr)" icon={<img src="https://mintlify.s3.us-west-1.amazonaws.com/mintlify/images/navigation/languages/tr.png" className="w-6 h-6 my-0" />} horizontal />
+</CardGroup>
+
+```json
+{
+  "navigation": {
+    "languages": [
+      {
+        "language": "en",
+        "groups": [
+          {
+            "group": "Inizia da qui",
+            "pages": ["en/overview", "en/quickstart", "en/development"]
+          }
+        ]
+      },
+      {
+        "language": "es",
+        "groups": [
+          {
+            "group": "Inizia da qui",
+            "pages": ["es/overview", "es/quickstart", "es/development"]
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+Per le traduzioni automatiche, [contatta il nostro team commerciale](mailto:gtm@mintlify.com) per discutere le soluzioni.
+
+<div id="nesting">
+  ## Annidamento
+</div>
+
+Puoi usare qualsiasi combinazione di anchor, tab, dropdown e product. I componenti possono essere annidati tra loro in modo intercambiabile per creare la struttura di navigazione desiderata.
+
+<CodeGroup>
+  ```json Anchors
+  {
+    "navigation": {
+      "anchors": [
+        {
+          "anchor": "Anchor 1",
+          "groups": [
+            {
+              "group": "Group 1",
+              "pages": [
+                "some-folder/file-1",
+                "another-folder/file-2",
+                "just-a-file"
+              ]
+            }
+          ]
+        },
+        {
+          "anchor": "Anchor 2",
+          "groups": [
+            {
+              "group": "Group 2",
+              "pages": [
+                "some-other-folder/file-1",
+                "various-different-folders/file-2",
+                "another-file"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+  ```
+
+  ```json Tabs
+  {
+    "navigation": {
+      "tabs": [
+        {
+          "tab": "Tab 1",
+          "groups": [
+            {
+              "group": "Group 1",
+              "pages": [
+                "some-folder/file-1",
+                "another-folder/file-2",
+                "just-a-file"
+              ]
+            }
+          ]
+        },
+        {
+          "tab": "Tab 2",
+          "groups": [
+            {
+              "group": "Group 2",
+              "pages": [
+                "some-other-folder/file-1",
+                "various-different-folders/file-2",
+                "another-file"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+  ```
+
+  ```json Tabs with external anchor
+  {
+    "navigation": {
+      "global": {
+        "anchors": [
+          {
+            "anchor": "Anchor 1",
+            "href": "https://mintlify.com/docs"
+          }
+        ]
+      },
+      "tabs": [
+        {
+          "tab": "Tab 1",
+          "groups": [
+            {
+              "group": "Group 1",
+              "pages": [
+                "some-folder/file-1",
+                "another-folder/file-2",
+                "just-a-file"
+              ]
+            }
+          ]
+        },
+        {
+          "tab": "Tab 2",
+          "groups": [
+            {
+              "group": "Group 2",
+              "pages": [
+                "some-other-folder/file-1",
+                "various-different-folders/file-2",
+                "another-file"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+  ```
+</CodeGroup>
+
+<div id="breadcrumbs">
+  ## Breadcrumb
+</div>
+
+I breadcrumb mostrano l’intero percorso di navigazione nella parte superiore delle pagine. Alcuni temi hanno i breadcrumb abilitati per impostazione predefinita, altri no. Puoi controllare se i breadcrumb sono abilitati per il tuo sito utilizzando la proprietà `styling` nel file `docs.json`.
+
+<CodeGroup>
+  ```json Display full breadcrumbs
+  "styling": {
+    "eyebrows": "breadcrumbs"
+  }
+  ```
+
+  ```json Display parent section only
+  "styling": {
+    "eyebrows": "section"
+  }
+  ```
+</CodeGroup>
+
+<div id="interaction-configuration">
+  ## Configurazione delle interazioni
+</div>
+
+Configura come gli utenti interagiscono con gli elementi di navigazione usando la proprietà `interaction` nel file `docs.json`.
+
+<div id="enable-auto-navigation-for-groups">
+  ### Abilita la navigazione automatica per i gruppi
+</div>
+
+Quando un utente espande un gruppo di navigazione, alcuni temi passano automaticamente alla prima pagina del gruppo. Puoi sostituire il comportamento predefinito di un tema usando l&#39;opzione `drilldown`.
+
+* Imposta su `true` per forzare la navigazione automatica alla prima pagina quando viene selezionato un gruppo di navigazione.
+* Imposta su `false` per impedire la navigazione ed espandere o comprimere soltanto il gruppo quando viene selezionato.
+* Lascia non impostato per usare il comportamento predefinito del tema.
+
+<CodeGroup>
+  ```json Force navigation
+  "interaction": {
+    "drilldown": true  // Forza la navigazione alla prima pagina quando un utente espande un menu a discesa
+  }
+  ```
+
+  ```json Prevent navigation
+  "interaction": {
+    "drilldown": false // Non navigare mai, espandi o comprimi soltanto il gruppo
+  }
+  ```
+</CodeGroup>

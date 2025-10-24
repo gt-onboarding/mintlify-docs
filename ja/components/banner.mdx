@@ -1,0 +1,43 @@
+---
+title: "バナー"
+description: "サイト全体で重要なお知らせや通知を表示するバナーを追加する"
+---
+
+バナーを使うと、ドキュメントサイト全体で重要なお知らせ、更新情報、通知を表示できます。バナーは各ページの上部に表示され、Markdown 形式に対応し、ユーザーが非表示にできます。バナーの色は、`docs.json` の `colors.dark` プロパティで定義された色が使用されます。
+
+バナーを追加するには、`docs.json` の `banner` プロパティを使用します:
+
+<CodeGroup>
+  ```json Product announcements wrap
+  "banner": {
+    "content": "🚀 バージョン 2.0 が公開されました！詳細は [changelog](/changelog) をご覧ください。",
+    "dismissible": true 
+  }
+  ```
+
+  ```json Maintenance notices wrap
+  "banner": {
+    "content": "⚠️ 計画メンテナンス: 12 月 15 日 2:00–4:00 (UTC) の間は API をご利用いただけません",
+    "dismissible": false
+  }
+  ```
+
+  ```json Required actions wrap
+  "banner": {
+    "content": "**要対応:** 1 月 1 日までに新バージョンへ移行してください。[移行ガイド](/migration)",
+    "dismissible": true
+  }
+  ```
+</CodeGroup>
+
+<div id="properties">
+  ## プロパティ
+</div>
+
+<ResponseField name="content" type="string" required>
+  バナーのメッセージ。プレーンテキストとMarkdownの書式に対応します。
+</ResponseField>
+
+<ResponseField name="dismissible" type="boolean">
+  ユーザーがバナーを閉じられるかどうか。`true` の場合、ユーザーはバナーを閉じることができ、同一セッション内では再表示されません。デフォルトは `false` です。
+</ResponseField>

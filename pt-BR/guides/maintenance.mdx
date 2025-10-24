@@ -1,0 +1,45 @@
+---
+title: "Manutenção"
+description: "Dicas para manter a documentação atualizada"
+---
+
+<Tip>
+  Esta página apresenta estratégias para manter sua documentação precisa e útil ao longo do tempo, desde verificações automatizadas até o ciclo de vida do conteúdo.
+</Tip>
+
+<div id="automate-what-you-can">
+  ## Automatize o que for possível
+</div>
+
+Introduza automações sempre que puder, como:
+
+* **Acompanhe conteúdo obsoleto:** Execute um script para sinalizar documentos importantes que não foram atualizados nos últimos três meses. Eles ainda estão corretos?
+* **Automatize atualizações da documentação:** Crie um fluxo de trabalho para atualizar a documentação automaticamente quando o código for mesclado com a [API de agentes](/pt-BR/guides/automate-agent).
+* **Faça cumprir padrões com linters:** Use o [Vale](http://Vale.sh) ou [checks de CI](/pt-BR/deploy/ci) para detectar automaticamente problemas de formatação, desvios de estilo de escrita ou metadados ausentes em cada pull request.
+
+<div id="set-up-a-review-process">
+  ## Configure um processo de revisão
+</div>
+
+A documentação talvez nunca seja perfeita, e tudo bem. Defina um nível mínimo de qualidade no qual a documentação seja funcional e útil.
+
+Equilibre eficiência e qualidade:
+
+* **Priorize documentos de maior impacto.** Nem toda página precisa de atualizações frequentes. Garanta que as páginas mais importantes sejam revisadas regularmente quanto à precisão e relevância.
+* **Aproveite sua comunidade.** Se sua documentação for open source, habilite os usuários a sinalizarem problemas ou enviarem correções via pull requests. Isso fortalece a confiança e mantém o conteúdo atualizado.
+
+<div id="know-when-to-rewrite">
+  ## Saiba quando reescrever
+</div>
+
+Com o tempo, a documentação naturalmente acumula observações e soluções de contorno. Quando correções incrementais geram mais confusão do que clareza, uma reformulação completa pode ser a melhor opção.
+
+* **Planeje redefinições periódicas.** Uma grande limpeza — especialmente se as práticas recomendadas ou o próprio produto evoluíram significativamente — poupa tempo da sua equipe e dos seus usuários.
+* **Comece com uma auditoria estruturada.** Entreviste as equipes de suporte, analise o feedback dos usuários e registre o que está faltando, confuso ou redundante antes de reescrever.
+* **Faça reescritas completas em sprints focados.** Uma reformulação total não precisa acontecer de uma só vez. Priorize as seções de maior impacto.
+
+<div id="wrong-docs-can-be-worse-than-no-docs">
+  ## Documentação equivocada pode ser pior do que nenhuma
+</div>
+
+Documentação desatualizada ou enganosa faz os usuários perderem tempo e corrói a confiança. Nos casos em que uma página está completamente imprecisa e impossível de corrigir no curto prazo, muitas vezes é melhor removê-la por completo. Os usuários preferem ter menos informação a ter informação errada.

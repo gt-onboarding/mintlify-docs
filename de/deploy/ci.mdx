@@ -1,0 +1,422 @@
+---
+title: "CI-Prüfungen"
+description: "Fügen Sie Prüfungen für defekte Links, Linting und Grammatik zum Aktualisierungsprozess hinzu"
+---
+
+<Info>
+  [Pro- und Enterprise-Tarife](https://mintlify.com/pricing?ref=docs-ci) beinhalten CI-Prüfungen für GitHub-Repositories.
+</Info>
+
+Verwenden Sie CI-Prüfungen, um Ihre Dokumentation auf Fehler zu prüfen und Warnungen auszugeben, bevor Sie deployen. CI-Prüfungen sind so konfiguriert, dass sie bei Commits in Ihren konfigurierten Deploy-Branch oder bei Pull Requests gegen diesen Branch ausgeführt werden.
+
+<div id="installation">
+  ## Installation
+</div>
+
+Beginnen Sie, indem Sie den Schritten auf der Seite [GitHub](/de/deploy/github) folgen.
+
+Bei GitHub-Apps können Sie die Berechtigungen auf ein einzelnes Repository beschränken. Wir empfehlen das ausdrücklich, da wir nur Zugriff auf das Repository benötigen, in dem Ihre Dokumentation gehostet wird.
+
+## Konfiguration
+
+Konfigurieren Sie die aktivierten CI-Checks für eine Bereitstellung, indem Sie in Ihrem Dashboard zur Seite [Add-ons](https://dashboard.mintlify.com/products/addons) navigieren. Aktivieren Sie die Checks, die Sie ausführen möchten.
+
+Beim Aktivieren von Checks können Sie wählen, ob diese auf `Warning`- oder `Blocking`-Level ausgeführt werden sollen.
+
+* Ein Check auf `Warning`-Level führt nie zu einem Fehlerstatus, selbst wenn es Fehler oder Vorschläge gibt.
+* Ein Check auf `Blocking`-Level führt zu einem Fehlerstatus, wenn er nicht bestanden wird oder Änderungen vorgeschlagen werden.
+
+<div id="available-ci-checks">
+  ## Verfügbare CI-Checks
+</div>
+
+<div id="broken-links">
+  ### Defekte Links
+</div>
+
+Ähnlich wie der [CLI-Link-Checker](/de/create/broken-links#broken-links) auf deinem lokalen Rechner prüfen wir deine Dokumentation automatisch auf defekte Links.
+
+Um die Ergebnisse dieser Prüfung zu sehen, rufe auf GitHub die Seite mit den Prüfergebnissen für den jeweiligen Commit auf.
+
+<div id="vale">
+  ### Vale
+</div>
+
+[Vale](https://vale.sh/) ist ein Open-Source-, regelbasierter Prosa-Linter, der eine Reihe von Dokumenttypen unterstützt, darunter Markdown und MDX.
+
+Mintlify unterstützt das automatische Ausführen von Vale in einem CI-Check und zeigt die Ergebnisse als Prüfstatus an.
+
+<div id="configuration">
+  #### Konfiguration
+</div>
+
+Wenn sich eine Datei `.vale.ini` im Stammverzeichnis der Inhalte Ihrer Bereitstellung befindet, verwenden wir diese Konfigurationsdatei automatisch. Wir nutzen außerdem automatisch alle Konfigurationsdateien in dem von Ihnen angegebenen `stylesPath`.
+
+Wenn Sie keine Vale-Konfigurationsdatei haben, wird die Standardkonfiguration automatisch geladen.
+
+```mdx Default vale.ini configuration expandable
+# Stile der obersten Ebene
+StylesPath = /app/styles
+MinAlertLevel = suggestion
+IgnoredScopes = code, tt, img, url, a
+SkippedScopes = script, style, pre, figure, code
+
+# Vokabulare
+Vocab = Mintlify
+
+# Dies ist erforderlich, da Vale MDX nicht offiziell unterstützt
+[formats]
+mdx = md
+
+# MDX-Unterstützung
+[*.mdx]
+BasedOnStyles = Vale
+Vale.Terms = NO # Erzwingt sehr strenge Großschreibungsregeln, deaktiviert lassen
+
+# `import ...`, `export ...`
+# `<Component ... />`
+# `<Component>...</Component>`
+# `{ ... }`
+TokenIgnores = (?sm)((?:import|export) .+?$), \
+(?<!`)(<\w+ ?.+ ?\/>)(?!`), \
+(<[A-Z]\w+>.+?<\/[A-Z]\w+>)
+
+# Ausschließen:
+# `<Component \n ... />`
+BlockIgnores = (?sm)^(<\w+\n .*\s\/>)$, \
+(?sm)^({.+.*})
+
+CommentDelimiters = {/*, */}
+```
+
+```text Default Vale vocabulary expandable
+Mintlify
+mintlify
+VSCode
+openapi
+OpenAPI
+Github
+APIs
+
+repo
+npm
+dev
+
+Lorem
+ipsum
+impsum
+amet
+
+const
+myName
+myObject
+bearerAuth
+favicon
+topbar
+url
+borderRadius
+args
+modeToggle
+ModeToggle
+isHidden
+autoplay
+
+_italic_
+Strikethrough
+Blockquotes
+Blockquote
+Singleline
+Multiline
+
+onboarding
+
+async
+await
+boolean
+enum
+func
+impl
+init
+instanceof
+typeof
+params
+stdin
+stdout
+stderr
+stdout
+stdin
+var
+const
+let
+null
+undefined
+struct
+bool
+
+cors
+csrf
+env
+xhr
+xhr2
+jwt
+oauth
+websocket
+localhost
+middleware
+runtime
+webhook
+stdin
+stdout
+
+json
+yaml
+yml
+md
+txt
+tsx
+jsx
+css
+scss
+html
+png
+jpg
+svg
+
+cdn
+cli
+css
+dom
+dto
+env
+git
+gui
+http
+https
+ide
+jvm
+mvc
+orm
+rpc
+sdk
+sql
+ssh
+ssl
+tcp
+tls
+uri
+url
+ux
+ui
+
+nodejs
+npm
+yarn
+pnpm
+eslint
+pytest
+golang
+rustc
+kubectl
+mongo
+postgres
+redis
+
+JavaScript
+TypeScript
+Python
+Ruby
+Rust
+Go
+Golang
+Java
+Kotlin
+Swift
+Node.js
+NodeJS
+Deno
+
+React
+Vue
+Angular
+Next.js
+Nuxt
+Express
+Django
+Flask
+Spring
+Laravel
+Redux
+Vuex
+TensorFlow
+PostgreSQL
+MongoDB
+Redis
+PNPM
+
+Docker
+Kubernetes
+AWS
+Azure
+GCP
+Terraform
+Jenkins
+CircleCI
+GitLab
+Heroku
+
+Git
+git
+GitHub
+GitLab
+Bitbucket
+VSCode
+Visual Studio Code
+IntelliJ
+WebStorm
+ESLint
+eslint
+Prettier
+prettier
+Webpack
+webpack
+Vite
+vite
+Babel
+babel
+Jest
+jest
+Mocha
+Cypress
+Postman
+
+HTTP
+HTTPS
+OAuth
+JWT
+GraphQL
+REST
+WebSocket
+TCP/IP
+
+NPM
+Yarn
+PNPM
+Pip
+PIP
+Cargo
+RubyGems
+
+Swagger
+OpenAPI
+Markdown
+MDX
+Storybook
+TypeDoc
+JSDoc
+
+MySQL
+PostgreSQL
+MongoDB
+Redis
+Elasticsearch
+DynamoDB
+
+Linux
+Unix
+macOS
+iOS
+
+Firefox
+Chromium
+WebKit
+
+config
+ctx
+desc
+dir
+elem
+err
+len
+msg
+num
+obj
+prev
+proc
+ptr
+req
+res
+str
+tmp
+val
+vars
+
+todo
+href
+lang
+nav
+prev
+next
+toc
+```
+
+<Warning>
+  Bitte beachten Sie, dass wir aus Sicherheitsgründen weder absolute `stylesPath`-Angaben noch `stylesPath`-Angaben unterstützen, die `..` enthalten. Verwenden Sie relative Pfade und nehmen Sie den `stylesPath` in Ihr Repository auf.
+</Warning>
+
+<div id="packages">
+  #### Pakete
+</div>
+
+Vale unterstützt eine Reihe von [Paketen](https://vale.sh/docs/keys/packages), mit denen Sie Rechtschreib- und Stilfehler prüfen können.
+Alle Pakete, die Sie in Ihrem Repository unter dem korrekten `stylesPath` ablegen, werden automatisch installiert und in Ihrer Vale-Konfiguration verwendet.
+
+Für Pakete, die nicht in Ihrem Repository enthalten sind, können Sie beliebige Pakete aus der [Vale-Paketregistrierung](https://vale.sh/explorer) angeben; diese werden automatisch heruntergeladen und in Ihrer Vale-Konfiguration verwendet.
+
+<Warning>
+  Bitte beachten Sie, dass wir aus Sicherheitsgründen das automatische Herunterladen von Paketen, die nicht aus der [Vale-Paketregistrierung](https://vale.sh/explorer) stammen, nicht unterstützen können.
+</Warning>
+
+<div id="vale-with-mdx">
+  #### Vale mit `MDX`
+</div>
+
+Vale unterstützt `MDX` nicht nativ, aber der Autor von Vale stellt eine [benutzerdefinierte Erweiterung](https://github.com/errata-ai/MDX) zur Unterstützung bereit.
+
+Wenn Sie diese Erweiterung nicht verwenden möchten, empfehlen wir die folgenden Zeilen in Ihrer Datei `.vale.ini`:
+
+```ini
+[formats]
+mdx = md
+
+[*.mdx]
+CommentDelimiters = {/*, */}
+
+TokenIgnores = (?sm)((?:import|export) .+?$), \
+(?<!`)(<\w+ ?.+ ?\/>)(?!`), \
+(<[A-Z]\w+>.+?<\/[A-Z]\w+>)
+
+BlockIgnores = (?sm)^(<\w+\n .*\s\/>)$, \
+(?sm)^({.+.*})
+```
+
+Um die In-Document-Kommentare von Vale zu verwenden, nutzen Sie MDX‑Kommentare `{/* ... */}`. Wenn Sie in Ihrer Konfiguration die [Einstellung](https://vale.sh/docs/keys/commentdelimiters) `CommentDelimiters = {/*, */}` verwenden, interpretiert Vale diese Kommentare beim Linting automatisch. Das bedeutet, dass Sie die integrierten Funktionen von Vale, wie das Überspringen von Zeilen oder Abschnitten, problemlos nutzen können.
+
+```mdx
+{/* vale off */}
+
+Dieser Text wird von Vale ignoriert
+
+{/* vale on */}
+```
+
+Wenn Sie sich entscheiden, `CommentDelimiters` nicht zu verwenden, aber dennoch die Kommentare von Vale zu nutzen, müssen Sie alle Vale-Kommentare in MDX-Kommentare `{/* ... */}` einschließen. Beispiel:
+
+```mdx
+{/* <!-- vale off --> */}
+
+Dieser Text wird von Vale ignoriert
+
+{/* <!-- vale on --> */}
+```
+
+Diese Kommentar-Tags werden innerhalb von Mintlify-Komponenten nicht unterstützt, können aber auf der Basisebene eines Dokuments beliebig verwendet werden.

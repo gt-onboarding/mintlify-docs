@@ -1,0 +1,122 @@
+---
+title: "GEO 指南：为 AI 搜索与回答引擎优化文档"
+sidebarTitle: "GEO"
+description: "让你的文档更易被发现，并更常被 AI 工具引用"
+---
+
+同时为传统搜索引擎与 AI 驱动的回答引擎（如 ChatGPT、Perplexity、Google AI Overviews）优化你的文档。
+
+Generative Engine Optimization（GEO，生成式引擎优化）侧重通过完善的内容与结构化信息提高被 AI 系统引用的概率，而传统 SEO 则以提升搜索结果排名为目标。
+
+<div id="geo-quickstart">
+  ## GEO 快速上手
+</div>
+
+<div id="initial-setup">
+  ### 初始设置
+</div>
+
+1. 在 `docs.json` 设置中**确保文档已启用索引**
+2. **审查当前页面**，补全缺失的描述和标题
+
+<div id="content-improvements">
+  ### 内容改进
+</div>
+
+1. 在合适的页面**添加对比表格**
+2. **审视标题结构**，确保能够解答常见问题
+3. **优化内部链接**，强化相关主题之间的关联
+4. **使用 AI 工具进行测试**以核验准确性
+
+<div id="geo-best-practices">
+  ## GEO 最佳实践
+</div>
+
+总体而言，撰写得当、结构清晰的文档通常会具备良好的 GEO 表现。你仍应以用户为先；只要你的内容满足了他们的需求，你就在为 AI 工具优化的正确道路上。相比为“优化而优化”，创作真正有用的内容更容易同时得到传统与 AI 搜索引擎的认可。
+
+重点关注：
+
+- 围绕用户需求而非关键词匹配来创作内容
+- 结构化、便于快速浏览的信息
+- 对问题给出直接答案
+
+<div id="format-for-clarity">
+  ### 清晰表达的格式规范
+</div>
+
+以下格式实践有助于 AI 工具解析并理解你的内容：
+
+- 不要跳过标题层级（H1 → H2 → H3）
+- 使用具体的对象名称，而非“it”或“this”
+- 为代码块标注对应的编程语言
+- 为图片提供具有描述性的替代文本（alt 文本）
+- 链接相关概念，帮助 AI 理解其关联
+
+<div id="answer-questions-directly">
+  ### 直接解答问题
+</div>
+
+撰写能回应特定用户提问的内容：
+
+- 各部分以关键要点开头
+- 使用贴合常见搜索/提问的描述性标题
+- 将复杂主题拆解为编号步骤
+
+<div id="mintlify-configuration">
+  ## Mintlify 配置
+</div>
+
+使用以下功能优化 GEO。
+
+<div id="add-descriptive-page-metadata">
+  ### 添加具描述性的页面元数据
+</div>
+
+在 frontmatter 中填写清晰的标题和描述：
+
+```mdx
+---
+title: "API authentication guide"
+description: "Complete guide to implementing API authentication with code examples"
+---
+```
+
+<div id="configure-global-indexing-settings">
+  ### 配置全局索引设置
+</div>
+
+在你的 `docs.json` 中添加：
+
+```json
+{
+  "seo": {
+    "indexing": "all",
+    "metatags": {
+      "og:type": "website",
+      "og:site_name": "Your docs"
+    }
+  }
+}
+```
+
+<div id="llmstxt">
+  ### LLMs.txt
+</div>
+
+LLMs.txt 文件可帮助 AI 系统理解你的文档结构，类似于站点地图之于搜索引擎。Mintlify 会为你的文档自动生成 LLMs.txt 文件，无需任何配置。
+
+<div id="testing-your-documentation">
+  ## 测试你的文档
+</div>
+
+围绕你的产品和文档设计问题，使用各类 AI 工具进行测试，查看它们对你的文档引用与理解的准确度。
+
+**向 AI 助手提出与你的文档相关的具体问题：**
+
+- “如何使用此 API 配置身份验证？”
+- “请按步骤带我完成安装过程”
+
+**检查这些工具是否提供：**
+
+- 正确的代码示例
+- 准确的分步指引

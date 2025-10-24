@@ -1,0 +1,195 @@
+---
+title: "Seiten"
+description: "Seiten sind die Bausteine deiner Dokumentation"
+keywords: ["tags", "tag"]
+---
+
+Jede Seite ist eine MDX-Datei, die Markdown-Inhalte mit React-Komponenten kombiniert und dir ermöglicht, umfangreiche, interaktive Dokumentation zu erstellen.
+
+<div id="page-metadata">
+  ## Seitenmetadaten
+</div>
+
+Jede Seite beginnt mit Frontmatter, den YAML-Metadaten, die am Anfang einer Datei von `---` eingeschlossen werden. Diese Metadaten bestimmen Darstellung und Verhalten deiner Seite.
+
+Verwende Frontmatter, um Folgendes zu steuern:
+
+* Seitentitel und -beschreibungen
+* Titel, Icons und Tags in der Seitenleiste
+* Seitenlayouts
+* SEO-Metatags
+* Benutzerdefinierte Metadaten
+
+<ResponseField name="title" type="string" required>
+  Der Titel deiner Seite, der in der Navigation und in Browser-Tabs erscheint.
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  Eine kurze Beschreibung des Seiteninhalts. Wird unter dem Titel angezeigt und verbessert die SEO.
+</ResponseField>
+
+<ResponseField name="sidebarTitle" type="string">
+  Ein kurzer Titel, der in der Navigation der Seitenleiste angezeigt wird.
+</ResponseField>
+
+<ResponseField name="icon" type="string">
+  Das anzuzeigende Icon.
+
+  Optionen:
+
+  * Name eines [Font Awesome](https://fontawesome.com/icons)-Icons
+  * Name eines [Lucide](https://lucide.dev/icons)-Icons
+  * URL zu einem extern gehosteten Icon
+  * Pfad zu einer Icon-Datei in deinem Projekt
+</ResponseField>
+
+<ResponseField name="iconType" type="string">
+  Der Iconstil von [Font Awesome](https://fontawesome.com/icons). Wird nur mit Font Awesome-Icons verwendet.
+
+  Optionen: `regular`, `solid`, `light`, `thin`, `sharp-solid`, `duotone`, `brands`.
+</ResponseField>
+
+<ResponseField name="tag" type="string">
+  Ein Tag, das neben deinem Seitentitel in der Seitenleiste angezeigt wird.
+</ResponseField>
+
+<ResponseField name="<custom>" type="string">
+  Beliebiges gültiges YAML-Frontmatter. Zum Beispiel `product: "API"` oder `version: "1.0.0"`.
+</ResponseField>
+
+```yaml Example YAML frontmatter wrap
+---
+title: "Über Frontmatter"
+description: "Frontmatter sind die Metadaten, die steuern, wie Ihre Seite dargestellt wird und sich verhält"
+sidebarTitle: "Frontmatter"
+icon: "book"
+tag: "NEU"
+---
+```
+
+<div id="page-mode">
+  ## Seitenmodus
+</div>
+
+Steuern Sie die Anzeige Ihrer Seite über die Einstellung `mode`.
+
+<div id="default">
+  ### Standard
+</div>
+
+Wenn kein Modus definiert ist, wird ein Standardlayout mit Seitenleiste und Inhaltsverzeichnis verwendet.
+
+```yaml
+---
+title: "Standard-Seitentitel"
+---
+```
+
+<div id="wide">
+  ### Breit
+</div>
+
+Der breite Modus blendet das Inhaltsverzeichnis aus. Das ist praktisch für Seiten ohne Überschriften oder wenn du den zusätzlichen horizontalen Platz nutzen möchtest. Der breite Modus ist in allen Themes verfügbar.
+
+```yaml
+---
+title: "Breiter Seitentitel"
+mode: "wide"
+---
+```
+
+<div id="custom">
+  ### Custom
+</div>
+
+Der Custom-Modus bietet ein minimalistisches Layout, das alle Elemente außer der oberen Navigationsleiste entfernt. Er ist eine leere Leinwand, um Landing Pages oder andere individuelle Layouts zu erstellen, bei denen du möglichst wenige Navigationselemente möchtest. Der Custom-Modus ist für alle Themes verfügbar.
+
+```yaml
+---
+title: "Benutzerdefinierter Seitentitel"
+mode: "custom"
+---
+```
+
+<div id="frame">
+  ### Frame
+</div>
+
+Der Frame-Modus bietet ein Layout ähnlich dem Custom-Modus, behält jedoch die Navigation in der Seitenleiste bei. Dieser Seitenmodus ermöglicht benutzerdefiniertes HTML und Komponenten und erhält dabei das standardmäßige Navigationserlebnis. Der Frame-Modus ist nur für die Themes Aspen und Almond verfügbar.
+
+```yaml
+---
+title: "Frame-Seitentitel"
+mode: "frame"
+---
+```
+
+<div id="center">
+  ### Zentriert
+</div>
+
+Der Zentriert-Modus entfernt die Seitenleiste und das Inhaltsverzeichnis und rückt den Inhalt in den Mittelpunkt. Das ist hilfreich für Changelogs oder andere Seiten, auf denen du den Inhalt betonen möchtest. Der Zentriert-Modus ist für die Themes Mint und Linden verfügbar.
+
+```yaml
+---
+title: "Seitentitel zentrieren"
+mode: "center"
+---
+```
+
+<div id="api-pages">
+  ## API-Seiten
+</div>
+
+Erstellen Sie interaktive API-Spielwiesen, indem Sie in Ihrem Frontmatter eine API-Spezifikation über `api` oder `openapi` hinzufügen.
+
+```yaml
+---
+openapi: "GET /endpoint"
+---
+```
+
+Erfahren Sie mehr über das Erstellen von [API-Dokumentationen](/de/api-playground/overview).
+
+<div id="external-links">
+  ## Externe Links
+</div>
+
+Verlinken Sie externe Seiten direkt aus Ihrer Navigation mit den Metadaten `url`.
+
+```yaml
+---
+title: "npm-Paket"
+url: "https://www.npmjs.com/package/mint"
+---
+```
+
+<div id="search-engine-optimization">
+  ## Suchmaschinenoptimierung
+</div>
+
+Die meisten SEO-Meta-Tags werden automatisch generiert. Sie können SEO-Meta-Tags manuell festlegen, um die SEO Ihrer Website, das Teilen in sozialen Netzwerken und die Browserkompatibilität zu verbessern.
+
+<Note>
+  Meta-Tags mit Doppelpunkten müssen in Anführungszeichen gesetzt werden.
+</Note>
+
+```yaml
+---
+"twitter:image": "/images/social-preview.jpg"
+---
+```
+
+Siehe [SEO](/de/optimize/seo) für alle Optionen zu SEO-Metadaten.
+
+<div id="internal-search-keywords">
+  ## Interne Such-Keywords
+</div>
+
+Verbessern Sie die Auffindbarkeit einer bestimmten Seite in der integrierten Suche, indem Sie `keywords` in Ihren Metadaten hinterlegen. Diese Keywords erscheinen nicht im Seiteninhalt oder in den Suchtreffern, aber Nutzer, die danach suchen, sehen die Seite als Ergebnis.
+
+```yaml
+---
+keywords: ['Konfiguration', 'Einrichtung', 'Erste Schritte']
+---
+```

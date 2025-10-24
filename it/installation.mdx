@@ -1,0 +1,226 @@
+---
+title: "Installazione della CLI"
+description: "Usa la CLI per visualizzare in anteprima e gestire la documentazione in locale"
+---
+
+<img className="block dark:hidden my-0 pointer-events-none" src="/images/installation/local-development-light.png" alt="Grafica decorativa che rappresenta la CLI." />
+
+<img className="hidden dark:block my-0 pointer-events-none" src="/images/installation/local-development-dark.png" alt="Grafica decorativa che rappresenta la CLI." />
+
+Usa la CLI per visualizzare in anteprima la documentazione in locale mentre scrivi e modifichi. Vedi le modifiche in tempo reale prima del deploy, testa l’aspetto e il funzionamento del sito di documentazione e intercetta problemi come link non funzionanti o criticità di accessibilità.
+
+La CLI offre anche strumenti per gestire la documentazione, tra cui comandi per rinominare file, convalidare specifiche OpenAPI e migrare contenuti tra formati.
+
+<div id="install-the-cli">
+  ## Installa la CLI
+</div>
+
+<Info>
+  **Prerequisito**: la CLI richiede [Node.js](https://nodejs.org/en) v19 o successiva.
+</Info>
+
+<Steps>
+  <Step title="Installa la CLI">
+    Esegui il seguente comando per installare la [CLI](https://www.npmjs.com/package/mint):
+
+    <CodeGroup>
+      ```bash npm
+      npm i -g mint
+      ```
+
+      ```bash pnpm
+      pnpm add -g mint
+      ```
+    </CodeGroup>
+  </Step>
+
+  <Step title="Anteprima in locale">
+    Vai alla directory della tua documentazione (dove si trova il file `docs.json`) ed esegui il seguente comando:
+
+    ```bash
+    mint dev
+    ```
+
+    Un&#39;anteprima locale della documentazione sarà disponibile su `http://localhost:3000`.
+  </Step>
+</Steps>
+
+In alternativa, se non vuoi installare la CLI a livello globale, puoi eseguire uno script una tantum:
+
+```bash
+npx mint dev
+```
+
+<div id="updates">
+  ## Aggiornamenti
+</div>
+
+Se l’anteprima locale non è sincronizzata con quanto vedi online nella versione di produzione, aggiorna la CLI locale:
+
+```bash
+mint update
+```
+
+Se il comando `mint update` non è disponibile nella tua versione locale, reinstalla la CLI all’ultima versione:
+
+<CodeGroup>
+  ```bash npm
+  npm i -g mint@latest
+  ```
+
+  ```bash pnpm
+  pnpm add -g mint@latest
+  ```
+</CodeGroup>
+
+<div id="custom-ports">
+  ## Porte personalizzate
+</div>
+
+Per impostazione predefinita, la CLI usa la porta 3000. Puoi personalizzare la porta con il flag `--port`. Per eseguire la CLI sulla porta 3333, ad esempio, usa questo comando:
+
+```bash
+mint dev --port 3333
+```
+
+Se provi a eseguire su una porta già in uso, verrà utilizzata la successiva porta disponibile:
+
+```mdx
+La porta 3000 è già in uso. Provo con la 3001.
+```
+
+<div id="preview-as-a-specific-group">
+  ## Anteprima come gruppo specifico
+</div>
+
+Se usi l’autenticazione parziale per limitare l’accesso alla documentazione, puoi effettuare l’anteprima come uno specifico gruppo di autenticazione usando il flag `--groups [groupname]`.
+
+Ad esempio, se hai un gruppo chiamato `admin`, puoi effettuare l’anteprima come membro di quel gruppo con il comando:
+
+```bash
+mint dev --groups admin
+```
+
+<div id="additional-commands">
+  ## Altri comandi
+</div>
+
+<div id="find-broken-links">
+  ### Trova i collegamenti non funzionanti
+</div>
+
+Identifica eventuali collegamenti interni non funzionanti con il seguente comando:
+
+```bash
+mint broken-links
+```
+
+<div id="find-accessibility-issues">
+  ### Individua i problemi di accessibilità
+</div>
+
+Verifica i rapporti di contrasto dei colori e cerca eventuali testi alternativi mancanti per immagini e video nella tua documentazione con il seguente comando:
+
+```bash
+mint a11y
+```
+
+<div id="check-openapi-spec">
+  ### Controlla la specifica OpenAPI
+</div>
+
+Controlla il file OpenAPI per eventuali errori con il seguente comando:
+
+```bash
+mint openapi-check <nome file OpenAPI o URL>
+```
+
+Passa un nome di file (ad esempio, `./openapi.yaml`) o un URL (ad esempio, `https://petstore3.swagger.io/api/v3/openapi.json`).
+
+<div id="rename-files">
+  ### Rinomina i file
+</div>
+
+Rinomina e aggiorna tutti i riferimenti ai file con il seguente comando:
+
+```bash
+mint rename <percorso/al/vecchio-nome-file> <percorso/al/nuovo-nome-file>
+```
+
+<div id="migrate-mdx-endpoint-pages">
+  ### Migrare le pagine degli endpoint MDX
+</div>
+
+Migra le pagine degli endpoint MDX in pagine generate automaticamente dalla tua specifica OpenAPI con il seguente comando:
+
+```bash
+mint migrate-mdx
+```
+
+Questo comando converte le singole pagine endpoint MDX in pagine autogenerate definite nel tuo `docs.json`, sposta il contenuto MDX nell’estensione `x-mint` nella tua specifica OpenAPI e aggiorna la navigazione. Consulta [Migrazione da MDX](/it/guides/migrating-from-mdx) per informazioni dettagliate.
+
+<div id="formatting">
+  ## Formattazione
+</div>
+
+Durante lo sviluppo in locale, consigliamo di usare estensioni nel tuo IDE per riconoscere e formattare i file `MDX`.
+
+Se usi Cursor, Windsurf o VS Code, consigliamo l&#39;[estensione MDX per VS Code](https://marketplace.visualstudio.com/items?itemName=unifiedjs.vscode-mdx) per l&#39;evidenziazione della sintassi e [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) per la formattazione del codice.
+
+Se usi JetBrains, consigliamo il [plugin MDX per IntelliJ IDEA](https://plugins.jetbrains.com/plugin/14944-mdx) per l&#39;evidenziazione della sintassi e la configurazione di [Prettier](https://prettier.io/docs/webstorm) per la formattazione del codice.
+
+<div id="troubleshooting">
+  ## Risoluzione dei problemi
+</div>
+
+<AccordionGroup>
+  <Accordion title="Errore: impossibile caricare il modulo &#x22;sharp&#x22; con il runtime darwin-arm64">
+    Questo potrebbe dipendere da una versione obsoleta di Node. Prova quanto segue:
+
+    1. Rimuovi la versione attualmente installata della CLI di mint: `npm uninstall -g mint`
+    2. Aggiorna Node.js.
+    3. Reinstalla la CLI di mint: `npm install -g mint`
+  </Accordion>
+
+  <Accordion title="Problema: si verifica un errore sconosciuto">
+    **Soluzione**: Vai alla directory radice del tuo dispositivo ed elimina la cartella `~/.mintlify`. Dopodiché, esegui di nuovo `mint dev`.
+  </Accordion>
+
+  <Accordion title="Errore: permission denied">
+    Ciò è dovuto alla mancanza delle autorizzazioni necessarie per installare globalmente i pacchetti di Node.
+
+    **Soluzione**: Prova a eseguire `sudo npm i -g mint`. Ti verrà richiesta la password, ossia quella che usi per sbloccare il computer.
+  </Accordion>
+
+  <Accordion title="L'anteprima locale non corrisponde all'aspetto della mia documentazione sul web">
+    Probabilmente dipende da una versione obsoleta della CLI.
+
+    **Soluzione:** Esegui `mint update` per ottenere gli ultimi aggiornamenti.
+  </Accordion>
+
+  <Accordion title="mintlify vs. pacchetto mint">
+    Se riscontri problemi con il pacchetto della CLI, esegui innanzitutto `npm ls -g`. Questo comando mostra quali pacchetti sono installati globalmente sulla tua macchina.
+
+    Se non usi npm o non lo vedi nell&#39;elenco con -g, prova `which mint` per individuare l&#39;installazione.
+
+    Se hai installati sia un pacchetto chiamato `mint` sia uno chiamato `mintlify`, disinstalla `mintlify`.
+
+    1. Disinstalla il pacchetto precedente:
+
+    ```bash
+      npm uninstall -g mintlify
+    ```
+
+    2. Svuota la cache di npm:
+
+    ```bash
+      npm cache clean --force
+    ```
+
+    3. Reinstalla il nuovo pacchetto:
+
+    ```bash
+    npm i -g mint
+    ```
+  </Accordion>
+</AccordionGroup>

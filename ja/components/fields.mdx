@@ -1,0 +1,107 @@
+---
+title: "フィールド"
+description: "API や SDK リファレンスのパラメータを設定する"
+---
+
+フィールドを使って、API のパラメータやレスポンスを記述します。フィールドには、パラメータフィールドとレスポンスフィールドの 2 種類があります。
+
+<div id="parameter-field">
+  ## パラメータフィールド
+</div>
+
+`<ParamField>` コンポーネントは、API や SDK のパラメータを定義するために使用します。`ParamField` を追加すると、[APIプレイグラウンド](/ja/api-playground/overview)が自動的に追加されます。
+
+<ParamField path="param" type="string" required>
+  パラメータフィールドの例
+</ParamField>
+
+```mdx
+<ParamField path="param" type="string" required>
+  パラメータフィールドの例
+</ParamField>
+```
+
+<div id="properties">
+  ### プロパティ
+</div>
+
+<ParamField body="query, path, body, or header" type="string">
+  パラメータが query、path、body、header のいずれであるかを示します。続いて
+  パラメータ名を記載します。
+</ParamField>
+
+<ParamField body="type" type="string">
+  パラメータ値の想定される型。
+
+  `number`、`string`、`boolean`、`object` をサポートします。
+
+  配列は `[]` のサフィックスで定義できます（例: `string[]`）。
+</ParamField>
+
+<ParamField body="required" type="boolean">
+  パラメータが必須かどうかを示します。
+</ParamField>
+
+<ParamField body="deprecated" type="boolean">
+  パラメータが非推奨かどうかを示します。
+</ParamField>
+
+<ParamField body="default" type="any">
+  リクエスト値が空の場合に適用されるデフォルト値。
+</ParamField>
+
+<ParamField body="placeholder" type="string">
+  プレイグラウンドの入力欄に表示するプレースホルダーテキスト。
+</ParamField>
+
+<ParamField body="children" type="string">
+  パラメータの説明（Markdown 対応）。
+</ParamField>
+
+<div id="response-field">
+  ## レスポンスフィールド
+</div>
+
+`<ResponseField>` コンポーネントは、API の返値を定義します。
+
+<ResponseField name="response" type="string" required>
+  レスポンスフィールドの例
+</ResponseField>
+
+```mdx
+<ResponseField name="response" type="string" required>
+  レスポンスフィールドの例
+</ResponseField>
+```
+
+<div id="properties">
+  ### プロパティ
+</div>
+
+<ResponseField name="name" type="string" required>
+  レスポンス値の名称。
+</ResponseField>
+
+<ResponseField name="type" type="string" required>
+  レスポンス値の想定される型。任意の文字列を指定できます。
+</ResponseField>
+
+<ResponseField name="default" type="string">
+  デフォルト値。
+</ResponseField>
+
+<ResponseField name="required" type="boolean">
+  レスポンスが必須かどうかを示します。
+</ResponseField>
+
+<ResponseField name="deprecated" type="boolean">
+  フィールドが非推奨かどうか。
+</ResponseField>
+
+<ResponseField name="pre" type="string[]">
+  フィールド名の前に表示されるラベル。
+</ResponseField>
+
+<ResponseField name="post" type="string[]">
+  フィールド名の後に表示されるラベル。
+</ResponseField>

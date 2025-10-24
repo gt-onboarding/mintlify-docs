@@ -1,0 +1,48 @@
+---
+title: "简介"
+description: "触发更新、嵌入 AI 助手等"
+---
+
+Mintlify REST API 使你能够通过编程与文档交互、触发更新，并嵌入由 AI 驱动的聊天体验。
+
+<div id="endpoints">
+  ## 接口
+</div>
+
+* [触发更新](/zh/api-reference/update/trigger): 按需触发站点更新。
+* [获取更新状态](/zh/api-reference/update/status): 获取更新状态及文档的其他详细信息。
+* [创建 Agent 任务](/zh/api-reference/agent/create-agent-job): 创建一个 Agent 任务以自动编辑你的文档。
+* [获取 Agent 任务](/zh/api-reference/agent/get-agent-job): 获取特定 Agent 任务的详情和状态。
+* [获取所有 Agent 任务](/zh/api-reference/agent/get-all-jobs): 获取某个域名下的所有 Agent 任务。
+* [生成助手消息](/zh/api-reference/assistant/create-assistant-message): 将基于你的文档训练的助手嵌入到任意应用中。
+* [搜索文档](/zh/api-reference/assistant/search): 在你的文档中进行搜索。
+
+<div id="authentication">
+  ## 身份验证
+</div>
+
+你可以在[控制台](https://dashboard.mintlify.com/settings/organization/api-keys)生成 API 密钥。API 密钥与整个组织关联，可在多个部署中使用。
+
+<div id="admin-api-key">
+  ### 管理员 API 密钥
+</div>
+
+管理员 API 密钥用于 [触发更新](/zh/api-reference/update/trigger)、[获取更新状态](/zh/api-reference/update/status) 以及所有代理端点。
+
+管理员 API 密钥以 `mint_` 前缀开头。请务必妥善保管你的管理员 API 密钥。
+
+<div id="assistant-api-key">
+  ### 助手 API 密钥
+</div>
+
+助手 API 密钥用于 [Generate assistant message](/zh/api-reference/assistant/create-assistant-message) 和 [Search documentation](/zh/api-reference/assistant/search) 端点。
+
+助手 API 密钥以 `mint_dsc_` 作为前缀。
+
+助手 API 的“密钥”是仅限服务端使用且需保密的令牌。
+
+助手 API 的“token”是可在前端代码中引用的公开令牌。
+
+<Note>
+  使用助手 API token 的调用可能会产生费用：要么消耗你的 AI 助手额度，要么产生超额费用。
+</Note>

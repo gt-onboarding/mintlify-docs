@@ -1,0 +1,145 @@
+---
+title: "変更履歴"
+description: "購読可能な RSS フィードで、ドキュメントにプロダクトの更新情報を投稿する"
+---
+
+ページに [Update コンポーネント](/ja/components/update) を追加して、ドキュメントに変更履歴を作成します。
+
+例として [Mintlify の変更履歴](/ja/changelog) をご確認ください。各更新には、新機能のリンク、画像、テキスト、デモを含められます。
+
+<div id="setting-up-your-changelog">
+  ## 変更履歴の設定
+</div>
+
+<Steps>
+  <Step title="変更履歴ページを作成する">
+    1. ドキュメントに `changelog.mdx` や `updates.mdx` などの新しいページを作成します。
+    2. `docs.json` のナビゲーションに、作成した変更履歴ページを追加します。
+  </Step>
+
+  <Step title="変更履歴に Update コンポーネントを追加する">
+    各変更履歴の項目ごとに `Update` を追加します。
+
+    機能リリース、不具合修正、その他のお知らせなどの関連情報を記載してください。
+  </Step>
+</Steps>
+
+```mdx Example changelog.mdx
+---
+title: "変更履歴"
+description: "製品のアップデートとお知らせ"
+---
+<Update label="March 2025" description="v0.0.10">
+  新しいWintergreenフレーバーを追加しました。
+
+  Spearmintフレーバーの新バージョンをリリースしました。ミント含有量が10%増量されています。
+</Update>
+
+<Update label="February 2025" description="v0.0.09">
+  Spearmintフレーバーの新バージョンをリリースしました。
+</Update>
+```
+
+<div id="customizing-your-changelog">
+  ## 変更ログのカスタマイズ
+</div>
+
+ユーザーの変更ログでのナビゲーションをコントロールし、製品情報を常に最新の状態で届けましょう。
+
+<div id="table-of-contents">
+  ### 目次
+</div>
+
+`Update` の各 `label` プロパティは、右サイドバーの目次に自動的に項目を作成します。これは変更履歴のデフォルトのナビゲーションです。
+
+<Frame>
+  <img src="/images/changelog-toc-light.png" alt="ライトモードで目次が表示された変更履歴。" className="block dark:hidden" />
+
+  <img src="/images/changelog-toc-dark.png" alt="ダークモードで目次が表示された変更履歴。" className="hidden dark:block" />
+</Frame>
+
+<div id="tag-filters">
+  ### タグフィルター
+</div>
+
+`Update` コンポーネントに `tags` を追加すると、目次の代わりにタグフィルターが表示されます。ユーザーは 1 つ以上のタグを選択して、変更履歴を絞り込めます。
+
+```mdx Tag filters example wrap
+<Update label="March 2025" description="v0.0.10" tags={["Wintergreen", "Spearmint"]}>
+  新しいWintergreenフレーバーを追加しました。
+
+  Spearmintフレーバーの新バージョンをリリースしました。ミントが10%増量されています。
+</Update>
+
+<Update label="February 2025" description="v0.0.09" tags={["Spearmint"]}>
+  Spearmintフレーバーの新バージョンをリリースしました。
+</Update>
+
+<Update label="January 2025" description="v0.0.08" tags={["Peppermint", "Spearmint"]}>
+  Peppermintフレーバーを非推奨にしました。
+
+  Spearmintフレーバーの新バージョンをリリースしました。
+</Update>
+```
+
+<Frame>
+  <img src="/images/changelog-filters-light.png" alt="ライトモードのChangelog。Peppermintタグフィルターが選択されています。" className="block dark:hidden" />
+
+  <img src="/images/changelog-filters-dark.png" alt="ダークモードのChangelog。Peppermintタグフィルターが選択されています。" className="hidden dark:block" />
+</Frame>
+
+<Tip>
+  目次とChangelogのフィルターは、ページモードが`custom`、`center`、または`wide`の場合は非表示になります。詳しくは[ページモード](/ja/organize/pages#page-mode)をご覧ください。
+</Tip>
+
+<div id="subscribable-changelogs">
+  ### 購読可能な変更履歴
+</div>
+
+`Update` コンポーネントを使用すると、ページの URL に `/rss.xml` を付加した購読可能な RSS フィードが作成されます。例: `mintlify.com/docs/changelog/rss.xml`。
+
+新しい `Update` コンポーネントが公開されたとき、または既存の `<Update>` タグ内に新しい見出しが追加されたときに、RSS フィードにエントリが追加されます。
+
+`Update` コンポーネントの最上位の見出しは RSS フィードの各エントリのタイトルとして使用され、エントリはドキュメント内の該当する見出しのアンカーにリンクします。
+
+```xml Example RSS feed
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+  <channel>
+    <title><![CDATA[製品アップデート]]></title>
+    <description><![CDATA[最新のアップデートと改善内容]]></description>
+    <link>https://mintlify.com/docs</link>
+    <generator>RSS for Node</generator>
+    <lastBuildDate>Mon, 21 Jul 2025 21:21:47 GMT</lastBuildDate>
+    <atom:link href="https://mintlify.com/docs/changelog/rss.xml" rel="self" type="application/rss+xml"/>
+    <copyright><![CDATA[Mintlify]]></copyright>
+    <docs>https://mintlify.com/docs</docs>
+    <item>
+      <title><![CDATA[2025年6月]]></title>
+      <link>https://mintlify.com/docs/changelog#june-2025</link>
+      <guid isPermaLink="true">https://mintlify.com/docs/changelog#june-2025</guid>
+      <pubDate>Mon, 23 Jun 2025 16:54:22 GMT</pubDate>
+    </item>
+  </channel>
+</rss>
+```
+
+RSS フィードは Slack、メール、その他の購読ツールと連携して、製品の変更をユーザーに通知できます。主な選択肢は次のとおりです:
+
+* [Slack](https://slack.com/help/articles/218688467-Add-RSS-feeds-to-Slack)
+* Zapier 経由の [Email](https://zapier.com/apps/email/integrations/rss/1441/send-new-rss-feed-entries-via-email)
+* [Readybot](https://readybot.io) や [RSS Feeds to Discord Bot](https://rss.app/en/bots/rssfeeds-discord-bot) などの Discord ボット
+
+RSS フィードを見つけやすくするには、ページ上部にフィードへのリンクとなる RSS アイコンボタンを表示します。ページのフロントマターに `rss: true` を追加します:
+
+```mdx
+---
+rss: true
+---
+```
+
+<Frame>
+  <img src="/images/changelog-rss-button-light.png" alt="ライトモードのChangelogページでRSSフィードボタンが有効になっている画面。" className="block dark:hidden" />
+
+  <img src="/images/changelog-rss-button-dark.png" alt="ダークモードのChangelogページでRSSフィードボタンが有効になっている画面。" className="hidden dark:block" />
+</Frame>

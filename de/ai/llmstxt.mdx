@@ -1,0 +1,59 @@
+---
+title: "llms.txt"
+description: "Machen Sie Ihre Inhalte für LLMs leichter lesbar und besser durchsuchbar"
+---
+
+import { PreviewButton } from "/snippets/previewbutton.jsx"
+
+Die [llms.txt-Datei](https://llmstxt.org) ist ein Branchenstandard, der LLMs hilft, Inhalte effizienter zu indexieren – ähnlich wie eine Sitemap Suchmaschinen unterstützt. KI-Tools können diese Datei verwenden, um die Struktur Ihrer Dokumentation zu verstehen und Inhalte zu finden, die für Nutzeranfragen relevant sind.
+
+Mintlify hostet automatisch eine `llms.txt`-Datei im Stammverzeichnis Ihres Projekts, die alle verfügbaren Seiten Ihrer Dokumentation auflistet. Diese Datei ist immer aktuell und erfordert keinen Wartungsaufwand. Sie können optional eine eigene `llms.txt`-Datei im Stammverzeichnis Ihres Projekts hinzufügen.
+
+Rufen Sie Ihre `llms.txt` auf, indem Sie `/llms.txt` an die URL Ihrer Dokumentationsseite anhängen.
+
+<PreviewButton href="https://mintlify.com/docs/llms.txt">Öffnen Sie die llms.txt für diese Website.</PreviewButton>
+
+
+<div id="llmstxt-structure">
+  ## llms.txt-Struktur
+</div>
+
+Eine `llms.txt`-Datei ist eine einfache Markdown-Datei, die Folgendes enthält:
+
+* **Seitentitel** als H1-Überschrift.
+* **Strukturierte Inhaltsabschnitte** mit Links und einer Beschreibung jeder Seite in Ihrer Dokumentation.
+
+Die Seiten werden alphabetisch in der Reihenfolge aufgeführt, in der sie in Ihrem Repository erscheinen, beginnend im Stammverzeichnis.
+
+Die Beschreibung jeder Seite stammt aus dem Feld `description` in ihrem Frontmatter. Seiten ohne `description`-Feld erscheinen in der Datei `llms.txt` ohne Beschreibung.
+
+```mdx Example llms.txt
+# Seitentitel
+
+## Dokumentation
+
+- [API](https://example.com/docs/api): Endpunktliste und Verwendung
+- [Installation](https://example.com/docs/install): Einrichtungsschritte
+- [Erste Schritte](https://example.com/docs/start): Einführungsleitfaden
+```
+
+Dieser strukturierte Ansatz ermöglicht es LLMs, Ihre Dokumentation auf Ebene der Gesamtstruktur effizient zu verarbeiten und relevante Inhalte für Nutzeranfragen zu identifizieren. Dadurch steigen Genauigkeit und Geschwindigkeit von KI-gestützten Dokumentationssuchen.
+
+
+<div id="llms-fulltxt">
+  ## llms-full.txt
+</div>
+
+Die Datei `llms-full.txt` fasst Ihre gesamte Dokumentationssite in einer einzigen Datei zusammen, um sie als Kontext für KI-Tools bereitzustellen, und wird von LLMs indexiert.
+
+Mintlify stellt automatisch eine `llms-full.txt` im Stammverzeichnis Ihres Projekts bereit. Rufen Sie Ihre `llms-full.txt` auf, indem Sie `/llms-full.txt` an die URL Ihrer Dokumentationssite anhängen.
+
+<PreviewButton href="https://mintlify.com/docs/llms-full.txt">llms-full.txt dieser Site öffnen</PreviewButton>
+
+<div id="custom-files">
+  ## Benutzerdefinierte Dateien
+</div>
+
+Um eine benutzerdefinierte Datei `llms.txt` oder `llms-full.txt` hinzuzufügen, erstellen Sie eine `llms.txt`- oder `llms-full.txt`-Datei im Stammverzeichnis Ihres Projekts. Das Hinzufügen einer benutzerdefinierten Datei überschreibt die automatisch generierte Datei mit demselben Namen. Wenn Sie eine benutzerdefinierte Datei löschen, wird wieder die Standarddatei verwendet.
+
+Ihre benutzerdefinierte `llms.txt`- oder `llms-full.txt`-Datei muss einen Seitentitel als H1-Überschrift enthalten. Weitere Inhalte sind optional. Siehe [Format](https://llmstxt.org/#format) in der `llms.txt`-Spezifikation für weitere Informationen zu optionalen Abschnitten und Best Practices.

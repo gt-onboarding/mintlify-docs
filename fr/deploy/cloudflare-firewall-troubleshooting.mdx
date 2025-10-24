@@ -1,0 +1,117 @@
+---
+title: "Dépannage du pare-feu Cloudflare"
+description: "Résoudre les erreurs 500 et la lenteur de navigation causées par le blocage des ressources Mintlify par Cloudflare"
+---
+
+Si votre site de documentation affiche des erreurs 500 après quelques secondes ou présente une navigation lente, le pare-feu de Cloudflare bloque peut-être les requêtes vers les ressources Mintlify.
+
+<div id="symptoms">
+  ## Symptômes
+</div>
+
+- La page de documentation se charge d’abord puis renvoie une erreur 500 après 30 à 60 secondes
+- Navigation client lente ou défaillante entre les pages
+- Erreurs 403 dans la console du navigateur pour des requêtes vers les chemins `/mintlify-assets/*`
+- Messages de Cloudflare relatifs à un défi de sécurité mentionnant des « données mal formées » ou des « schémas d’URL suspects »
+
+<div id="root-cause">
+  ## Cause première
+</div>
+
+Le pare-feu applicatif web (WAF) et le Bot Fight Mode de Cloudflare peuvent considérer les requêtes de ressources Mintlify comme suspectes en raison :
+
+- de multiples symboles « % » dans les paramètres d’URL encodés
+- de longues chaînes de requête contenant des caractères spéciaux
+- de requêtes automatisées provenant d’onglets inactifs
+
+<div id="solution">
+  ## Solution
+</div>
+
+Créez une règle de pare-feu Cloudflare pour exclure les ressources Mintlify des contrôles de sécurité.
+
+<div id="create-the-firewall-exception">
+  ### Créer l’exception de pare-feu
+</div>
+
+1. Connectez-vous à votre [tableau de bord Cloudflare](https://dash.cloudflare.com/)
+2. Sélectionnez votre domaine
+3. Accédez à **Security > WAF**
+4. Sélectionnez **Create rule**
+5. Configurez la règle avec ces paramètres :
+
+**Nom de la règle :** Autoriser les ressources Mintlify
+
+**Lorsque les requêtes entrantes correspondent :**
+
+- Champ : `Hostname`
+- Opérateur : `equals`
+- Valeur : `docs.yourdomain.com` (remplacez par le domaine réel de votre documentation)
+
+**Et :**
+
+- Champ : `URI Path`
+- Opérateur : `starts with`
+- Valeur : `/mintlify-assets/`
+
+**Alors :**
+
+- Action : `Skip`
+- Sélectionnez : `All remaining custom rules`, `Managed rules`, et `Super Bot Fight Mode`
+
+6. Activez **Log** pour suivre les requêtes correspondantes
+7. Sélectionnez **Deploy**
+
+<div id="verify-the-rule">
+  ### Vérifier la règle
+</div>
+
+Après le déploiement :
+
+1. Ouvrez votre site de documentation dans un navigateur
+2. Laissez la page inactive pendant 2 à 3 minutes
+3. Naviguez entre les pages
+4. Vérifiez la console du navigateur pour d’éventuelles erreurs 403
+
+Si les problèmes persistent, vérifiez la configuration de votre règle :
+
+- Assurez-vous que le nom d’hôte correspond exactement au domaine de votre documentation
+- Confirmez que le chemin URI utilise « starts with » (et non « contains »)
+- N’incluez pas de caractères génériques (`*`) dans la valeur du chemin
+- Vérifiez que la règle est activée et déployée
+
+<div id="common-mistakes">
+  ## Erreurs courantes
+</div>
+
+- Utiliser l’opérateur `contains` avec `/mintlify-assets/*` - Le `*` est interprété comme un caractère littéral, pas comme un caractère générique
+- Utiliser `equals` pour le chemin URI - Cela ne correspond qu’au chemin exact `/mintlify-assets/` et non aux sous-chemins
+- Oublier d’exclure le Bot Fight Mode - Cela doit être explicitement inclus dans l’action d’exclusion
+- Nom d’hôte incorrect - Doit correspondre à votre domaine de documentation réel
+
+<div id="additional-troubleshooting">
+  ## Dépannage supplémentaire
+</div>
+
+Si l’exception du pare-feu ne résout pas le problème :
+
+1. Consultez le journal **Security > Events** de Cloudflare pour identifier les requêtes bloquées
+2. Vérifiez que votre Cloudflare Worker (si vous utilisez un sous-chemin personnalisé) transmet correctement l’en-tête `Host`
+3. Réglez temporairement le niveau de sécurité sur « Essentially Off » pour confirmer que Cloudflare est bien en cause
+4. Passez en revue toute règle de page personnalisée susceptible de supplanter l’exception du pare-feu
+
+<div id="example-working-configuration">
+  ## Exemple de configuration opérationnelle
+</div>
+
+```
+Règle : Autoriser les ressources Mintlify
+Statut : Activé
+
+Lorsque les requêtes entrantes correspondent à :
+  (http.host eq "docs.flashnet.xyz" and starts_with(http.request.uri.path, "/mintlify-assets/"))
+
+Alors :
+  Ignorer : Toutes les règles personnalisées restantes, Règles gérées, Super Bot Fight Mode
+  Journal : Activé
+```

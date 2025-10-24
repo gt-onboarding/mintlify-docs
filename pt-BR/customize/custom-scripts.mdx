@@ -1,0 +1,194 @@
+---
+title: "Scripts personalizados"
+description: "Personalize completamente sua documentação com CSS e JS personalizados"
+---
+
+Use CSS para estilizar elementos HTML ou adicione CSS e JavaScript personalizados para ajustar completamente a aparência e a experiência da sua documentação.
+
+<div id="styling-with-tailwind-css">
+  ## Estilizando com Tailwind CSS
+</div>
+
+Use o Tailwind CSS v3 para estilizar elementos HTML. Você pode controlar o layout, o espaçamento, as cores e outras propriedades visuais. Algumas classes comuns são:
+
+* `w-full` - Largura total
+* `aspect-video` - Proporção 16:9
+* `rounded-xl` - Cantos bem arredondados
+* `block`, `hidden` - Controle de exibição
+* `dark:hidden`, `dark:block` - Visibilidade no modo escuro
+
+Valores arbitrários do Tailwind CSS não são compatíveis. Para valores personalizados, use a prop `style`.
+
+```html
+<img style={{ width: '350px', margin: '12px auto' }} src="/path/image.jpg" />
+```
+
+
+<div id="custom-css">
+  ## CSS personalizado
+</div>
+
+Adicione arquivos CSS ao seu repositório e os nomes de classe definidos serão aplicados e ficarão disponíveis em todos os seus arquivos `MDX`.
+
+<div id="adding-stylecss">
+  ### Adicionando `style.css`
+</div>
+
+Por exemplo, você pode adicionar o arquivo `style.css` a seguir para personalizar o estilo da barra de navegação e do rodapé.
+
+```css
+#navbar {
+  background: "#fffff2";
+  padding: 1rem;
+}
+
+footer {
+  margin-top: 2rem;
+}
+```
+
+
+<div id="using-identifiers-and-selectors">
+  ### Usando identificadores e seletores
+</div>
+
+A Mintlify possui um conjunto de identificadores e seletores comuns para ajudar você a marcar elementos importantes da interface.
+
+<Tip>
+  Use a ferramenta Inspecionar elemento para encontrar referências aos elementos que deseja personalizar.
+</Tip>
+
+<AccordionGroup>
+  <Accordion title="Identificadores">
+  - APIPlaygroundInput: `api-playground-input`
+  - AssistantEntry: `assistant-entry`
+  - AssistantEntryMobile: `assistant-entry-mobile`
+  - Banner: `banner`
+  - ChangelogFilters: `changelog-filters`
+  - ChangelogFiltersContent: `changelog-filters-content`
+  - ChatAssistantSheet: `chat-assistant-sheet`
+  - ChatAssistantTextArea: `chat-assistant-textarea`
+  - ContentArea: `content-area`
+  - ContentContainer: `content-container`
+  - ContentSideLayout: `content-side-layout`
+  - Footer: `footer`
+  - Header: `header`
+  - NavBarTransition: `navbar-transition`
+  - NavigationItems: `navigation-items`
+  - Navbar: `navbar`
+  - PageContextMenu: `page-context-menu`
+  - PageContextMenuButton: `page-context-menu-button`
+  - PageTitle: `page-title`
+  - Pagination: `pagination`
+  - Panel: `panel`
+  - RequestExample: `request-example`
+  - ResponseExample: `response-example`
+  - SearchBarEntry: `search-bar-entry`
+  - SearchBarEntryMobile: `search-bar-entry-mobile`
+  - SearchInput: `search-input`
+  - Sidebar: `sidebar`
+  - SidebarContent: `sidebar-content`
+  - TableOfContents: `table-of-contents`
+  - TableOfContentsContent: `table-of-contents-content`
+  - TableOfContentsLayout: `table-of-contents-layout`
+  - TopbarCtaButton: `topbar-cta-button`
+  </Accordion>
+  <Accordion title="Seletores">
+  - Accordion: `accordion`
+  - AccordionGroup: `accordion-group`
+  - AlmondLayout: `almond-layout`
+  - AlmondNavBottomSection: `almond-nav-bottom-section`
+  - AlmondNavBottomSectionDivider: `almond-nav-bottom-section-divider`
+  - Anchor: `nav-anchor`
+  - Anchors: `nav-anchors`
+  - APISection: `api-section`
+  - APISectionHeading: `api-section-heading`
+  - APISectionHeadingSubtitle: `api-section-heading-subtitle`
+  - APISectionHeadingTitle: `api-section-heading-title`
+  - Callout: `callout`
+  - Card: `card`
+  - CardGroup: `card-group`
+  - ChatAssistantSheet: `chat-assistant-sheet`
+  - ChatAssistantSheetHeader: `chat-assistant-sheet-header`
+  - ChatAssistantSheetContent: `chat-assistant-sheet-content`
+  - ChatAssistantInput: `chat-assistant-input`
+  - ChatAssistantSendButton: `chat-assistant-send-button`
+  - CodeBlock: `code-block`
+  - CodeGroup: `code-group`
+  - Content: `mdx-content`
+  - DropdownTrigger: `nav-dropdown-trigger`
+  - DropdownContent: `nav-dropdown-content`
+  - DropdownItem: `nav-dropdown-item`
+  - DropdownItemTextContainer: `nav-dropdown-item-text-container`
+  - DropdownItemTitle: `nav-dropdown-item-title`
+  - DropdownItemDescription: `nav-dropdown-item-description`
+  - DropdownItemIcon: `nav-dropdown-item-icon`
+  - Expandable: `expandable`
+  - Eyebrow: `eyebrow`
+  - FeedbackToolbar: `feedback-toolbar`
+  - Field: `field`
+  - Frame: `frame`
+  - Icon: `icon`
+  - Link: `link`
+  - LoginLink: `login-link`
+  - Logo: `nav-logo`
+  - Mermaid: `mermaid`
+  - MethodNavPill: `method-nav-pill`
+  - MethodPill: `method-pill`
+  - NavBarLink: `navbar-link`
+  - NavTagPill: `nav-tag-pill`
+  - NavTagPillText: `nav-tag-pill-text`
+  - OptionDropdown: `option-dropdown`
+  - PaginationNext: `pagination-next`
+  - PaginationPrev: `pagination-prev`
+  - PaginationTitle: `pagination-title`
+  - Panel: `panel`
+  - SidebarGroup: `sidebar-group`
+  - SidebarGroupIcon: `sidebar-group-icon`
+  - SidebarGroupHeader: `sidebar-group-header`
+  - SidebarNavGroupDivider: `sidebar-nav-group-divider`
+  - SidebarTitle: `sidebar-title`
+  - Step: `step`
+  - Steps: `steps`
+  - Tab: `tab`
+  - Tabs: `tabs`
+  - TabsBar: `nav-tabs`
+  - TabsBarItem: `nav-tabs-item`
+  - TableOfContents: `toc`
+  - TableOfContentsItem: `toc-item`
+  - Tooltip: `tooltip`
+  - TopbarRightContainer: `topbar-right-container`
+  - TryitButton: `tryit-button`
+  - Update: `update`
+  </Accordion>
+</AccordionGroup>
+
+<Warning>
+  As referências e o estilo de elementos comuns podem mudar à medida que a plataforma evolui. Use estilos personalizados com cautela.
+</Warning>
+
+<div id="custom-javascript">
+  ## JavaScript personalizado
+</div>
+
+O JavaScript personalizado permite adicionar código executável de forma global. É equivalente a inserir uma tag `<script>` com código JS em todas as páginas.
+
+<div id="adding-custom-javascript">
+  ### Adicionando JavaScript personalizado
+</div>
+
+Qualquer arquivo `.js` dentro do diretório de conteúdo da sua documentação será incluído em todas as páginas. Por exemplo, você pode adicionar o arquivo `ga.js` abaixo para ativar o [Google Analytics](https://marketingplatform.google.com/about/analytics) em toda a documentação.
+
+```js
+window.dataLayer = window.dataLayer || [];
+function gtag() {
+  dataLayer.push(arguments);
+}
+gtag('js', new Date());
+
+gtag('config', 'TAG_ID');
+```
+
+<Warning>
+  Use com cautela para não introduzir vulnerabilidades de segurança.
+</Warning>

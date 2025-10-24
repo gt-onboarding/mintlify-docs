@@ -1,0 +1,50 @@
+---
+title: "更新"
+description: "変更とアップデートを把握する"
+---
+
+`Update` コンポーネントを使うと、変更履歴やバージョン更新、リリースノートを統一された形式で表示できます。
+
+<Update label="例" description="v0.1.1">
+  ## 更新の例
+
+  ここにはスクリーンショット、コードスニペット、変更点の一覧など、自由に追加できます。
+
+  <Frame>
+    <img className="block" src="https://mintlify-assets.b-cdn.net/hero-light.png" alt="Update コンポーネントにおける画像の例としての PearsDB Introduction ページのスクリーンショット。" />
+  </Frame>
+
+  ### 機能
+
+  * レスポンシブデザイン
+  * 各更新へのアンカー
+  * 各更新の RSS フィード項目を自動生成
+</Update>
+
+<div id="how-to-use">
+  ## 使い方
+</div>
+
+```mdx Update example
+<Update label="2024-10-11" description="v0.1.0" tags={["Mintlify"]}>
+  これはラベル、説明、タグを含む更新情報です。
+</Update>
+```
+
+複数の `Update` コンポーネントを使って、[変更履歴](/ja/create/changelogs) を作成します。
+
+<div id="props">
+  ## Props
+</div>
+
+<ResponseField name="label" type="string" required>
+  アップデートのラベル。アップデートの左側に表示され、アンカーリンクを生成します。ラベルは一意である必要があります。
+</ResponseField>
+
+<ResponseField name="tags" type="string[]">
+  アップデートのタグ。右側のパネルでフィルターとして表示されます。
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  アップデートの説明。ラベルとタグの下に表示されます。
+</ResponseField>

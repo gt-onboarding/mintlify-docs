@@ -1,0 +1,30 @@
+---
+title: "Deployment"
+description: "Risolvi i problemi di deployment"
+---
+
+Il tuo sito di documentazione viene distribuito automaticamente quando esegui il push delle modifiche al repository collegato. Questo richiede che l&#39;app GitHub di Mintlify sia installata e collegata correttamente.
+
+Se le modifiche più recenti non compaiono sul sito in produzione, verifica innanzitutto che l&#39;app GitHub sia installata sull&#39;account o sull&#39;organizzazione proprietaria del repository della documentazione. Consulta la sezione [Risoluzione dei problemi con GitHub](/it/deploy/github#troubleshooting) per ulteriori informazioni.
+
+Se l&#39;app GitHub è collegata ma le modifiche continuano a non essere distribuite, puoi avviare manualmente una ricostruzione dalla dashboard.
+
+<div id="manually-triggering-a-deployment">
+  ## Avviare manualmente una distribuzione
+</div>
+
+<Steps>
+  <Step title="Verifica che l’ultimo commit sia stato eseguito correttamente.">
+    Controlla che l’ultimo commit compaia nel repository della tua documentazione e che non abbia generato errori.
+  </Step>
+
+  <Step title="Avvia manualmente una distribuzione.">
+    Vai alla tua [dashboard](https://dashboard.mintlify.com) e seleziona il pulsante di distribuzione.
+
+    <Frame>
+      <img src="/images/deployments/manual-update-light.png" alt="Il pulsante di aggiornamento manuale evidenziato con un rettangolo arancione." className="block dark:hidden" />
+
+      <img src="/images/deployments/manual-update-dark.png" alt="Il pulsante di aggiornamento manuale evidenziato con un rettangolo arancione." className="hidden dark:block" />
+    </Frame>
+  </Step>
+</Steps>

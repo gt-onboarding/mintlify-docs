@@ -1,0 +1,160 @@
+---
+title: "Reverse-Proxy"
+description: "Einen eigenen Reverse-Proxy konfigurieren, um Ihre Dokumentation auszuliefern"
+---
+
+<Note>
+  Reverse-Proxy-Konfigurationen werden nur für [Custom-Pläne](https://mintlify.com/pricing?ref=reverse-proxy) unterstützt.
+</Note>
+
+Um Ihre Dokumentation über einen eigenen Reverse-Proxy auszuliefern, müssen Sie Routing-Regeln, Caching-Richtlinien und das Weiterleiten von Headern konfigurieren.
+
+Wenn Sie einen Reverse-Proxy implementieren, überwachen Sie mögliche Probleme bei der Domainverifizierung, der Bereitstellung von SSL-Zertifikaten, den Authentifizierungsabläufen, der Performance und dem Analytics-Tracking.
+
+<div id="routing-configuration">
+  ## Routing-Konfiguration
+</div>
+
+Leiten Sie die folgenden Pfade mit den angegebenen Cache-Richtlinien an Ihre Mintlify-Subdomain weiter:
+
+| Pfad | Ziel | Caching |
+|------|------|---------|
+| `/.well-known/acme-challenge/*` | `<your-subdomain>.mintlify.app` | Kein Caching |
+| `/.well-known/vercel/*` | `<your-subdomain>.mintlify.app` | Kein Caching |
+| `/mintlify-assets/_next/static/*` | `<your-subdomain>.mintlify.app` | Caching aktiviert |
+| `/_mintlify/*` | `<your-subdomain>.mintlify.app` | Kein Caching |
+| `/*` | `<your-subdomain>.mintlify.app` | Kein Caching |
+| `/` | `<your-subdomain>.mintlify.app` | Kein Caching |
+
+<div id="required-header-configuration">
+  ## Erforderliche Header-Konfiguration
+</div>
+
+Konfigurieren Sie Ihren Reverse-Proxy mit den folgenden Header-Anforderungen:
+
+- **Origin**: Enthält die Ziel-Subdomain `<your-subdomain>.mintlify.app`
+- **X-Forwarded-For**: Bewahrt die Client-IP-Informationen
+- **X-Forwarded-Proto**: Bewahrt das ursprüngliche Protokoll (HTTP/HTTPS)
+- **X-Real-IP**: Leitet die tatsächliche Client-IP-Adresse weiter
+- **User-Agent**: Leitet den User-Agent weiter
+
+<Warning>
+  Achten Sie darauf, dass der `Host`-Header nicht weitergeleitet wird
+</Warning>
+
+<div id="example-nginx-configuration">
+  ## Beispiel-nginx-Konfiguration
+</div>
+
+```nginx
+server {
+    listen 80;
+    server_name <your-domain>.com;
+
+    # Let's Encrypt-Verifizierungspfade
+    location ~ ^/\.well-known/acme-challenge/ {
+        proxy_pass https://<your-subdomain>.mintlify.app;
+        proxy_set_header Origin <your-subdomain>.mintlify.app;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header User-Agent $http_user_agent;
+
+        # Caching für Verifizierungspfade deaktivieren
+        add_header Cache-Control "no-cache, no-store, must-revalidate";
+    }
+
+    # Vercel-Verifizierungspfade
+    location ~ ^/\.well-known/vercel/ {
+        proxy_pass https://<your-subdomain>.mintlify.app;
+        proxy_set_header Origin <your-subdomain>.mintlify.app;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header User-Agent $http_user_agent;
+
+        # Caching für Verifizierungspfade deaktivieren
+        add_header Cache-Control "no-cache, no-store, must-revalidate";
+    }
+
+    # Statische Assets mit Caching
+    location ~ ^/mintlify-assets/_next/static/ {
+        proxy_pass https://<your-subdomain>.mintlify.app;
+        proxy_set_header Origin <your-subdomain>.mintlify.app;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header User-Agent $http_user_agent;
+
+        # Caching für statische Assets aktivieren
+        add_header Cache-Control "public, max-age=86400";
+    }
+
+    # Mintlify-spezifische Pfade
+    location ~ ^/_mintlify/ {
+        proxy_pass https://<your-subdomain>.mintlify.app;
+        proxy_set_header Origin <your-subdomain>.mintlify.app;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header User-Agent $http_user_agent;
+
+        # Caching für Mintlify-Pfade deaktivieren
+        add_header Cache-Control "no-cache, no-store, must-revalidate";
+    }
+
+    # Root-Pfad
+    location = / {
+        proxy_pass https://<your-subdomain>.mintlify.app;
+        proxy_set_header Origin <your-subdomain>.mintlify.app;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header User-Agent $http_user_agent;
+
+        # Caching für dynamische Inhalte deaktivieren
+        add_header Cache-Control "no-cache, no-store, must-revalidate";
+    }
+
+    # Alle anderen Dokumentationspfade
+    location / {
+        proxy_pass https://<your-subdomain>.mintlify.app;
+        proxy_set_header Origin <your-subdomain>.mintlify.app;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header User-Agent $http_user_agent;
+
+        # Caching für dynamische Inhalte deaktivieren
+        add_header Cache-Control "no-cache, no-store, must-revalidate";
+    }
+}
+```
+
+
+<div id="troubleshooting">
+  ## Fehlerbehebung
+</div>
+
+<div id="404-error">
+  ### 404-Fehler
+</div>
+
+**Symptome**: Die Dokumentation lädt, aber Funktionen arbeiten nicht. API-Aufrufe schlagen fehl.
+
+**Ursache**: Der `Host`-Header wird weitergeleitet oder der `Origin`-Header fehlt.
+
+**Lösung**:
+
+- Weiterleitung des `Host`-Headers entfernen
+- `Origin`-Header auf `<your-subdomain>.mintlify.app` setzen
+
+<div id="performance-issues">
+  ### Leistungsprobleme
+</div>
+
+**Symptome**: Langsame Seitenladezeiten und Layoutverschiebungen.
+
+**Ursache**: Unzutreffende Caching-Konfiguration.
+
+**Lösung**: Caching nur für Pfade unter `/mintlify-assets/_next/static/*` aktivieren.

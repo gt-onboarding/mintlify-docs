@@ -1,0 +1,39 @@
+---
+title: "Stil und Ton"
+description: "Grundsätze für das Verfassen effektiver technischer Dokumentation"
+---
+
+<Tip>
+  Diese Seite erläutert stilistische Entscheidungen, häufige Fehler und praxisnahe Tipps zur Umsetzung beim Verfassen technischer Dokumentation.
+</Tip>
+
+<div id="writing-principles">
+  ## Schreibprinzipien
+</div>
+
+* **Fasse dich kurz.** Menschen lesen Dokumentation, um ein Ziel zu erreichen. Komm schnell zum Punkt.
+* **Klarheit statt Cleverness.** Schreibe einfach und direkt, und vermeide Fachjargon oder komplexe Satzstrukturen.
+* **Verwende den Aktiv.** Statt „Eine Konfigurationsdatei sollte erstellt werden“ schreibe „Erstelle eine Konfigurationsdatei.“
+* **Mach den Text leicht scannbar.** Nutze Überschriften zur Orientierung. Teile textlastige Absätze auf. Verwende Aufzählungen und Listen, um das schnelle Erfassen zu erleichtern.
+* **Schreibe in der zweiten Person.** Die direkte Ansprache der Leser erleichtert das Befolgen von Anweisungen und lässt die Dokumentation persönlicher wirken.
+
+<div id="common-writing-mistakes">
+  ## Häufige Schreibfehler
+</div>
+
+* **Rechtschreib- und Grammatikfehler.** Schon wenige Rechtschreib- und Grammatikfehler in Ihrer Dokumentation mindern die Glaubwürdigkeit und erschweren das Lesen.
+* **Uneinheitliche Terminologie.** Wenn in einem Absatz von „API-Schlüssel“ und im nächsten von „API-Token“ die Rede ist, fällt es Nutzern schwer, dem Inhalt zu folgen.
+* **Produktzentrierte Terminologie.** Ihre Nutzer haben nicht den vollständigen Kontext Ihres Produkts. Verwenden Sie Begriffe, die ihnen vertraut sind.
+* **Umgangssprache.** Besonders bei der Lokalisierung geht sie zulasten der Verständlichkeit.
+
+<div id="tips-for-enforcing-style">
+  ## Tipps zur Durchsetzung von Stilrichtlinien
+</div>
+
+Nutzen Sie vorhandene Styleguides, um Ihre Dokumentation zu standardisieren:
+
+* [Microsoft Style Guide](https://learn.microsoft.com/en-us/style-guide/welcome/)
+* [Splunk Style Guide](https://docs.splunk.com/Documentation/StyleGuide/current/StyleGuide/Howtouse)
+* [Google Developer Documentation Style Guide](https://developers.google.com/style)
+
+Wenn Sie wissen, welche Schreibprinzipien Sie umsetzen möchten, automatisieren Sie so viel wie möglich. Sie können [CI-Checks](/de/deploy/ci) oder Linter wie [Vale](https://vale.sh) verwenden.

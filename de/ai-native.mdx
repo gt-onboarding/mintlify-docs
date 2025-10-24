@@ -1,0 +1,60 @@
+---
+title: "AI-nativ"
+description: "Erfahren Sie, wie KI das Lesen, Schreiben und Entdecken Ihrer Dokumentation verbessert"
+---
+
+Wenn Sie Ihre Dokumentation mit Mintlify hosten, unterstützen integrierte KI-Funktionen Ihre Nutzerinnen und Nutzer dabei, Antworten zu finden, und helfen Ihrem Team, Inhalte effizienter zu verwalten. Ihre Inhalte liefern den Kontext, damit diese AI-nativen Funktionen das Lesen, Schreiben und Entdecken Ihrer Dokumentation verbessern.
+
+<div id="what-makes-your-documentation-ai-native">
+  ## Was Ihre Dokumentation KI-nativ macht
+</div>
+
+<div id="reading">
+  ### Lesen
+</div>
+
+Zusätzlich zum Lesen einzelner Seiten können Nutzer in deiner Dokumentation mit dem [Assistenten](/de/ai/assistant) chatten, um sofort Antworten auf ihre Fragen sowie Links zu relevanten Inhalten zu erhalten. Der Assistent hilft, Nutzer mit präzisen Informationen aus deiner Dokumentation durch dein Produkt zu führen. Bette den Assistenten mithilfe der [API](api-reference/assistant/create-assistant-message) in benutzerdefinierte Apps ein, um die Orte zu erweitern, an denen Nutzer auf deine Dokumentation zugreifen können.
+
+<div id="writing">
+  ### Schreiben
+</div>
+
+Der [Agent](/de/ai/agent) hilft Ihnen, Dokumentationen zu erstellen und zu pflegen. Er erstellt Pull Requests mit vorgeschlagenen Änderungen auf Basis Ihrer Prompts, Pull Requests und Slack-Threads. Fügen Sie den Agenten zu Ihrem Slack-Workspace hinzu, damit alle in Ihrem Team Ihre Dokumentation pflegen können, indem sie mit dem Agenten chatten. Oder betten Sie den Agenten über die [API](/de/api-reference/agent/create-agent-job) in eigene Anwendungen ein.
+
+Konfigurieren Sie beliebte Tools wie [Cursor](/de/guides/cursor), [Claude Code](/de/guides/claude-code) und [Windsurf](/de/guides/windsurf), damit sie auf das Mintlify-Schema, Ihren Styleguide und Best Practices verweisen.
+
+<div id="discovering">
+  ### Auffindbarkeit
+</div>
+
+Ihre Website ist automatisch für KI-Tools und Suchmaschinen optimiert, damit Nutzer Ihre Dokumentation leichter finden. Alle Seiten werden als Markdown statt als HTML an KI-Agenten übermittelt, was diesen Tools hilft, Ihre Inhalte schneller zu verarbeiten und weniger Tokens zu verbrauchen. Jede Seite lässt sich außerdem als Markdown anzeigen, indem Sie `.md` an die URL anhängen.
+
+Mintlify hostet die Dateien `llms.txt` und `llms-full.txt` für Ihre Dokumentation. Diese branchenüblichen Dateien helfen LLMs, Ihre Dokumentation zu indexieren und effizient mit relevanten Informationen auf Nutzeranfragen zu antworten.
+
+Ihre Dokumentations-Website hostet außerdem einen MCP-Server, über den Nutzer Ihre Dokumentation direkt mit ihren KI-Tools verbinden können, um aktuelle Informationen zu Ihrem Produkt genau dort zu erhalten, wo sie sie benötigen.
+
+Volltextsuche und semantisches Verständnis helfen Nutzern und KI-Tools, schnell relevante Informationen zu finden. Die Suche versteht die Nutzerintention, statt nur Schlüsselwörter abzugleichen. Und wenn ein Nutzer auf einen 404-Fehler stößt, schlägt Ihre Website verwandte Seiten vor, um ihm zu helfen, das Gesuchte zu finden. Keine Konfiguration erforderlich.
+
+<div id="enable-ai-features">
+  ## KI-Funktionen aktivieren
+</div>
+
+Wählen Sie eine der folgenden Karten, um mehr zu erfahren.
+
+<CardGroup cols={2}>
+  <Card title="Assistent" icon="bot-message-square" href="/de/ai/assistant">
+    Konfigurieren Sie den Assistenten, damit er externe Websites durchsucht oder Personen an Ihr Supportteam verweist, wenn er ihre Fragen nicht beantworten kann.
+  </Card>
+
+  <Card title="Agent" icon="pen-line" href="/de/ai/agent">
+    Fügen Sie den Agenten zu Ihrem Slack-Arbeitsbereich hinzu oder betten Sie ihn in eigene Apps ein, damit er beim Verfassen und Aktualisieren Ihrer Dokumentation hilft.
+  </Card>
+
+  <Card title="Kontextmenü" icon="sparkles" href="/de/ai/contextual-menu">
+    Fügen Sie Seiten ein Menü hinzu, über das Nutzende KI-Tools abfragen, sich mit Ihrem MCP-Server verbinden und Seiten mit einem Klick als Kontext kopieren können.
+  </Card>
+
+  <Card title="MCP-Integration" icon="plug" href="/de/ai/model-context-protocol">
+    Ihre Site verfügt über einen gehosteten MCP-Server, der es Nutzenden ermöglicht, Ihre Dokumentation direkt mit ihren KI-Tools zu verbinden. Machen Sie Ihre Nutzenden auf Ihren MCP-Server aufmerksam und darauf, wie sie sich damit verbinden können.
+  </Card>
+</CardGroup>

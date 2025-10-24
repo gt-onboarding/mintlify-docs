@@ -1,0 +1,46 @@
+---
+title: "Configurazione monorepo"
+description: "Distribuisci la documentazione da un repository che contiene più progetti"
+---
+
+Configura Mintlify per distribuire la documentazione da una directory specifica all'interno di una monorepo. Questa configurazione consente di mantenere la documentazione insieme al codice in repository che contengono più progetti o servizi.
+
+<div id="prerequisites">
+  ## Prerequisiti
+</div>
+
+* Accesso amministratore al tuo progetto Mintlify.
+* File di documentazione organizzati in una directory dedicata all'interno del monorepo.
+* Un file `docs.json` valido nella directory della documentazione.
+
+<div id="configure-monorepo-deployment">
+  ## Configurare il deployment in monorepo
+</div>
+
+<Steps>
+<Step title="Accedi alle impostazioni Git">
+Vai su [Git Settings](https://dashboard.mintlify.com/settings/deployment/git-settings) nella tua dashboard.
+
+<Frame>
+<img
+  className="block dark:hidden my-0 pointer-events-none"
+  src="/images/monorepo-light.png"
+  alt="Il pannello delle impostazioni del progetto nel menu Git Settings. L'interruttore Set up as monorepo è attivato ed è specificato il percorso della directory /docs."
+/>
+<img
+  className="hidden dark:block my-0 pointer-events-none"
+  src="/images/monorepo-dark.png"
+  alt="Il pannello delle impostazioni del progetto nel menu Git Settings. L'interruttore Set up as monorepo è attivato ed è specificato il percorso della directory /docs."
+/>
+</Frame>
+
+</Step>
+<Step title="Imposta il percorso della documentazione">
+1. Attiva l'interruttore **Set up as monorepo**.
+2. Inserisci il percorso relativo della directory della documentazione. Ad esempio, se la documentazione è nella directory `docs`, inserisci `/docs`.
+<Note>
+  Non includere lo slash finale nel percorso.
+</Note>
+3. Seleziona **Save changes**.
+</Step>
+</Steps>

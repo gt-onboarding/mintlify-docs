@@ -1,0 +1,81 @@
+---
+title: "カスタムドメイン"
+description: "ドキュメントを自社サイトのカスタムドメインでホスティングする"
+og:description: "ドキュメントを自社サイトのカスタムドメインでホスティングする"
+---
+
+ドキュメントをカスタムドメインで公開するには、Mintlify の設定で希望のカスタムドメインを指定し、利用中のドメインプロバイダーで DNS 設定を行ってください。
+
+<Info>
+  `mintlify.com/docs` のようなカスタムサブディレクトリを設定したい場合は、[カスタムサブディレクトリ](/ja/deploy/cloudflare) のドキュメントをご覧ください。
+</Info>
+
+<div id="dashboard-settings">
+  ## ダッシュボードの設定
+</div>
+
+1. [ダッシュボード](https://dashboard.mintlify.com) に移動します。
+2. **Settings** を選択します。
+3. **Domain Setup** を選択します。
+4. 使用したいカスタムドメインを入力します。例: `docs.mintlify.com`
+
+<Frame>
+  <img alt="「Enter your domain URL」フィールドが強調表示された Custom Domain の設定ページ。" className="block dark:hidden" src="/images/add-custom-domain-light.png" />
+
+  <img alt="「Enter your domain URL」フィールドが強調表示された Custom Domain の設定ページ。" className="hidden dark:block" src="/images/add-custom-domain-dark.png" />
+</Frame>
+
+<div id="configure-your-dns">
+  ## DNS を設定する
+</div>
+
+1. ドメインプロバイダーのウェブサイトで、ドメインの DNS 設定ページにアクセスします。
+2. 次の値で新しい DNS レコードを作成します。
+
+```bash
+CNAME | docs | cname.vercel-dns.com.
+```
+
+<Frame>
+  <img alt="VercelでホストしているカスタムドメインのCNAME設定例" src="https://mintlify-assets.b-cdn.net/mintlify-dns.png" />
+</Frame>
+
+<div id="provider-specific-settings">
+  ## プロバイダ別の設定
+</div>
+
+<AccordionGroup>
+  <Accordion title="Vercel の検証">
+    Vercel をドメインプロバイダとして使用している場合は、検証用の `TXT` レコードを追加する必要があります。これはカスタムドメインを送信した後にダッシュボードに表示され、メールでも案内されます。
+  </Accordion>
+
+  <Accordion title="Cloudflare のセキュリティ設定">
+    Cloudflare を DNS プロバイダとして使用している場合は、HTTPS 設定で「Full (strict)」のセキュリティオプションを有効にする必要があります。
+  </Accordion>
+</AccordionGroup>
+
+<div id="set-a-canonical-url">
+  ## 正規URLを設定する
+</div>
+
+DNS を設定したら、検索エンジンが優先すべきドメインを正しくインデックスできるよう、正規 URL を指定します。正規 URL は、ドキュメントのどのバージョンが主要かを検索エンジンに示します。これにより、ドキュメントが複数の URL からアクセス可能な場合でも SEO が向上し、重複コンテンツの問題を防げます。
+
+`docs.json` に `canonical` メタタグを追加します:
+
+```json
+"seo": {
+    "metatags": {
+        "canonical": "https://www.your-custom-domain-here.com"
+    }
+}
+```
+
+`https://www.your-custom-domain-here.com` を実際のカスタムドメインに置き換えてください。たとえば、カスタムドメインが `docs.mintlify.com` の場合は、次のようにします：
+
+```json
+"seo": {
+    "metatags": {
+        "canonical": "https://docs.mintlify.com"
+    }
+}
+```

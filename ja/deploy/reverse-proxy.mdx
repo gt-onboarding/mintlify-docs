@@ -1,0 +1,160 @@
+---
+title: "リバースプロキシ"
+description: "ドキュメントを配信するためのカスタムリバースプロキシを設定する"
+---
+
+<Note>
+  リバースプロキシの構成は、[Custom プラン](https://mintlify.com/pricing?ref=reverse-proxy)でのみサポートされています。
+</Note>
+
+カスタムリバースプロキシ経由でドキュメントを配信するには、ルーティングルール、キャッシュポリシー、ヘッダー転送を構成する必要があります。
+
+リバースプロキシを導入する際は、ドメインの検証、SSL 証明書のプロビジョニング、認証フロー、パフォーマンス、アナリティクスのトラッキングに関する潜在的な問題を監視してください。
+
+<div id="routing-configuration">
+  ## ルーティング設定
+</div>
+
+以下のパスを、指定されたキャッシュポリシーで Mintlify のサブドメインにプロキシします:
+
+| パス | 宛先 | キャッシュ |
+|------|-------------|---------|
+| `/.well-known/acme-challenge/*` | `<your-subdomain>.mintlify.app` | キャッシュなし |
+| `/.well-known/vercel/*` | `<your-subdomain>.mintlify.app` | キャッシュなし |
+| `/mintlify-assets/_next/static/*` | `<your-subdomain>.mintlify.app` | キャッシュ有効 |
+| `/_mintlify/*` | `<your-subdomain>.mintlify.app` | キャッシュなし |
+| `/*` | `<your-subdomain>.mintlify.app` | キャッシュなし |
+| `/` | `<your-subdomain>.mintlify.app` | キャッシュなし |
+
+<div id="required-header-configuration">
+  ## 必要なヘッダー設定
+</div>
+
+リバースプロキシを次のヘッダー要件で構成してください:
+
+- **Origin**: 対象サブドメイン `<your-subdomain>.mintlify.app` を含める
+- **X-Forwarded-For**: クライアントのIP情報を保持する
+- **X-Forwarded-Proto**: 元のプロトコル（HTTP/HTTPS）を保持する
+- **X-Real-IP**: 実際のクライアントIPアドレスを転送する
+- **User-Agent**: ユーザーエージェントを転送する
+
+<Warning>
+  `Host` ヘッダーを転送しないようにしてください
+</Warning>
+
+<div id="example-nginx-configuration">
+  ## nginx のサンプル設定
+</div>
+
+```nginx
+server {
+    listen 80;
+    server_name <your-domain>.com;
+
+    # Let's Encrypt 検証パス
+    location ~ ^/\.well-known/acme-challenge/ {
+        proxy_pass https://<your-subdomain>.mintlify.app;
+        proxy_set_header Origin <your-subdomain>.mintlify.app;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header User-Agent $http_user_agent;
+
+        # 検証パスのキャッシュを無効化
+        add_header Cache-Control "no-cache, no-store, must-revalidate";
+    }
+
+    # Vercel 検証パス
+    location ~ ^/\.well-known/vercel/ {
+        proxy_pass https://<your-subdomain>.mintlify.app;
+        proxy_set_header Origin <your-subdomain>.mintlify.app;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header User-Agent $http_user_agent;
+
+        # 検証パスのキャッシュを無効化
+        add_header Cache-Control "no-cache, no-store, must-revalidate";
+    }
+
+    # 静的アセット(キャッシュ有効)
+    location ~ ^/mintlify-assets/_next/static/ {
+        proxy_pass https://<your-subdomain>.mintlify.app;
+        proxy_set_header Origin <your-subdomain>.mintlify.app;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header User-Agent $http_user_agent;
+
+        # 静的アセットのキャッシュを有効化
+        add_header Cache-Control "public, max-age=86400";
+    }
+
+    # Mintlify 専用パス
+    location ~ ^/_mintlify/ {
+        proxy_pass https://<your-subdomain>.mintlify.app;
+        proxy_set_header Origin <your-subdomain>.mintlify.app;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header User-Agent $http_user_agent;
+
+        # Mintlify パスのキャッシュを無効化
+        add_header Cache-Control "no-cache, no-store, must-revalidate";
+    }
+
+    # ルートパス
+    location = / {
+        proxy_pass https://<your-subdomain>.mintlify.app;
+        proxy_set_header Origin <your-subdomain>.mintlify.app;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header User-Agent $http_user_agent;
+
+        # 動的コンテンツのキャッシュを無効化
+        add_header Cache-Control "no-cache, no-store, must-revalidate";
+    }
+
+    # その他すべてのドキュメントパス
+    location / {
+        proxy_pass https://<your-subdomain>.mintlify.app;
+        proxy_set_header Origin <your-subdomain>.mintlify.app;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header User-Agent $http_user_agent;
+
+        # 動的コンテンツのキャッシュを無効化
+        add_header Cache-Control "no-cache, no-store, must-revalidate";
+    }
+}
+```
+
+
+<div id="troubleshooting">
+  ## トラブルシューティング
+</div>
+
+<div id="404-error">
+  ### 404 エラー
+</div>
+
+**症状**: ドキュメントは表示されるが、機能が動作しない。API 呼び出しが失敗する。
+
+**原因**: `Host` ヘッダーが転送されている、または `Origin` ヘッダーが存在しない。
+
+**解決策**:
+
+- `Host` ヘッダーの転送を無効化する
+- `Origin` ヘッダーを `<your-subdomain>.mintlify.app` に設定する
+
+<div id="performance-issues">
+  ### パフォーマンスの問題
+</div>
+
+**症状**: ページの読み込みが遅い、レイアウトがずれる。
+
+**原因**: キャッシュ設定が不適切。
+
+**解決策**: `/mintlify-assets/_next/static/*` のパスに対してのみキャッシュを有効にする。

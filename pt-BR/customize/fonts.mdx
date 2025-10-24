@@ -1,0 +1,172 @@
+---
+title: "Fontes"
+description: "Configurar fontes personalizadas"
+---
+
+Defina uma fonte personalizada para todo o site ou, separadamente, para títulos e para o corpo do texto. Use Google Fonts, arquivos de fontes locais ou fontes hospedadas externamente. A fonte padrão varia de acordo com o tema.
+
+As fontes são controladas pela [propriedade fonts](/pt-BR/organize/settings#param-fonts) no seu `docs.json`.
+
+<div id="google-fonts">
+  ## Google Fonts
+</div>
+
+A Mintlify carrega automaticamente as [Google Fonts](https://fonts.google.com) quando você especifica uma família tipográfica no seu `docs.json`.
+
+```json docs.json
+"fonts": {
+  "family": "Inter"
+}
+```
+
+<div id="local-fonts">
+  ## Fontes locais
+</div>
+
+Para usar fontes locais, coloque os arquivos de fonte no diretório do projeto e faça referência a eles na configuração do `docs.json`.
+
+<div id="setting-up-local-fonts">
+  ### Configurando fontes locais
+</div>
+
+<Steps>
+  <Step title="Adicione os arquivos de fonte ao seu projeto">
+    Por exemplo, crie um diretório `fonts` e adicione seus arquivos de fonte:
+
+    ```text
+    your-project/
+    ├── fonts/
+    │   ├── InterDisplay-Regular.woff2
+    │   └── InterDisplay-Bold.woff2
+    ├── docs.json
+    └── ...
+    ```
+  </Step>
+
+  <Step title="Configure as fontes no docs.json">
+    Faça referência às suas fontes locais usando caminhos relativos a partir da raiz do projeto:
+
+    ```json docs.json
+    {
+      "fonts": {
+        "family": "InterDisplay",
+        "source": "/fonts/InterDisplay-Regular.woff2",
+        "format": "woff2",
+        "weight": 400
+      }
+    }
+    ```
+  </Step>
+</Steps>
+
+<div id="local-fonts-for-headings-and-body">
+  ### Fontes locais para títulos e corpo
+</div>
+
+Defina fontes locais separadas para títulos e texto do corpo no seu `docs.json`:
+
+```json docs.json
+{
+  "fonts": {
+    "heading": {
+      "family": "InterDisplay",
+      "source": "/fonts/InterDisplay-Bold.woff2",
+      "format": "woff2",
+      "weight": 700
+    },
+    "body": {
+      "family": "InterDisplay",
+      "source": "/fonts/InterDisplay-Regular.woff2",
+      "format": "woff2",
+      "weight": 400
+    }
+  }
+}
+```
+
+<div id="externally-hosted-fonts">
+  ## Fontes hospedadas externamente
+</div>
+
+Use fontes hospedadas externamente referenciando a URL da fonte no seu `docs.json`:
+
+```json docs.json
+{
+  "fonts": {
+    "family": "Hubot Sans",
+    "source": "https://mintlify-assets.b-cdn.net/fonts/Hubot-Sans.woff2",
+    "format": "woff2",
+    "weight": 400
+  }
+}
+```
+
+<div id="font-configuration-reference">
+  ## Referência de configuração de fontes
+</div>
+
+<ResponseField name="fonts" type="object">
+  Configuração de fontes para sua documentação.
+
+  <Expandable title="Fonts">
+    <ResponseField name="family" type="string" required>
+      Nome da família tipográfica, como &quot;Inter&quot; ou &quot;Playfair Display&quot;.
+    </ResponseField>
+
+    <ResponseField name="weight" type="number">
+      Espessura (peso) da fonte, como 400 ou 700. Fontes variáveis permitem pesos precisos, como 550.
+    </ResponseField>
+
+    <ResponseField name="source" type="string (uri)">
+      URL da fonte, como `https://mintlify-assets.b-cdn.net/fonts/Hubot-Sans.woff2`, ou caminho para o arquivo de fonte local, como `/assets/fonts/InterDisplay.woff2`. As fontes do Google são carregadas automaticamente quando você especifica um nome de `family` do Google Fonts, portanto, não é necessário informar uma URL de origem.
+    </ResponseField>
+
+    <ResponseField name="format" type="'woff' | 'woff2'">
+      Formato do arquivo da fonte. Obrigatório ao usar o campo `source`.
+    </ResponseField>
+
+    <ResponseField name="heading" type="object">
+      Sobrescreva as configurações de fonte especificamente para títulos.
+
+      <Expandable title="Heading">
+        <ResponseField name="family" type="string" required>
+          Nome da família tipográfica para títulos.
+        </ResponseField>
+
+        <ResponseField name="weight" type="number">
+          Espessura (peso) da fonte para títulos.
+        </ResponseField>
+
+        <ResponseField name="source" type="string (uri)">
+          URL da fonte, como `https://mintlify-assets.b-cdn.net/fonts/Hubot-Sans.woff2`, ou caminho para o arquivo de fonte local para títulos. As fontes do Google são carregadas automaticamente quando você especifica um nome de `family` do Google Fonts, portanto, não é necessário informar uma URL de origem.
+        </ResponseField>
+
+        <ResponseField name="format" type="'woff' | 'woff2'">
+          Formato do arquivo da fonte para títulos. Obrigatório ao usar o campo `source`.
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="body" type="object">
+      Sobrescreva as configurações de fonte especificamente para o corpo do texto.
+
+      <Expandable title="Body">
+        <ResponseField name="family" type="string" required>
+          Nome da família tipográfica para o corpo do texto.
+        </ResponseField>
+
+        <ResponseField name="weight" type="number">
+          Espessura (peso) da fonte para o corpo do texto.
+        </ResponseField>
+
+        <ResponseField name="source" type="string (uri)">
+          URL da fonte, como `https://mintlify-assets.b-cdn.net/fonts/Hubot-Sans.woff2`, ou caminho para o arquivo de fonte local para o corpo do texto. As fontes do Google são carregadas automaticamente quando você especifica um nome de `family` do Google Fonts, portanto, não é necessário informar uma URL de origem.
+        </ResponseField>
+
+        <ResponseField name="format" type="'woff' | 'woff2'">
+          Formato do arquivo da fonte para o corpo do texto. Obrigatório ao usar o campo `source`.
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+  </Expandable>
+</ResponseField>

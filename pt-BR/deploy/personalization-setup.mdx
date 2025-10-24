@@ -1,0 +1,387 @@
+---
+title: "Configuração de Personalização"
+description: "Permita que os usuários façam login para experiências de documentação personalizadas"
+---
+
+A Personalização adapta sua documentação para cada usuário quando ele está autenticado. Por exemplo, você pode preencher previamente as chaves de API, mostrar conteúdo específico do plano ou da função, ou ocultar seções às quais ele não precisa ter acesso.
+
+<div id="personalization-features">
+  ## Recursos de Personalização
+</div>
+
+Personalize o conteúdo com estes recursos de personalização.
+
+<div id="api-key-prefilling">
+  ### Preenchimento de chave de API
+</div>
+
+Preencha automaticamente os campos do Playground de API com valores específicos do usuário, retornando nomes de campo que correspondam aos do playground nos dados do usuário. Os nomes de campo nos seus dados de usuário devem corresponder exatamente aos nomes no Playground de API para que o preenchimento automático funcione.
+
+<div id="dynamic-mdx-content">
+  ### Conteúdo MDX dinâmico
+</div>
+
+Exiba conteúdo dinâmico com base em informações do usuário, como nome, plano ou organização, usando a variável `user`.
+
+```jsx
+Bem-vindo de volta, {user.firstName}! Seu plano {user.org?.plan} inclui...
+```
+
+Veja a seção [Formato de dados do usuário](#user-data-format) abaixo para exemplos detalhados e orientações de implementação.
+
+
+<div id="page-visibility">
+  ### Visibilidade da página
+</div>
+
+Restrinja quais páginas ficam visíveis para seus usuários adicionando campos `groups` ao frontmatter das suas páginas. Por padrão, todas as páginas são visíveis para todos os usuários.
+
+Os usuários só verão as páginas dos `groups` aos quais pertencem.
+
+```mdx
+---
+title: "Gerenciando seus usuários"
+description: "Adicionar e remover usuários da sua organização"
+groups: ["admin"]
+---
+```
+
+
+<div id="user-data-format">
+  ## Formato de dados do usuário
+</div>
+
+Ao implementar a Personalização, seu sistema retorna os dados do usuário em um formato específico que permite customizar o conteúdo. Esses dados podem ser enviados como um objeto JSON puro ou em um JWT assinado, dependendo do método de handshake adotado. O formato dos dados é o mesmo em ambos os casos.
+
+```tsx
+type User = {
+  expiresAt?: number;
+  groups?: string[];
+  content?: Record<string, any>;
+  apiPlaygroundInputs?: {
+    header?: Record<string, any>;
+    query?: Record<string, any>;
+    cookie?: Record<string, any>;
+    server?: Record<string, string>;
+  };
+};
+```
+
+<ParamField path="expiresAt" type="number">
+  Tempo de expiração da sessão em **segundos desde a época Unix**. Se o usuário abrir uma página após esse momento, seus dados armazenados serão excluídos automaticamente e ele precisará se autenticar novamente.
+  <Warning><b>Para handshakes com JWT:</b> Isso difere da claim `exp` do JWT, que determina quando um JWT é considerado inválido. Defina a claim `exp` do JWT para uma duração curta (10 segundos ou menos) por segurança. Use `expiresAt` para o tempo real da sessão (de horas a semanas).</Warning>
+</ParamField>
+
+<ParamField path="groups" type="string[]">
+  Lista de grupos aos quais o usuário pertence. Páginas com `groups` correspondentes no frontmatter ficam visíveis para esse usuário.
+
+  **Exemplo**: Um usuário com `groups: ["admin", "engineering"]` pode acessar páginas marcadas com os grupos `admin` ou `engineering`.
+</ParamField>
+
+<ParamField path="content" type="object">
+  Dados personalizados acessíveis no seu conteúdo `MDX` via a variável `user`. Use isso para personalização dinâmica em toda a sua documentação.
+
+  **Exemplo básico**:
+
+  ```json
+  { "firstName": "Ronan", "company": "Acme Corp", "plan": "Enterprise" }
+  ```
+
+  **Uso em `MDX`**:
+
+  ```mdx
+  Welcome back, {user.firstName}! Your {user.plan} plan includes...
+  ```
+
+  Com os dados de `user` do exemplo, isso seria exibido como: Welcome back, Ronan! Your Enterprise plan includes...
+
+  **Renderização condicional avançada**:
+
+  ```jsx
+  Authentication is an enterprise feature. {
+    user.org === undefined
+      ? <>To access this feature, first create an account at the <a href="https://dashboard.mintlify.com/login">Mintlify dashboard</a>.</>
+      : user.org.plan !== 'enterprise'
+        ? <>You are currently on the ${user.org.plan ?? 'free'} plan. See <a href="https://mintlify.com/pricing">our pricing page</a> for information about upgrading.</>
+        : <>To request this feature for your enterprise org, contact your admin.</>
+  }
+  ```
+
+  <Note>
+    As informações em `user` estão disponíveis apenas para usuários autenticados. Para usuários desconectados, o valor de `user` será `{}`. Para evitar que a página quebre para usuários desconectados, sempre use optional chaining nos campos de `user`. Por exemplo, `{user.org?.plan}`.
+  </Note>
+</ParamField>
+
+<ParamField path="apiPlaygroundInputs" type="object">
+  Valores específicos do usuário que preenchem automaticamente os campos do Playground de API. Isso economiza tempo ao autopreencher seus dados durante os testes de API.
+
+  **Exemplo**:
+
+  ```json
+  {
+    "header": { "X-API-Key": "user_api_key_123" },
+    "server": { "subdomain": "foo" },
+    "query": { "org_id": "12345" }
+  }
+  ```
+
+  Se um usuário fizer solicitações em um subdomínio específico, você pode enviar `{ server: { subdomain: 'foo' } }` como um campo `apiPlaygroundInputs`. Esse valor será preenchido automaticamente em qualquer página de API com o valor `subdomain`.
+
+  <Note>Os campos `header`, `query` e `cookie` só serão preenchidos automaticamente se fizerem parte do seu [esquema de segurança OpenAPI](https://swagger.io/docs/specification/authentication/). Se um campo estiver nas seções `Authorization` ou `Server`, ele será preenchido. Criar um parâmetro de header padrão chamado `Authorization` não habilitará esse recurso.</Note>
+</ParamField>
+
+
+<div id="example-user-data">
+  ### Exemplo de dados de usuário
+</div>
+
+```json
+{
+  "expiresAt": 1735689600,
+  "groups": ["admin", "usuarios-beta"],
+  "content": {
+    "firstName": "Jane",
+    "lastName": "Smith",
+    "company": "TechCorp",
+    "plan": "Enterprise",
+    "region": "us-west"
+  },
+  "apiPlaygroundInputs": {
+    "header": {
+      "Authorization": "Bearer abc123",
+      "X-Org-ID": "techcorp"
+    },
+    "server": {
+      "environment": "production",
+      "region": "us-west"
+    }
+  }
+}
+```
+
+
+<div id="configuring-personalization">
+  ## Configurando a personalização
+</div>
+
+Selecione o método de handshake que você deseja configurar.
+
+<Tabs>
+  <Tab title="JWT">
+    ### Pré-requisitos
+
+    * Um sistema de login que gere e assine JWTs
+    * Um serviço de backend que crie URLs de redirecionamento
+
+    ### Implementação
+
+    <Steps>
+      <Step title="Generate a private key.">
+        1. No seu dashboard, acesse [Authentication](https://dashboard.mintlify.com/settings/deployment/authentication).
+        2. Selecione **Personalização**.
+        3. Selecione **JWT**.
+        4. Insira a URL do seu fluxo de login existente e selecione **Save changes**.
+        5. Selecione **Generate new key**.
+        6. Armazene sua chave com segurança em um local acessível pelo seu backend.
+      </Step>
+
+      <Step title="Integrate Mintlify personalization into your login flow.">
+        Modifique seu fluxo de login existente para incluir estas etapas após o login do usuário:
+
+        * Crie um JWT contendo as informações do usuário autenticado no formato `User`. Consulte a seção [User data format](#user-data-format) acima para mais informações.
+        * Assine o JWT com a chave secreta usando o algoritmo ES256.
+        * Crie uma URL de redirecionamento de volta para sua documentação, incluindo o JWT como hash.
+      </Step>
+    </Steps>
+
+    ### Exemplo
+
+    Sua documentação está hospedada em `docs.foo.com`. Você quer mantê-la separada do seu dashboard (ou não possui um dashboard) e habilitar a Personalização.
+
+    Gere um segredo JWT. Em seguida, crie um endpoint de login em `https://foo.com/docs-login` que inicie um fluxo de login para sua documentação.
+
+    Após verificar as credenciais do usuário:
+
+    * Gere um JWT com os dados do usuário no formato da Mintlify.
+    * Assine o JWT e redirecione para `https://docs.foo.com#{SIGNED_JWT}`.
+
+    ```ts
+    import * as jose from 'jose';
+    import { Request, Response } from 'express';
+
+    const TWO_WEEKS_IN_MS = 1000 * 60 * 60 * 24 * 7 * 2;
+
+    const signingKey = await jose.importPKCS8(process.env.MINTLIFY_PRIVATE_KEY, 'ES256');
+
+    export async function handleRequest(req: Request, res: Response) {
+      const user = {
+        expiresAt: Math.floor((Date.now() + TWO_WEEKS_IN_MS) / 1000),
+        groups: res.locals.user.groups,
+        content: {
+          firstName: res.locals.user.firstName,
+          lastName: res.locals.user.lastName,
+        },
+      };
+
+      const jwt = await new jose.SignJWT(user)
+        .setProtectedHeader({ alg: 'ES256' })
+        .setExpirationTime('10 s')
+        .sign(signingKey);
+
+      return res.redirect(`https://docs.foo.com#${jwt}`);
+    }
+    ```
+
+    ### Preservando âncoras de página
+
+    Para redirecionar usuários a seções específicas após o login, use este formato de URL: `https://docs.foo.com/page#jwt={SIGNED_JWT}&anchor={ANCHOR}`.
+
+    **Exemplo**:
+
+    * URL original: `https://docs.foo.com/quickstart#step-one`
+    * URL de redirecionamento: `https://docs.foo.com/quickstart#jwt={SIGNED_JWT}&anchor=step-one`
+  </Tab>
+
+  <Tab title="OAuth 2.0">
+    ### Pré-requisitos
+
+    * Um servidor OAuth que dê suporte ao fluxo Authorization Code com PKCE
+    * Capacidade de criar um endpoint de API acessível por tokens de acesso OAuth
+
+    ### Implementação
+
+    <Steps>
+      <Step title="Create user info API endpoint.">
+        Crie um endpoint de API que:
+
+        * Aceite tokens de acesso OAuth para autenticação.
+        * Retorne os dados do usuário no formato `User`. Consulte a seção [Formato de dados do usuário](#user-data-format) acima para mais informações.
+        * Defina os escopos de acesso.
+      </Step>
+
+      <Step title="Configure your OAuth personalization settings.">
+        1. No seu painel, acesse [Authentication](https://dashboard.mintlify.com/settings/deployment/authentication).
+        2. Selecione **Personalization**.
+        3. Selecione **OAuth** e configure estes campos:
+
+        * **Authorization URL**: Seu endpoint de autorização OAuth.
+        * **Client ID**: Seu identificador de cliente OAuth 2.0.
+        * **Scopes**: Permissões a solicitar. Copie a string de escopos **inteira** (por exemplo, para um escopo como `provider.users.docs`, copie o `provider.users.docs` completo). Deve corresponder aos escopos do endpoint que você configurou na primeira etapa.
+        * **Token URL**: Seu endpoint de troca de tokens OAuth.
+        * **Info API URL**: Endpoint para recuperar dados do usuário para Personalização. Criado na primeira etapa.
+
+        4. Selecione **Save changes**
+      </Step>
+
+      <Step title="Configure your OAuth server.">
+        1. Copie a **Redirect URL** nas suas [configurações de autenticação](https://dashboard.mintlify.com/settings/deployment/authentication).
+        2. Adicione essa URL como um URL de redirecionamento autorizado na configuração do seu servidor OAuth.
+      </Step>
+    </Steps>
+
+    ### Exemplo
+
+    Sua documentação está hospedada em `foo.com/docs` e você tem um servidor OAuth existente que dá suporte ao fluxo PKCE. Você quer personalizar sua documentação com base nos dados do usuário.
+
+    **Crie um endpoint de informações do usuário** em `api.foo.com/docs/user-info`, que exige um token de acesso OAuth com o escopo `provider.users.docs` e responde com os dados personalizados do usuário:
+
+    ```json
+    {
+      "content": {
+        "firstName": "Jane",
+        "lastName": "Doe"
+      },
+      "groups": ["engineering", "admin"]
+    }
+    ```
+
+    **Configure os detalhes do seu servidor OAuth** no seu painel:
+
+    * **URL de autorização**: `https://auth.foo.com/authorization`
+    * **ID do cliente**: `ydybo4SD8PR73vzWWd6S0ObH`
+    * **Escopos**: `['docs-user-info']`
+    * **URL do token**: `https://auth.foo.com/exchange`
+    * **URL da API de informações**: `https://api.foo.com/docs/user-info`
+
+    **Configure seu servidor OAuth** para permitir redirecionamentos para a sua URL de retorno (callback).
+  </Tab>
+
+  <Tab title="Sessão compartilhada">
+    ### Pré-requisitos
+
+    * Um dashboard ou portal do usuário com autenticação de sessão baseada em cookies.
+    * Capacidade de criar um endpoint de API na mesma origem ou subdomínio do seu dashboard.
+      * Se o seu dashboard estiver em `foo.com`, a **URL da API** deve começar com `foo.com` ou `*.foo.com`.
+      * Se o seu dashboard estiver em `dash.foo.com`, a **URL da API** deve começar com `dash.foo.com` ou `*.dash.foo.com`.
+    * Sua documentação deve estar hospedada no mesmo domínio ou subdomínio do seu dashboard.
+      * Se o seu dashboard estiver em `foo.com`, sua **documentação** deve estar hospedada em `foo.com` ou `*.foo.com`.
+      * Se o seu dashboard estiver em `*.foo.com`, sua **documentação** deve estar hospedada em `foo.com` ou `*.foo.com`.
+
+    ### Implementação
+
+    <Steps>
+      <Step title="Crie o endpoint de informações do usuário.">
+        Crie um endpoint de API que:
+
+        * Use sua autenticação de sessão existente para identificar usuários
+        * Retorne os dados do usuário no formato `User` (consulte a seção [Formato de dados do usuário](#user-data-format) acima)
+        * Se o domínio da API e o domínio da documentação **não corresponderem exatamente**:
+
+          * Adicione o domínio da documentação ao cabeçalho `Access-Control-Allow-Origin` da sua API (não pode ser `*`).
+          * Defina o cabeçalho `Access-Control-Allow-Credentials` da sua API como `true`.
+
+          <Warning>
+            Ative os cabeçalhos de CORS apenas neste endpoint específico, não em toda a API do seu dashboard.
+          </Warning>
+      </Step>
+
+      <Step title="Configure suas definições de Personalização">
+        1. No seu dashboard, acesse [Authentication](https://dashboard.mintlify.com/settings/deployment/authentication).
+        2. Selecione **Personalização**.
+        3. Selecione **Shared Session**.
+        4. Insira sua **Info API URL**, que é o endpoint do primeiro passo.
+        5. Insira sua **Login URL**, onde os usuários fazem login no seu dashboard.
+        6. Selecione **Save changes**.
+      </Step>
+    </Steps>
+
+    ### Exemplos
+
+    #### Dashboard em subdomínio, documentação em subdomínio
+
+    Você tem um dashboard em `dash.foo.com`, que usa autenticação de sessão baseada em cookies. As rotas da API do seu dashboard estão hospedadas em `dash.foo.com/api`. Você quer configurar Personalização para sua documentação hospedada em `docs.foo.com`.
+
+    **Processo de configuração**:
+
+    1. **Crie o endpoint** `dash.foo.com/api/docs/user-info` que identifica usuários via autenticação de sessão e responde com os dados do usuário.
+    2. **Adicione cabeçalhos de CORS** apenas para essa rota:
+       * `Access-Control-Allow-Origin`: `https://docs.foo.com`
+       * `Access-Control-Allow-Credentials`: `true`
+    3. **Configure a URL da API** nas configurações de autenticação: `https://dash.foo.com/api/docs/user-info`.
+
+    #### Dashboard em subdomínio, documentação na raiz
+
+    Você tem um dashboard em `dash.foo.com`, que usa autenticação de sessão baseada em cookies. As rotas da API do seu dashboard estão hospedadas em `dash.foo.com/api`. Você quer configurar Personalização para sua documentação hospedada em `foo.com/docs`.
+
+    **Processo de configuração**:
+
+    1. **Crie o endpoint** `dash.foo.com/api/docs/user-info` que identifica usuários via autenticação de sessão e responde com os dados do usuário.
+    2. **Adicione cabeçalhos de CORS** apenas para essa rota:
+       * `Access-Control-Allow-Origin`: `https://foo.com`
+       * `Access-Control-Allow-Credentials`: `true`
+    3. **Configure a URL da API** nas configurações de autenticação: `https://dash.foo.com/api/docs/user-info`.
+
+    #### Dashboard na raiz, documentação na raiz
+
+    Você tem um dashboard em `foo.com/dashboard`, que usa autenticação de sessão baseada em cookies. As rotas da API do seu dashboard estão hospedadas em `foo.com/api`. Você quer configurar Personalização para sua documentação hospedada em `foo.com/docs`.
+
+    **Processo de configuração**:
+
+    1. **Crie o endpoint** `foo.com/api/docs/user-info` que identifica usuários via autenticação de sessão e responde com os dados do usuário.
+    2. **Configure a URL da API** nas configurações de autenticação: `https://foo.com/api/docs/user-info`
+
+    <Note>
+      Não é necessário configurar CORS, pois o dashboard e a documentação compartilham o mesmo domínio.
+    </Note>
+  </Tab>
+</Tabs>

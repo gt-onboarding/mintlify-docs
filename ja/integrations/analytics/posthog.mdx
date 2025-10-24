@@ -1,0 +1,40 @@
+---
+title: "PostHog"
+---
+
+`docs.json` ファイルに以下を追加して、分析データを PostHog に送信します。
+
+PostHog をセルフホストしている場合にのみ `apiHost` を指定する必要があります。デフォルトではイベントは `https://app.posthog.com` に送信されます。
+
+<CodeGroup>
+
+```json Analytics options in docs.json
+"integrations": {
+    "posthog": {
+        "apiKey": "YOUR_POSTHOG_PROJECT_API_KEY",
+        "apiHost": "optional"
+    }
+}
+```
+
+```json Example
+"integrations": {
+    "posthog": {
+        "apiKey": "phc_TXdpocbYTeZVm5VJmMzHTMrCofBQu3e0kN7HGMNGTVW"
+    }
+}
+```
+
+</CodeGroup>
+
+<br />
+
+<Warning>
+    PostHog の分析を有効にすると、Mintlify ダッシュボードの分析は無効化されます。
+</Warning>
+
+<div id="session-recordings">
+  ## セッション録画
+</div>
+
+セッション録画を受け取る前に、ドキュメントサイトの URL を PostHog の「Authorized domains for recordings」に追加する必要があります。URL を追加するオプションは、PostHog のプロジェクト設定にあります。

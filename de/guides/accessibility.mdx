@@ -1,0 +1,398 @@
+---
+title: "Barrierefreiheit"
+description: "Erstellen Sie Dokumentation, die möglichst vielen Menschen zugänglich ist"
+---
+
+Wenn Sie barrierefreie Dokumentation erstellen, stellen Sie ein Content-Design in den Vordergrund, das Ihre Dokumentation für möglichst viele Menschen nutzbar macht – unabhängig davon, wie sie darauf zugreifen und damit interagieren.
+
+Barrierefreie Dokumentation verbessert die Nutzererfahrung für alle. Ihre Inhalte sind klarer, besser strukturiert und leichter zu navigieren.
+
+Dieser Leitfaden bietet einige Best Practices für die Erstellung barrierefreier Dokumentation, ist jedoch nicht vollständig. Betrachten Sie Barrierefreiheit als einen fortlaufenden Prozess. Technologien und Standards ändern sich im Laufe der Zeit und eröffnen neue Möglichkeiten, die Dokumentation zu verbessern.
+
+<div id="what-is-accessibility">
+  ## Was ist Barrierefreiheit?
+</div>
+
+Barrierefreiheit (manchmal als a11y abgekürzt, entsprechend der Anzahl der Buchstaben zwischen dem ersten und letzten Buchstaben von „accessibility“) bedeutet, Websites und Tools so zu gestalten und zu entwickeln, dass sie von möglichst vielen Menschen genutzt werden können. Menschen mit vorübergehenden oder dauerhaften Behinderungen sollten den gleichen Zugang zu digitalen Technologien haben. Und ein barrierefreites Design kommt allen zugute – auch Menschen, die Ihre Website auf mobilen Geräten oder in langsamen Netzwerken nutzen.
+
+Barrierefreie Dokumentation folgt den Standards der Webzugänglichkeit, in erster Linie den [Web Content Accessibility Guidelines (WCAG)](https://www.w3.org/WAI/WCAG22/quickref/). Diese Richtlinien helfen sicherzustellen, dass Ihre Inhalte wahrnehmbar, bedienbar, verständlich und robust sind.
+
+<div id="getting-started-with-accessibility">
+  ## Einstieg in die Barrierefreiheit
+</div>
+
+Die Barrierefreiheit Ihrer Dokumentation zu verbessern, ist ein fortlaufender Prozess. Sie müssen nicht alles auf einmal beheben, und Sie können es auch nicht mit einem einmaligen Aufwand erledigen.
+
+Wenn Sie gerade erst beginnen, Barrierefreiheit in Ihrer Dokumentation umzusetzen, empfiehlt sich ein schrittweises Vorgehen: Starten Sie mit Maßnahmen mit großer Wirkung und bauen Sie darauf auf.
+
+<div id="first-steps">
+  ### Erste Schritte
+</div>
+
+Hier sind drei Dinge, die Sie jetzt tun können, um die Barrierefreiheit Ihrer Dokumentation zu verbessern:
+
+1. **Führen Sie `mint a11y` aus**, um Barrierefreiheitsprobleme in Ihren Inhalten zu erkennen.
+2. **Fügen Sie allen Bildern Alternativtexte hinzu.**
+3. **Prüfen Sie die Überschriftenhierarchie**, damit es pro Seite genau eine H1 gibt und die Überschriften der Reihenfolge nach aufeinander folgen.
+
+<div id="plan-your-accessibility-work">
+  ### Planen Sie Ihre Accessibility-Arbeit
+</div>
+
+Der beste Workflow ist der, der für Ihr Team funktioniert. Hier ist ein möglicher Ansatz für Ihre Accessibility-Arbeit:
+
+**Phase 1: Bilder und Struktur**
+
+- Überprüfen Sie alle Bilder auf aussagekräftigen Alt-Text.
+- Prüfen Sie Linktexte und ersetzen Sie generische Formulierungen wie „Hier klicken“.
+- Beheben Sie Probleme in der Überschriftenhierarchie in Ihrer Dokumentation.
+
+**Phase 2: Navigation und Medien**
+
+- Testen Sie die Tastaturnavigation in Ihrer Dokumentation.
+- Testen Sie die Unterstützung für Screenreader.
+- Fügen Sie eingebetteten Videos Untertitel und Transkripte hinzu.
+- Überprüfen Sie den Farbkontrast.
+
+**Phase 3: In den Workflow integrieren**
+
+- Führen Sie `mint a11y` aus, bevor Sie neue Inhalte veröffentlichen.
+- Integrieren Sie Accessibility-Prüfungen in Ihren Content-Review-Prozess.
+- Testen Sie die Tastaturnavigation beim Hinzufügen interaktiver Funktionen.
+- Stellen Sie sicher, dass neue externe Links und Einbettungen aussagekräftige Titel und Beschreibungen enthalten.
+
+Klein anzufangen und Accessibility in Ihren regulären Workflow zu integrieren, macht das Ganze nachhaltig. Jede Verbesserung hilft mehr Nutzerinnen und Nutzern, Ihre Dokumentation erfolgreich zu verwenden.
+
+<div id="structure-your-content">
+  ## Strukturieren Sie Ihre Inhalte
+</div>
+
+Gut strukturierte Inhalte lassen sich leichter navigieren und verstehen – insbesondere für Screenreader-Nutzende, die Überschriften zur Navigation auf Seiten verwenden, und für Personen, die mit der Tastatur navigieren.
+
+<div id="use-proper-heading-hierarchy">
+  ### Verwende eine saubere Überschriftenhierarchie
+</div>
+
+Jede Seite sollte genau eine H1-Überschrift haben, die über die Eigenschaft `title:` im Frontmatter der Seite festgelegt wird. Verwende weitere Überschriften in der richtigen Reihenfolge, ohne Stufen auszulassen. Überspringe zum Beispiel nicht von H2 zu H4.
+
+```mdx
+<!-- Gut -->
+# Seitentitel (H1)
+
+## Hauptabschnitt (H2)
+
+### Unterabschnitt (H3)
+
+### Weiterer Unterabschnitt (H3)
+
+## Weiterer Hauptabschnitt (H2)
+
+<!-- Schlecht -->
+# Seitentitel (H1)
+
+## Hauptabschnitt (H2)
+
+#### Unterabschnitt (H4)
+
+### Weiterer Unterabschnitt (H3)
+```
+
+Überschriften auf derselben Ebene sollten eindeutige Bezeichnungen haben.
+
+```mdx
+<!-- Gut -->
+## Tipps zur Barrierefreiheit (H2)
+
+### Effektiven Alt-Text schreiben (H3)
+
+### Angemessenen Farbkontrast verwenden (H3)
+
+<!-- Schlecht -->
+## Tipps zur Barrierefreiheit (H2)
+
+### Tipp (H3)
+
+### Tipp (H3)
+```
+
+
+<div id="write-descriptive-link-text">
+  ### Verwende aussagekräftige Linktexte
+</div>
+
+Linktexte sollten verständlich sein und klar zum Ziel führen. Vermeide vage Formulierungen wie „Hier klicken“ oder „Mehr erfahren“.
+
+```mdx
+<!-- Gut -->
+Erfahren Sie, wie Sie [Ihre Navigation konfigurieren](/organize/navigation).
+
+<!-- Unklare Beziehung zwischen  -->
+[Mehr erfahren](/organize/navigation).
+```
+
+
+<div id="keep-content-scannable">
+  ### Inhalte schnell erfassbar halten
+</div>
+
+- Lange Absätze aufteilen.
+- Listen für Schritte und Optionen verwenden.
+- Wichtige Informationen mit Hinweisen hervorheben.
+
+<div id="use-proper-table-structure">
+  ### Verwenden Sie eine saubere Tabellenstruktur
+</div>
+
+Setzen Sie Tabellen sparsam ein – nur für tabellarische Daten, deren Bedeutung sich aus Spalten- und Zeilenüberschriften ergibt.
+
+Wenn Sie Tabellen verwenden, fügen Sie Kopfzeilen hinzu, damit Screenreader die Daten der richtigen Spalte zuordnen können:
+
+```mdx
+| Funktion | Status |
+| ------- | ------ |
+| Suche  | Aktiv |
+| Analytics | Aktiv |
+```
+
+
+<div id="write-descriptive-alt-text">
+  ## Aussagekräftigen Alt‑Text schreiben
+</div>
+
+Alt‑Text macht Bilder für Screenreader-Nutzer zugänglich und wird angezeigt, wenn Bilder nicht geladen werden. Bilder in Ihrer Dokumentation sollten Alt‑Text enthalten, der das Bild beschreibt und deutlich macht, warum es enthalten ist. Auch mit Alt‑Text sollten Sie sich nicht ausschließlich auf Bilder verlassen, um Informationen zu vermitteln. Stellen Sie sicher, dass Ihr Inhalt beschreibt, was das Bild vermittelt.
+
+<div id="write-effective-alt-text">
+  ### Effektiven Alt-Text verfassen
+</div>
+
+* **Sei konkret**: Beschreibe, was auf dem Bild zu sehen ist, nicht nur, dass es ein Bild ist.
+* **Fasse dich kurz**: Ziel sind ein bis zwei Sätze.
+* **Vermeide Redundanz**: Beginne nicht mit „Bild von“, da Screenreader bereits erkennen, dass der Alt-Text zu einem Bild gehört. Beschreibungen wie „Screenshot von“ oder „Diagramm von“ solltest du jedoch verwenden, wenn dieser Kontext für das Bild wichtig ist.
+
+```mdx
+<!-- Gut -->
+![Screenshot des Dashboards mit drei aktiven Projekten und zwei ausstehenden Einladungen](/images/dashboard.png)
+
+<!-- Nicht hilfreich -->
+![Dashboard-Screenshot](/images/dashboard.png)
+```
+
+
+<div id="add-alt-text-to-images">
+  ### Alt-Text zu Bildern hinzufügen
+</div>
+
+Für Markdown-Bilder den Alt-Text in eckige Klammern setzen:
+
+```mdx
+![Beschreibung des Bildes](/path/to/image.png)
+```
+
+Für HTML-Bilder verwende das Attribut `alt`:
+
+```html
+<img
+  src="/images/screenshot.png"
+  alt="Einstellungsbereich mit aktivierten Barrierefreiheitsoptionen. Die Optionen sind mit einem orangefarbenen Rechteck hervorgehoben."
+/>
+```
+
+
+<div id="add-titles-to-embedded-content">
+  ### Titel für eingebettete Inhalte hinzufügen
+</div>
+
+Iframes und Videoeinbettungen benötigen aussagekräftige Titel:
+
+```html
+<iframe
+  src="https://www.youtube.com/embed/example"
+  title="Tutorial: Einrichten Ihrer ersten Dokumentationsseite"
+></iframe>
+```
+
+
+<div id="design-for-readability">
+  ## Für bessere Lesbarkeit gestalten
+</div>
+
+Visuelle Designentscheidungen beeinflussen, wie zugänglich Ihre Dokumentation für Nutzerinnen und Nutzer mit Sehbeeinträchtigungen, Farbfehlsichtigkeit oder anderen visuellen Einschränkungen ist.
+
+<div id="ensure-sufficient-color-contrast">
+  ### Ausreichenden Farbkontrast sicherstellen
+</div>
+
+Wenn Sie Ihre Theme-Farben anpassen, stellen Sie sicher, dass die Kontrastverhältnisse den WCAG-Anforderungen entsprechen:
+
+- Fließtext: mindestens 4,5:1 Kontrastverhältnis
+- Große Schrift: mindestens 3:1 Kontrastverhältnis
+- Interaktive Elemente: mindestens 3:1 Kontrastverhältnis
+
+Testen Sie sowohl den hellen als auch den dunklen Modus. Der Befehl `mint a11y` prüft den Farbkontrast.
+
+<div id="dont-rely-on-color-alone">
+  ### Verlassen Sie sich nicht nur auf Farbe
+</div>
+
+Wenn Sie Farbe verwenden, um Informationen zu vermitteln, fügen Sie außerdem eine Textbeschriftung oder ein Symbol hinzu. Markieren Sie beispielsweise Fehler nicht ausschließlich mit rotem Text. Fügen Sie ein Fehlersymbol oder das Wort „Fehler“ hinzu.
+
+<div id="use-clear-concise-language">
+  ### Verwende klare, prägnante Sprache
+</div>
+
+- Schreibe in klarer, einfacher Sprache.
+- Erkläre Fachbegriffe bei ihrer ersten Verwendung.
+- Vermeide Schachtelsätze.
+- Nutze den Aktivsatz.
+
+<div id="make-code-examples-accessible">
+  ## Codebeispiele zugänglich machen
+</div>
+
+Codeblöcke sind ein zentraler Bestandteil technischer Dokumentation, erfordern jedoch spezifische Maßnahmen zur Barrierefreiheit, damit Screenreader-Nutzer sie verstehen können. Befolgen Sie allgemein diese Richtlinien:
+
+- Lange Codebeispiele in kleinere, logisch zusammenhängende Abschnitte aufteilen.
+- Komplexe Logik im Code kommentieren.
+- Für komplexe Algorithmen ggf. eine Textbeschreibung bereitstellen.
+- Bei der Darstellung von Verzeichnisstrukturen echte Codeblöcke mit Sprachkennzeichnung statt ASCII-Art verwenden.
+
+<div id="specify-the-programming-language">
+  ### Programmiersprache angeben
+</div>
+
+Geben Sie immer die Sprache für die Syntaxhervorhebung an. Das hilft Screenreadern, den Kontext des Codes für Nutzer anzukündigen:
+
+````mdx
+```javascript
+function getUserData(id) {
+  return fetch(`/api/users/${id}`);
+}
+```
+````
+
+
+<div id="provide-context-around-code">
+  ### Kontext zu Code geben
+</div>
+
+Stellen Sie einen klaren Kontext für Codeblöcke bereit:
+
+````mdx
+Die folgende Funktion ruft Benutzerdaten von der API ab:
+
+```javascript
+function getUserData(id) {
+  return fetch(`/api/users/${id}`);
+}
+```
+
+Dies gibt ein Promise zurück, das in das Benutzerobjekt aufgelöst wird.
+````
+
+
+<div id="video-and-multimedia-accessibility">
+  ## Barrierefreiheit von Videos und Multimedia
+</div>
+
+Videos, Animationen und andere multimediale Inhalte benötigen Textalternativen, damit alle Nutzerinnen und Nutzer auf die enthaltenen Informationen zugreifen können.
+
+<div id="add-captions-to-videos">
+  ### Untertitel zu Videos hinzufügen
+</div>
+
+Untertitel machen Videoinhalte für Nutzer:innen zugänglich, die taub oder schwerhörig sind. Sie helfen auch Personen in geräuschempfindlichen Umgebungen sowie Nicht-Muttersprachler:innen:
+
+- Verwenden Sie Untertitel für alle gesprochenen Inhalte in Videos.
+- Beziehen Sie relevante Geräuscheffekte in die Untertitel ein.
+- Stellen Sie sicher, dass Untertitel mit dem Ton synchronisiert sind.
+- Verwenden Sie korrekte Zeichensetzung und kennzeichnen Sie Sprecher:innen, wenn mehrere Personen sprechen.
+
+Die meisten Videohosting-Plattformen unterstützen das Hinzufügen von Untertiteln. Laden Sie Untertiteldateien hoch oder nutzen Sie automatisch generierte Untertitel als Ausgangspunkt und überprüfen Sie diese anschließend auf Genauigkeit.
+
+<div id="provide-transcripts">
+  ### Transkripte bereitstellen
+</div>
+
+Transkripte sind eine alternative Möglichkeit, auf Videoinhalte zuzugreifen. Sie lassen sich durchsuchen, einfacher zitieren und sind für Screenreader zugänglich:
+
+```mdx
+<iframe
+  src="https://www.youtube.com/embed/example"
+  title="Tutorial: Authentifizierung einrichten"
+></iframe>
+
+<Accordion title="Videotranskript">
+In diesem Tutorial zeigen wir Ihnen, wie Sie die Authentifizierung einrichten...
+</Accordion>
+```
+
+Platzieren Sie Transkripte in unmittelbarer Nähe des Videos oder bieten Sie einen klaren Link zum Zugriff darauf an.
+
+
+<div id="consider-alternatives-to-video-only-content">
+  ### Ziehen Sie Alternativen zu reinen Videoinhalten in Betracht
+</div>
+
+Wenn wichtige Informationen nur in einem Video enthalten sind:
+
+- Stellen Sie dieselben Informationen auch in Textform bereit.
+- Fügen Sie zentrale Screenshots mit aussagekräftigem Alt-Text hinzu.
+- Erstellen Sie ein schriftliches Tutorial, das denselben Inhalt abdeckt.
+
+So stellen Sie sicher, dass Nutzer ohne Zugriff auf Videoinhalte ihre Aufgabe trotzdem erledigen können.
+
+<div id="test-your-documentation">
+  ## Testen Sie Ihre Dokumentation
+</div>
+
+Regelmäßige Tests helfen Ihnen, Barrierefreiheitsprobleme zu erkennen, bevor Nutzer damit konfrontiert werden.
+
+<div id="check-for-accessibility-issues-with-mint-a11y">
+  ### Auf Barrierefreiheitsprobleme mit `mint a11y` prüfen
+</div>
+
+Verwenden Sie den CLI-Befehl `mint a11y`, um Ihre Dokumentation automatisch auf häufige Probleme bei der Barrierefreiheit zu prüfen:
+
+```bash
+mint a11y
+```
+
+Der Befehl prüft auf:
+
+* Fehlenden Alternativtext bei Bildern
+* Unkorrekte Überschriftenhierarchie
+* Unzureichenden Farbkontrast
+
+Nach Abschluss des Scans überprüfen Sie die gemeldeten Probleme und beheben sie in Ihren Inhalten. Führen Sie den Befehl anschließend erneut aus, um Ihre Korrekturen zu überprüfen.
+
+
+<div id="basic-keyboard-navigation-test">
+  ### Grundlegender Test der Tastaturnavigation
+</div>
+
+Navigieren Sie ausschließlich mit der Tastatur durch Ihre Dokumentation:
+
+1. Drücken Sie <kbd>Tab</kbd>, um zu den interaktiven Elementen nach vorne zu springen.
+2. Drücken Sie <kbd>Shift</kbd> + <kbd>Tab</kbd>, um nach hinten zu springen.
+3. Drücken Sie <kbd>Enter</kbd>, um Links und Schaltflächen auszuführen.
+4. Vergewissern Sie sich, dass alle interaktiven Elemente erreichbar sind und eine sichtbare Fokusmarkierung haben.
+
+<div id="go-deeper-with-accessibility-testing">
+  ### Gehe tiefer mit Accessibility-Tests
+</div>
+
+Für umfassendere Tests:
+
+- **Screenreader**: Teste mit [NVDA (Windows)](https://www.nvaccess.org/) oder [VoiceOver (Mac)](https://www.apple.com/accessibility/voiceover/).
+- **Browser-Erweiterungen**: Installiere [axe DevTools](https://www.deque.com/axe/browser-extensions/) oder [WAVE](https://wave.webaim.org/extension/), um Seiten auf Probleme zu prüfen.
+- **WCAG-Richtlinien**: Sieh dir die [Web Content Accessibility Guidelines](https://www.w3.org/WAI/WCAG22/quickref/) für detaillierte Standards an.
+
+<div id="additional-resources">
+  ## Zusätzliche Ressourcen
+</div>
+
+Vertiefen Sie Ihr Wissen über Barrierefreiheit mit diesen verlässlichen Quellen:
+
+- **[WebAIM](https://webaim.org/)**: Praxisnahe Artikel und Tutorials zur Webbarrierefreiheit
+- **[The A11y Project](https://www.a11yproject.com/)**: Community‑getriebene Ressourcen und Checklisten zur Barrierefreiheit
+- **[W3C Web Accessibility Initiative (WAI)](https://www.w3.org/WAI/)**: Offizielle Standards und Leitlinien zur Barrierefreiheit

@@ -1,0 +1,97 @@
+---
+title: "GitLab"
+description: "ドキュメントを GitLab リポジトリと同期する"
+---
+
+GitLab と Mintlify の間での認証と変更の同期には、アクセストークンと Webhook を使用します。
+
+- Mintlify はアクセストークンを用いて GitLab から情報を取得します。
+- GitLab は Webhook で変更を Mintlify に通知し、マージリクエスト向けのプレビューデプロイを有効にします。
+
+<div id="set-up-the-connection">
+  ## 接続を設定する
+</div>
+
+<Note>
+  **HTTPS でのクローンが必須**: Mintlify がリポジトリにアクセスできるよう、GitLab プロジェクトで HTTPS クローンを有効にする必要があります。GitLab のプロジェクト **Settings** > **General** > **Visibility and access controls** セクションで確認できます。
+</Note>
+
+<Steps>
+  <Step title="プロジェクト ID を確認する">
+    GitLab プロジェクトで **Settings** > **General** に移動し、**Project ID** を確認します。
+    <Frame>
+      <img src="/images/gitlab/gitlab-project-id.png" alt="GitLab ダッシュボードの General Settings ページ。Project ID がハイライトされています。" />
+    </Frame>
+  </Step>
+  <Step title="アクセストークンを生成する">
+    **Settings** > **Access Tokens** に移動し、**Add new token** を選択します。
+    
+    次の設定でトークンを作成します:
+    - **Name**: Mintlify
+    - **Role**: Maintainer（プライベートリポジトリでは必須）
+    - **Scopes**: `api` と `read_api`
+    
+    **Create project access token** をクリックし、トークンをコピーします。
+
+    <Note>
+      Project Access Tokens が使用できない場合は、Personal Access Token を代わりに使用できます。Personal Access Token には有効期限があり、定期的な更新が必要です。
+    </Note>
+
+    <Frame>
+      <img src="/images/gitlab/gitlab-project-access-token.png" alt="GitLab ダッシュボードの Access tokens ページ。Mintlify 用の設定項目がハイライトされています。" />
+    </Frame>
+
+  </Step>
+  <Step title="接続を設定する">
+    [Mintlify ダッシュボード](https://dashboard.mintlify.com/settings/deployment/git-settings)で次を実行します:
+    1. プロジェクト ID とアクセストークンを入力します。
+    2. そのほかの必須設定を完了します。
+    3. **Save Changes** をクリックします。
+    <Frame>
+      <img src="/images/gitlab/gitlab-config.png" alt="Mintlify ダッシュボードの Git Settings ページ。GitLab の設定項目がハイライトされています。" />
+    </Frame>
+  </Step>
+</Steps>
+
+<div id="create-the-webhook">
+  ## Webhook を作成する
+</div>
+
+Webhook を使うと、変更時のイベントを受信して、自動的にデプロイをトリガーできます。
+
+<Steps>
+  <Step title="Settings > Webhooks に移動し、'Add new Webhook' をクリック">
+    <Frame>
+      <img src="/images/gitlab/gitlab-webhook.png" alt="GitLab ダッシュボードの Webhooks ページのスクリーンショット。" />
+    </Frame>
+  </Step>
+  <Step title="URL と Webhook を設定する">
+    "URL" フィールドにエンドポイント `https://leaves.mintlify.com/gitlab-webhook` を入力し、Webhook 名を "Mintlify" にします。
+
+  </Step>
+  <Step title="トークンを貼り付ける">
+    接続の設定後に生成された Webhook トークンを貼り付けます。
+    <Frame>
+      <img src="/images/gitlab/gitlab-show-webtoken.png" alt="Mintlify ダッシュボードの GitLab 接続のスクリーンショット。Show Webtoken ボタンが強調表示されています。" />
+    </Frame>
+  </Step>
+  <Step title="イベントを選択する">
+    Webhook をトリガーするイベントを選択します:
+    - **Push events**（All branches）
+    - **Merge requests events**
+      
+    設定後は次のようになります:
+    <Frame>
+      <img src="/images/gitlab/gitlab-project-webtoken.png" alt="GitLab ダッシュボードの Webhook ページ。Mintlify 用の設定項目が強調表示されています。" />
+    </Frame>
+  </Step>
+  <Step title="Webhook をテストする">
+    Webhook を作成したら、"Test" ドロップダウンをクリックし、"Push events" を選択してサンプルペイロードを送信し、正しく構成されていることを確認します。正しく構成されていれば、"Hook executed successfully: HTTP 200" と表示されます。
+
+    これにより、すべてが正しく動作し、ドキュメントが GitLab リポジトリと適切に同期されることを確認できます。
+    <Frame>
+      <img src="/images/gitlab/gitlab-project-webtoken-test.png" alt="GitLab の Webhooks ページのスクリーンショット。'Test' メニュー内の 'Push events' 項目が強調表示されています。" />
+    </Frame>
+
+  </Step>
+</Steps>

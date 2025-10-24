@@ -1,0 +1,148 @@
+---
+title: "Agent"
+description: "Agent はドキュメントの作成と保守を支援します"
+---
+
+<Info>
+  Agent は、ダッシュボードにアクセスできるユーザー向けに、[Pro と Custom の各プラン](https://mintlify.com/pricing?ref=agent)で利用可能です。
+</Info>
+
+Agent は、プロンプトに基づいてドキュメントへの変更提案を含む pull request を作成します。Agent にリクエストを送ると、ドキュメント、接続済みリポジトリ、Slack メッセージを参照し、テクニカルライティングのベストプラクティスに沿い、Mintlify のスキーマに準拠したコンテンツを生成します。Slack ワークスペースで Agent を利用するか、API を使ってカスタムアプリケーションに組み込めます。
+
+Agent の活用方法:
+
+* プロンプト、pull request へのリンク、または Slack スレッドに基づく新規コンテンツの作成
+* 古くなったコード例や API リファレンスの改訂
+* 既存コンテンツの検索と更新
+* ドキュメントやテクニカルライティングに関する質問への回答
+
+始めるには、Slack ワークスペースに Agent を追加し、チャンネルで `@mintlify` をメンションしてください。
+
+<div id="add-the-agent-to-your-slack-workspace">
+  ## エージェントを Slack ワークスペースに追加する
+</div>
+
+<Note>
+  Slack のワークスペースオーナーがアプリのインストールに管理者承認を必須としている場合は、接続する前に Mintlify アプリの承認を依頼してください。
+</Note>
+
+1. ダッシュボードの [agent](https://dashboard.mintlify.com/products/agent) ページに移動します。
+2. **Connect** ボタンをクリックします。
+3. Slack の指示に従って、ワークスペースに `mintlify` アプリを追加します。
+4. Slack の指示に従って、Mintlify アカウントを Slack ワークスペースに連携します。
+5. エージェントが動作し、次の操作で応答することを確認します:
+   * エージェントにダイレクトメッセージを送信する。
+   * チャンネルで `@mintlify` とメンションする。
+
+<div id="connect-repositories-as-context">
+  ## コンテキストとしてリポジトリを接続する
+</div>
+
+エージェントは、Mintlify GitHub App を通じて接続したリポジトリにのみアクセスできます。エージェントがアクセス可能なリポジトリは、[GitHub App の設定](https://github.com/apps/mintlify/installations/new)で変更できます。
+
+<div id="embed-the-agent-via-api">
+  ## API経由でエージェントを組み込む
+</div>
+
+エージェントのエンドポイントを使って、[ジョブを作成](/ja/api-reference/agent/create-agent-job)、[特定のジョブを取得](/ja/api-reference/agent/get-agent-job)、[すべてのジョブを取得](/ja/api-reference/agent/get-all-jobs)できます。
+
+<div id="write-effective-prompts">
+  ## 効果的なプロンプトを書く
+</div>
+
+エージェントは、あなたのガイダンスを必要とする頼れるアシスタントだと考えてください。明確な指示とコンテキストを与えましょう。タスクは焦点が絞られているほど完了しやすいため、複雑なプロジェクトは小さなステップに分解しましょう。
+
+プロンプトは具体的で、成果にフォーカスしましょう。`@mintlify Improve the onboarding page` のような汎用的なプロンプトは一般的なベストプラクティスを当てはめますが、あなたが想定している特定の改善にはつながらない場合があります。
+
+ユーザーに達成してほしい結果や、ユーザーが直面している問題に基づくプロンプトを試してください。例:
+
+* `@mintlify A lot of users have trouble installing the CLI. Review the onboarding page and update the docs so that users can easily install the CLI`
+* `@mintlify Developers keep getting 401 errors when following our authentication guide. Review the auth docs and add clearer examples showing how to properly format the API key`
+
+誤字の修正、リダイレクトの更新、ドキュメント全体での機能名のリネームといった一般的なメンテナンスには、より広めのプロンプトを使いましょう。例:
+
+* `@mintlify Find and fix all typos in the docs`
+* `@mintlify change all unordered lists to use * instead of -`
+
+<div id="specify-a-subdomain">
+  ## サブドメインを指定する
+</div>
+
+独自のサブドメインを持つドキュメントサイトが複数ある場合は、エージェントがどのサブドメインで作業するかを指定するために、メッセージに `subdomain` パラメータを含めてください。
+
+特定のサブドメインでエージェントを実行するには、`@mintlify subdomain=<your-subdomain> <your-prompt>` の形式を使用します。
+
+例:
+
+* `@mintlify subdomain=public-docs Add a new section to the quickstart about inviting collaborators based on this PR`: エージェントに `public-docs` サブドメインのクイックスタートのみを更新するよう指示します。
+* `@mintlify subdomain=customer-docs Update the auth docs for the new authentication method`: エージェントに `customer-docs` サブドメインの認証ドキュメントのみを更新するよう指示します。
+
+<div id="agent-workflows">
+  ## エージェントのワークフロー
+</div>
+
+エージェントは多様なドキュメント関連タスクを支援します。ここでは、ドキュメント作成プロセスにエージェントを組み込む方法の一例を紹介します。チームの現行のワークフローに合うアプローチを試し、ニーズに合わせて調整してください。
+
+<div id="iterate-on-a-prompt-in-a-slack-thread">
+  ### Slack スレッドでプロンプトを繰り返し改善する
+</div>
+
+まずエージェントにプロンプトし、その後は同じスレッドで `@mintlify` を付けてメンションし続けることで、エージェントが作成したプルリクエストを順次洗練・更新できます。
+
+例: `@mintlify Our quickstart page needs a new section on inviting collaborators`。続けて `@mintlify The new section should be called "Inviting collaborators"`。その後、必要に応じてさらに指示を重ねてください。
+
+<div id="start-with-the-agent-finish-manually">
+  ### エージェントで始めて、手動で仕上げる
+</div>
+
+エージェントにプロジェクトの開始を指示し、作成されたブランチをチェックアウトして、ローカル環境またはウェブエディタで仕上げます。エージェントが立ち上げを手助けし、その後はあなたが引き継いで完了させてください。
+
+例: `@mintlify Update the quickstart page to include information about inviting collaborators` のように指示し、その後ブランチをチェックアウトして、好みの方法で追加変更を加えます。
+
+<div id="update-docs-when-merging-feature-changes">
+  ### 機能変更をマージしたらドキュメントを更新する
+</div>
+
+機能のプルリクエストをマージしたら、関連ドキュメントを更新できるようにエージェントへPRリンクを共有します。
+
+例: `@mintlify このPRでは新しい認証方法を追加しました。新しい認証フローをドキュメントに反映してください: [PRリンク]`.
+
+<div id="generate-release-notes-from-a-pull-request">
+  ### プルリクエストからリリースノートを生成する
+</div>
+
+コミット履歴に基づき、特定のプルリクエストを指定してエージェントに指示し、リリースノートや変更履歴（Changelog）を生成・更新します。
+
+例: `@mintlify Generate release notes for this PR: [PR link]`.
+
+<div id="generate-code-examples">
+  ### コード例を生成する
+</div>
+
+エージェントにプロンプトを送信して、ドキュメント全体や特定のページの機能に関するコード例を生成させます。
+
+例: `@mintlify 認証方法をより分かりやすくするコード例を生成して`
+
+<div id="review-existing-content">
+  ### 既存コンテンツのレビュー
+</div>
+
+エージェントに、技術的な正確性やスタイル、文法などの観点から既存のコンテンツを見直すよう依頼します。
+
+例: `@mintlify Review the API rate limiting section. We changed limits last month`.
+
+<div id="respond-to-user-feedback">
+  ### ユーザーのフィードバックに対応する
+</div>
+
+ユーザーからのフィードバックをエージェントに渡して、ドキュメントを狙いを定めて更新しましょう。
+
+例: `@mintlify セットアップガイドの手順3でユーザーが混乱しています。どの点が分かりにくいのでしょうか？`
+
+<div id="automate-with-the-api">
+  ### API で自動化する
+</div>
+
+既存の自動化ツールにエージェントを統合し、コード変更に合わせたドキュメントの自動更新やコンテンツレビューのトリガー、複数リポジトリ間でのドキュメント更新の同期を実現します。
+
+詳しくは、[コードのマージ時にドキュメントを自動更新する](/ja/guides/automate-agent) チュートリアルをご覧ください。

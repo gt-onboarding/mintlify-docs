@@ -1,0 +1,241 @@
+---
+title: "SEO"
+description: "検索での可視性を高めるための SEO ベストプラクティスとメタタグ設定"
+---
+
+Mintlify は多くの SEO ベストプラクティスを自動で実装しています。例:
+
+* メタタグの生成
+* サイトマップと `robots.txt` ファイルの生成
+* セマンティックな HTML 構造
+* モバイル最適化
+
+`docs.json` またはページのフロントマターに `metatags` フィールドを追加することで、サイトのメタタグを柔軟にカスタマイズできます。
+
+<div id="global-meta-tags">
+  ## グローバルメタタグ
+</div>
+
+すべてのページにデフォルトのメタタグを設定するには、`docs.json` に `metatags` フィールドを追加します。
+
+```json
+"seo": {
+    "metatags": {
+        "og:image": "デフォルトのメタタグ画像のリンク"
+    }
+}
+```
+
+<div id="set-a-canonical-url">
+  ### 正規URLを設定する
+</div>
+
+カスタムドメインを使用している場合は、検索エンジンが優先するドメインをインデックスするよう、`canonical` メタタグを設定してください。正規URLは、ドキュメントのどの版が主要かを検索エンジンに示します。ドキュメントが複数のURLからアクセスできる場合のSEOを改善し、重複コンテンツによる問題を防ぎます。
+
+```json
+"seo": {
+    "metatags": {
+        "canonical": "https://www.your-custom-domain-here.com"
+    }
+}
+```
+
+<div id="page-specific-meta-tags">
+  ## ページ固有のメタタグ
+</div>
+
+ページ固有のメタタグを設定するには、ページのフロントマターに追加してください。
+
+```mdx
+---
+title: "ページタイトルの例"
+"og:image": "メタタグ画像へのリンク"
+---
+```
+
+<Note>
+  コロンを含むメタタグは、必ず引用符で囲んでください。
+</Note>
+
+<div id="common-meta-tags-reference">
+  ## 一般的な meta タグのリファレンス
+</div>
+
+以下は、`docs.json` に追加できる meta タグの包括的な一覧です。これらの meta タグは、サイトの SEO、ソーシャル共有、ブラウザ互換性の向上に役立ちます。
+
+<Note>
+  `og:image` は背景画像を追加し、Mintlify がソーシャルメディアのプレビューを生成する際に、ロゴ、ページタイトル、説明文を自動的に重ねて表示します。
+</Note>
+
+[metatags.io](https://metatags.io/) を使って、プラットフォームごとの meta タグの表示をプレビューできます。
+
+```json expandable
+"seo": {
+    "metatags": {
+      "robots": "noindex",
+      "charset": "UTF-8",
+      "viewport": "width=device-width, initial-scale=1.0",
+      "description": "ページの説明",
+      "keywords": "キーワード1, キーワード2, キーワード3",
+      "author": "著者名",
+      "robots": "index, follow",
+      "googlebot": "index, follow",
+      "google": "notranslate",
+      "google-site-verification": "verification_token",
+      "generator": "Mintlify",
+      "theme-color": "#000000",
+      "color-scheme": "light dark",
+      "canonical": "https://your-custom-domain-here.com",
+      "format-detection": "telephone=no",
+      "referrer": "origin",
+      "refresh": "30",
+      "rating": "general",
+      "revisit-after": "7日",
+      "language": "en",
+      "copyright": "Copyright 2024",
+      "reply-to": "email@example.com",
+      "distribution": "global",
+      "coverage": "Worldwide",
+      "category": "Technology",
+      "target": "all",
+      "HandheldFriendly": "True",
+      "MobileOptimized": "320",
+      "apple-mobile-web-app-capable": "yes",
+      "apple-mobile-web-app-status-bar-style": "black",
+      "apple-mobile-web-app-title": "アプリタイトル",
+      "application-name": "アプリ名",
+      "msapplication-TileColor": "#000000",
+      "msapplication-TileImage": "path/to/tile.png",
+      "msapplication-config": "path/to/browserconfig.xml",
+      "og:title": "Open Graphタイトル",
+      "og:type": "website",
+      "og:url": "https://example.com",
+      "og:image": "https://example.com/image.jpg",
+      "og:description": "Open Graphの説明",
+      "og:site_name": "サイト名",
+      "og:locale": "en_US",
+      "og:video": "https://example.com/video.mp4",
+      "og:audio": "https://example.com/audio.mp3",
+      "twitter:card": "summary",
+      "twitter:site": "@username",
+      "twitter:creator": "@username",
+      "twitter:title": "Twitterタイトル",
+      "twitter:description": "Twitterの説明",
+      "twitter:image": "https://example.com/image.jpg",
+      "twitter:image:alt": "画像の説明",
+      "twitter:player": "https://example.com/player",
+      "twitter:player:width": "480",
+      "twitter:player:height": "480",
+      "twitter:app:name:iphone": "アプリ名",
+      "twitter:app:id:iphone": "12345",
+      "twitter:app:url:iphone": "app://",
+      "article:published_time": "2024-01-01T00:00:00+00:00",
+      "article:modified_time": "2024-01-02T00:00:00+00:00",
+      "article:expiration_time": "2024-12-31T00:00:00+00:00",
+      "article:author": "著者名",
+      "article:section": "Technology",
+      "article:tag": "タグ1, タグ2, タグ3",
+      "book:author": "著者名",
+      "book:isbn": "1234567890",
+      "book:release_date": "2024-01-01",
+      "book:tag": "タグ1, タグ2, タグ3",
+      "profile:first_name": "John",
+      "profile:last_name": "Doe",
+      "profile:username": "johndoe",
+      "profile:gender": "male",
+      "music:duration": "205",
+      "music:album": "アルバム名",
+      "music:album:disc": "1",
+      "music:album:track": "1",
+      "music:musician": "アーティスト名",
+      "music:song": "曲名",
+      "music:song:disc": "1",
+      "music:song:track": "1",
+      "video:actor": "俳優名",
+      "video:actor:role": "役名",
+      "video:director": "監督名",
+      "video:writer": "脚本家名",
+      "video:duration": "120",
+      "video:release_date": "2024-01-01",
+      "video:tag": "タグ1, タグ2, タグ3",
+      "video:series": "シリーズ名"
+  }
+}
+```
+
+<div id="sitemaps-and-robotstxt-files">
+  ## サイトマップと robots.txt ファイル
+</div>
+
+Mintlify は `sitemap.xml` と `robots.txt` を自動生成します。ドキュメンテーションサイトの URL の末尾に `/sitemap.xml` を付けると、サイトマップを確認できます。
+
+既定では、`docs.json` に含まれるページのみが対象です。非表示のリンクも含めるには、`seo.indexing` を `docs.json` に追加します:
+
+```json
+"seo": {
+    "indexing": all
+}
+```
+
+<div id="custom-sitemaps-and-robotstxt-files">
+  ### カスタムの sitemap と robots.txt ファイル
+</div>
+
+カスタムの `sitemap.xml` または `robots.txt` を追加するには、プロジェクトのルートに `sitemap.xml` か `robots.txt` ファイルを作成します。カスタムファイルを追加すると、同名の自動生成ファイルが上書きされます。カスタムファイルを削除すると、デフォルトのファイルに戻ります。
+
+<div id="disabling-indexing">
+  ## インデックスの無効化
+</div>
+
+検索エンジンによるページのインデックス登録を防ぎたい場合は、ページの[frontmatter](/ja/organize/pages)に次を含めてください：
+
+```
+---
+noindex: true
+---
+```
+
+`docs.json` の `metatags.robots` フィールドを `"noindex"` に設定すると、ドキュメント内のすべてのページに対して `noindex` を指定できます。
+
+```json
+"seo": {
+    "metatags": {
+      "robots": "noindex"
+    }
+  }
+```
+
+<div id="seo-best-practices">
+  ## SEO のベストプラクティス
+</div>
+
+<AccordionGroup>
+  <Accordion title="わかりやすいタイトルと説明文を書く">
+    * 明確で説明的なページタイトルを付ける（50〜60文字）
+    * 魅力的な説明文を書く（150〜160文字）
+    * 関連するキーワードを含める
+    * 各ページのタイトルと説明文を固有のものにする
+  </Accordion>
+
+  <Accordion title="コンテンツ構造を最適化する">
+    * 適切な見出し階層を守る（H1 → H2 → H3）
+    * まず人間の読者のために書き、次に検索エンジンを意識する
+    * 見出しや本文に関連キーワードを含める
+    * URL は短く、わかりやすく、階層的に整理する
+    * 長文は小見出しやリストで区切る
+  </Accordion>
+
+  <Accordion title="内部リンク戦略">
+    * ドキュメント内の関連ページへリンクする
+    * 「click here」ではなく内容が伝わるアンカーテキストを使う
+    * 関連する概念を相互にリンクしてトピッククラスターを作る
+    * 自動クロスリファレンス機能を活用する
+  </Accordion>
+
+  <Accordion title="画像の SEO">
+    * 画像は説明的なファイル名にする
+    * アクセシビリティと SEO のために必ず alt テキストを設定する
+    * 高速表示のために画像ファイルサイズを最適化する
+    * コンテンツを補強する関連性の高い画像を使用する
+  </Accordion>
+</AccordionGroup>

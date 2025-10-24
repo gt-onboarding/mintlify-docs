@@ -1,0 +1,150 @@
+---
+title: "Windsurf"
+description: "Configurez Windsurf pour qu’il devienne votre assistant de rédaction"
+---
+
+Transformez Windsurf en un expert de la documentation qui comprend votre guide de style, vos composants et le contexte de votre projet grâce aux règles de l’espace de travail et aux mémoires.
+
+<div id="using-windsurf-with-mintlify">
+  ## Utiliser Windsurf avec Mintlify
+</div>
+
+L’Assistant Cascade de Windsurf peut être paramétré pour rédiger une documentation conforme à vos standards en utilisant les Composants (Mintlify). Les règles d’espace de travail et les mémoires fournissent un contexte persistant sur votre projet, garantissant des suggestions plus cohérentes de la part de Cascade.
+
+* **Règles d’espace de travail** stockées dans votre dépôt de documentation et partagées avec votre équipe.
+* **Mémoires** fournissent un contexte individuel qui s’enrichit au fil du temps.
+
+Nous recommandons de définir des règles d’espace de travail pour des standards de documentation partagés. Vous pouvez enrichir vos mémoires au fil de votre travail, mais comme elles ne sont pas partagées, elles ne seront pas forcément cohérentes entre les membres de l’équipe.
+
+Créez des règles d’espace de travail dans le répertoire `.windsurf/rules` de votre dépôt de documentation. Consultez la section [Memories & Rules](https://docs.windsurf.com/windsurf/cascade/memories) dans la documentation Windsurf pour plus d’informations.
+
+<div id="example-workspace-rule">
+  ## Exemple de règle d’espace de travail
+</div>
+
+Cette règle fournit à Cascade du contexte sur les composants Mintlify et les bonnes pratiques générales de rédaction technique.
+
+Vous pouvez utiliser cette règle d’exemple telle quelle ou la personnaliser pour votre documentation :
+
+* **Normes de rédaction** : mettez à jour les directives linguistiques pour qu’elles correspondent à votre guide de style.
+* **Modèles de composants** : ajoutez des composants propres au projet ou modifiez les exemples existants.
+* **Exemples de code** : remplacez les exemples génériques par de vrais appels et réponses d’API pour votre produit.
+* **Préférences de style et de ton** : ajustez la terminologie, le formatage et les autres règles.
+
+Enregistrez votre règle en tant que fichier `.md` dans le répertoire `.windsurf/rules` de votre dépôt de documentation.
+
+````mdx
+# Règle de rédaction technique Mintlify
+
+## Contexte du projet
+
+- Il s’agit d’un projet de documentation sur la plateforme Mintlify
+- Nous utilisons des fichiers MDX avec un frontmatter YAML  
+- La navigation est configurée dans `docs.json`
+- Nous suivons les bonnes pratiques de rédaction technique
+
+## Normes de rédaction
+
+- Utiliser la deuxième personne (« vous ») pour les instructions
+- Écrire à la voix active et au présent
+- Commencer les procédures par les prérequis
+- Inclure les résultats attendus pour les étapes majeures
+- Utiliser des titres descriptifs riches en mots-clés
+- Rédiger des phrases concises mais informatives
+
+## Structure de page requise
+
+Chaque page doit commencer par un frontmatter :
+
+```yaml
+---
+title: "Titre clair et spécifique"
+description: "Description concise pour le SEO et la navigation"
+---
+```
+
+## Composants Mintlify
+
+### docs.json
+
+- Se référer au [schéma docs.json](https://mintlify.com/docs.json) lors de la création du fichier docs.json et de la navigation du site
+
+### Encadrés (Callouts)
+
+- `<Note>` pour des informations supplémentaires utiles
+- `<Warning>` pour des mises en garde importantes et des changements majeurs
+- `<Tip>` pour les meilleures pratiques et des conseils d’experts  
+- `<Info>` pour des informations contextuelles neutres
+- `<Check>` pour des confirmations de réussite
+
+### Exemples de code
+
+- Lorsque c’est approprié, inclure des exemples complets et exécutables
+- Utiliser `<CodeGroup>` pour des exemples multilingues
+- Spécifier des balises de langage sur tous les blocs de code
+- Inclure des données réalistes, pas des espaces réservés
+- Utiliser `<RequestExample>` et `<ResponseExample>` pour la documentation d’API
+
+### Procédures
+
+- Utiliser le composant `<Steps>` pour des instructions séquentielles
+- Inclure des étapes de vérification avec des composants `<Check>` lorsque pertinent
+- Découper les procédures complexes en étapes plus petites
+
+### Organisation du contenu
+
+- Utiliser `<Tabs>` pour du contenu spécifique à une plateforme
+- Utiliser `<Accordion>` pour une divulgation progressive
+- Utiliser `<Card>` et `<CardGroup>` pour mettre en avant du contenu
+- Encapsuler les images dans des composants `<Frame>` avec un texte alternatif descriptif
+
+## Exigences pour la documentation d’API
+
+- Documenter tous les paramètres avec `<ParamField>` 
+- Afficher la structure de la réponse avec `<ResponseField>`
+- Inclure des exemples de réussite et d’erreur
+- Utiliser `<Expandable>` pour les propriétés d’objets imbriqués
+- Toujours inclure des exemples d’authentification
+
+## Normes de qualité
+
+- Tester tous les exemples de code avant publication
+- Utiliser des chemins relatifs pour les liens internes
+- Inclure un texte alternatif pour toutes les images
+- Assurer une hiérarchie de titres correcte (commencer par h2)
+- Vérifier la cohérence avec les modèles existants
+````
+
+<div id="working-with-cascade">
+  ## Travailler avec Cascade
+</div>
+
+Une fois vos règles configurées, vous pouvez utiliser Cascade pour vous assister dans diverses tâches de documentation. Pour en savoir plus, consultez la page [Cascade](https://docs.windsurf.com/windsurf/cascade) dans la documentation de Windsurf.
+
+<div id="example-prompts">
+  ### Exemples d’invites
+</div>
+
+**Rédaction de nouveau contenu** :
+
+```text wrap
+Créez une nouvelle page expliquant comment s’authentifier auprès de notre API. Incluez des exemples de code en JavaScript, Python et cURL.
+```
+
+**Amélioration de contenu existant** :
+
+```text wrap
+Passez en revue cette page et proposez des améliorations pour la clarté et l’utilisation des composants. Concentrez-vous sur la simplification des étapes à suivre.
+```
+
+**Création d’exemples de code** :
+
+```text wrap
+Générez un exemple de code complet montrant la gestion des erreurs pour cet endpoint d’API. Utilisez des données réalistes et incluez les réponses attendues.
+```
+
+**Maintien de la cohérence** :
+
+```text wrap
+Vérifiez si cette nouvelle page respecte nos standards de documentation et proposez les modifications nécessaires.
+```

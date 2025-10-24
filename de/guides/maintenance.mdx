@@ -1,0 +1,45 @@
+---
+title: "Wartung"
+description: "Tipps, um die Dokumentation aktuell zu halten"
+---
+
+<Tip>
+  Diese Seite erklärt Strategien, wie Sie Ihre Dokumentation langfristig korrekt und wertvoll halten – von automatisierten Checks bis hin zu Inhaltslebenszyklen.
+</Tip>
+
+<div id="automate-what-you-can">
+  ## Automatisiere, was du kannst
+</div>
+
+Setze Automatisierungen dort ein, wo es sinnvoll ist, zum Beispiel:
+
+* **Veraltete Inhalte erkennen:** Lass ein Skript wichtige Docs markieren, die in den letzten drei Monaten nicht aktualisiert wurden. Sind sie noch korrekt?
+* **Dokumentation automatisch aktualisieren:** Erstelle einen Workflow, der die Dokumentation automatisch aktualisiert, wenn Code mit der [Agent-API](/de/guides/automate-agent) gemergt wird.
+* **Standards mit Lintern durchsetzen:** Verwende [Vale](http://Vale.sh) oder [CI-Checks](/de/deploy/ci), um bei jedem Pull Request Formatierungsprobleme, Stilabweichungen oder fehlende Metadaten automatisch zu erkennen.
+
+<div id="set-up-a-review-process">
+  ## Richten Sie einen Review-Prozess ein
+</div>
+
+Dokumentation wird möglicherweise nie perfekt, und das ist in Ordnung. Definieren Sie eine Akzeptanzschwelle, ab der die Dokumentation funktional und nützlich ist.
+
+Effizienz und Qualität in Balance halten:
+
+* **Konzentrieren Sie sich auf besonders wichtige Inhalte.** Nicht jede Seite braucht regelmäßige Updates. Stellen Sie sicher, dass die wichtigsten Seiten regelmäßig auf Genauigkeit und Relevanz geprüft werden.
+* **Nutzen Sie Ihre Community.** Wenn Ihre Dokumentation Open Source ist, ermöglichen Sie Nutzerinnen und Nutzern, Probleme zu melden oder Korrekturen per Pull Request einzureichen. Das schafft Vertrauen und hält die Inhalte aktuell.
+
+<div id="know-when-to-rewrite">
+  ## Wissen, wann neu zu schreiben ist
+</div>
+
+Im Laufe der Zeit sammeln Dokumentationen naturgemäß Hinweise und Workarounds an. Wenn schrittweise Korrekturen mehr Verwirrung als Klarheit stiften, ist eine vollständige Überarbeitung möglicherweise die beste Option.
+
+* **Planen Sie regelmäßige Neustarts ein.** Eine größere Bereinigung – insbesondere wenn sich Best Practices oder das Produkt selbst deutlich weiterentwickelt haben – spart Ihrem Team und Ihren Nutzerinnen und Nutzern Zeit.
+* **Beginnen Sie mit einem strukturierten Audit.** Führen Sie Gespräche mit Support-Teams, analysieren Sie Nutzerfeedback und dokumentieren Sie, was fehlt, irreführend ist oder sich wiederholt – bevor Sie neu schreiben.
+* **Führen Sie vollständige Neuschreibungen in fokussierten Sprints durch.** Eine komplette Überarbeitung muss nicht auf einmal erfolgen. Priorisieren Sie die Abschnitte mit dem größten Einfluss.
+
+<div id="wrong-docs-can-be-worse-than-no-docs">
+  ## Schlechte Dokumentation kann schlimmer sein als keine
+</div>
+
+Veraltete oder irreführende Dokumentation verschwendet die Zeit der Nutzer und untergräbt Vertrauen. Wenn eine Seite völlig falsch ist und sich kurzfristig nicht korrigieren lässt, ist es oft besser, sie ganz zu entfernen. Nutzer bevorzugen weniger Informationen gegenüber falschen Informationen.

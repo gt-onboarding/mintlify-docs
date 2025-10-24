@@ -1,0 +1,170 @@
+---
+title: "Configuration de MDX"
+description: "Générez des pages de documentation pour vos points de terminaison d’API avec `MDX`"
+---
+
+Vous pouvez définir manuellement des points de terminaison d’API dans des fichiers `MDX` individuels plutôt que d’utiliser une spécification OpenAPI. Cette méthode offre de la flexibilité pour du contenu personnalisé, mais nous recommandons de générer la documentation d’API à partir d’un fichier de spécification OpenAPI pour la plupart des projets, car elle est plus facile à maintenir et plus riche en fonctionnalités. Cependant, créer des pages `MDX` pour une API peut être utile pour documenter de petites APIs ou pour du prototypage.
+
+Pour générer des pages pour des points de terminaison d’API avec `MDX`, configurez vos paramètres d’API dans `docs.json`, créez des fichiers `MDX` individuels pour chaque point de terminaison, et utilisez des composants comme `<ParamFields />` pour définir les paramètres. À partir de ces définitions, Mintlify génère un Bac à sable API interactif, des exemples de requêtes et des exemples de réponses.
+
+<Steps>
+  <Step title="Configurez votre API">
+    Dans votre fichier `docs.json`, définissez votre URL de base et la méthode d’authentification :
+
+    ```json
+     "api": {
+      "mdx": {
+        "server": "https://mintlify.com/api", // string array for multiple base URLs
+        "auth": {
+          "method": "key",
+          "name": "x-api-key" // options: bearer, basic, key.
+        }
+      }
+    }
+    ```
+
+    Si vous souhaitez masquer le Bac à sable API, utilisez le champ `display`. Vous n’avez pas besoin d’inclure une méthode d’authentification si vous masquez le bac à sable.
+
+    ```json
+    "api": {
+      "playground": {
+        "display": "none"
+      }
+    }
+    ```
+
+    Retrouvez la liste complète des configurations d’API dans [Paramètres](/fr/organize/settings#api-configurations).
+  </Step>
+
+  <Step title="Créez vos pages de points de terminaison">
+    Chaque page de point de terminaison d’API doit avoir un fichier `MDX` correspondant. En haut de chaque fichier, définissez `title` et `api` :
+
+    ```mdx
+    ---
+    title: 'Créer un nouvel utilisateur'
+    api: 'POST https://api.mintlify.com/user'
+    ---
+    ```
+
+    Vous pouvez spécifier des paramètres de chemin en ajoutant le nom du paramètre au chemin, entouré de `{}` :
+
+    ```bash
+    https://api.example.com/v1/endpoint/{userId}
+    ```
+
+    <Note>
+      Si vous avez un champ `server` configuré dans `docs.json`, vous pouvez utiliser des chemins relatifs comme `/v1/endpoint`.
+    </Note>
+
+    Vous pouvez remplacer le mode d’affichage défini globalement pour le Bac à sable API pour une page en ajoutant `playground` au frontmatter :
+
+    ```mdx
+    ---
+    title: 'Créer un nouvel utilisateur'
+    api: 'POST https://api.mintlify.com/user'
+    playground: 'none'
+    ---
+    ```
+
+    * `playground: 'interactive'` - Affiche le bac à sable interactif.
+    * `playground: 'simple'` - Affiche un point de terminaison copiable sans bac à sable.
+    * `playground: 'none'` - Masque le bac à sable.
+  </Step>
+
+  <Step title="Ajoutez vos points de terminaison à votre documentation">
+    Ajoutez vos pages de points de terminaison à la barre latérale en ajoutant les chemins dans le champ `navigation` de votre `docs.json`. Pour en savoir plus sur la structure de votre documentation, consultez [Navigation](/fr/organize/navigation).
+  </Step>
+</Steps>
+
+<div id="enabling-authentication">
+  ## Activer l’authentification
+</div>
+
+Vous pouvez ajouter une méthode d’authentification à votre `docs.json` pour l’activer globalement sur toutes les pages, ou la définir page par page.
+
+La méthode d’authentification d’une page aura priorité sur la méthode globale si les deux sont définies.
+
+<div id="bearer-token">
+  ### Jeton Bearer
+</div>
+
+<CodeGroup>
+  ```json docs.json
+  "api": {
+      "mdx": {
+        "auth": {
+          "method": "bearer"
+        }
+      }
+  }
+  ```
+
+  ```mdx Page Metadata
+  ---
+  title: "Titre de la page"
+  authMethod: "bearer"
+  ---
+  ```
+</CodeGroup>
+
+<div id="basic-authentication">
+  ### Authentification de base
+</div>
+
+<CodeGroup>
+  ```json docs.json
+  "api": {
+      "mdx": {
+        "auth": {
+          "method": "basic"
+        }
+      }
+  }
+  ```
+
+  ```mdx Page Metadata
+  ---
+  title: "Titre de votre page"
+  authMethod: "basic"
+  ---
+  ```
+</CodeGroup>
+
+<div id="api-key">
+  ### Clé API
+</div>
+
+<CodeGroup>
+  ```json docs.json
+  "api": {
+      "mdx": {
+        "auth": {
+          "method": "key",
+          "name": "x-api-key"
+        }
+      }
+  }
+  ```
+
+  ```mdx Page Metadata
+  ---
+  title: "Titre de votre page"
+  authMethod: "key"
+  ---
+  ```
+</CodeGroup>
+
+<div id="none">
+  ### Aucune
+</div>
+
+La méthode d’authentification `none` est utile pour désactiver l’authentification sur un point de terminaison spécifique après avoir défini une valeur par défaut dans docs.json.
+
+<CodeGroup>
+  ```mdx Page Metadata
+  ---
+  title: "Your page title"
+  authMethod: "none"
+  ---
+  ```
+</CodeGroup>

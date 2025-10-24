@@ -1,0 +1,91 @@
+---
+title: "Listen und Tabellen"
+description: "Informationen in Listen und Tabellen anzeigen"
+---
+
+<div id="lists">
+  ## Listen
+</div>
+
+Listen verwenden die offizielle [Markdown-Syntax](https://www.markdownguide.org/basic-syntax/#lists-1).
+
+<div id="ordered-list">
+  ### Nummerierte Liste
+</div>
+
+Um eine nummerierte Liste zu erstellen, füge vor die Listeneinträge Zahlen gefolgt von einem Punkt hinzu.
+
+1. Erster Eintrag
+2. Zweiter Eintrag
+3. Dritter Eintrag
+4. Vierter Eintrag
+
+```mdx
+1. Erstes Element
+2. Zweites Element
+3. Drittes Element
+4. Viertes Element
+```
+
+
+<div id="unordered-list">
+  ### Ungeordnete Liste
+</div>
+
+Um eine ungeordnete Liste zu erstellen, setzen Sie Bindestriche (`-`), Sternchen (`*`) oder Pluszeichen (`+`) vor die Listeneinträge.
+
+* Erstes Element
+* Zweites Element
+* Drittes Element
+* Viertes Element
+
+```mdx
+- Erstes Element
+- Zweites Element
+- Drittes Element
+- Viertes Element
+```
+
+
+<div id="nested-list">
+  ### Verschachtelte Liste
+</div>
+
+Rücke Listeneinträge ein, um sie zu verschachteln.
+
+* Erster Eintrag
+* Zweiter Eintrag
+  * Zusätzlicher Eintrag
+  * Zusätzlicher Eintrag
+* Dritter Eintrag
+
+```mdx
+- Erstes Element
+- Zweites Element
+  - Zusätzliches Element
+  - Zusätzliches Element
+- Drittes Element
+```
+
+
+<div id="tables">
+  ## Tabellen
+</div>
+
+Tabellen verwenden die offizielle [Markdown-Syntax](https://www.markdownguide.org/extended-syntax/#tables).
+
+Um eine Tabelle hinzuzufügen, verwende drei oder mehr Bindestriche (`---`) für die Spaltenüberschriften und trenne die Spalten mit senkrechten Strichen (`|`). Für die Kompatibilität solltest du am Anfang und Ende jeder Zeile ebenfalls einen senkrechten Strich setzen.
+
+| Eigenschaft | Beschreibung                         |
+| ----------- | ------------------------------------ |
+| Name        | Vollständiger Name des Nutzers       |
+| Alter       | Angegebenes Alter                    |
+| Beitritt    | Ob der Nutzer der Community beigetreten ist |
+
+```mdx
+| Eigenschaft | Beschreibung                                  |
+| ----------- | --------------------------------------------- |
+| Name        | Vollständiger Name des Benutzers              |
+| Alter       | Angegebenes Alter                             |
+| Beigetreten | Ob der Benutzer der Community beigetreten ist |
+```
