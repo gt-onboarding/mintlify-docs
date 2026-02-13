@@ -1,13 +1,7 @@
 {
   "locales": [
     "en",
-    "fr",
-    "es",
-    "de",
-    "it",
-    "pt-BR",
-    "zh",
-    "ja"
+    "es"
   ],
   "defaultLocale": "en",
   "options": {
@@ -17,6 +11,7 @@
           "$.navigation.languages": {
             "type": "array",
             "key": "$.language",
+            "experimentalSort": "localesAlphabetical",
             "include": [
               "$..group",
               "$..tab",
@@ -26,11 +21,11 @@
             ],
             "transform": {
               "$..pages[*]": {
-                "match": "^(.*)$",
+                "match": "^/?(.*)$",
                 "replace": "{locale}/$1"
               },
               "$..root": {
-                "match": "^(.*)$",
+                "match": "^/?(.*)$",
                 "replace": "{locale}/$1"
               }
             }
@@ -46,7 +41,11 @@
     "docsHideDefaultLocaleImport": true,
     "experimentalHideDefaultLocale": true,
     "experimentalAddHeaderAnchorIds": "mintlify",
-    "experimentalClearLocaleDirs": true
+    "experimentalClearLocaleDirs": true,
+    "mintlify": {
+      "inferTitleFromFilename": true
+    },
+    "experimentalLocalizeRelativeAssets": true
   },
   "$schema": "https://assets.gtx.dev/config-schema.json",
   "files": {
@@ -57,7 +56,8 @@
     },
     "mdx": {
       "include": [
-        "./**/*.mdx"
+        "./**/*.mdx",
+        "./**/*.md"
       ],
       "transform": {
         "match": "^(snippets/)?(.*)$",
@@ -65,8 +65,24 @@
       },
       "exclude": [
         "./[locales]/**/*.mdx",
-        "./snippets/[locales]/**/*.mdx"
+        "./snippets/[locales]/**/*.mdx",
+        "./[locales]/**/*.md",
+        "./snippets/[locales]/**/*.md",
+        "./**/README.md",
+        "./**/LICENSE.md",
+        "./**/COPYING.md",
+        "./**/NOTICE.md",
+        "./**/CHANGELOG.md",
+        "./**/HISTORY.md",
+        "./**/CODE_OF_CONDUCT.md",
+        "./**/CONTRIBUTING.md",
+        "./**/SECURITY.md",
+        "./**/GOVERNANCE.md",
+        "./**/AGENTS.md",
+        "./**/OWNERS.md",
+        "./**/MAINTAINERS.md"
       ]
     }
-  }
+  },
+  "baseUrl": "sherell-equisetic-philip.ngrok-free.dev"
 }
