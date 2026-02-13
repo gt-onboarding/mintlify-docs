@@ -1,13 +1,7 @@
 {
   "locales": [
     "en",
-    "fr",
-    "es",
-    "de",
-    "it",
-    "pt-BR",
-    "zh",
-    "ja"
+    "es"
   ],
   "defaultLocale": "en",
   "options": {
@@ -17,6 +11,7 @@
           "$.navigation.languages": {
             "type": "array",
             "key": "$.language",
+            "experimentalSort": "localesAlphabetical",
             "include": [
               "$..group",
               "$..tab",
@@ -26,16 +21,25 @@
             ],
             "transform": {
               "$..pages[*]": {
-                "match": "^(.*)$",
+                "match": "^/?(.*)$",
                 "replace": "{locale}/$1"
               },
               "$..root": {
-                "match": "^(.*)$",
+                "match": "^/?(.*)$",
                 "replace": "{locale}/$1"
               }
             }
           }
         }
+      },
+      "./admin-openapi.json": {
+        "preset": "openapi"
+      },
+      "./discovery-openapi.json": {
+        "preset": "openapi"
+      },
+      "./openapi.json": {
+        "preset": "openapi"
       }
     },
     "docsUrlPattern": "/[locale]",
@@ -46,18 +50,47 @@
     "docsHideDefaultLocaleImport": true,
     "experimentalHideDefaultLocale": true,
     "experimentalAddHeaderAnchorIds": "mintlify",
-    "experimentalClearLocaleDirs": true
+    "experimentalClearLocaleDirs": true,
+    "mintlify": {
+      "inferTitleFromFilename": true,
+      "openapi": {
+        "files": [
+          "./admin-openapi.json",
+          "./discovery-openapi.json",
+          "./openapi.json"
+        ]
+      }
+    },
+    "experimentalLocalizeRelativeAssets": true
   },
   "$schema": "https://assets.gtx.dev/config-schema.json",
   "files": {
     "json": {
       "include": [
-        "./docs.json"
+        "./docs.json",
+        "./admin-openapi.json",
+        "./discovery-openapi.json",
+        "./openapi.json"
+      ],
+      "transform": [
+        {
+          "match": "^admin-openapi.json$",
+          "replace": "{locale}/admin-openapi.json"
+        },
+        {
+          "match": "^discovery-openapi.json$",
+          "replace": "{locale}/discovery-openapi.json"
+        },
+        {
+          "match": "^openapi.json$",
+          "replace": "{locale}/openapi.json"
+        }
       ]
     },
     "mdx": {
       "include": [
-        "./**/*.mdx"
+        "./**/*.mdx",
+        "./**/*.md"
       ],
       "transform": {
         "match": "^(snippets/)?(.*)$",
@@ -65,8 +98,24 @@
       },
       "exclude": [
         "./[locales]/**/*.mdx",
-        "./snippets/[locales]/**/*.mdx"
+        "./snippets/[locales]/**/*.mdx",
+        "./[locales]/**/*.md",
+        "./snippets/[locales]/**/*.md",
+        "./**/README.md",
+        "./**/LICENSE.md",
+        "./**/COPYING.md",
+        "./**/NOTICE.md",
+        "./**/CHANGELOG.md",
+        "./**/HISTORY.md",
+        "./**/CODE_OF_CONDUCT.md",
+        "./**/CONTRIBUTING.md",
+        "./**/SECURITY.md",
+        "./**/GOVERNANCE.md",
+        "./**/AGENTS.md",
+        "./**/OWNERS.md",
+        "./**/MAINTAINERS.md"
       ]
     }
-  }
+  },
+  "baseUrl": "sherell-equisetic-philip.ngrok-free.dev"
 }
